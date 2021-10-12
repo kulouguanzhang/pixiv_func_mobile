@@ -65,6 +65,7 @@ class IllustCommentPage extends StatelessWidget {
     if (commentTree.children.isEmpty) {
       return Card(
         child: ListTile(
+          contentPadding: const EdgeInsets.only(left: 5, right: 5),
           leading: GestureDetector(
             onTap: () => PageUtils.to(context, UserPage(commentTree.data.user.id)),
             child: Hero(
@@ -96,9 +97,15 @@ class IllustCommentPage extends StatelessWidget {
           trailing: commentTree.loading
               ? const CircularProgressIndicator()
               : commentTree.data.hasReplies
-                  ? OutlinedButton(
-                      onPressed: () => model.loadFirstReplies(commentTree),
-                      child: const Text('加载回复'),
+                  ? InkWell(
+                      onTap: () => model.loadFirstReplies(commentTree),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 7, right: 7, top: 2, bottom: 2),
+                        child: Text(
+                          '······',
+                          style: TextStyle(fontSize: 22, color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
                     )
                   : null,
         ),
@@ -131,6 +138,7 @@ class IllustCommentPage extends StatelessWidget {
         child: InkWell(
           onLongPress: () => model.repliesCommentTree = commentTree,
           child: ExpansionTile(
+            tilePadding: const EdgeInsets.only(left: 5, right: 5),
             leading: GestureDetector(
               onTap: () => PageUtils.to(context, UserPage(commentTree.data.user.id)),
               child: Hero(

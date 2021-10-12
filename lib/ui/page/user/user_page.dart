@@ -138,6 +138,7 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
             ),
           );
         }
+
         return Scaffold(
           body: ExtendedNestedScrollView(
             onlyOneScrollInBody: true,

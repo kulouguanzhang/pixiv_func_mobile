@@ -6,7 +6,6 @@
  * 作者:小草
  */
 
-import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/model/navigation_page.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';
@@ -14,16 +13,13 @@ import 'package:pixiv_func_android/ui/page/about/about_page.dart';
 import 'package:pixiv_func_android/ui/page/account/account_page.dart';
 import 'package:pixiv_func_android/ui/page/bookmarked/bookmarked_page.dart';
 import 'package:pixiv_func_android/ui/page/browsing_history/browsing_history_page.dart';
-import 'package:pixiv_func_android/ui/page/download_task/download_task_page.dart';
 import 'package:pixiv_func_android/ui/page/following_user/following_user_page.dart';
 import 'package:pixiv_func_android/ui/page/new_works/new_works_page.dart';
-import 'package:pixiv_func_android/ui/page/ranking/ranking_page.dart';
-import 'package:pixiv_func_android/ui/page/recommended/recommended_page.dart';
 import 'package:pixiv_func_android/ui/page/search/search_guide_page.dart';
 import 'package:pixiv_func_android/ui/page/settings/settings_page.dart';
 
 class HomeModel extends BaseViewModel {
-  int _currentPage = 0;
+  int _index = 0;
   bool _agreementAccepted = false;
 
   bool get agreementAccepted => _agreementAccepted;
@@ -33,20 +29,14 @@ class HomeModel extends BaseViewModel {
     notifyListeners();
   }
 
-  int get currentPage => _currentPage;
+  int get index => _index;
 
-  set currentPage(int value) {
-    if (value != _currentPage) {
-      _currentPage = value;
+  set index(int value) {
+    if (value != _index) {
+      _index = value;
       notifyListeners();
     }
   }
-
-  final List<Widget> navigationPages = [
-    const RecommendedPage(),
-    const RankingPage(),
-    const DownloadTaskPage(),
-  ];
 
   List<NavigationPage> get pages => [
         NavigationPage(name: '收藏', widget: const BookmarkedPage()),
