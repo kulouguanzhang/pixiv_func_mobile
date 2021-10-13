@@ -56,9 +56,10 @@ class Downloader {
       BaseOptions(
         headers: const {'Referer': 'https://app-api.pixiv.net/'},
         responseType: ResponseType.bytes,
-        sendTimeout: 15000,
-        receiveTimeout: 15000,
-        connectTimeout: 15000,
+        sendTimeout: 6000,
+        //60秒
+        receiveTimeout: 60000,
+        connectTimeout: 6000,
       ),
     );
     (httpClient.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
