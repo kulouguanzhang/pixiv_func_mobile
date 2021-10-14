@@ -102,8 +102,8 @@ class IllustCommentPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 7, right: 7, top: 2, bottom: 2),
                         child: Text(
-                          '······',
-                          style: TextStyle(fontSize: 22, color: Theme.of(context).colorScheme.primary),
+                          '···',
+                          style: TextStyle(fontSize: 21, color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
                     )

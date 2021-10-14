@@ -7,10 +7,8 @@
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pixiv_func_android/instance_setup.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:pixiv_func_android/model/search_filter.dart';
-import 'package:pixiv_func_android/model/search_image_result.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
 import 'package:pixiv_func_android/ui/page/illust/illust_page.dart';
 import 'package:pixiv_func_android/ui/page/novel/novel_page.dart';
@@ -157,18 +155,21 @@ class SearchInputPage extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: Theme.of(context).colorScheme.onBackground,
-            onPressed: model.searchImageWaiting
-                ? null
-                : () => model.searchImage(
-                      successCallback: (List<SearchImageResult> results) {
-                        PageUtils.to(context, SearchImageResultPage(results));
-                      },
-                      errorCallback: (dynamic e) async {
-                        platformAPI.toast('搜索失败,或许可以重试');
-                      },
+            onPressed: () async {
+              ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
+                if (null != picker) {
+                  picker.readAsBytes();
+                  PageUtils.to(
+                    context,
+                    SearchImageResultPage(
+                      imageBytes: await picker.readAsBytes(),
+                      filename: picker.name,
                     ),
-            child:
-                model.searchImageWaiting ? const CircularProgressIndicator() : const Icon(Icons.image_search_outlined),
+                  );
+                }
+              });
+            },
+            child: const Icon(Icons.image_search_outlined),
           ),
           body: _buildBody(context, model),
         );

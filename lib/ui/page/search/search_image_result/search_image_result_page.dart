@@ -6,19 +6,22 @@
  * 作者:小草
  */
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/model/search_image_item.dart';
-import 'package:pixiv_func_android/model/search_image_result.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
+import 'package:pixiv_func_android/provider/view_state.dart';
 import 'package:pixiv_func_android/ui/page/illust/illust_content_page.dart';
 import 'package:pixiv_func_android/ui/widget/image_view_from_url.dart';
 import 'package:pixiv_func_android/util/page_utils.dart';
 import 'package:pixiv_func_android/view_model/search_image_result_model.dart';
 
 class SearchImageResultPage extends StatelessWidget {
-  final List<SearchImageResult> results;
+  final Uint8List imageBytes;
+  final String filename;
 
-  const SearchImageResultPage(this.results, {Key? key}) : super(key: key);
+  const SearchImageResultPage({Key? key, required this.imageBytes, required this.filename}) : super(key: key);
 
   Widget _buildItem(BuildContext context, SearchImageResultModel model, SearchImageItem item) {
     if (item.loadFailed) {
@@ -88,11 +91,28 @@ class SearchImageResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderWidget(
-      model: SearchImageResultModel(results),
+      model: SearchImageResultModel(imageBytes: imageBytes, filename: filename),
       builder: (BuildContext context, SearchImageResultModel model, Widget? child) {
-        return Scaffold(
-          appBar: AppBar(title: const Text('搜索图片')),
-          body: ListView(
+        final Widget widget;
+        if (ViewState.busy == model.viewState) {
+          widget = ListTile(
+            title: 1.0 != model.sendProgress ? const Text('上传进度') : const Text('接收进度'),
+            subtitle: 1.0 != model.sendProgress
+                ? LinearProgressIndicator(value: model.sendProgress)
+                : LinearProgressIndicator(value: model.receiveProgress),
+            trailing: const RefreshProgressIndicator(),
+          );
+        } else if (ViewState.initFailed == model.viewState) {
+          widget = Center(
+            child: ListTile(
+              onTap: model.init,
+              title: const Center(
+                child: Text('搜索失败 点击重新搜索'),
+              ),
+            ),
+          );
+        } else {
+          widget = ListView(
             children: [
               for (final result in model.list)
                 _buildItem(
@@ -101,10 +121,23 @@ class SearchImageResultPage extends StatelessWidget {
                   result,
                 )
             ],
+          );
+        }
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('搜索图片'),
+            actions: [
+              IconButton(
+                tooltip: '重新加载',
+                onPressed: model.init,
+                icon: const Icon(Icons.refresh_outlined),
+              )
+            ],
           ),
+          body: widget,
         );
       },
-      onModelReady: (SearchImageResultModel model) => model.loadAll(),
+      onModelReady: (SearchImageResultModel model) => model.init(),
     );
   }
 }
