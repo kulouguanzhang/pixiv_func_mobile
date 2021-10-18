@@ -16,18 +16,21 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
-import com.waynejo.androidndkgif.GifEncoder
-import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.MethodChannel
-import top.xiaocao.pixiv.util.forEachEntry
-import top.xiaocao.pixiv.util.imageIsExist
-import top.xiaocao.pixiv.util.saveImage
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.util.zip.ZipInputStream
 import kotlin.concurrent.thread
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
+import com.waynejo.androidndkgif.GifEncoder
+import top.xiaocao.pixiv.update.DownloadManagerUtil
+import top.xiaocao.pixiv.util.forEachEntry
+import top.xiaocao.pixiv.util.imageIsExist
+import top.xiaocao.pixiv.util.saveImage
+
 
 @SuppressLint("ShowToast")
 class PlatformApiPlugin(private val context: Context) : FlutterPlugin,
@@ -41,6 +44,7 @@ class PlatformApiPlugin(private val context: Context) : FlutterPlugin,
     private val methodGetAppVersion = "getAppVersion"
     private val methodUrlLaunch = "urlLaunch"
     private val methodGenerateGif = "generateGif"
+    private val methodUpdateApp = "updateApp"
 
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -162,6 +166,22 @@ class PlatformApiPlugin(private val context: Context) : FlutterPlugin,
 
                 }
 
+            }
+            methodUpdateApp -> {
+                result.success(
+                    DownloadManagerUtil(context).run {
+                        checkDownloadManagerEnable().also {
+                            if (it) {
+                                download(
+                                    call.argument<String>("url")!!,
+                                    call.argument<String>("versionTag")!!,
+                                )
+                            }else{
+                                Log.i("PlatformAPI","下载管理器被禁用")
+                            }
+                        }
+                    }
+                )
             }
             else -> {
                 result.notImplemented()

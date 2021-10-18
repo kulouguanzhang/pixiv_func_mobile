@@ -55,8 +55,13 @@ class DownloadTaskPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<DownloadTaskModel>(context);
-    return ListView(
-      children: [for (final task in model.tasks) _buildItem(context, task)],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('下载任务'),
+      ),
+      body: ListView(
+        children: [for (final task in model.tasks) _buildItem(context, task)],
+      ),
     );
   }
 }

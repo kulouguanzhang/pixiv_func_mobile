@@ -21,7 +21,10 @@ class UserBookmarkedModel extends BaseViewStateRefreshListModel<Illust> {
     if (null == accountManager.current) {
       return [];
     }
-    final result = await pixivAPI.getUserIllustBookmarks(id);
+    final result = await pixivAPI.getUserIllustBookmarks(
+      id,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.illusts;
@@ -29,7 +32,10 @@ class UserBookmarkedModel extends BaseViewStateRefreshListModel<Illust> {
 
   @override
   Future<List<Illust>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Illusts>(nextUrl!);
+    final result = await pixivAPI.next<Illusts>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 

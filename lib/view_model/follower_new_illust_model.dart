@@ -6,6 +6,7 @@
  * 作者:小草
  */
 
+
 import 'package:pixiv_func_android/api/entity/illust.dart';
 import 'package:pixiv_func_android/api/model/illusts.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
@@ -17,16 +18,22 @@ class FollowerNewIllustModel extends BaseViewStateRefreshListModel<Illust> {
   FollowerNewIllustModel(this.restrict);
 
   @override
-  Future<List<Illust>> loadFirstDataRoutine()async {
-    final result = await pixivAPI.getFollowerNewIllusts(restrict: restrict);
+  Future<List<Illust>> loadFirstDataRoutine() async {
+    final result = await pixivAPI.getFollowerNewIllusts(
+      restrict: restrict,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.illusts;
   }
 
   @override
-  Future<List<Illust>> loadNextDataRoutine()async {
-    final result = await pixivAPI.next<Illusts>(nextUrl!);
+  Future<List<Illust>> loadNextDataRoutine() async {
+    final result = await pixivAPI.next<Illusts>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.illusts;

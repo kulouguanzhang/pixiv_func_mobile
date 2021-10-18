@@ -20,7 +20,10 @@ class RankingContentModel extends BaseViewStateRefreshListModel<Illust> {
 
   @override
   Future<List<Illust>> loadFirstDataRoutine() async {
-    final result = await pixivAPI.getRanking(Utils.enumTypeStringToLittleHump(mode));
+    final result = await pixivAPI.getRanking(
+      Utils.enumTypeStringToLittleHump(mode),
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.illusts;
@@ -28,7 +31,10 @@ class RankingContentModel extends BaseViewStateRefreshListModel<Illust> {
 
   @override
   Future<List<Illust>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Illusts>(nextUrl!);
+    final result = await pixivAPI.next<Illusts>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 

@@ -24,16 +24,14 @@ class IllustCommentModel extends BaseViewStateRefreshListModel<CommentTree> {
   final TextEditingController commentInput = TextEditingController();
 
   @override
-  void dispose(){
+  void dispose() {
     commentInput.dispose();
     super.dispose();
   }
 
-
   CommentTree? _repliesCommentTree;
 
   CommentTree? get repliesCommentTree => _repliesCommentTree;
-
 
   set repliesCommentTree(CommentTree? value) {
     _repliesCommentTree = value;
@@ -46,7 +44,10 @@ class IllustCommentModel extends BaseViewStateRefreshListModel<CommentTree> {
 
   @override
   Future<List<CommentTree>> loadFirstDataRoutine() async {
-    final result = await pixivAPI.getIllustComments(illustId);
+    final result = await pixivAPI.getIllustComments(
+      illustId,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.comments.map((e) => CommentTree(data: e, parent: null)).toList();
@@ -54,7 +55,10 @@ class IllustCommentModel extends BaseViewStateRefreshListModel<CommentTree> {
 
   @override
   Future<List<CommentTree>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Comments>(nextUrl!);
+    final result = await pixivAPI.next<Comments>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 
@@ -65,7 +69,7 @@ class IllustCommentModel extends BaseViewStateRefreshListModel<CommentTree> {
     commentTree.loading = true;
     notifyListeners();
     if (commentTree.data.hasReplies) {
-      pixivAPI.getCommentReplies(commentTree.data.id).then((result) {
+      pixivAPI.getCommentReplies(commentTree.data.id, cancelToken: cancelToken).then((result) {
         commentTree.children.addAll(result.comments.map((e) => CommentTree(data: e, parent: commentTree)));
         commentTree.nextUrl = result.nextUrl;
       }).catchError((e) {
@@ -81,7 +85,7 @@ class IllustCommentModel extends BaseViewStateRefreshListModel<CommentTree> {
     if (commentTree.hasNext) {
       commentTree.loading = true;
       notifyListeners();
-      pixivAPI.next<Comments>(commentTree.nextUrl!).then((result) {
+      pixivAPI.next<Comments>(commentTree.nextUrl!, cancelToken: cancelToken).then((result) {
         commentTree.children.addAll(result.comments.map((e) => CommentTree(data: e, parent: commentTree)));
         commentTree.nextUrl = result.nextUrl;
       }).catchError((e) {

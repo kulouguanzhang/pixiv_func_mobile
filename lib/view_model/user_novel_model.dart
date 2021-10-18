@@ -14,12 +14,14 @@ import 'package:pixiv_func_android/provider/base_view_state_refresh_list_model.d
 class UserNovelModel extends BaseViewStateRefreshListModel<Novel> {
   final int id;
 
-
   UserNovelModel(this.id);
 
   @override
   Future<List<Novel>> loadFirstDataRoutine() async {
-    final result = await pixivAPI.getUserNovels(id);
+    final result = await pixivAPI.getUserNovels(
+      id,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.novels;
@@ -27,7 +29,10 @@ class UserNovelModel extends BaseViewStateRefreshListModel<Novel> {
 
   @override
   Future<List<Novel>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Novels>(nextUrl!);
+    final result = await pixivAPI.next<Novels>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 

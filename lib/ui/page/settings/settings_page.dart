@@ -64,6 +64,17 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     RadioListTile(
                       activeColor: Theme.of(context).colorScheme.primary,
+                      title: const Text('使用代理图片源(i.pixiv.re)'),
+                      value: 'i.pixiv.re',
+                      groupValue: model.imageSource,
+                      onChanged: (String? value) {
+                        if (null != value) {
+                          model.imageSource = value;
+                        }
+                      },
+                    ),
+                    RadioListTile(
+                      activeColor: Theme.of(context).colorScheme.primary,
                       title: const Text('使用代理图片源(i.pixiv.cat)'),
                       value: 'i.pixiv.cat',
                       groupValue: model.imageSource,

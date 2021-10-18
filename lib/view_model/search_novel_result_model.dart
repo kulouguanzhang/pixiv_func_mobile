@@ -14,12 +14,10 @@ import 'package:pixiv_func_android/provider/base_view_state_refresh_list_model.d
 import 'package:pixiv_func_android/util/utils.dart';
 
 class SearchNovelResultModel extends BaseViewStateRefreshListModel<Novel> {
-  final String _word;
+  final String word;
   SearchFilter _filter;
 
-  SearchNovelResultModel({required String word, required SearchFilter filter})
-      : _word = word,
-        _filter = filter;
+  SearchNovelResultModel({required this.word, required SearchFilter filter}) : _filter = filter;
 
   SearchFilter get filter => _filter;
 
@@ -33,12 +31,13 @@ class SearchNovelResultModel extends BaseViewStateRefreshListModel<Novel> {
   @override
   Future<List<Novel>> loadFirstDataRoutine() async {
     final result = await pixivAPI.searchNovel(
-      _word,
+      word,
       Utils.enumTypeStringToLittleHump(filter.sort),
       Utils.enumTypeStringToLittleHump(filter.target),
       startDate: filter.enableDateRange ? filter.formatStartDate : null,
       endDate: filter.enableDateRange ? filter.formatEndDate : null,
       bookmarkTotal: filter.bookmarkTotal,
+      cancelToken: cancelToken,
     );
     nextUrl = result.nextUrl;
 
@@ -47,7 +46,10 @@ class SearchNovelResultModel extends BaseViewStateRefreshListModel<Novel> {
 
   @override
   Future<List<Novel>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Novels>(nextUrl!);
+    final result = await pixivAPI.next<Novels>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 

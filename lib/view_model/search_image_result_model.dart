@@ -27,32 +27,14 @@ class SearchImageResultModel extends BaseViewStateModel {
 
   final httpClient = Dio(BaseOptions(
     sendTimeout: 60000,
-    responseType: ResponseType.stream,
   ));
 
-  CancelToken? cancelToken;
-
-  double _sendProgress = 0;
-  double _receiveProgress = 0;
-
-  double get sendProgress => _sendProgress;
-
-  set sendProgress(double value) {
-    _sendProgress = value;
-    notifyListeners();
-  }
-
-  double get receiveProgress => _receiveProgress;
-
-  set receiveProgress(double value) {
-    _receiveProgress = value;
-    notifyListeners();
-  }
+  CancelToken cancelToken = CancelToken();
 
   void loadData(SearchImageItem item) {
     item.loading = true;
     notifyListeners();
-    pixivAPI.getIllustDetail(item.result.illustId).then((result) {
+    pixivAPI.getIllustDetail(item.result.illustId, cancelToken: cancelToken).then((result) {
       item.loading = false;
       item.illust = result.illust;
       notifyListeners();
@@ -72,15 +54,11 @@ class SearchImageResultModel extends BaseViewStateModel {
   }
 
   Future<void> init() async {
-    cancelToken?.cancel();
+    cancelToken.cancel();
     cancelToken = CancelToken();
+
     list.clear();
-    sendProgress = 0;
-    receiveProgress = 0;
-
     setBusy();
-
-
     final fromData = FormData()
       ..files.add(
         MapEntry(
@@ -97,13 +75,7 @@ class SearchImageResultModel extends BaseViewStateModel {
       );
 
     httpClient
-        .post<String>(
-      'https://saucenao.com/search.php',
-      data: fromData,
-      onSendProgress: (int count, int total) => sendProgress = count / total,
-      onReceiveProgress: (int count, int total) => receiveProgress = count / total,
-      cancelToken: cancelToken,
-    )
+        .post<String>('https://saucenao.com/search.php', data: fromData, cancelToken: cancelToken)
         .then((response) {
       final document = html.parse(response.data!);
       decodeSearchHtml(document).forEach((result) {
@@ -115,7 +87,7 @@ class SearchImageResultModel extends BaseViewStateModel {
       }
       setIdle();
     }).catchError((e, s) {
-      if (e is DioError && DioErrorType.cancel != e.type) {
+      if (e is DioError && DioErrorType.cancel == e.type) {
         return;
       }
       Log.e('搜索图片失败', e);

@@ -14,22 +14,29 @@ import 'package:pixiv_func_android/log/log.dart';
 import 'package:pixiv_func_android/model/search_filter.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 import 'package:async/async.dart';
+
 class SearchInputModel extends BaseViewModel {
   SearchAutocomplete? _searchAutocomplete;
-  TextEditingController wordInput = TextEditingController();
+  final TextEditingController wordInput = TextEditingController();
 
-  SearchFilter filter = SearchFilter.create();
+  final CancelToken cancelToken = CancelToken();
 
   @override
   void dispose() {
+    cancelToken.cancel();
     wordInput.dispose();
     super.dispose();
   }
+
+  SearchFilter filter = SearchFilter.create();
 
   SearchAutocomplete? get searchAutocomplete => _searchAutocomplete;
 
   set searchAutocomplete(SearchAutocomplete? value) {
     _searchAutocomplete = value;
+    if (null == value) {
+      cancelToken.cancel();
+    }
     notifyListeners();
   }
 
@@ -73,24 +80,14 @@ class SearchInputModel extends BaseViewModel {
     if (inputAsString.isEmpty) {
       return;
     }
-    cancelTask();
+    cancelToken.cancel();
     searchAutocomplete = null;
-    _cancelableTask = CancelableOperation.fromFuture(pixivAPI.searchAutocomplete(inputAsString));
+    pixivAPI.searchAutocomplete(inputAsString, cancelToken: cancelToken);
 
     _cancelableTask?.value.then((result) {
       searchAutocomplete = result;
     }).catchError((e, s) {
-      if (e is DioError) {
-        Log.e(e.response);
-      }
       Log.e('关键字自动补全失败', e, s);
     });
   }
-
-  void cancelTask() {
-    _cancelableTask?.cancel();
-  }
-
-
-
 }

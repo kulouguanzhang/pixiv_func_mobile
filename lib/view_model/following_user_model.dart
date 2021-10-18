@@ -6,6 +6,7 @@
  * 作者:小草
  */
 
+
 import 'package:pixiv_func_android/api/entity/user_preview.dart';
 import 'package:pixiv_func_android/api/model/users.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
@@ -30,14 +31,21 @@ class FollowingUserModel extends BaseViewStateRefreshListModel<UserPreview> {
 
   @override
   Future<List<UserPreview>> loadFirstDataRoutine() async {
-    final result = await pixivAPI.getFollowingUsers(id, restrict: restrict);
+    final result = await pixivAPI.getFollowingUsers(
+      id,
+      restrict: restrict,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
     return result.userPreviews;
   }
 
   @override
   Future<List<UserPreview>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Users>(nextUrl!);
+    final result = await pixivAPI.next<Users>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
     return result.userPreviews;
   }

@@ -68,7 +68,6 @@ class SearchInputPage extends StatelessWidget {
           model.startAutocomplete();
         } else {
           model.searchAutocomplete = null;
-          model.cancelTask();
         }
       },
       decoration: InputDecoration(
@@ -82,7 +81,6 @@ class SearchInputPage extends StatelessWidget {
                 onTap: () {
                   model.wordInput.clear();
                   model.searchAutocomplete = null;
-                  model.cancelTask();
                 },
                 child: const Icon(
                   Icons.clear_outlined,

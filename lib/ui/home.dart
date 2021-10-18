@@ -5,13 +5,15 @@
  * 创建时间:2021/8/20 下午12:38
  * 作者:小草
  */
+
 import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/api/model/user_account.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/log/log.dart';
-import 'package:pixiv_func_android/ui/page/download_task/download_task_page.dart';
+import 'package:pixiv_func_android/ui/page/about/about_page.dart';
 import 'package:pixiv_func_android/ui/page/ranking/ranking_page.dart';
 import 'package:pixiv_func_android/ui/page/recommended/recommended_page.dart';
+import 'package:pixiv_func_android/ui/page/search/search_guide_page.dart';
 import 'package:pixiv_func_android/view_model/home_model.dart';
 import 'package:pixiv_func_android/util/page_utils.dart';
 import 'package:provider/provider.dart';
@@ -19,21 +21,24 @@ import 'package:provider/provider.dart';
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
-  final contents =const  [
-     RecommendedPage(),
-     RankingPage(),
-     DownloadTaskPage(),
-  ];
-
   Widget _buildAppBody(BuildContext context, HomeModel model) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pixiv Func'),
       ),
-      body: contents[model.index],
+      body: IndexedStack(
+        index: model.index,
+        children: const [
+          RecommendedPage(),
+          RankingPage(),
+          SearchGuidePage(),
+          AboutPage(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: model.index,
         onTap: (int index) => model.index = index,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             label: '推荐作品',
@@ -44,8 +49,12 @@ class Home extends StatelessWidget {
             icon: Icon(Icons.leaderboard_outlined),
           ),
           BottomNavigationBarItem(
-            label: '下载任务',
-            icon: Icon(Icons.download_outlined),
+            label: '搜索',
+            icon: Icon(Icons.search_outlined),
+          ),
+          BottomNavigationBarItem(
+            label: '关于',
+            icon: Icon(Icons.comment),
           ),
         ],
       ),

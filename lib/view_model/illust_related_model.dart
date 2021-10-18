@@ -6,6 +6,7 @@
  * 作者:小草
  */
 
+import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/api/entity/illust.dart';
 import 'package:pixiv_func_android/api/model/illusts.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
@@ -17,9 +18,17 @@ class IllustRelatedModel extends BaseViewStateListModel<Illust> {
 
   IllustRelatedModel(this.id);
 
+  final CancelToken cancelToken = CancelToken();
+
+  @override
+  void dispose() {
+    cancelToken.cancel();
+    super.dispose();
+  }
+
   void loadFirstData() {
     setBusy();
-    pixivAPI.getIllustRelated(id).then((result) {
+    pixivAPI.getIllustRelated(id, cancelToken: cancelToken).then((result) {
       if (result.illusts.isNotEmpty) {
         list.addAll(result.illusts);
         setIdle();
@@ -29,15 +38,15 @@ class IllustRelatedModel extends BaseViewStateListModel<Illust> {
 
       nextUrl = result.nextUrl;
       initialized = true;
-    }).catchError((e,s) {
+    }).catchError((e, s) {
       Log.e('首次加载数据异常', e);
-      setInitFailed(e,s);
+      setInitFailed(e, s);
     });
   }
 
   void loadNextData() {
     setBusy();
-    pixivAPI.next<Illusts>(nextUrl!).then((result) {
+    pixivAPI.next<Illusts>(nextUrl!, cancelToken: cancelToken).then((result) {
       list.addAll(result.illusts);
       nextUrl = result.nextUrl;
       setIdle();

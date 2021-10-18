@@ -30,6 +30,8 @@ class IllustContentModel extends BaseViewStateListModel<Illust> {
       });
     }
   }
+  
+  final CancelToken cancelToken=CancelToken();
 
   bool _showOriginalCaption = false;
 
@@ -98,7 +100,7 @@ class IllustContentModel extends BaseViewStateListModel<Illust> {
   void loadFirstData() {
     setBusy();
 
-    pixivAPI.getIllustRelated(illust.id).then((result) {
+    pixivAPI.getIllustRelated(illust.id,cancelToken: cancelToken).then((result) {
       if (result.illusts.isNotEmpty) {
         list.addAll(result.illusts);
         setIdle();
@@ -116,7 +118,7 @@ class IllustContentModel extends BaseViewStateListModel<Illust> {
 
   void loadNextData() {
     setBusy();
-    pixivAPI.next<Illusts>(nextUrl!).then((result) {
+    pixivAPI.next<Illusts>(nextUrl!,cancelToken: cancelToken).then((result) {
       list.addAll(result.illusts);
       nextUrl = result.nextUrl;
       setIdle();
@@ -146,7 +148,7 @@ class IllustContentModel extends BaseViewStateListModel<Illust> {
   void startGenerateGif() {
     //获取信息
     downloadingGif = true;
-    pixivAPI.getUgoiraMetadata(illust.id).then((result) {
+    pixivAPI.getUgoiraMetadata(illust.id,cancelToken: cancelToken).then((result) {
       final dio = Dio(
         BaseOptions(
           headers: {'Referer': 'https://app-api.pixiv.net/'},

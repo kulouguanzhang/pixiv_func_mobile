@@ -37,9 +37,7 @@ class AboutModel extends BaseViewStateModel {
       releaseInfo = ReleaseInfo(
         htmlUrl: json['html_url'],
         tagName: json['tag_name'],
-        updateAt: DateTime.parse(
-          firstAssets['updated_at'] as String,
-        ),
+        updateAt: DateTime.parse(firstAssets['updated_at'] as String),
         browserDownloadUrl: firstAssets['browser_download_url'] as String,
         body: json['body'] as String,
       );

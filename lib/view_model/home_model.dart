@@ -13,9 +13,9 @@ import 'package:pixiv_func_android/ui/page/about/about_page.dart';
 import 'package:pixiv_func_android/ui/page/account/account_page.dart';
 import 'package:pixiv_func_android/ui/page/bookmarked/bookmarked_page.dart';
 import 'package:pixiv_func_android/ui/page/browsing_history/browsing_history_page.dart';
+import 'package:pixiv_func_android/ui/page/download_task/download_task_page.dart';
 import 'package:pixiv_func_android/ui/page/following_user/following_user_page.dart';
 import 'package:pixiv_func_android/ui/page/new_works/new_works_page.dart';
-import 'package:pixiv_func_android/ui/page/search/search_guide_page.dart';
 import 'package:pixiv_func_android/ui/page/settings/settings_page.dart';
 
 class HomeModel extends BaseViewModel {
@@ -42,10 +42,10 @@ class HomeModel extends BaseViewModel {
         NavigationPage(name: '收藏', widget: const BookmarkedPage()),
         NavigationPage(name: '最新', widget: const NewWorksPage()),
         NavigationPage(name: '关注', widget: FollowingUserPage(int.parse(accountManager.current!.user.id))),
-        NavigationPage(name: '搜索', widget: const SearchGuidePage()),
         NavigationPage(name: '设置', widget: const SettingsPage()),
         NavigationPage(name: '账号', widget: const AccountPage()),
         NavigationPage(name: '浏览历史记录(本地)', widget: const BrowsingHistoryPage()),
+        NavigationPage(name: '下载任务', widget: const DownloadTaskPage()),
         NavigationPage(name: '关于', widget: const AboutPage()),
       ];
 

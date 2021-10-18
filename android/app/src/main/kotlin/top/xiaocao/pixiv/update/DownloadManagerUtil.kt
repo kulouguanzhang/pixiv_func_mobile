@@ -1,0 +1,117 @@
+package top.xiaocao.pixiv.update
+
+import android.app.DownloadManager
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.Settings
+import android.util.Log
+
+class DownloadManagerUtil(private val context: Context) {
+
+    private val downloadManager: DownloadManager
+        get() =
+            context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+
+    /**
+     * 可能会出错Cannot update URI: content://downloads/my_downloads/-1
+     * 检查下载管理器是否被禁用
+     *
+     * @return true
+     */
+    fun checkDownloadManagerEnable(): Boolean {
+        try {
+            // 获取下载管理器的状态
+            val state: Int =
+                context.packageManager.getApplicationEnabledSetting(context.packageName)
+            if (state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ||
+                state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER ||
+                state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED
+            ) {
+                // 跳转系统设置
+
+                try {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    intent.data = Uri.parse("package:${context.packageName}")
+                    context.startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
+                    context.startActivity(intent)
+                }
+                return false
+            }
+        } catch (e: Exception) {
+            return false
+        }
+        return true
+    }
+
+    fun download(url: String, versionTag: String) {
+        Log.i("Download", url)
+        // 返回任务ID
+
+        val request = DownloadManager.Request(Uri.parse(url)).apply {
+            // 设置允许使用的网络类型
+            setAllowedNetworkTypes(
+                DownloadManager.Request.NETWORK_MOBILE or
+                        DownloadManager.Request.NETWORK_WIFI
+            )
+            // 下载中以及下载完成都显示通知栏
+            setNotificationVisibility(
+                DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
+            )
+            // 设置文件保存位置
+            setDestinationInExternalFilesDir(
+                context,
+                Environment.DIRECTORY_DOWNLOADS,
+                "PixivFunc-$versionTag.apk"
+            )
+            setTitle("PixivFunc")
+            setDescription("正在下载PixivFunc的新版本")
+            setMimeType("application/vnd.android.package-archive")
+        }
+        appId = try {
+            downloadManager.enqueue(request)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            -1
+        }
+//        Log.i("appId", appId.toString())
+    }
+
+    fun cleanup() {
+
+        try {
+//            Log.i("DMUtil", "appId:${appId}")
+            downloadManager.remove(appId)
+        } catch (e: Exception) {
+        }
+    }
+
+    fun install() {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            val uri: Uri = downloadManager.getUriForDownloadedFile(appId)
+            intent.setDataAndType(uri, "application/vnd.android.package-archive")
+            // 7.0 以上
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            if (intent.resolveActivity(context.packageManager) != null) {
+                context.startActivity(intent)
+            }
+        } catch (e: Exception) {
+        }
+        appId = 0L
+    }
+
+    companion object {
+        var appId: Long = 0L
+    }
+}

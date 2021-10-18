@@ -6,6 +6,7 @@
  * 作者:小草
  */
 
+
 import 'package:pixiv_func_android/api/entity/illust.dart';
 import 'package:pixiv_func_android/api/model/illusts.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
@@ -22,8 +23,11 @@ class BookmarkedIllustModel extends BaseViewStateRefreshListModel<Illust> {
     if (null == accountManager.current) {
       return [];
     }
-    final result =
-        await pixivAPI.getUserIllustBookmarks(int.parse(accountManager.current!.user.id), restrict: filter.restrict);
+    final result = await pixivAPI.getUserIllustBookmarks(
+      int.parse(accountManager.current!.user.id),
+      restrict: filter.restrict,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.illusts;
@@ -31,7 +35,10 @@ class BookmarkedIllustModel extends BaseViewStateRefreshListModel<Illust> {
 
   @override
   Future<List<Illust>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Illusts>(nextUrl!);
+    final result = await pixivAPI.next<Illusts>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 

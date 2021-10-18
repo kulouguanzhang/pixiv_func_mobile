@@ -8,7 +8,7 @@
 
 class Settings {
   bool isLightTheme = false;
-  String imageSource = 'i.pixiv.cat';
+  String imageSource = 'i.pixiv.re';
 
   //中等 大图
   bool previewQuality = true;

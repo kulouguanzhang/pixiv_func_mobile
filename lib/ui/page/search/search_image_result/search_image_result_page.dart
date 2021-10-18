@@ -95,12 +95,8 @@ class SearchImageResultPage extends StatelessWidget {
       builder: (BuildContext context, SearchImageResultModel model, Widget? child) {
         final Widget widget;
         if (ViewState.busy == model.viewState) {
-          widget = ListTile(
-            title: 1.0 != model.sendProgress ? const Text('上传进度') : const Text('接收进度'),
-            subtitle: 1.0 != model.sendProgress
-                ? LinearProgressIndicator(value: model.sendProgress)
-                : LinearProgressIndicator(value: model.receiveProgress),
-            trailing: const RefreshProgressIndicator(),
+          widget = const Center(
+            child: CircularProgressIndicator(),
           );
         } else if (ViewState.initFailed == model.viewState) {
           widget = Center(

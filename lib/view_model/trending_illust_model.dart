@@ -13,7 +13,8 @@ import 'package:pixiv_func_android/provider/base_view_state_refresh_list_model.d
 class TrendingIllustModel extends BaseViewStateRefreshListModel<TrendTag> {
   @override
   Future<List<TrendTag>> loadFirstDataRoutine() async {
-    final result = await pixivAPI.getTrendingTags();
+    final result = await pixivAPI.getTrendingTags(cancelToken: cancelToken);
+    nextUrl = null;
     return result.trendTags;
   }
 

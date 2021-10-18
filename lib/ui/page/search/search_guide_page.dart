@@ -29,9 +29,6 @@ class _SearchGuidePageState extends State<SearchGuidePage> {
       model: SearchGuideModel(),
       builder: (BuildContext context, SearchGuideModel model, Widget? child) {
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('搜索'),
-          ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: Theme.of(context).colorScheme.onBackground,
             onPressed: () => PageUtils.to(context, const SearchInputPage()),

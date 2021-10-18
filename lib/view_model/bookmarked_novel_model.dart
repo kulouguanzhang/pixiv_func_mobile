@@ -6,6 +6,7 @@
  * 作者:小草
  */
 
+
 import 'package:pixiv_func_android/api/entity/novel.dart';
 import 'package:pixiv_func_android/api/model/novels.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
@@ -22,8 +23,11 @@ class BookmarkedNovelModel extends BaseViewStateRefreshListModel<Novel> {
     if (null == accountManager.current) {
       return [];
     }
-    final result =
-        await pixivAPI.getUserNovelBookmarks(int.parse(accountManager.current!.user.id), restrict: filter.restrict);
+    final result = await pixivAPI.getUserNovelBookmarks(
+      int.parse(accountManager.current!.user.id),
+      restrict: filter.restrict,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.novels;
@@ -31,7 +35,10 @@ class BookmarkedNovelModel extends BaseViewStateRefreshListModel<Novel> {
 
   @override
   Future<List<Novel>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Novels>(nextUrl!);
+    final result = await pixivAPI.next<Novels>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 

@@ -16,7 +16,10 @@ import 'package:pixiv_func_android/util/utils.dart';
 class AllNewIllustModel extends BaseViewStateRefreshListModel {
   @override
   Future<List<Illust>> loadFirstDataRoutine() async {
-    final result = await pixivAPI.getNewIllusts(Utils.enumTypeStringToLittleHump(WorkType.illust));
+    final result = await pixivAPI.getNewIllusts(
+      Utils.enumTypeStringToLittleHump(WorkType.illust),
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.illusts;
@@ -24,7 +27,10 @@ class AllNewIllustModel extends BaseViewStateRefreshListModel {
 
   @override
   Future<List<Illust>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Illusts>(nextUrl!);
+    final result = await pixivAPI.next<Illusts>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.illusts;

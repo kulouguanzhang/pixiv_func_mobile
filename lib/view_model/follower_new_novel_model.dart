@@ -6,6 +6,7 @@
  * 作者:小草
  */
 
+
 import 'package:pixiv_func_android/api/entity/novel.dart';
 import 'package:pixiv_func_android/api/model/novels.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
@@ -18,7 +19,10 @@ class FollowerNewNovelModel extends BaseViewStateRefreshListModel<Novel> {
 
   @override
   Future<List<Novel>> loadFirstDataRoutine() async {
-    final result = await pixivAPI.getFollowerNewNovels(restrict: restrict);
+    final result = await pixivAPI.getFollowerNewNovels(
+      restrict: restrict,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.novels;
@@ -26,7 +30,10 @@ class FollowerNewNovelModel extends BaseViewStateRefreshListModel<Novel> {
 
   @override
   Future<List<Novel>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Novels>(nextUrl!);
+    final result = await pixivAPI.next<Novels>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
     nextUrl = result.nextUrl;
 
     return result.novels;

@@ -6,37 +6,40 @@
  * 作者:小草
  */
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pixiv_func_android/log/log.dart';
 import 'package:pixiv_func_android/provider/base_view_state_list_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:async/async.dart';
 
-abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T> {
-  RefreshController refreshController = RefreshController(initialRefresh: true);
-  ScrollController scrollController = ScrollController();
+abstract class BaseViewStateRefreshListModel<T>
+    extends BaseViewStateListModel<T> {
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: true);
+  
+  final ScrollController scrollController = ScrollController();
+  
+  final CancelToken cancelToken = CancelToken();
 
-  bool _showToTop = false;
+  BaseViewStateRefreshListModel() {
+    scrollController.addListener(scrollEvent);
+  }
 
   @override
-  void dispose() {
-    cancelTask();
+  void dispose(){
+    cancelToken.cancel();
     refreshController.dispose();
     scrollController.dispose();
     super.dispose();
   }
+
+  bool _showToTop = false;
 
   bool get showToTop => _showToTop;
 
   set showToTop(bool value) {
     _showToTop = value;
     notifyListeners();
-  }
-
-  CancelableOperation<List<T>>? cancelableTask;
-
-  BaseViewStateRefreshListModel() {
-    scrollController.addListener(scrollEvent);
   }
 
   void scrollEvent() {
@@ -56,13 +59,8 @@ abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T
     }
   }
 
-  void cancelTask() {
-    cancelableTask?.cancel();
-    cancelableTask = null;
-  }
-
   void refresh() {
-    cancelTask();
+    cancelToken.cancel();
     refreshController.refreshToIdle();
     refreshController.requestRefresh();
   }
@@ -73,8 +71,8 @@ abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T
     nextUrl = null;
     list.clear();
     setBusy();
-    cancelableTask = CancelableOperation.fromFuture(loadFirstDataRoutine());
-    cancelableTask?.value.then((result) {
+
+    loadFirstDataRoutine().then((result) {
       refreshController.refreshCompleted();
       if (!hasNext) {
         refreshController.loadNoData();
@@ -98,8 +96,7 @@ abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T
   void nextRoutine() async {
     if (hasNext) {
       setBusy();
-      cancelableTask = CancelableOperation.fromFuture(loadNextDataRoutine());
-      cancelableTask?.value.then((result) {
+      loadNextDataRoutine().then((result) {
         list.addAll(result);
         if (hasNext) {
           refreshController.loadComplete();
@@ -122,4 +119,5 @@ abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T
   ///
   ///加载下一条数据的实现
   Future<List<T>> loadNextDataRoutine();
+
 }

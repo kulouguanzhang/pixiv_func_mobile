@@ -21,6 +21,14 @@ class NovelModel extends BaseViewStateModel {
 
   NovelModel(this.id);
 
+  final CancelToken cancelToken = CancelToken();
+
+  @override
+  void dispose(){
+    cancelToken.cancel();
+    super.dispose();
+  }
+
   NovelJSData decodeNovelHtml(html.Document document) {
     Map<String, dynamic>? json;
     final scriptTags = document.querySelectorAll('script');
@@ -41,7 +49,7 @@ class NovelModel extends BaseViewStateModel {
 
   void loadData() {
     setBusy();
-    pixivAPI.getNovelHtml(id).then((result) {
+    pixivAPI.getNovelHtml(id, cancelToken: cancelToken).then((result) {
       novelJSData = decodeNovelHtml(html.parse(result));
       setIdle();
     }).catchError((e, s) {

@@ -11,10 +11,9 @@ import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/provider/base_view_state_refresh_list_model.dart';
 
 class RecommendedNovelModel extends BaseViewStateRefreshListModel<Novel> {
-
   @override
   Future<List<Novel>> loadFirstDataRoutine() async {
-    final result = await pixivAPI.getRecommendedNovels();
+    final result = await pixivAPI.getRecommendedNovels(cancelToken: cancelToken);
     nextUrl = result.nextUrl;
 
     return result.novels;
@@ -22,7 +21,10 @@ class RecommendedNovelModel extends BaseViewStateRefreshListModel<Novel> {
 
   @override
   Future<List<Novel>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Novels>(nextUrl!);
+    final result = await pixivAPI.next<Novels>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 

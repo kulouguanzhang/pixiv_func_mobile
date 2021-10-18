@@ -14,12 +14,10 @@ import 'package:pixiv_func_android/provider/base_view_state_refresh_list_model.d
 import 'package:pixiv_func_android/util/utils.dart';
 
 class SearchIllustResultModel extends BaseViewStateRefreshListModel<Illust> {
-  final String _word;
+  final String word;
   SearchFilter _filter;
 
-  SearchIllustResultModel({required String word, required SearchFilter filter})
-      : _word = word,
-        _filter = filter;
+  SearchIllustResultModel({required this.word, required SearchFilter filter}) : _filter = filter;
 
   SearchFilter get filter => _filter;
 
@@ -33,12 +31,13 @@ class SearchIllustResultModel extends BaseViewStateRefreshListModel<Illust> {
   @override
   Future<List<Illust>> loadFirstDataRoutine() async {
     final result = await pixivAPI.searchIllust(
-      _word,
+      word,
       Utils.enumTypeStringToLittleHump(filter.sort),
       Utils.enumTypeStringToLittleHump(filter.target),
       startDate: filter.enableDateRange ? filter.formatStartDate : null,
       endDate: filter.enableDateRange ? filter.formatEndDate : null,
       bookmarkTotal: filter.bookmarkTotal,
+      cancelToken: cancelToken,
     );
     nextUrl = result.nextUrl;
 
@@ -47,7 +46,10 @@ class SearchIllustResultModel extends BaseViewStateRefreshListModel<Illust> {
 
   @override
   Future<List<Illust>> loadNextDataRoutine() async {
-    final result = await pixivAPI.next<Illusts>(nextUrl!);
+    final result = await pixivAPI.next<Illusts>(
+      nextUrl!,
+      cancelToken: cancelToken,
+    );
 
     nextUrl = result.nextUrl;
 

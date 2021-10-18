@@ -20,6 +20,14 @@ class IllustModel extends BaseViewStateModel {
 
   IllustModel(this.id);
 
+  final CancelToken cancelToken = CancelToken();
+
+  @override
+  void dispose() {
+    cancelToken.cancel();
+    super.dispose();
+  }
+
   bool _bookmarkRequestWaiting = false;
 
   bool get bookmarkRequestWaiting => _bookmarkRequestWaiting;
@@ -38,7 +46,7 @@ class IllustModel extends BaseViewStateModel {
     illustDetail = null;
     setBusy();
 
-    pixivAPI.getIllustDetail(id).then((result) {
+    pixivAPI.getIllustDetail(id, cancelToken: cancelToken).then((result) {
       illustDetail = result;
       initialized = true;
       setIdle();

@@ -18,21 +18,28 @@ class PlatformAPI {
   final _methodGetAppVersion = 'getAppVersion';
   final _methodUrlLaunch = 'urlLaunch';
   final _methodGenerateGif = 'generateGif';
+  final _methodUpdateApp = 'updateApp';
   final _channel = const MethodChannel(_pluginName);
 
   Future<bool> imageIsExist(String filename) async {
-    final result = await _channel.invokeMethod(_methodImageIsExist, {
-      'filename': filename,
-    });
+    final result = await _channel.invokeMethod(
+      _methodImageIsExist,
+      {
+        'filename': filename,
+      },
+    );
     return true == result;
   }
 
   Future<bool?> saveImage(Uint8List imageBytes, String filename) async {
     try {
-      final result = await _channel.invokeMethod(_methodSaveImage, {
-        'imageBytes': imageBytes,
-        'filename': filename,
-      });
+      final result = await _channel.invokeMethod(
+        _methodSaveImage,
+        {
+          'imageBytes': imageBytes,
+          'filename': filename,
+        },
+      );
       return result;
     } on PlatformException {
       toast('保存失败 可能是没有存储权限');
@@ -41,10 +48,13 @@ class PlatformAPI {
   }
 
   Future<void> toast(String content, {bool isLong = false}) async {
-    await _channel.invokeMethod(_methodToast, {
-      'content': content,
-      'isLong': isLong,
-    });
+    await _channel.invokeMethod(
+      _methodToast,
+      {
+        'content': content,
+        'isLong': isLong,
+      },
+    );
   }
 
   Future<int> get buildVersion async {
@@ -69,11 +79,24 @@ class PlatformAPI {
     required Uint8List zipBytes,
     required Int32List delays,
   }) {
+    return _channel.invokeMethod<Uint8List>(
+      _methodGenerateGif,
+      {
+        'id': id,
+        'zipBytes': zipBytes,
+        'delays': delays,
+      },
+    );
+  }
 
-    return _channel.invokeMethod<Uint8List>(_methodGenerateGif, {
-      'id': id,
-      'zipBytes': zipBytes,
-      'delays': delays,
-    });
+  Future<bool> updateApp(String url, String versionTag) async {
+    final result = await _channel.invokeMethod(
+      _methodUpdateApp,
+      {
+        'url': url,
+        'versionTag': versionTag,
+      },
+    );
+    return result as bool;
   }
 }

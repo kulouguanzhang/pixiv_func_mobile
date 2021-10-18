@@ -21,6 +21,14 @@ class UserModel extends BaseViewStateModel {
 
   UserModel(this.id);
 
+  final CancelToken cancelToken = CancelToken();
+
+  @override
+  void dispose() {
+    cancelToken.cancel();
+    super.dispose();
+  }
+
   int _index = 0;
 
   int get index => _index;
@@ -80,7 +88,7 @@ class UserModel extends BaseViewStateModel {
     userDetail = null;
     setBusy();
 
-    pixivAPI.getUserDetail(id).then((result) {
+    pixivAPI.getUserDetail(id, cancelToken: cancelToken).then((result) {
       userDetail = result;
       setIdle();
     }).catchError((e, s) {
