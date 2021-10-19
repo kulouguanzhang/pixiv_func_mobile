@@ -9,7 +9,6 @@
 import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/model/navigation_page.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';
-import 'package:pixiv_func_android/ui/page/about/about_page.dart';
 import 'package:pixiv_func_android/ui/page/account/account_page.dart';
 import 'package:pixiv_func_android/ui/page/bookmarked/bookmarked_page.dart';
 import 'package:pixiv_func_android/ui/page/browsing_history/browsing_history_page.dart';
@@ -46,7 +45,6 @@ class HomeModel extends BaseViewModel {
         NavigationPage(name: '账号', widget: const AccountPage()),
         NavigationPage(name: '浏览历史记录(本地)', widget: const BrowsingHistoryPage()),
         NavigationPage(name: '下载任务', widget: const DownloadTaskPage()),
-        NavigationPage(name: '关于', widget: const AboutPage()),
       ];
 
   void refresh() {

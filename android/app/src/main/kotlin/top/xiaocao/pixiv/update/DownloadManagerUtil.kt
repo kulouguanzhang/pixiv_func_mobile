@@ -10,6 +10,8 @@ import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
+import androidx.core.content.FileProvider
+import java.io.File
 
 class DownloadManagerUtil(private val context: Context) {
 
@@ -65,17 +67,28 @@ class DownloadManagerUtil(private val context: Context) {
             setNotificationVisibility(
                 DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
             )
-            // 设置文件保存位置
-            setDestinationInExternalFilesDir(
-                context,
-                Environment.DIRECTORY_DOWNLOADS,
-                "PixivFunc-$versionTag.apk"
-            )
+
             setTitle("PixivFunc")
             setDescription("正在下载PixivFunc的新版本")
             setMimeType("application/vnd.android.package-archive")
+
+            val destFile = File(
+                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                "PixivFunc-$versionTag.apk"
+            ).also {
+                if (it.exists()) {
+                    it.delete()
+                }
+            }
+
+            setDestinationUri(
+                Uri.parse(
+                    "file://${destFile.absolutePath}"
+                )
+            )
+            downloadPath = destFile.absolutePath
         }
-        appId = try {
+        downloadId = try {
             downloadManager.enqueue(request)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -88,30 +101,58 @@ class DownloadManagerUtil(private val context: Context) {
 
         try {
 //            Log.i("DMUtil", "appId:${appId}")
-            downloadManager.remove(appId)
+            downloadManager.remove(downloadId)
+            File(downloadPath).let {
+                if (it.exists()) {
+                    it.delete()
+                }
+            }
+
         } catch (e: Exception) {
         }
+        downloadId = 0L
     }
 
     fun install() {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW)
-            val uri: Uri = downloadManager.getUriForDownloadedFile(appId)
-            intent.setDataAndType(uri, "application/vnd.android.package-archive")
+        Intent(Intent.ACTION_VIEW).apply {
+
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
             // 7.0 以上
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                downloadManager.getUriForDownloadedFile(downloadId)
+            } else {
+                FileProvider.getUriForFile(
+                    context.applicationContext,
+                    context.packageName.toString() + ".FileProvider",
+                    File(downloadPath)
+                )
+            }.let {
+                setDataAndType(
+                    it,
+                    "application/vnd.android.package-archive"
+                )
+
             }
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            if (intent.resolveActivity(context.packageManager) != null) {
-                context.startActivity(intent)
+
+
+        }.run {
+            if (resolveActivity(context.packageManager) != null) {
+                try {
+                    context.startActivity(this)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
-        } catch (e: Exception) {
         }
-        appId = 0L
+
+        downloadId = 0L
+        downloadPath = ""
     }
 
     companion object {
-        var appId: Long = 0L
+        var downloadId: Long = 0L
+        var downloadPath: String = ""
     }
 }
