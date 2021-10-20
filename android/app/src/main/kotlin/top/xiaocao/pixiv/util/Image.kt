@@ -20,7 +20,6 @@ import java.io.File
 
 fun Context.saveImage(imageBytes: ByteArray, filename: String): Boolean? {
 
-
     //图片已经存在
     if (imageIsExist(filename)) {
         return null

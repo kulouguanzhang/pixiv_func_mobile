@@ -7,7 +7,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:pixiv_func_android/api/entity/illust.dart';
 import 'package:pixiv_func_android/downloader/downloader.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
@@ -15,6 +14,7 @@ import 'package:pixiv_func_android/model/search_filter.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
 import 'package:pixiv_func_android/provider/view_state.dart';
 import 'package:pixiv_func_android/ui/page/illust/illust_comment/illust_comment_page.dart';
+import 'package:pixiv_func_android/ui/page/illust/ugoira_viewer.dart';
 import 'package:pixiv_func_android/ui/page/image_scale/image_scale_page.dart';
 import 'package:pixiv_func_android/ui/page/search/search_illust_result/search_illust_result_page.dart';
 import 'package:pixiv_func_android/ui/page/user/user_page.dart';
@@ -83,44 +83,21 @@ class _IllustContentPageState extends State<IllustContentPage> {
   }
 
   Widget _buildUgoira(IllustContentModel model) {
-    if (null == model.gifBytes) {
-      return SliverToBoxAdapter(
-        child: GestureDetector(
-          onTap: !model.generatingGif ? model.startGenerateGif : null,
-          child: Hero(
-            tag: null != widget.heroTag ? widget.heroTag! : 'illust:${model.illust.id}',
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                ImageViewFromUrl(Utils.getPreviewUrl(model.illust.imageUrls)),
-                model.downloadingGif
-                    ? const CircularProgressIndicator()
-                    : model.generatingGif
-                        ? const CircularProgressIndicator()
-                        : const Icon(Icons.play_circle_outline_outlined, size: 70),
-              ],
-            ),
-          ),
-        ),
-      );
-    } else {
-      return SliverToBoxAdapter(
-        child: GestureDetector(
-          onLongPress: model.saveGifFile,
-          child: Hero(
-            tag: null != widget.heroTag ? widget.heroTag! : 'illust:${model.illust.id}',
-            child: ExtendedImage.memory(model.gifBytes!),
-          ),
-        ),
-      );
-    }
+    return SliverToBoxAdapter(
+      child: UgoiraViewer(
+        id: model.illust.id,
+        width: model.illust.width.toDouble(),
+        height: model.illust.height.toDouble(),
+        previewUrl: Utils.getPreviewUrl(model.illust.imageUrls),
+      ),
+    );
   }
 
   Widget _buildImages(Illust illust) {
     if (1 == illust.pageCount) {
       return SliverToBoxAdapter(
         child: Hero(
-          tag: null != widget.heroTag ? widget.heroTag! : 'illust:${illust.id}',
+          tag: widget.heroTag ?? 'illust:${illust.id}',
           child: _buildImageItem(
             illust.id,
             illust.title,
@@ -139,7 +116,7 @@ class _IllustContentPageState extends State<IllustContentPage> {
               if (first) {
                 first = false;
                 return Hero(
-                  tag: null != widget.heroTag ? widget.heroTag! : 'illust:${illust.id}',
+                  tag: widget.heroTag ?? 'illust:${illust.id}',
                   child: _buildImageItem(
                     illust.id,
                     illust.title,

@@ -8,49 +8,24 @@
 
 package top.xiaocao.pixiv.platform.api
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.net.Uri
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import android.widget.Toast
-import java.io.ByteArrayInputStream
-import java.io.File
-import java.util.zip.ZipInputStream
 import kotlin.concurrent.thread
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import com.waynejo.androidndkgif.GifEncoder
-import top.xiaocao.pixiv.update.DownloadManagerUtil
-import top.xiaocao.pixiv.util.forEachEntry
-import top.xiaocao.pixiv.util.imageIsExist
-import top.xiaocao.pixiv.util.saveImage
 
 
-@SuppressLint("ShowToast")
-class PlatformApiPlugin(private val context: Context) : FlutterPlugin,
+class PlatformApiPlugin(context: Context) : FlutterPlugin,
     MethodChannel.MethodCallHandler {
-    private val pluginName = "xiaocao/platform/api"
 
-    private val methodImageIsExist = "imageIsExist"
-    private val methodSaveImage = "saveImage"
-    private val methodToast = "toast"
-    private val methodGetBuildVersion = "getBuildVersion"
-    private val methodGetAppVersion = "getAppVersion"
-    private val methodUrlLaunch = "urlLaunch"
-    private val methodGenerateGif = "generateGif"
-    private val methodUpdateApp = "updateApp"
-
+    private val api = PlatformApi(context)
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         MethodChannel(
             binding.binaryMessenger,
-            pluginName
+            api.pluginName
         ).also {
             it.setMethodCallHandler(this)
         }
@@ -64,123 +39,62 @@ class PlatformApiPlugin(private val context: Context) : FlutterPlugin,
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
-            methodImageIsExist -> {
-                result.success(
-                    context.imageIsExist(
-                        filename = call.argument<String>("filename")!!
-                    )
-                )
-            }
-            methodSaveImage -> {
+            PlatformApi.Method.SAVE_IMAGE.value -> {
                 thread {
-                    val success = context.saveImage(
-                        imageBytes = call.argument<ByteArray>("imageBytes")!!,
-                        filename = call.argument<String>("filename")!!
+                    val rs = api.saveImage(
+                        call.argument<ByteArray>("imageBytes")!!,
+                        call.argument<String>("filename")!!
                     )
                     Handler(Looper.getMainLooper()).post {
-                        result.success(success)
+                        result.success(rs)
                     }
                 }
             }
-            methodToast -> {
-                Toast.makeText(
-                    context,
+            PlatformApi.Method.SAVE_GIF_IMAGE.value -> {
+                thread {
+                    val rs = api.saveGifImage(
+                        call.argument<Int>("id")!!,
+                        call.argument<List<ByteArray>>("images")!!,
+                        call.argument<List<Int>>("delays")!!
+                    )
+                    Handler(Looper.getMainLooper()).post {
+                        result.success(rs)
+                    }
+                }
+            }
+            PlatformApi.Method.UN_ZIP_GIF.value -> {
+                thread {
+                    val rs = api.unZipGif(call.argument<ByteArray>("zipBytes")!!)
+                    Handler(Looper.getMainLooper()).post {
+                        result.success(rs)
+                    }
+                }
+            }
+            PlatformApi.Method.IMAGE_IS_EXIST.value -> {
+                result.success(api.imageIsExist(call.argument<String>("filename")!!))
+            }
+            PlatformApi.Method.TOAST.value -> {
+                api.toast(
                     call.argument<String>("content")!!,
-                    if (call.argument<Boolean>("isLong")!!)
-                        Toast.LENGTH_LONG
-                    else
-                        Toast.LENGTH_SHORT,
-                ).show()
+                    call.argument<Boolean>("isLong")!!
+                )
                 result.success(true)
             }
-            methodGetBuildVersion -> {
-                result.success(Build.VERSION.SDK_INT)
+            PlatformApi.Method.GET_BUILD_VERSION.value -> {
+                result.success(api.getBuildVersion())
             }
-            methodGetAppVersion -> {
+            PlatformApi.Method.GET_APP_VERSION.value -> {
+                result.success(api.getAppVersion())
+            }
+            PlatformApi.Method.URL_LAUNCH.value -> {
+                result.success(api.urlLaunch(call.argument<String>("url")!!))
+            }
+            PlatformApi.Method.UPDATE_APP.value -> {
                 result.success(
-                    context.packageManager.getPackageInfo(
-                        context.packageName,
-                        0
-                    ).versionName
-                )
-            }
-            methodUrlLaunch -> {
-                try {
-                    val intent =
-                        Intent(Intent.ACTION_VIEW, Uri.parse(call.argument<String>("url")!!))
-                    context.startActivity(intent)
-                    result.success(true)
-                } catch (e: Exception) {
-                    result.success(false)
-                }
-            }
-            methodGenerateGif -> {
-                val id = call.argument<Int>("id")
-                val zipBytes = call.argument<ByteArray>("zipBytes")!!
-                val delays = call.argument<IntArray>("delays")!!
-
-                //必须开一个线程 不然生成GIF的时候Flutter UI那边直接卡死
-
-                thread {
-                    var init = false
-                    var index = 0
-
-                    val gifFile = File(context.externalCacheDir, "$id.gif")
-
-                    val gifEncoder = GifEncoder()
-
-                    ByteArrayInputStream(zipBytes).use { byteArrayInputStream ->
-                        ZipInputStream(byteArrayInputStream).use { zipInputStream ->
-
-                            zipInputStream.forEachEntry {
-                                val imageBytes = zipInputStream.readBytes()
-                                val bitmap =
-                                    BitmapFactory.decodeByteArray(
-                                        imageBytes,
-                                        0,
-                                        imageBytes.size,
-                                    )
-                                if (!init) {
-                                    init = true
-                                    gifEncoder.init(
-                                        bitmap.width,
-                                        bitmap.height,
-                                        gifFile.absolutePath,
-                                        GifEncoder.EncodingType.ENCODING_TYPE_FAST
-                                    )
-                                }
-                                gifEncoder.encodeFrame(bitmap, delays[index++])
-                            }
-                        }
-                        gifEncoder.close()
-                    }
-
-
-                    gifFile.also {
-                        val imageBytes = gifFile.readBytes()
-                        //在主线程中执行 (因为是@UiThread)
-                        Handler(Looper.getMainLooper()).post {
-                            result.success(imageBytes)
-                        }
-                    }.delete()
-
-                }
-
-            }
-            methodUpdateApp -> {
-                result.success(
-                    DownloadManagerUtil(context).run {
-                        checkDownloadManagerEnable().also {
-                            if (it) {
-                                download(
-                                    call.argument<String>("url")!!,
-                                    call.argument<String>("versionTag")!!,
-                                )
-                            }else{
-                                Log.i("PlatformAPI","下载管理器被禁用")
-                            }
-                        }
-                    }
+                    api.updateApp(
+                        call.argument<String>("url")!!,
+                        call.argument<String>("versionTag")!!,
+                    )
                 )
             }
             else -> {

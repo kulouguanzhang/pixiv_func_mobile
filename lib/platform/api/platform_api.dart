@@ -11,30 +11,13 @@ import 'package:flutter/services.dart';
 
 class PlatformAPI {
   static const _pluginName = 'xiaocao/platform/api';
-  final _methodImageIsExist = 'imageIsExist';
-  final _methodSaveImage = 'saveImage';
-  final _methodToast = 'toast';
-  final _methodGetBuildVersion = 'getBuildVersion';
-  final _methodGetAppVersion = 'getAppVersion';
-  final _methodUrlLaunch = 'urlLaunch';
-  final _methodGenerateGif = 'generateGif';
-  final _methodUpdateApp = 'updateApp';
-  final _channel = const MethodChannel(_pluginName);
 
-  Future<bool> imageIsExist(String filename) async {
-    final result = await _channel.invokeMethod(
-      _methodImageIsExist,
-      {
-        'filename': filename,
-      },
-    );
-    return true == result;
-  }
+  final _channel = const MethodChannel(_pluginName);
 
   Future<bool?> saveImage(Uint8List imageBytes, String filename) async {
     try {
       final result = await _channel.invokeMethod(
-        _methodSaveImage,
+        _Method.saveImage,
         {
           'imageBytes': imageBytes,
           'filename': filename,
@@ -47,9 +30,52 @@ class PlatformAPI {
     }
   }
 
+  Future<bool?> saveGifImage(int id, List<Uint8List> images, List<int> delays) async {
+    try {
+      final result = await _channel.invokeMethod(
+        _Method.saveGifImage,
+        {
+          'id': id,
+          'images': images,
+          'delays': delays,
+        },
+      );
+      return result;
+    } on PlatformException {
+      toast('保存失败 可能是没有存储权限');
+      return null;
+    }
+  }
+
+  Future<List<Uint8List>> unZipGif({
+    required int id,
+    required Uint8List zipBytes,
+    required List<int> delays,
+  }) async {
+    final result = await _channel.invokeMethod<List<Object?>>(
+      _Method.unZipGif,
+      {
+        'id': id,
+        'zipBytes': zipBytes,
+        'delays': delays,
+      },
+    );
+    return result!.map((e) => e as Uint8List).toList();
+  }
+
+  Future<bool> imageIsExist(String filename) async {
+    final result = await _channel.invokeMethod(
+      _Method.imageIsExist,
+      {
+        'filename': filename,
+      },
+    );
+    return true == result;
+  }
+
   Future<void> toast(String content, {bool isLong = false}) async {
     await _channel.invokeMethod(
-      _methodToast,
+      _Method.toast,
       {
         'content': content,
         'isLong': isLong,
@@ -58,40 +84,25 @@ class PlatformAPI {
   }
 
   Future<int> get buildVersion async {
-    final result = await _channel.invokeMethod(_methodGetBuildVersion);
+    final result = await _channel.invokeMethod(_Method.getBuildVersion);
     return result as int;
   }
 
   Future<String> get appVersion async {
-    final result = await _channel.invokeMethod(_methodGetAppVersion);
+    final result = await _channel.invokeMethod(_Method.getAppVersion);
     return result as String;
   }
 
   Future<bool> urlLaunch(String url) async {
-    final result = await _channel.invokeMethod(_methodUrlLaunch, {
+    final result = await _channel.invokeMethod(_Method.urlLaunch, {
       'url': url,
     });
     return result as bool;
   }
 
-  Future<Uint8List?> generateGif({
-    required int id,
-    required Uint8List zipBytes,
-    required Int32List delays,
-  }) {
-    return _channel.invokeMethod<Uint8List>(
-      _methodGenerateGif,
-      {
-        'id': id,
-        'zipBytes': zipBytes,
-        'delays': delays,
-      },
-    );
-  }
-
   Future<bool> updateApp(String url, String versionTag) async {
     final result = await _channel.invokeMethod(
-      _methodUpdateApp,
+      _Method.updateApp,
       {
         'url': url,
         'versionTag': versionTag,
@@ -99,4 +110,16 @@ class PlatformAPI {
     );
     return result as bool;
   }
+}
+
+class _Method {
+  static const saveImage = 'saveImage';
+  static const saveGifImage = 'saveGifImage';
+  static const unZipGif = 'unZipGif';
+  static const imageIsExist = 'imageIsExist';
+  static const toast = 'toast';
+  static const getBuildVersion = 'getBuildVersion';
+  static const getAppVersion = 'getAppVersion';
+  static const urlLaunch = 'urlLaunch';
+  static const updateApp = 'updateApp';
 }

@@ -136,7 +136,7 @@ class IllustPreviewer extends StatelessWidget {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               return _buildImage(
-                url: model.illust.imageUrls.squareMedium,
+                url: Utils.getPreviewUrl(illust.imageUrls),
                 width: constraints.maxWidth,
                 height: constraints.maxWidth,
                 context: context,
@@ -152,7 +152,6 @@ class IllustPreviewer extends StatelessWidget {
                 LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                     final previewHeight = constraints.maxWidth / model.illust.width * model.illust.height;
-
                     return Hero(
                       tag: null != heroTag ? heroTag! : 'illust:${model.illust.id}',
                       child: ClipRRect(

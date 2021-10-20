@@ -15,11 +15,10 @@
 [![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv-func-android?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest)
 
 
-|  | 备注 |
+| 下载最新版本 |  |
 | --- | --- |
-| [前往Release](https://github.com/xiao-cao-x/pixiv_func_android/releases) | |
-| [查看最新版本](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest) | |
-| [点击下载最新版本](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest/download/app-release.apk) | 下载很慢的话可能需要开代理(VPN) |
+| [方式1(点击下载)](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest/download/app-release.apk) | github.com |
+| [方式2(点击下载)](https://ghproxy/https://github.com/xiao-cao-x/pixiv_func_android/releases/latest/download/app-release.apk) | ghproxy.com(国内用这个) |
 
 
 支持功能如下
@@ -34,12 +33,13 @@
 | 查看陌生人的最新作品 | 插画&漫画/小说 |
 | 查看关注用户 |  |
 | 查看排行榜 |  |
-| 搜索推荐 | 推荐用户/推荐标签 |
-| 搜索 插画&漫画/小说  | 支持排序,支持时间范围,支持搜索ID,支持按收藏数量搜索 |
+| 推荐 | 推荐用户/推荐标签 |
+| 搜索插画&漫画/小说  | 支持排序,支持时间范围,支持搜索ID,支持按收藏数量搜索 |
 | 搜索用户 | 支持搜索ID |
+| 图片搜源 | [集成了一个外部网站(非WebView)](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/lib/view_model/search_image_result_model.dart#L98) |
 | 查看小说 | [解析HTML(非WebView)](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/lib/view_model/novel_model.dart) |
-| 查看动图 | [Native合成GIF图片](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/api/PlatformApiPlugin.kt#L107) |
-| 图片搜源 | [集成了一个外部网站(非WebView)](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/lib/view_model/search_input_model.dart#L124) |
+| 查看动图 | [Native解压](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/api/PlatformApi.kt#L60)   [CustomPainter播放](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/lib/ui/widget/gif_view.dart) |
+| 保存动图 | [Native合成](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/api/PlatformApi.kt#L26) |
 | 保存原图到系统相册 | 可以查看下载任务 |
 | 关注和取消关注(用户) |  |
 | 收藏和取消收藏(插画&漫画/小说) |  |
