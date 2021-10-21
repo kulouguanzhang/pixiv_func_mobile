@@ -7,7 +7,7 @@
  */
 
 import 'dart:typed_data';
-
+import 'dart:ui' as ui;
 import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/api/model/ugoira_metadata.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
@@ -22,11 +22,18 @@ class UgoiraViewerModel extends BaseViewStateModel {
 
   final CancelToken cancelToken = CancelToken();
 
-  UgoiraMetadata? _ugoiraMetadata;
+  final List<Uint8List> images = [];
 
-  List<Uint8List> images = [];
+  final List<ui.Image> renderImages = [];
 
   final List<int> delays = [];
+
+  UgoiraMetadata? _ugoiraMetadata;
+  Response<Uint8List>? _gifZipResponse;
+
+  bool _loaded = false;
+
+  bool _loading = false;
 
   @override
   void dispose() {
@@ -34,47 +41,102 @@ class UgoiraViewerModel extends BaseViewStateModel {
     super.dispose();
   }
 
-  Future<void> loadData() async {
-    setBusy();
+  Future<ui.Image> _loadImage(Uint8List bytes) async {
+    final coder = await ui.instantiateImageCodec(bytes);
+    final frame = await coder.getNextFrame();
+    return frame.image;
+  }
+
+  Future<bool> loadData() async {
+    _loading = true;
     if (null == _ugoiraMetadata) {
       platformAPI.toast('开始获取动图信息');
       try {
         _ugoiraMetadata = await pixivAPI.getUgoiraMetadata(id, cancelToken: cancelToken);
+        delays.addAll(_ugoiraMetadata!.ugoiraMetadata.frames.map((frame) => frame.delay));
         Log.i('获取动图信息成功');
-      } catch (e, s) {
-        Log.e('获取动图信息失败', e, s);
+      } catch (e) {
+        Log.e('获取动图信息失败', e);
         platformAPI.toast('获取动图信息失败');
-        setIdle();
-        return;
+        _loading = false;
+        return false;
       }
     }
-    platformAPI.toast('开始下载动图压缩包');
-    Dio(
-      BaseOptions(
-        headers: {'Referer': 'https://app-api.pixiv.net/'},
-        responseType: ResponseType.bytes,
-        sendTimeout: 6000,
-        //60秒
-        receiveTimeout: 60000,
-        connectTimeout: 6000,
-      ),
-    ).get<Uint8List>(Utils.replaceImageSource(_ugoiraMetadata!.ugoiraMetadata.zipUrls.medium)).then((response) {
+    if (null == _gifZipResponse) {
+      platformAPI.toast('开始下载动图压缩包');
+      try {
+        _gifZipResponse = await Dio(
+          BaseOptions(
+            headers: {'Referer': 'https://app-api.pixiv.net/'},
+            responseType: ResponseType.bytes,
+            sendTimeout: 6000,
+            //60秒
+            receiveTimeout: 60000,
+            connectTimeout: 6000,
+          ),
+        ).get<Uint8List>(Utils.replaceImageSource(_ugoiraMetadata!.ugoiraMetadata.zipUrls.medium));
+      } catch (e) {
+        Log.e('下载动图压缩包失败', e);
+        platformAPI.toast('下载动图压缩包失败');
+        _loading = false;
+        return false;
+      }
+    }
+    if (images.isEmpty) {
+      images.addAll(await platformAPI.unZipGif(id: id, zipBytes: _gifZipResponse!.data!, delays: delays));
+    }
+    _loaded = true;
 
-      delays.addAll(_ugoiraMetadata!.ugoiraMetadata.frames.map((e) => e.delay).toList());
-      Log.i('下载动图压缩包成功:帧数${delays.length}');
-      platformAPI.unZipGif(id: id, zipBytes: response.data!, delays: delays).then((files) {
-        images.addAll(files);
+    _loading = false;
+    return true;
+  }
+
+  Future<void> generateImages() async {
+    Log.i('开始生成图片共${images.length}帧');
+    platformAPI.toast('开始生成图片共${images.length}帧');
+    for (final imageBytes in images) {
+      renderImages.add(await _loadImage(imageBytes));
+    }
+  }
+
+  void play() {
+    setBusy();
+    Future.sync(playRoutine);
+  }
+
+  void save() {
+    Future.sync(saveRoutine);
+  }
+
+  Future<void> playRoutine() async {
+    if (_loading) {
+      Future.delayed(const Duration(milliseconds: 333), playRoutine);
+    } else {
+      if (_loaded || !_loaded && await loadData()) {
+        await generateImages();
         initialized = true;
-        Log.i('解压动图压缩包成功');
-      }).catchError((e, s) {
-        Log.e('解压动图压缩包失败', e, s);
-        platformAPI.toast('解压动图压缩包失败');
-      }).whenComplete(() => setIdle());
-
-    }).catchError((e, s) {
-      Log.e('下载动图压缩包失败', e, s);
-      platformAPI.toast('下载动图压缩包失败');
+      }
       setIdle();
-    });
+    }
+  }
+
+  Future<void> saveRoutine() async {
+    if (_loading) {
+      Future.delayed(const Duration(milliseconds: 333), saveRoutine);
+    } else {
+      if (_loaded || !_loaded && await loadData()) {
+        platformAPI.toast('动图共${images.length}帧,合成可能需要一些时间');
+        final result = await platformAPI.saveGifImage(id, images, delays);
+        if (null == result) {
+          platformAPI.toast('动图已经存在');
+        } else {
+          if (result) {
+            platformAPI.toast('保存动图成功');
+          } else {
+            platformAPI.toast('保存动图失败');
+          }
+        }
+      }
+    }
   }
 }

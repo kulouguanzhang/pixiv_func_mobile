@@ -6,7 +6,6 @@
  * 作者:小草
  */
 import 'package:flutter/material.dart';
-import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
 import 'package:pixiv_func_android/provider/view_state.dart';
 import 'package:pixiv_func_android/ui/widget/gif_view.dart';
@@ -39,18 +38,19 @@ class UgoiraViewer extends StatelessWidget {
           height: height,
           child: model.initialized
               ? GestureDetector(
+                onLongPress: model.save,
                   child: GifView(
                     id: id,
                     previewUrl: previewUrl,
-                    images: model.images,
+                    renderImages: model.renderImages,
                     delays: model.delays,
                     width: width,
                     height: height,
                   ),
                 )
               : GestureDetector(
-                  onLongPress: () => platformAPI.toast('请先播放GIF'),
-                  onTap: ViewState.idle == model.viewState ? model.loadData : null,
+                  onLongPress: model.save,
+                  onTap: ViewState.idle == model.viewState ? model.play : null,
                   child: Hero(
                     tag: heroTag ?? 'illust:$id',
                     child: Stack(

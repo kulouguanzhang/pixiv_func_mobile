@@ -7,25 +7,19 @@
  */
 
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:pixiv_func_android/provider/base_view_state_model.dart';
+import 'package:pixiv_func_android/provider/base_view_model.dart';
 
-class GifViewModel extends BaseViewStateModel {
-  final BuildContext context;
-  final List<Uint8List> images;
+class GifViewModel extends BaseViewModel {
+  final List<ui.Image> renderImages;
   final List<int> delays;
 
   GifViewModel({
-    required this.context,
-    required this.images,
+    required this.renderImages,
     required this.delays,
   });
-
-  final renderImages = <ui.Image>[];
 
   final ValueNotifier<int> valueNotifier = ValueNotifier<int>(0);
 
@@ -46,19 +40,7 @@ class GifViewModel extends BaseViewStateModel {
     super.dispose();
   }
 
-  Future<ui.Image> _loadImage(Uint8List bytes) async {
-    final coder = await ui.instantiateImageCodec(bytes);
-    final frame = await coder.getNextFrame();
-    return frame.image;
-  }
-
   Future<void> start() async {
-    setBusy();
-    for (final bytes in images) {
-      renderImages.add(await _loadImage(bytes));
-    }
-    initialized = true;
-    setIdle();
     Future.sync(_updateRender);
   }
 
@@ -77,10 +59,4 @@ class GifViewModel extends BaseViewStateModel {
     });
   }
 
-  void save(int id) {
-    platformAPI.toast('共${images.length}帧,合成可能需要一些时间');
-    platformAPI.saveGifImage(id, images, delays).then((result){
-      platformAPI.toast('保存动图成功');
-    });
-  }
 }

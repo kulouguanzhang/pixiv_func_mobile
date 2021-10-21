@@ -136,7 +136,7 @@ class IllustPreviewer extends StatelessWidget {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               return _buildImage(
-                url: Utils.getPreviewUrl(illust.imageUrls),
+                url: illust.imageUrls.squareMedium,
                 width: constraints.maxWidth,
                 height: constraints.maxWidth,
                 context: context,
