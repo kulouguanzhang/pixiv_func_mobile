@@ -6,6 +6,7 @@
  * 作者:小草
  */
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/api/entity/illust.dart';
 import 'package:pixiv_func_android/downloader/downloader.dart';
@@ -13,7 +14,6 @@ import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
 import 'package:pixiv_func_android/util/utils.dart';
 import 'package:pixiv_func_android/view_model/image_scale_model.dart';
-import 'package:extended_image/extended_image.dart';
 
 class ImageScalePage extends StatelessWidget {
   final Illust illust;

@@ -5,8 +5,8 @@
  * 创建时间:2021/8/30 下午2:45
  * 作者:小草
  */
-import 'package:flutter/material.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
+import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/api/enums.dart';
 import 'package:pixiv_func_android/api/model/user_detail.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';

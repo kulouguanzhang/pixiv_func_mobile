@@ -7,6 +7,7 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+
 import '../entity/local_user.dart';
 
 part 'user_account.g.dart';

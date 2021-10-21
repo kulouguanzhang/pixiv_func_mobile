@@ -8,6 +8,7 @@
 
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/api/model/ugoira_metadata.dart';
 import 'package:pixiv_func_android/instance_setup.dart';

@@ -7,6 +7,7 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+
 import '../entity/profile_image_urls.dart';
 
 part 'user_detail.g.dart';

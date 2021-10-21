@@ -8,8 +8,8 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:html/parser.dart' as html show parseFragment;
 import 'package:html/dom.dart' as html;
+import 'package:html/parser.dart' as html show parseFragment;
 import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/log/log.dart';
 import 'package:pixiv_func_android/ui/page/illust/illust_page.dart';

@@ -7,23 +7,25 @@
  */
 
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/api/model/bookmark_tags.dart';
 import 'package:pixiv_func_android/api/model/novels.dart';
+
 import 'auth_token_interceptor.dart';
-import 'model/search_novel.dart';
-import 'retry_interceptor.dart';
+import 'entity/comment.dart';
 import 'model/comments.dart';
 import 'model/error_message.dart';
 import 'model/illust_detail.dart';
 import 'model/illusts.dart';
 import 'model/search_autocomplete.dart';
+import 'model/search_illust.dart';
+import 'model/search_novel.dart';
 import 'model/trending_tags.dart';
 import 'model/ugoira_metadata.dart';
-import 'model/users.dart';
-import 'model/search_illust.dart';
 import 'model/user_detail.dart';
-import 'entity/comment.dart';
+import 'model/users.dart';
+import 'retry_interceptor.dart';
 
 class PixivAPI {
   static const _targetIP = '210.140.131.199';

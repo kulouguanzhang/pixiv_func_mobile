@@ -1,7 +1,7 @@
 name: pixiv_func_android
 description: Pixiv Android 客户端
 
-version: 0.9.1
+version: 0.9.2
 publish_to: 'node'
 environment:
   sdk: ">=2.14.0 <3.0.0"
@@ -29,7 +29,8 @@ dependencies:
   #解决 pull_to_refresh下拉刷新 跟 NestedScrollView 配合 非常不丝滑
   extended_nested_scroll_view: ^5.0.0
   #瀑布流
-  flutter_staggered_grid_view: ^0.4.1
+#  flutter_staggered_grid_view: ^0.4.1
+  waterfall_flow: ^3.0.1
   #日志
   logger: ^1.1.0
   #解析html

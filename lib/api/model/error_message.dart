@@ -7,6 +7,7 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+
 part 'error_message.g.dart';
 
 @JsonSerializable(explicitToJson: true)

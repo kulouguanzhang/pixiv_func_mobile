@@ -7,7 +7,6 @@
  */
 import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/provider/base_view_state_refresh_list_model.dart';
-import 'package:pixiv_func_android/ui/widget/scroll_to_top_button.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class RefresherWidget extends StatelessWidget {
@@ -35,7 +34,12 @@ class RefresherWidget extends StatelessWidget {
           child: Positioned(
             bottom: 10,
             left: MediaQuery.of(context).size.width / 2 - 12,
-            child: ScrollToTopButton(model),
+            child: GestureDetector(
+              onTap: () => model.scrollToTop(),
+              child: const Icon(
+                Icons.arrow_drop_up,
+              ),
+            ),
           ),
         ),
       ],

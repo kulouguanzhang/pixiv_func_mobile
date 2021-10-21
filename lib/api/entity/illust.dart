@@ -7,11 +7,12 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+
 import 'image_urls.dart';
+import 'meta_page.dart';
 import 'meta_single_page.dart';
 import 'tag.dart';
 import 'user.dart';
-import 'meta_page.dart';
 
 part 'illust.g.dart';
 

@@ -7,6 +7,7 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+
 import 'stamp.dart';
 import 'user.dart';
 

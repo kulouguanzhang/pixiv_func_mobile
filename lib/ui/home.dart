@@ -14,8 +14,8 @@ import 'package:pixiv_func_android/ui/page/about/about_page.dart';
 import 'package:pixiv_func_android/ui/page/ranking/ranking_page.dart';
 import 'package:pixiv_func_android/ui/page/recommended/recommended_page.dart';
 import 'package:pixiv_func_android/ui/page/search/search_guide_page.dart';
-import 'package:pixiv_func_android/view_model/home_model.dart';
 import 'package:pixiv_func_android/util/page_utils.dart';
+import 'package:pixiv_func_android/view_model/home_model.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {

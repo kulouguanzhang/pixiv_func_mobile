@@ -7,11 +7,12 @@
  */
 
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 import 'package:pixiv_func_android/app.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
+import 'package:provider/provider.dart';
 
 
 Future<void> main() async {

@@ -8,11 +8,12 @@
 
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:html/dom.dart' as html;
+import 'package:html/parser.dart' as html show parse;
 import 'package:pixiv_func_android/api/model/novel_js_data.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:html/parser.dart' as html show parse;
-import 'package:html/dom.dart' as html;
 import 'package:pixiv_func_android/provider/base_view_state_model.dart';
 
 class NovelModel extends BaseViewStateModel {

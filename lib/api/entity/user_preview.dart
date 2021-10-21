@@ -7,9 +7,9 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+
 import 'illust.dart';
 import 'user.dart';
-
 
 part 'user_preview.g.dart';
 

@@ -7,6 +7,7 @@
  */
 
 import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
 import 'package:pixiv_func_android/view_model/gif_view_model.dart';

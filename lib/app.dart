@@ -8,9 +8,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
+import 'package:pixiv_func_android/ui/home.dart';
 import 'package:pixiv_func_android/ui/widget/refresher_footer.dart';
 import 'package:pixiv_func_android/view_model/theme_model.dart';
-import 'package:pixiv_func_android/ui/home.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

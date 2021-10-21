@@ -8,11 +8,13 @@
 
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
-import 'retry_interceptor.dart';
+
 import 'model/user_account.dart';
+import 'retry_interceptor.dart';
 
 class OAuthAPI {
   static const _targetIP = '210.140.131.199';

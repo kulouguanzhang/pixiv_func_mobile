@@ -7,6 +7,7 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+
 import '../entity/illust.dart';
 
 part 'search_illust.g.dart';

@@ -6,6 +6,7 @@
  * 作者:小草
  */
 
+import 'package:async/async.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pixiv_func_android/api/model/search_autocomplete.dart';
@@ -13,7 +14,6 @@ import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/log/log.dart';
 import 'package:pixiv_func_android/model/search_filter.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';
-import 'package:async/async.dart';
 
 class SearchInputModel extends BaseViewModel {
   SearchAutocomplete? _searchAutocomplete;

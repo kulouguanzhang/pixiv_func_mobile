@@ -6,6 +6,7 @@
  * 作者:小草
  */
 import 'package:json_annotation/json_annotation.dart';
+
 import '../entity/illust.dart';
 
 part 'illust_detail.g.dart';

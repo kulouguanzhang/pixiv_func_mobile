@@ -7,6 +7,7 @@
  */
 import 'dart:isolate';
 import 'dart:typed_data';
+
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/api/entity/illust.dart';

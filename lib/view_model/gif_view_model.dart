@@ -8,6 +8,7 @@
 
 import 'dart:async';
 import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';

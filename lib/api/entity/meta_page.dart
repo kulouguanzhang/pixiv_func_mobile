@@ -7,7 +7,9 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+
 import 'image_urls.dart';
+
 part 'meta_page.g.dart';
 
 @JsonSerializable(explicitToJson: true)

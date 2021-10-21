@@ -7,13 +7,13 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pixiv_func_android/api/enums.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
 import 'package:pixiv_func_android/ui/widget/illust_previewer.dart';
 import 'package:pixiv_func_android/ui/widget/refresher_widget.dart';
 import 'package:pixiv_func_android/view_model/illust_content_model.dart';
 import 'package:pixiv_func_android/view_model/user_illust_model.dart';
+import 'package:waterfall_flow/waterfall_flow.dart';
 
 class UserIllustContent extends StatelessWidget {
   final int id;
@@ -29,19 +29,14 @@ class UserIllustContent extends StatelessWidget {
       builder: (BuildContext context, UserIllustModel model, Widget? child) {
         return RefresherWidget(
           model,
-          child: CustomScrollView(
-            slivers: [
-              SliverStaggeredGrid.countBuilder(
-                crossAxisCount: 2,
-                itemBuilder: (BuildContext context, int index) => IllustPreviewer(
-                  illust: model.list[index],
-                  illustContentModel: illustContentModel,
-                  showUserName: false,
-                ),
-                staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
-                itemCount: model.list.length,
-              )
-            ],
+          child: WaterfallFlow.builder(
+            gridDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return IllustPreviewer(illust: model.list[index]);
+            },
+            itemCount: model.list.length,
           ),
         );
       },

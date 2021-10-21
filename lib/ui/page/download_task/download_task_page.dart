@@ -6,12 +6,12 @@
  * 作者:小草
  */
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:pixiv_func_android/downloader/downloader.dart';
 import 'package:pixiv_func_android/model/download_task.dart';
 import 'package:pixiv_func_android/ui/page/illust/illust_content_page.dart';
 import 'package:pixiv_func_android/util/page_utils.dart';
 import 'package:pixiv_func_android/view_model/download_task_model.dart';
+import 'package:provider/provider.dart';
 
 class DownloadTaskPage extends StatelessWidget {
   const DownloadTaskPage({Key? key}) : super(key: key);
