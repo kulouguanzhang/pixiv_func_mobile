@@ -27,7 +27,7 @@ class UserPreviewModel extends BaseViewModel {
 
   bool get isFollowed => userPreview.user.isFollowed!;
 
-  set isFollowed(bool value){
+  set isFollowed(bool value) {
     userPreview.user.isFollowed = value;
     notifyListeners();
   }
@@ -48,5 +48,4 @@ class UserPreviewModel extends BaseViewModel {
       }).whenComplete(() => followRequestWaiting = false);
     }
   }
-
 }

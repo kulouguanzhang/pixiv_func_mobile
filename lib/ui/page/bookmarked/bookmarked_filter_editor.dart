@@ -22,7 +22,7 @@ class BookmarkedFilterEditor extends StatelessWidget {
     return SlidingSegmentedControl(
       children: const <bool, Widget>{
         true: Text('公开'),
-        false:  Text('私有'),
+        false: Text('私有'),
       },
       groupValue: model.restrict,
       onValueChanged: (bool? value) {

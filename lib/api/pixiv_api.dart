@@ -641,9 +641,7 @@ class PixivAPI {
   ///[restrict] 为ture获取公开的(public) 反之不公开(private) <br/>
   ///[isNovel] 小说
   Future<void> bookmarkAdd(int illustId,
-      {List<String> tags = const [],
-      bool restrict = true,
-      bool isNovel = false}) async {
+      {List<String> tags = const [], bool restrict = true, bool isNovel = false}) async {
     await httpClient.post<String>(
       '/v2/${isNovel ? 'novel' : 'illust'}/bookmark/add',
       data: FormData.fromMap(

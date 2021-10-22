@@ -40,8 +40,6 @@ class LocalUser {
     this.requirePolicyAgreement,
   );
 
-
-
   factory LocalUser.fromJson(Map<String, dynamic> json) => _$LocalUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocalUserToJson(this);
@@ -58,8 +56,7 @@ class LocalUserProfileImageUrls {
 
   LocalUserProfileImageUrls(this.px16x16, this.px50x50, this.px170x170);
 
-  factory LocalUserProfileImageUrls.fromJson(Map<String, dynamic> json) =>
-      _$LocalUserProfileImageUrlsFromJson(json);
+  factory LocalUserProfileImageUrls.fromJson(Map<String, dynamic> json) => _$LocalUserProfileImageUrlsFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocalUserProfileImageUrlsToJson(this);
 }

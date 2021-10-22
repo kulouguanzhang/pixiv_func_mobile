@@ -9,7 +9,6 @@
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 
 class AllNewWorksModel extends BaseViewModel {
-
   int _index = 0;
 
   int get index => _index;
@@ -20,6 +19,4 @@ class AllNewWorksModel extends BaseViewModel {
       notifyListeners();
     }
   }
-
-
 }

@@ -7,9 +7,7 @@ part of 'comments.dart';
 // **************************************************************************
 
 Comments _$CommentsFromJson(Map<String, dynamic> json) => Comments(
-      (json['comments'] as List<dynamic>)
-          .map((e) => Comment.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (json['comments'] as List<dynamic>).map((e) => Comment.fromJson(e as Map<String, dynamic>)).toList(),
       json['next_url'] as String?,
     );
 

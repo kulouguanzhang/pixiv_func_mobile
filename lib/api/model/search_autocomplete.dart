@@ -18,8 +18,7 @@ class SearchAutocomplete {
 
   SearchAutocomplete(this.tags);
 
-  factory SearchAutocomplete.fromJson(Map<String, dynamic> json) =>
-      _$SearchAutocompleteFromJson(json);
+  factory SearchAutocomplete.fromJson(Map<String, dynamic> json) => _$SearchAutocompleteFromJson(json);
 
   Map<String, dynamic> toJson() => _$SearchAutocompleteToJson(this);
 }

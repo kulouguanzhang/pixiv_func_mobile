@@ -88,7 +88,7 @@ class _TrendingIllustState extends State<TrendingIllust> {
   @override
   Widget build(BuildContext context) {
     return ProviderWidget(
-      autoKeep: true,
+      // autoKeep: true,
       model: TrendingIllustModel(),
       builder: (BuildContext context, TrendingIllustModel model, Widget? child) {
         return RefresherWidget(

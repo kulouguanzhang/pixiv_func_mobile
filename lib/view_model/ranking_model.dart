@@ -9,7 +9,7 @@
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 
 class RankingModel extends BaseViewModel {
-  int _index=0;
+  int _index = 0;
 
   int get index => _index;
 

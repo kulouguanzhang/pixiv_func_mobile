@@ -16,7 +16,6 @@ class BookmarkedModel extends BaseViewModel {
 
   bool _restrict = true;
 
-
   BookmarkedFilter get filter => _filter;
 
   set filter(BookmarkedFilter value) {
@@ -41,5 +40,4 @@ class BookmarkedModel extends BaseViewModel {
       notifyListeners();
     }
   }
-
 }

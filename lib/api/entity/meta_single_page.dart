@@ -17,8 +17,7 @@ class MetaSinglePage {
 
   MetaSinglePage(this.originalImageUrl);
 
-  factory MetaSinglePage.fromJson(Map<String, dynamic> json) =>
-      _$MetaSinglePageFromJson(json);
+  factory MetaSinglePage.fromJson(Map<String, dynamic> json) => _$MetaSinglePageFromJson(json);
 
   Map<String, dynamic> toJson() => _$MetaSinglePageToJson(this);
 }

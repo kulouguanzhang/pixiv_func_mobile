@@ -59,7 +59,6 @@ class IllustContentModel extends BaseViewStateListModel<Illust> {
     notifyListeners();
   }
 
-
   void loadFirstData() {
     setBusy();
 
@@ -107,5 +106,4 @@ class IllustContentModel extends BaseViewStateListModel<Illust> {
       }).whenComplete(() => bookmarkRequestWaiting = false);
     }
   }
-
 }

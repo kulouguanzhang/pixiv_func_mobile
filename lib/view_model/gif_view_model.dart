@@ -14,24 +14,23 @@ import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 
 class GifViewModel extends BaseViewModel {
-  final List<ui.Image> renderImages;
+  final List<ui.Image> images;
   final List<int> delays;
 
   GifViewModel({
-    required this.renderImages,
+    required this.images,
     required this.delays,
   });
 
-  final ValueNotifier<int> valueNotifier = ValueNotifier<int>(0);
+  final ValueNotifier<int> indexValueNotifier = ValueNotifier<int>(0);
+  final ValueNotifier<bool> pauseValueNotifier = ValueNotifier<bool>(false);
 
   bool _dispose = false;
 
-  bool _pause = false;
+  bool get isPause => pauseValueNotifier.value;
 
-  bool get pause => _pause;
-
-  set pause(bool value) {
-    _pause = value;
+  set isPause(bool value) {
+    pauseValueNotifier.value = value;
     notifyListeners();
   }
 
@@ -46,12 +45,12 @@ class GifViewModel extends BaseViewModel {
   }
 
   void _updateRender() {
-    Future.delayed(Duration(milliseconds: delays[valueNotifier.value]), () {
-      if (!pause) {
-        if (valueNotifier.value == renderImages.length - 1) {
-          valueNotifier.value = 0;
+    Future.delayed(Duration(milliseconds: delays[indexValueNotifier.value]), () {
+      if (!isPause) {
+        if (indexValueNotifier.value == images.length - 1) {
+          indexValueNotifier.value = 0;
         } else {
-          valueNotifier.value++;
+          indexValueNotifier.value++;
         }
       }
       if (!_dispose) {
@@ -59,5 +58,4 @@ class GifViewModel extends BaseViewModel {
       }
     });
   }
-
 }

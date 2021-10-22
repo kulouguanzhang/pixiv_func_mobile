@@ -12,13 +12,11 @@ import 'package:pixiv_func_android/log/log.dart';
 import 'package:pixiv_func_android/provider/base_view_state_list_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-abstract class BaseViewStateRefreshListModel<T>
-    extends BaseViewStateListModel<T> {
-  final RefreshController refreshController =
-      RefreshController(initialRefresh: true);
-  
+abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T> {
+  final RefreshController refreshController = RefreshController(initialRefresh: true);
+
   final ScrollController scrollController = ScrollController();
-  
+
   final CancelToken cancelToken = CancelToken();
 
   BaseViewStateRefreshListModel() {
@@ -26,7 +24,7 @@ abstract class BaseViewStateRefreshListModel<T>
   }
 
   @override
-  void dispose(){
+  void dispose() {
     cancelToken.cancel();
     refreshController.dispose();
     scrollController.dispose();
@@ -119,5 +117,4 @@ abstract class BaseViewStateRefreshListModel<T>
   ///
   ///加载下一条数据的实现
   Future<List<T>> loadNextDataRoutine();
-
 }

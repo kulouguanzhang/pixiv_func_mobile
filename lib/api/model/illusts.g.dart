@@ -7,9 +7,7 @@ part of 'illusts.dart';
 // **************************************************************************
 
 Illusts _$IllustsFromJson(Map<String, dynamic> json) => Illusts(
-      (json['illusts'] as List<dynamic>)
-          .map((e) => Illust.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (json['illusts'] as List<dynamic>).map((e) => Illust.fromJson(e as Map<String, dynamic>)).toList(),
       json['next_url'] as String?,
     );
 

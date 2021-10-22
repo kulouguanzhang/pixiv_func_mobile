@@ -6,7 +6,6 @@
  * 作者:小草
  */
 
-
 import 'package:pixiv_func_android/api/entity/novel.dart';
 import 'package:pixiv_func_android/api/model/novels.dart';
 import 'package:pixiv_func_android/instance_setup.dart';

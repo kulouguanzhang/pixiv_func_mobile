@@ -24,7 +24,7 @@ class DownloadTask {
   double progress;
   DownloadState state;
 
-  DownloadTask(this.id, this.illust,this.originalUrl, this.url, this.filename, this.progress, this.state);
+  DownloadTask(this.id, this.illust, this.originalUrl, this.url, this.filename, this.progress, this.state);
 
   factory DownloadTask.create({
     required int id,
@@ -33,7 +33,7 @@ class DownloadTask {
     required String url,
     required String filename,
   }) =>
-      DownloadTask(id, illust,originalUrl, url, filename, 0, DownloadState.idle);
+      DownloadTask(id, illust, originalUrl, url, filename, 0, DownloadState.idle);
 
   @override
   String toString() {

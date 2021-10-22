@@ -10,7 +10,6 @@ IllustDetail _$IllustDetailFromJson(Map<String, dynamic> json) => IllustDetail(
       Illust.fromJson(json['illust'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$IllustDetailToJson(IllustDetail instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$IllustDetailToJson(IllustDetail instance) => <String, dynamic>{
       'illust': instance.illust.toJson(),
     };

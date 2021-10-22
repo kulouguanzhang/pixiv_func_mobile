@@ -7,9 +7,7 @@ part of 'novels.dart';
 // **************************************************************************
 
 Novels _$NovelsFromJson(Map<String, dynamic> json) => Novels(
-      (json['novels'] as List<dynamic>)
-          .map((e) => Novel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (json['novels'] as List<dynamic>).map((e) => Novel.fromJson(e as Map<String, dynamic>)).toList(),
       json['nextUrl'] as String?,
     );
 

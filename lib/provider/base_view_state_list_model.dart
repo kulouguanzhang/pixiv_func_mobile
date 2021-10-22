@@ -6,15 +6,12 @@
  * 作者:小草
  */
 
-
 import 'package:pixiv_func_android/provider/base_view_state_model.dart';
 
 abstract class BaseViewStateListModel<T> extends BaseViewStateModel {
-
   List<T> list = <T>[];
 
   String? nextUrl;
 
   bool get hasNext => null != nextUrl;
-
 }

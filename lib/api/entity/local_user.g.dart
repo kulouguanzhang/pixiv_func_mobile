@@ -7,8 +7,7 @@ part of 'local_user.dart';
 // **************************************************************************
 
 LocalUser _$LocalUserFromJson(Map<String, dynamic> json) => LocalUser(
-      LocalUserProfileImageUrls.fromJson(
-          json['profile_image_urls'] as Map<String, dynamic>),
+      LocalUserProfileImageUrls.fromJson(json['profile_image_urls'] as Map<String, dynamic>),
       json['id'] as String,
       json['name'] as String,
       json['account'] as String,
@@ -31,17 +30,13 @@ Map<String, dynamic> _$LocalUserToJson(LocalUser instance) => <String, dynamic>{
       'require_policy_agreement': instance.requirePolicyAgreement,
     };
 
-LocalUserProfileImageUrls _$LocalUserProfileImageUrlsFromJson(
-        Map<String, dynamic> json) =>
-    LocalUserProfileImageUrls(
+LocalUserProfileImageUrls _$LocalUserProfileImageUrlsFromJson(Map<String, dynamic> json) => LocalUserProfileImageUrls(
       json['px_16x16'] as String,
       json['px_50x50'] as String,
       json['px_170x170'] as String,
     );
 
-Map<String, dynamic> _$LocalUserProfileImageUrlsToJson(
-        LocalUserProfileImageUrls instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$LocalUserProfileImageUrlsToJson(LocalUserProfileImageUrls instance) => <String, dynamic>{
       'px_16x16': instance.px16x16,
       'px_50x50': instance.px50x50,
       'px_170x170': instance.px170x170,

@@ -6,7 +6,6 @@
  * 作者:小草
  */
 
-
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 
 class NewWorksModel extends BaseViewModel {

@@ -17,7 +17,6 @@ import 'model/error_message.dart';
 import 'oauth_api.dart';
 
 class AuthTokenInterceptor extends InterceptorsWrapper {
-
   String? getToken() {
     final currentAccount = accountManager.current;
     if (null == currentAccount) {
@@ -43,7 +42,7 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
 
   //上次刷新token的时间
   int _refreshTokenLastTime = 0;
-  
+
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     if (null == err.response) {
@@ -101,8 +100,8 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
       if (hasError) {
         return handler.reject(err);
       }
-    } 
-    
+    }
+
     final response = await pixivAPI.httpClient.request(
       option.path,
       data: option.data,

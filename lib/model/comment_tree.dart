@@ -15,7 +15,7 @@ class CommentTree {
   bool loading = false;
   String? nextUrl;
 
-  CommentTree({required this.data,required this.parent});
+  CommentTree({required this.data, required this.parent});
 
   bool get hasNext => null != nextUrl;
 }

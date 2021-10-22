@@ -116,7 +116,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
 
           return TextSpan(
             text: text,
-            style: _strongTagStyle ,
+            style: _strongTagStyle,
           );
         case '<html span>':
           if (node.hasChildNodes()) {

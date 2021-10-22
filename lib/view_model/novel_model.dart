@@ -25,7 +25,7 @@ class NovelModel extends BaseViewStateModel {
   final CancelToken cancelToken = CancelToken();
 
   @override
-  void dispose(){
+  void dispose() {
     cancelToken.cancel();
     super.dispose();
   }

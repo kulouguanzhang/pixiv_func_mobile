@@ -20,8 +20,7 @@ class Comments {
 
   Comments(this.comments, this.nextUrl);
 
-  factory Comments.fromJson(Map<String, dynamic> json) =>
-      _$CommentsFromJson(json);
+  factory Comments.fromJson(Map<String, dynamic> json) => _$CommentsFromJson(json);
 
   Map<String, dynamic> toJson() => _$CommentsToJson(this);
 }

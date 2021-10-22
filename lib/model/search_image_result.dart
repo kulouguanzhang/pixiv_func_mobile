@@ -17,5 +17,4 @@ class SearchImageResult {
   String toString() {
     return 'SearchImageResult{similarityText: $similarityText, illustId: $illustId}';
   }
-
 }

@@ -19,8 +19,6 @@ class NovelDetailModel extends BaseViewModel {
 
   Novel get novel => previewerModel.novel;
 
-
-
   bool _showOriginalCaption = false;
 
   bool get bookmarkRequestWaiting => previewerModel.bookmarkRequestWaiting;

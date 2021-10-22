@@ -70,7 +70,7 @@ class NovelPage extends StatelessWidget {
                       onTap: () => PageUtils.to(
                         context,
                         NovelPage(
-                           novelJSData.seriesNavigation!.nextNovel!.id,
+                          novelJSData.seriesNavigation!.nextNovel!.id,
                           page: page + 1,
                         ),
                       ),

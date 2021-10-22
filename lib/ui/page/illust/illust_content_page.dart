@@ -86,8 +86,6 @@ class _IllustContentPageState extends State<IllustContentPage> {
     return SliverToBoxAdapter(
       child: UgoiraViewer(
         id: model.illust.id,
-        width: model.illust.width.toDouble(),
-        height: model.illust.height.toDouble(),
         previewUrl: Utils.getPreviewUrl(model.illust.imageUrls),
       ),
     );

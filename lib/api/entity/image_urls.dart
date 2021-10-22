@@ -19,8 +19,7 @@ class ImageUrls {
 
   ImageUrls(this.squareMedium, this.medium, this.large, this.original);
 
-  factory ImageUrls.fromJson(Map<String, dynamic> json) =>
-      _$ImageUrlsFromJson(json);
+  factory ImageUrls.fromJson(Map<String, dynamic> json) => _$ImageUrlsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ImageUrlsToJson(this);
 }

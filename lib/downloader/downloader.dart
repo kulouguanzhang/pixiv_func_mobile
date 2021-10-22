@@ -112,8 +112,6 @@ class Downloader {
     required String url,
     int? id,
   }) async {
-
-
     final filename = url.substring(url.lastIndexOf('/') + 1);
     final imageUrl = Utils.replaceImageSource(url);
 

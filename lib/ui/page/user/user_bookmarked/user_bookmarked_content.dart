@@ -36,7 +36,7 @@ class UserBookmarkedContent extends StatelessWidget {
           ),
         );
       },
-      autoKeep: true,
+      // autoKeep: true,
     );
   }
 }

@@ -25,7 +25,7 @@ class RecommendedNovelContent extends StatelessWidget {
             slivers: [
               SliverList(
                 delegate: SliverChildListDelegate([
-                  for(final novel in model.list)
+                  for (final novel in model.list)
                     Card(
                       child: NovelPreviewer(novel),
                     )
@@ -35,7 +35,7 @@ class RecommendedNovelContent extends StatelessWidget {
           ),
         );
       },
-      autoKeep: true,
+      // autoKeep: true,
     );
   }
 }

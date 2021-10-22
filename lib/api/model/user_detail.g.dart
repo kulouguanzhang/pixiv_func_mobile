@@ -9,13 +9,11 @@ part of 'user_detail.dart';
 UserDetail _$UserDetailFromJson(Map<String, dynamic> json) => UserDetail(
       UserInfo.fromJson(json['user'] as Map<String, dynamic>),
       UserProfile.fromJson(json['profile'] as Map<String, dynamic>),
-      UserProfilePublicity.fromJson(
-          json['profile_publicity'] as Map<String, dynamic>),
+      UserProfilePublicity.fromJson(json['profile_publicity'] as Map<String, dynamic>),
       UserWorkspace.fromJson(json['workspace'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$UserDetailToJson(UserDetail instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$UserDetailToJson(UserDetail instance) => <String, dynamic>{
       'user': instance.user.toJson(),
       'profile': instance.profile.toJson(),
       'profile_publicity': instance.profilePublicity.toJson(),
@@ -26,8 +24,7 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       json['id'] as int,
       json['name'] as String,
       json['account'] as String,
-      ProfileImageUrls.fromJson(
-          json['profile_image_urls'] as Map<String, dynamic>),
+      ProfileImageUrls.fromJson(json['profile_image_urls'] as Map<String, dynamic>),
       json['comment'] as String?,
       json['is_followed'] as bool,
     );
@@ -68,8 +65,7 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => UserProfile(
       json['is_using_custom_profile_image'] as bool,
     );
 
-Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$UserProfileToJson(UserProfile instance) => <String, dynamic>{
       'webpage': instance.webpage,
       'gender': instance.gender,
       'birth': instance.birth,
@@ -96,9 +92,7 @@ Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
       'is_using_custom_profile_image': instance.isUsingCustomProfileImage,
     };
 
-UserProfilePublicity _$UserProfilePublicityFromJson(
-        Map<String, dynamic> json) =>
-    UserProfilePublicity(
+UserProfilePublicity _$UserProfilePublicityFromJson(Map<String, dynamic> json) => UserProfilePublicity(
       json['gender'] as String,
       json['region'] as String,
       json['birth_day'] as String,
@@ -107,9 +101,7 @@ UserProfilePublicity _$UserProfilePublicityFromJson(
       json['pawoo'] as bool,
     );
 
-Map<String, dynamic> _$UserProfilePublicityToJson(
-        UserProfilePublicity instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$UserProfilePublicityToJson(UserProfilePublicity instance) => <String, dynamic>{
       'gender': instance.gender,
       'region': instance.region,
       'birth_day': instance.birthDay,
@@ -118,8 +110,7 @@ Map<String, dynamic> _$UserProfilePublicityToJson(
       'pawoo': instance.pawoo,
     };
 
-UserWorkspace _$UserWorkspaceFromJson(Map<String, dynamic> json) =>
-    UserWorkspace(
+UserWorkspace _$UserWorkspaceFromJson(Map<String, dynamic> json) => UserWorkspace(
       json['pc'] as String,
       json['monitor'] as String,
       json['tool'] as String,
@@ -135,8 +126,7 @@ UserWorkspace _$UserWorkspaceFromJson(Map<String, dynamic> json) =>
       json['workspace_image_url'] as String?,
     );
 
-Map<String, dynamic> _$UserWorkspaceToJson(UserWorkspace instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$UserWorkspaceToJson(UserWorkspace instance) => <String, dynamic>{
       'pc': instance.pc,
       'monitor': instance.monitor,
       'tool': instance.tool,

@@ -39,7 +39,7 @@ class UserNovelContent extends StatelessWidget {
           ),
         );
       },
-      autoKeep: true,
+      // autoKeep: true,
     );
   }
 }

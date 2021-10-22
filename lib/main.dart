@@ -14,12 +14,10 @@ import 'package:pixiv_func_android/app.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:provider/provider.dart';
 
-
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   //一定要初始化
   WidgetsFlutterBinding.ensureInitialized();
-
 
   await init();
 

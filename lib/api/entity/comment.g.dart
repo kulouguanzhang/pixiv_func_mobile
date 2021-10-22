@@ -12,9 +12,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
       json['date'] as String,
       User.fromJson(json['user'] as Map<String, dynamic>),
       json['has_replies'] as bool,
-      json['stamp'] == null
-          ? null
-          : Stamp.fromJson(json['stamp'] as Map<String, dynamic>),
+      json['stamp'] == null ? null : Stamp.fromJson(json['stamp'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{

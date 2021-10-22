@@ -7,9 +7,7 @@ part of 'users.dart';
 // **************************************************************************
 
 Users _$UsersFromJson(Map<String, dynamic> json) => Users(
-      (json['user_previews'] as List<dynamic>)
-          .map((e) => UserPreview.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (json['user_previews'] as List<dynamic>).map((e) => UserPreview.fromJson(e as Map<String, dynamic>)).toList(),
       json['next_url'] as String?,
     );
 

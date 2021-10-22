@@ -14,8 +14,9 @@ import 'user.dart';
 part 'comment.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class Comment{
+class Comment {
   int id;
+
   ///内容
   String comment;
   String date;
@@ -24,11 +25,9 @@ class Comment{
   bool hasReplies;
   Stamp? stamp;
 
-
   Comment(this.id, this.comment, this.date, this.user, this.hasReplies, this.stamp);
 
-  factory Comment.fromJson(Map<String, dynamic> json) =>
-      _$CommentFromJson(json);
+  factory Comment.fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
 
   Map<String, dynamic> toJson() => _$CommentToJson(this);
 }

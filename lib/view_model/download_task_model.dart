@@ -9,7 +9,6 @@
 import 'package:pixiv_func_android/model/download_task.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 
-
 class DownloadTaskModel extends BaseViewModel {
   final List<DownloadTask> _tasks = [];
 

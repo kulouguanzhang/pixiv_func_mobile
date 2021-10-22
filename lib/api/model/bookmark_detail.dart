@@ -11,7 +11,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'bookmark_detail.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class BookmarkDetail{
+class BookmarkDetail {
   @JsonKey(name: 'is_bookmarked')
   bool isBookmarked;
   List<String> tags;

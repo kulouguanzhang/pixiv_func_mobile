@@ -18,8 +18,7 @@ class ErrorMessage {
     required this.error,
   });
 
-  factory ErrorMessage.fromJson(Map<String, dynamic> json) =>
-      _$ErrorMessageFromJson(json);
+  factory ErrorMessage.fromJson(Map<String, dynamic> json) => _$ErrorMessageFromJson(json);
 
   Map<String, dynamic> toJson() => _$ErrorMessageToJson(this);
 }
@@ -32,7 +31,6 @@ class Error {
   String? reason;
   @JsonKey(name: 'user_message_details')
   Object? userMessageDetails;
-
 
   Error(this.userMessage, this.message, this.reason, this.userMessageDetails);
 

@@ -22,7 +22,7 @@ class _RecommendUserState extends State<RecommendUser> {
   @override
   Widget build(BuildContext context) {
     return ProviderWidget(
-      autoKeep: true,
+      // autoKeep: true,
       model: RecommendUserModel(),
       builder: (BuildContext context, RecommendUserModel model, Widget? child) {
         return RefresherWidget(

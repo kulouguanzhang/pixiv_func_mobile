@@ -48,17 +48,11 @@ class PlatformAPI {
     }
   }
 
-  Future<List<Uint8List>> unZipGif({
-    required int id,
-    required Uint8List zipBytes,
-    required List<int> delays,
-  }) async {
+  Future<List<Uint8List>> unZipGif(Uint8List zipBytes) async {
     final result = await _channel.invokeMethod<List<Object?>>(
       _Method.unZipGif,
       {
-        'id': id,
         'zipBytes': zipBytes,
-        'delays': delays,
       },
     );
     return result!.map((e) => e as Uint8List).toList();

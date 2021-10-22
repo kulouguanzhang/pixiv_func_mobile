@@ -14,7 +14,7 @@ class SettingsModel extends BaseViewModel {
   final customImageSourceInput = TextEditingController();
 
   @override
-  void dispose(){
+  void dispose() {
     customImageSourceInput.dispose();
     super.dispose();
   }
@@ -32,7 +32,6 @@ class SettingsModel extends BaseViewModel {
     settingsManager.imageSource = value;
     notifyListeners();
   }
-
 
   bool get previewQuality => settingsManager.previewQuality;
 
@@ -54,5 +53,4 @@ class SettingsModel extends BaseViewModel {
     settingsManager.enableBrowsingHistory = value;
     notifyListeners();
   }
-
 }

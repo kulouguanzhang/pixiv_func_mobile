@@ -25,8 +25,7 @@ class UserPreview {
 
   UserPreview(this.user, this.illusts, this.isMuted);
 
-  factory UserPreview.fromJson(Map<String, dynamic> json) =>
-      _$UserPreviewFromJson(json);
+  factory UserPreview.fromJson(Map<String, dynamic> json) => _$UserPreviewFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserPreviewToJson(this);
 }

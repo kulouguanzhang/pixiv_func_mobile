@@ -23,7 +23,7 @@ class UserDetailsContent extends StatelessWidget {
         onLongPress: () async {
           if (value.isNotEmpty) {
             await Utils.copyToClipboard(value);
-           platformAPI.toast('已将 $value 复制到剪切板');
+            platformAPI.toast('已将 $value 复制到剪切板');
           }
         },
         onTap: isUrl

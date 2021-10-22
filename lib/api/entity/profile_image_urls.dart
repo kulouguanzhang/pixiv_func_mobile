@@ -16,8 +16,7 @@ class ProfileImageUrls {
 
   ProfileImageUrls(this.medium);
 
-  factory ProfileImageUrls.fromJson(Map<String, dynamic> json) =>
-      _$ProfileImageUrlsFromJson(json);
+  factory ProfileImageUrls.fromJson(Map<String, dynamic> json) => _$ProfileImageUrlsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileImageUrlsToJson(this);
 }

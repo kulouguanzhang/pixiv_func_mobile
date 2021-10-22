@@ -36,9 +36,7 @@ class RefresherWidget extends StatelessWidget {
             left: MediaQuery.of(context).size.width / 2 - 12,
             child: GestureDetector(
               onTap: () => model.scrollToTop(),
-              child: const Icon(
-                Icons.arrow_drop_up,
-              ),
+              child: const Icon(Icons.arrow_drop_up),
             ),
           ),
         ),

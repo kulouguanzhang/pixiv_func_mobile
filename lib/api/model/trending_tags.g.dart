@@ -7,13 +7,10 @@ part of 'trending_tags.dart';
 // **************************************************************************
 
 TrendingTags _$TrendingTagsFromJson(Map<String, dynamic> json) => TrendingTags(
-      (json['trend_tags'] as List<dynamic>)
-          .map((e) => TrendTag.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (json['trend_tags'] as List<dynamic>).map((e) => TrendTag.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
-Map<String, dynamic> _$TrendingTagsToJson(TrendingTags instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$TrendingTagsToJson(TrendingTags instance) => <String, dynamic>{
       'trend_tags': instance.trendTags.map((e) => e.toJson()).toList(),
     };
 

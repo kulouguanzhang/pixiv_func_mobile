@@ -20,8 +20,7 @@ class Illusts {
 
   Illusts(this.illusts, this.nextUrl);
 
-  factory Illusts.fromJson(Map<String, dynamic> json) =>
-      _$IllustsFromJson(json);
+  factory Illusts.fromJson(Map<String, dynamic> json) => _$IllustsFromJson(json);
 
   Map<String, dynamic> toJson() => _$IllustsToJson(this);
 }

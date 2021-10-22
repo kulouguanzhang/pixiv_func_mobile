@@ -8,7 +8,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-abstract class BaseViewModel with ChangeNotifier{
+abstract class BaseViewModel with ChangeNotifier {
   bool _disposed = false;
 
   @override

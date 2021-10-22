@@ -13,7 +13,7 @@ import 'package:pixiv_func_android/view_model/follower_new_novel_model.dart';
 
 class FollowerNewNovelContent extends StatelessWidget {
   final bool? restrict;
-  const FollowerNewNovelContent(this.restrict,{Key? key}) : super(key: key);
+  const FollowerNewNovelContent(this.restrict, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

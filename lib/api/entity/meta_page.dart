@@ -13,7 +13,7 @@ import 'image_urls.dart';
 part 'meta_page.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class MetaPage{
+class MetaPage {
   @JsonKey(name: 'image_urls')
   ImageUrls imageUrls;
 

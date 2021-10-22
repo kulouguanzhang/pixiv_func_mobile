@@ -15,8 +15,7 @@ UserAccount _$UserAccountFromJson(Map<String, dynamic> json) => UserAccount(
       LocalUser.fromJson(json['user'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$UserAccountToJson(UserAccount instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$UserAccountToJson(UserAccount instance) => <String, dynamic>{
       'access_token': instance.accessToken,
       'expires_in': instance.expiresIn,
       'token_type': instance.tokenType,

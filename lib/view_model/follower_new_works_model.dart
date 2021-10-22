@@ -13,7 +13,7 @@ class FollowerNewWorksModel extends BaseViewModel {
 
   bool? _restrict = true;
 
-  final restrictItems = [const MapEntry(null,'全部'), const MapEntry(true,'公开'),const MapEntry(false,'悄悄')];
+  final restrictItems = [const MapEntry(null, '全部'), const MapEntry(true, '公开'), const MapEntry(false, '悄悄')];
 
   int get index => _index;
 

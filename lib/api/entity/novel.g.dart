@@ -15,9 +15,7 @@ Novel _$NovelFromJson(Map<String, dynamic> json) => Novel(
       json['is_original'] as bool,
       ImageUrls.fromJson(json['image_urls'] as Map<String, dynamic>),
       json['create_date'] as String,
-      (json['tags'] as List<dynamic>)
-          .map((e) => Tag.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (json['tags'] as List<dynamic>).map((e) => Tag.fromJson(e as Map<String, dynamic>)).toList(),
       json['page_count'] as int,
       json['text_length'] as int,
       User.fromJson(json['user'] as Map<String, dynamic>),

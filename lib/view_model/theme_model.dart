@@ -11,22 +11,21 @@ import 'package:pixiv_func_android/provider/base_view_model.dart';
 
 class ThemeModel extends BaseViewModel {
   static final _darkTheme = ThemeData.dark().copyWith(
-    colorScheme: const ColorScheme(
-      primary: Color(0xffea638c),
-      primaryVariant: Colors.pinkAccent,
-      secondary: Colors.pinkAccent,
-      secondaryVariant: Color(0xffea638c),
-      surface: Color(0xff303235),
-      background: Color(0xff282c2f),
-      error: Colors.red,
-      onPrimary: Color(0xffffd9da),
-      onSecondary: Color(0xffffd9da),
-      onSurface: Colors.white70,
-      onBackground: Color(0xff191a1a),
-      onError: Colors.deepOrange,
-      brightness: Brightness.dark,
-    )
-  );
+      colorScheme: const ColorScheme(
+    primary: Color(0xffea638c),
+    primaryVariant: Colors.pinkAccent,
+    secondary: Colors.pinkAccent,
+    secondaryVariant: Color(0xffea638c),
+    surface: Color(0xff303235),
+    background: Color(0xff282c2f),
+    error: Colors.red,
+    onPrimary: Color(0xffffd9da),
+    onSecondary: Color(0xffffd9da),
+    onSurface: Colors.white70,
+    onBackground: Color(0xff191a1a),
+    onError: Colors.deepOrange,
+    brightness: Brightness.dark,
+  ));
 
   static final _lightTheme = ThemeData.light().copyWith(
     colorScheme: const ColorScheme(

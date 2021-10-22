@@ -13,7 +13,7 @@ import '../entity/profile_image_urls.dart';
 part 'user_detail.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class UserDetail{
+class UserDetail {
   UserInfo user;
   UserProfile profile;
   @JsonKey(name: 'profile_publicity')
@@ -21,8 +21,7 @@ class UserDetail{
   UserWorkspace workspace;
 
   UserDetail(this.user, this.profile, this.profilePublicity, this.workspace);
-  factory UserDetail.fromJson(Map<String, dynamic> json) =>
-      _$UserDetailFromJson(json);
+  factory UserDetail.fromJson(Map<String, dynamic> json) => _$UserDetailFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserDetailToJson(this);
 }
@@ -46,8 +45,7 @@ class UserInfo {
     this.comment,
     this.isFollowed,
   );
-  factory UserInfo.fromJson(Map<String, dynamic> json) =>
-      _$UserInfoFromJson(json);
+  factory UserInfo.fromJson(Map<String, dynamic> json) => _$UserInfoFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
 }
@@ -127,8 +125,7 @@ class UserProfile {
     this.isPremium,
     this.isUsingCustomProfileImage,
   );
-  factory UserProfile.fromJson(Map<String, dynamic> json) =>
-      _$UserProfileFromJson(json);
+  factory UserProfile.fromJson(Map<String, dynamic> json) => _$UserProfileFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserProfileToJson(this);
 }
@@ -152,8 +149,7 @@ class UserProfilePublicity {
     this.job,
     this.pawoo,
   );
-  factory UserProfilePublicity.fromJson(Map<String, dynamic> json) =>
-      _$UserProfilePublicityFromJson(json);
+  factory UserProfilePublicity.fromJson(Map<String, dynamic> json) => _$UserProfilePublicityFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserProfilePublicityToJson(this);
 }
@@ -214,8 +210,7 @@ class UserWorkspace {
     this.workspaceImageUrl,
   );
 
-  factory UserWorkspace.fromJson(Map<String, dynamic> json) =>
-      _$UserWorkspaceFromJson(json);
+  factory UserWorkspace.fromJson(Map<String, dynamic> json) => _$UserWorkspaceFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserWorkspaceToJson(this);
 }

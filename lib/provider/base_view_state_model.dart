@@ -6,7 +6,6 @@
  * 作者:小草
  */
 
-
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 import 'package:pixiv_func_android/provider/view_state.dart';
 
@@ -29,10 +28,9 @@ abstract class BaseViewStateModel extends BaseViewModel {
 
   void setEmpty() => viewState = ViewState.empty;
 
-  void setInitFailed(dynamic e,dynamic s) {
+  void setInitFailed(dynamic e, dynamic s) {
     viewState = ViewState.initFailed;
   }
 
   void setLoadFailed() => viewState = ViewState.loadFailed;
-
 }

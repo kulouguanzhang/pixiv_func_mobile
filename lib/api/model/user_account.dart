@@ -34,8 +34,7 @@ class UserAccount {
     this.user,
   );
 
-  factory UserAccount.fromJson(Map<String, dynamic> json) =>
-      _$UserAccountFromJson(json);
+  factory UserAccount.fromJson(Map<String, dynamic> json) => _$UserAccountFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserAccountToJson(this);
 

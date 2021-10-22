@@ -48,7 +48,7 @@ class BrowsingHistoryPage extends StatelessWidget {
               )
             ],
           ),
-          body:WaterfallFlow.builder(
+          body: WaterfallFlow.builder(
             gridDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),

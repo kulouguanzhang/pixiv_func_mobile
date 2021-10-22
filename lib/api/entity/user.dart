@@ -19,6 +19,7 @@ class User {
   String account;
   @JsonKey(name: 'profile_image_urls')
   ProfileImageUrls profileImageUrls;
+
   ///当[User]在Comment中的时候没有这个字段
   @JsonKey(name: 'is_followed')
   bool? isFollowed;

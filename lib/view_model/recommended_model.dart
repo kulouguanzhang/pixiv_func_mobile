@@ -20,5 +20,4 @@ class RecommendedModel extends BaseViewModel {
       notifyListeners();
     }
   }
-
 }

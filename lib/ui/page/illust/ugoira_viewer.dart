@@ -6,6 +6,7 @@
  * 作者:小草
  */
 import 'package:flutter/material.dart';
+import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
 import 'package:pixiv_func_android/provider/view_state.dart';
 import 'package:pixiv_func_android/ui/widget/gif_view.dart';
@@ -15,42 +16,35 @@ import 'package:pixiv_func_android/view_model/ugoira_viewer_model.dart';
 class UgoiraViewer extends StatelessWidget {
   final int id;
   final String previewUrl;
-  final double width;
-  final double height;
   final String? heroTag;
 
   const UgoiraViewer({
     Key? key,
     required this.id,
     required this.previewUrl,
-    required this.width,
-    required this.height,
     this.heroTag,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ProviderWidget(
-      model: UgoiraViewerModel(id),
+      model: UgoiraViewerModel(id, MediaQuery.of(context).size.width),
       builder: (BuildContext context, UgoiraViewerModel model, Widget? child) {
         return SizedBox(
-          width: width,
-          height: height,
           child: model.initialized
               ? GestureDetector(
-                onLongPress: model.save,
+                  onLongPress: () => model.save(),
                   child: GifView(
                     id: id,
                     previewUrl: previewUrl,
-                    renderImages: model.renderImages,
+                    images: model.images,
                     delays: model.delays,
-                    width: width,
-                    height: height,
+                    size: model.size,
                   ),
                 )
               : GestureDetector(
-                  onLongPress: model.save,
-                  onTap: ViewState.idle == model.viewState ? model.play : null,
+                  onTap: () => model.play(),
+                  onLongPress: () => model.save(),
                   child: Hero(
                     tag: heroTag ?? 'illust:$id',
                     child: Stack(
@@ -58,8 +52,8 @@ class UgoiraViewer extends StatelessWidget {
                       children: [
                         ImageViewFromUrl(
                           previewUrl,
-                          width: width,
-                          height: height,
+                          color: settingsManager.isLightTheme ? Colors.white24 : Colors.black45,
+                          colorBlendMode: BlendMode.srcOver,
                         ),
                         ViewState.busy == model.viewState
                             ? const CircularProgressIndicator()

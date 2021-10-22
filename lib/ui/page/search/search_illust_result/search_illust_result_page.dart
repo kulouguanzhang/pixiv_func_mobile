@@ -60,6 +60,7 @@ class SearchIllustResultPage extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return IllustPreviewer(illust: model.list[index]);
               },
+              itemCount: model.list.length,
             ),
           ),
         );

@@ -19,8 +19,7 @@ class TrendingTags {
 
   TrendingTags(this.trendTags);
 
-  factory TrendingTags.fromJson(Map<String, dynamic> json) =>
-      _$TrendingTagsFromJson(json);
+  factory TrendingTags.fromJson(Map<String, dynamic> json) => _$TrendingTagsFromJson(json);
 
   Map<String, dynamic> toJson() => _$TrendingTagsToJson(this);
 }
@@ -34,8 +33,7 @@ class TrendTag {
 
   TrendTag(this.tag, this.translatedName, this.illust);
 
-  factory TrendTag.fromJson(Map<String, dynamic> json) =>
-      _$TrendTagFromJson(json);
+  factory TrendTag.fromJson(Map<String, dynamic> json) => _$TrendTagFromJson(json);
 
   Map<String, dynamic> toJson() => _$TrendTagToJson(this);
 }
