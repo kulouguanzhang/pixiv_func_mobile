@@ -77,7 +77,15 @@ class _IllustContentPageState extends State<IllustContentPage> {
           ),
         ),
         onLongPress: () => Downloader.start(illust: widget.illust, url: originUrl),
-        child: ImageViewFromUrl(previewUrl),
+        child: ImageViewFromUrl(
+          previewUrl,
+          placeholderWidget: const SizedBox(
+            height: 180,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ),
       ),
     );
   }

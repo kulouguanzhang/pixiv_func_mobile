@@ -54,6 +54,12 @@ class UgoiraViewer extends StatelessWidget {
                           previewUrl,
                           color: settingsManager.isLightTheme ? Colors.white24 : Colors.black45,
                           colorBlendMode: BlendMode.srcOver,
+                          placeholderWidget: const SizedBox(
+                            height: 180,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
                         ),
                         ViewState.busy == model.viewState
                             ? const CircularProgressIndicator()

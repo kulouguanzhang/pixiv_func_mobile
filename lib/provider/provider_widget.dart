@@ -30,7 +30,7 @@ class ProviderWidget<T extends BaseViewModel> extends StatefulWidget {
   _ProviderWidgetState<T> createState() => _ProviderWidgetState<T>();
 }
 
-class _ProviderWidgetState<T extends BaseViewModel> extends State<ProviderWidget<T>> {
+class _ProviderWidgetState<T extends BaseViewModel> extends State<ProviderWidget<T>>  {
   late T model;
 
   @override

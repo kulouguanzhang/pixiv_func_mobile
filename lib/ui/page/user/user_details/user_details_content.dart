@@ -73,6 +73,8 @@ class UserDetailsContent extends StatelessWidget {
 
     //user
     children.add(const Divider());
+    children.add(_buildItem('名称', user.name));
+    children.add(const Divider());
     children.add(_buildItem('ID', user.id.toString()));
     children.add(const Divider());
     children.add(_buildItem('账号', user.account));
