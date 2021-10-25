@@ -22,7 +22,6 @@ class RankingContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderWidget(
-      // autoKeep: true,
       model: RankingContentModel(mode),
       builder: (BuildContext context, RankingContentModel model, Widget? child) {
         return RefresherWidget(

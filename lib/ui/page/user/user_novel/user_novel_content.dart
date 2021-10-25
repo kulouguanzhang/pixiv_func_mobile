@@ -39,7 +39,6 @@ class UserNovelContent extends StatelessWidget {
           ),
         );
       },
-      // autoKeep: true,
     );
   }
 }

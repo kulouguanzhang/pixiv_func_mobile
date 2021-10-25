@@ -6,7 +6,7 @@
  * 作者:小草
  */
 
-import 'package:flutter/material.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 
 class ImageScaleModel extends BaseViewModel {
@@ -15,9 +15,9 @@ class ImageScaleModel extends BaseViewModel {
 
   ImageScaleModel({required this.urls, this.initialPage = 0})
       : _currentPage = initialPage,
-        pageController = PageController(initialPage: initialPage);
+        pageController = ExtendedPageController(initialPage: initialPage);
 
-  final PageController pageController;
+  final ExtendedPageController pageController;
 
   int _currentPage;
 

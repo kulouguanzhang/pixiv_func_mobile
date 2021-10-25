@@ -40,7 +40,6 @@ class UserIllustContent extends StatelessWidget {
           ),
         );
       },
-      // autoKeep: true,
     );
   }
 }

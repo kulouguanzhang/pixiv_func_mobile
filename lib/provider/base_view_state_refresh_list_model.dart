@@ -22,7 +22,7 @@ abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T
   BaseViewStateRefreshListModel() {
     scrollController.addListener(scrollEvent);
   }
-
+  
   @override
   void dispose() {
     cancelToken.cancel();

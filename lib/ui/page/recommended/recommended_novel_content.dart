@@ -35,7 +35,6 @@ class RecommendedNovelContent extends StatelessWidget {
           ),
         );
       },
-      // autoKeep: true,
     );
   }
 }

@@ -36,7 +36,6 @@ class RecommendedIllustContent extends StatelessWidget {
           ),
         );
       },
-      // autoKeep: true,
     );
   }
 }
