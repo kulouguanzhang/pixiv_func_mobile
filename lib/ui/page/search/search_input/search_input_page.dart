@@ -152,6 +152,7 @@ class SearchInputPage extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
+            heroTag: 'To ImagePicker',
             backgroundColor: Theme.of(context).colorScheme.onBackground,
             onPressed: () async {
               ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {

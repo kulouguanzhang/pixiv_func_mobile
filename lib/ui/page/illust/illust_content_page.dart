@@ -41,6 +41,7 @@ class IllustContentPage extends StatefulWidget {
 class _IllustContentPageState extends State<IllustContentPage> {
   Widget _buildBookmarkButton(IllustContentModel model) {
     return FloatingActionButton(
+      heroTag: 'illust:${model.illust.id} Favorite Button',
       backgroundColor: Theme.of(context).hintColor,
       child: model.bookmarkRequestWaiting
           ? const CircularProgressIndicator()

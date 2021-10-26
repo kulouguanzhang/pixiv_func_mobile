@@ -30,6 +30,7 @@ class _SearchGuidePageState extends State<SearchGuidePage> {
       builder: (BuildContext context, SearchGuideModel model, Widget? child) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
+            heroTag: 'To SearchInputPage',
             backgroundColor: Theme.of(context).colorScheme.onBackground,
             onPressed: () => PageUtils.to(context, const SearchInputPage()),
             child: const Icon(Icons.search_outlined),
