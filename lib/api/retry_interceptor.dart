@@ -7,7 +7,7 @@
  */
 
 import 'package:dio/dio.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 
 class RetryInterceptor extends InterceptorsWrapper {
   final Dio _httpClient;
@@ -36,9 +36,7 @@ class RetryInterceptor extends InterceptorsWrapper {
 
     Log.i('[${options.uri.host}:${options.uri.path}] 重试:$_retryCount次');
 
-    //不能用try catch 因为Dio的严重BUG 偶尔会不抛异常(自作主张自己给处理了???)
-    //可能是因为这个 (https://github.com/flutterchina/dio/issues/377)
-    //好恶心的换行
+
     await _httpClient
         .request(
           options.path,

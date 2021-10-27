@@ -6,10 +6,10 @@
  * 作者:小草
  */
 
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:pixiv_func_android/api/entity/illust.dart';
-import 'package:pixiv_func_android/downloader/downloader.dart';
+import 'package:pixiv_func_android/util/downloader.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
 import 'package:pixiv_func_android/provider/provider_widget.dart';
 import 'package:pixiv_func_android/util/utils.dart';

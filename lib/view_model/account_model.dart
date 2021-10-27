@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pixiv_func_android/api/entity/local_user.dart';
 import 'package:pixiv_func_android/api/model/user_account.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 import 'package:pixiv_func_android/platform/webview/platform_web_view.dart';
 import 'package:pixiv_func_android/provider/base_view_model.dart';
 import 'package:pixiv_func_android/util/page_utils.dart';

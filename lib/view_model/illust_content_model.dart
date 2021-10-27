@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/api/entity/illust.dart';
 import 'package:pixiv_func_android/api/model/illusts.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 import 'package:pixiv_func_android/provider/base_view_state_list_model.dart';
 import 'package:pixiv_func_android/view_model/illust_previewer_model.dart';
 

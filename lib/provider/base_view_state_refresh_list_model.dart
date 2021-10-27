@@ -8,7 +8,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 import 'package:pixiv_func_android/provider/base_view_state_list_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

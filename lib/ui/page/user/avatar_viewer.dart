@@ -6,7 +6,7 @@
  * 作者:小草
  */
 import 'package:flutter/material.dart';
-import 'package:pixiv_func_android/downloader/downloader.dart';
+import 'package:pixiv_func_android/util/downloader.dart';
 import 'package:pixiv_func_android/ui/widget/image_view_from_url.dart';
 
 class AvatarViewer extends StatelessWidget {

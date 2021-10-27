@@ -6,7 +6,7 @@
  * 作者:小草
  */
 import 'package:flutter/material.dart';
-import 'package:pixiv_func_android/downloader/downloader.dart';
+import 'package:pixiv_func_android/util/downloader.dart';
 import 'package:pixiv_func_android/model/download_task.dart';
 import 'package:pixiv_func_android/ui/page/illust/illust_content_page.dart';
 import 'package:pixiv_func_android/util/page_utils.dart';

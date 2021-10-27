@@ -11,7 +11,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/api/model/user_detail.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 import 'package:pixiv_func_android/provider/base_view_state_model.dart';
 import 'package:pixiv_func_android/view_model/user_preview_model.dart';
 

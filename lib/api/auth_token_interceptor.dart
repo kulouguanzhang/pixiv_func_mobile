@@ -11,7 +11,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 
 import 'model/error_message.dart';
 import 'oauth_api.dart';
@@ -46,12 +46,12 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     if (null == err.response) {
-      return handler.next(err);
+      return handler.reject(err);
     }
 
     //http 400
     if (HttpStatus.badRequest != err.response!.statusCode) {
-      return handler.next(err);
+      return handler.reject(err);
     }
 
     final errorMessage = ErrorMessage.fromJson(jsonDecode(err.response!.data));
@@ -59,7 +59,7 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
     final message = errorMessage.error.message!;
 
     if (!message.contains('OAuth')) {
-      return handler.next(err);
+      return handler.reject(err);
     }
 
     Log.d('AuthToken错误');
@@ -79,8 +79,6 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
 
       final currentAccount = accountManager.current!;
 
-      //不能用try catch 因为Dio的严重BUG 偶尔会不抛异常(自作主张自己给处理了???)
-      //可能是因为这个 (https://github.com/flutterchina/dio/issues/377)
       bool hasError = false;
 
       await oAuthAPI.refreshAuthToken(currentAccount.refreshToken).then((result) {

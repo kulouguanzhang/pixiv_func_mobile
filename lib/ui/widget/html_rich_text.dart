@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as html show parseFragment;
 import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 import 'package:pixiv_func_android/ui/page/illust/illust_page.dart';
 import 'package:pixiv_func_android/ui/page/user/user_page.dart';
 import 'package:pixiv_func_android/util/page_utils.dart';

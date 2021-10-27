@@ -19,7 +19,7 @@ Future<void> main() async {
   //一定要初始化
   WidgetsFlutterBinding.ensureInitialized();
 
-  await init();
+  await instanceSetup();
 
   runApp(
     MultiProvider(

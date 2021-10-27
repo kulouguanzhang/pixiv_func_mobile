@@ -28,7 +28,7 @@ AccountModel accountModel = AccountModel();
 DownloadTaskModel downloadTaskModel = DownloadTaskModel();
 HomeModel homeModel = HomeModel();
 
-Future<void> init() async {
+Future<void> instanceSetup() async {
   await accountManager.load();
   await settingsManager.load();
   await browsingHistoryManager.init();

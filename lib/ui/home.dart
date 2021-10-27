@@ -9,7 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:pixiv_func_android/api/model/user_account.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 import 'package:pixiv_func_android/ui/page/about/about_page.dart';
 import 'package:pixiv_func_android/ui/page/ranking/ranking_page.dart';
 import 'package:pixiv_func_android/ui/page/recommended/recommended_page.dart';

@@ -42,14 +42,10 @@ class RecommendedPage extends StatelessWidget {
             Expanded(
               child: LazyIndexedStack(
                 index: model.type.index,
-                children: const [
-                  RecommendedIllustContent(
-                    WorkType.illust,
-                  ),
-                  RecommendedIllustContent(
-                    WorkType.manga,
-                  ),
-                  RecommendedNovelContent(),
+                children: [
+                  RecommendedIllustContent(WorkType.illust),
+                  RecommendedIllustContent(WorkType.manga),
+                  const RecommendedNovelContent(),
                 ],
               ),
             ),

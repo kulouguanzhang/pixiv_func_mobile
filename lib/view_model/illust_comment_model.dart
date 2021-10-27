@@ -12,7 +12,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pixiv_func_android/api/model/comments.dart';
 import 'package:pixiv_func_android/instance_setup.dart';
-import 'package:pixiv_func_android/log/log.dart';
+import 'package:pixiv_func_android/util/log.dart';
 import 'package:pixiv_func_android/model/comment_tree.dart';
 import 'package:pixiv_func_android/provider/base_view_state_refresh_list_model.dart';
 

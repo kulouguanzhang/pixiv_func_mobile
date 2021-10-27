@@ -1,7 +1,7 @@
 name: pixiv_func_android
 description: Pixiv Android 客户端
 
-version: 0.9.6
+version: 0.9.7
 publish_to: 'node'
 environment:
   sdk: ">=2.14.0 <3.0.0"
@@ -15,7 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.3
   json_annotation: ^4.1.0
   provider: ^6.0.1
-  dio: ^4.0.0
+  dio: ^4.0.1
   crypto: ^3.0.1
   #数据持久化
   shared_preferences: ^2.0.8
