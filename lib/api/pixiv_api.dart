@@ -39,7 +39,7 @@ class PixivAPI {
         'App-OS': 'android',
         'App-OS-Version': '7.1.2',
         'App-Version': '6.21.1',
-        'Accept-Language': 'zh',
+        'Accept-Language': 'zh-CN',
         'Host': _targetHost
       },
       connectTimeout: 5 * 1000,
@@ -51,7 +51,7 @@ class PixivAPI {
   PixivAPI() {
     httpClient.interceptors.addAll(
       [
-        RetryInterceptor(httpClient),
+        RetryInterceptor(httpClient, hasNext: true),
         AuthTokenInterceptor(),
       ],
     );

@@ -54,10 +54,10 @@ class OAuthAPI {
         headers: {
           'X-Client-Time': time,
           'X-Client-Hash': getHash(time + _hashSalt),
-          'User-Agent': 'PixivAndroidApp/6.21.0 (Android 7.1.2; XiaoCao)',
+          'User-Agent': 'PixivAndroidApp/6.21.1 (Android 7.1.2; XiaoCao)',
           'App-OS': 'android',
-          'App-OS-Version': '7.0.0',
-          'App-Version': '6.1.9',
+          'App-OS-Version': '7.1.2',
+          'App-Version': '6.21.1',
           'Accept-Language': 'zh-CN',
           'Host': _targetHost,
         },
@@ -66,8 +66,7 @@ class OAuthAPI {
         sendTimeout: 6 * 1000,
       ),
     );
-    _httpClient.interceptors.add(RetryInterceptor(_httpClient));
-    // _httpClient.interceptors.add(LogInterceptor(responseBody: true));
+    _httpClient.interceptors.add(RetryInterceptor(_httpClient, hasNext: false));
   }
 
   ///刷新token

@@ -10,9 +10,11 @@ import 'package:dio/dio.dart';
 import 'package:pixiv_func_android/util/log.dart';
 
 class RetryInterceptor extends InterceptorsWrapper {
-  final Dio _httpClient;
+  final Dio httpClient;
 
-  RetryInterceptor(Dio httpClient) : _httpClient = httpClient;
+  final bool hasNext;
+
+  RetryInterceptor(this.httpClient, {required this.hasNext});
 
   int _retryCount = 0;
 
@@ -24,7 +26,11 @@ class RetryInterceptor extends InterceptorsWrapper {
     if (!err.message.contains('Connection closed before full header was received') &&
         !err.message.contains('Connection terminated during handshake') &&
         !err.message.contains('timed out')) {
-      return handler.next(err);
+      if (hasNext) {
+        return handler.next(err);
+      } else {
+        return handler.reject(err);
+      }
     }
     //超过最大重试次数
     if (++_retryCount > _maxRetryCount) {
@@ -36,8 +42,7 @@ class RetryInterceptor extends InterceptorsWrapper {
 
     Log.i('[${options.uri.host}:${options.uri.path}] 重试:$_retryCount次');
 
-
-    await _httpClient
+    await httpClient
         .request(
           options.path,
           options: Options(method: options.method, headers: options.headers, contentType: options.contentType),
