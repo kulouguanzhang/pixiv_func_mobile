@@ -23,12 +23,12 @@ class IllustPage extends StatelessWidget {
       builder: (BuildContext context, IllustModel model, Widget? child) {
         if (ViewState.busy == model.viewState) {
           return Scaffold(
-            appBar: AppBar(title: const Text('用户')),
+            appBar: AppBar(title: Text('插画ID:$id')),
             body: const Center(child: CircularProgressIndicator()),
           );
         } else if (ViewState.initFailed == model.viewState) {
           return Scaffold(
-            appBar: AppBar(title: const Text('用户')),
+            appBar: AppBar(title: Text('插画ID:$id')),
             body: Center(
               child: ListTile(
                 onTap: model.loadData,

@@ -23,9 +23,10 @@ class RetryInterceptor extends InterceptorsWrapper {
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     //(在收到完整标头之前连接已关闭) (握手期间连接终止) (超时)
-    if (!err.message.contains('Connection closed before full header was received') &&
-        !err.message.contains('Connection terminated during handshake') &&
-        !err.message.contains('timed out')) {
+    if (err.type == DioErrorType.cancel ||
+        !err.message.contains('Connection closed before full header was received') &&
+            !err.message.contains('Connection terminated during handshake') &&
+            !err.message.contains('timed out')) {
       if (hasNext) {
         return handler.next(err);
       } else {

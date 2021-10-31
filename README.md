@@ -46,6 +46,19 @@
 
 ---
 
+<details>
+<summary>
+适用于 Windows Subsystem for Android™
+</summary>
+
+![](images/WSA测试.png)
+
+</details>
+
+---
+
+---
+
 # 关于免代理直连:
 
 1. API是强制开启的,图片源可以自选选择

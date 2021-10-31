@@ -17,12 +17,12 @@ abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T
 
   final ScrollController scrollController = ScrollController();
 
-  final CancelToken cancelToken = CancelToken();
+  CancelToken cancelToken = CancelToken();
 
   BaseViewStateRefreshListModel() {
     scrollController.addListener(scrollEvent);
   }
-  
+
   @override
   void dispose() {
     cancelToken.cancel();
@@ -60,6 +60,7 @@ abstract class BaseViewStateRefreshListModel<T> extends BaseViewStateListModel<T
   void refresh() {
     cancelToken.cancel();
     refreshController.refreshToIdle();
+    cancelToken = CancelToken();
     refreshController.requestRefresh();
   }
 
