@@ -12,6 +12,7 @@ import android.provider.Settings
 import android.util.Log
 import androidx.core.content.FileProvider
 import java.io.File
+import java.net.URI
 
 class DownloadManagerUtil(private val context: Context) {
 
@@ -55,65 +56,91 @@ class DownloadManagerUtil(private val context: Context) {
 
     fun download(url: String, versionTag: String) {
         Log.i("Download", url)
+        val destFile = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "PixivFunc-$versionTag.apk"
+        )
+        if (destFile.exists()) {
+            install(destFile)
+            Log.i("Download", "文件已经存在")
+            return
+        }
         // 返回任务ID
 
-        val request = DownloadManager.Request(Uri.parse(url)).apply {
-            // 设置允许使用的网络类型
-            setAllowedNetworkTypes(
-                DownloadManager.Request.NETWORK_MOBILE or
-                        DownloadManager.Request.NETWORK_WIFI
-            )
-            // 下载中以及下载完成都显示通知栏
-            setNotificationVisibility(
-                DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
-            )
-
-            setTitle("PixivFunc")
-            setDescription("正在下载PixivFunc的新版本")
-            setMimeType("application/vnd.android.package-archive")
-
-            val destFile = File(
-                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
-                "PixivFunc-$versionTag.apk"
-            ).also {
-                if (it.exists()) {
-                    it.delete()
-                }
-            }
-
-            setDestinationUri(
-                Uri.parse(
-                    "file://${destFile.absolutePath}"
-                )
-            )
-            downloadPath = destFile.absolutePath
-        }
         downloadId = try {
-            downloadManager.enqueue(request)
+            downloadManager.enqueue(
+                DownloadManager.Request(Uri.parse(url)).apply {
+                    // 设置允许使用的网络类型
+                    setAllowedNetworkTypes(
+                        DownloadManager.Request.NETWORK_MOBILE or
+                                DownloadManager.Request.NETWORK_WIFI
+                    )
+                    // 下载中以及下载完成都显示通知栏
+                    setNotificationVisibility(
+                        DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
+                    )
+
+                    setTitle("PixivFunc更新")
+                    setDescription("正在下载${destFile.name}")
+                    setMimeType("application/vnd.android.package-archive")
+
+                    setDestinationUri(Uri.fromFile(destFile))
+
+                }
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             -1
         }
-//        Log.i("appId", appId.toString())
+        Log.i("Download", downloadId.toString())
+        Log.i("Download", destFile.absolutePath)
     }
+
 
     fun cleanup() {
 
         try {
-//            Log.i("DMUtil", "appId:${appId}")
             downloadManager.remove(downloadId)
-            File(downloadPath).let {
-                if (it.exists()) {
-                    it.delete()
-                }
-            }
 
         } catch (e: Exception) {
         }
+
         downloadId = 0L
     }
 
-    fun install() {
+    fun install(id: Long) {
+        val downloadFileUri = downloadManager.getUriForDownloadedFile(id)
+
+        startInstall(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                FileProvider.getUriForFile(
+                    context.applicationContext,
+                    context.packageName.toString() + ".FileProvider",
+                    File(URI(downloadFileUri.toString()))
+                )
+
+            } else {
+                downloadFileUri
+            }
+        )
+    }
+
+    fun install(file: File) {
+        startInstall(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                FileProvider.getUriForFile(
+                    context.applicationContext,
+                    context.packageName.toString() + ".FileProvider",
+                    file
+                )
+
+            } else {
+                Uri.fromFile(file)
+            }
+        )
+    }
+
+    private fun startInstall(uri: Uri) {
         Intent(Intent.ACTION_VIEW).apply {
 
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -121,21 +148,11 @@ class DownloadManagerUtil(private val context: Context) {
             // 7.0 以上
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                downloadManager.getUriForDownloadedFile(downloadId)
-            } else {
-                FileProvider.getUriForFile(
-                    context.applicationContext,
-                    context.packageName.toString() + ".FileProvider",
-                    File(downloadPath)
-                )
-            }.let {
-                setDataAndType(
-                    it,
-                    "application/vnd.android.package-archive"
-                )
-
             }
-
+            setDataAndType(
+                uri,
+                "application/vnd.android.package-archive"
+            )
 
         }.run {
             if (resolveActivity(context.packageManager) != null) {
@@ -146,13 +163,11 @@ class DownloadManagerUtil(private val context: Context) {
                 }
             }
         }
-
-        downloadId = 0L
-        downloadPath = ""
     }
 
+
     companion object {
+
         var downloadId: Long = 0L
-        var downloadPath: String = ""
     }
 }
