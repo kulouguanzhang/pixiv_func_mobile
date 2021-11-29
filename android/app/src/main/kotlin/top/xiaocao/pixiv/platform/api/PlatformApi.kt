@@ -101,7 +101,7 @@ class PlatformApi(private val context: Context) {
                 if (it) {
                     download(url, versionTag)
                 } else {
-                    Log.i("PlatformAPI", "下载管理器被禁用")
+                    Log.i("Get.find<PlatformApi>", "下载管理器被禁用")
                 }
             }
         }

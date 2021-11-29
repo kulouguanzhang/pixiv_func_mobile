@@ -34,6 +34,12 @@ class PlatformWebView(
     private val useLocalReverseProxy: Boolean =
         (arguments as Map<*, *>)["useLocalReverseProxy"] as Boolean
 
+    private val useHttpProxy: Boolean =
+        (arguments as Map<*, *>)["useHttpProxy"] as Boolean
+
+    private val httpProxyUrl: String =
+        (arguments as Map<*, *>)["httpProxyUrl"] as String
+
     private val messageChannel: BasicMessageChannel<Any> =
         BasicMessageChannel(
             binaryMessenger,
@@ -48,28 +54,63 @@ class PlatformWebView(
         )
 
 
-
-
-
     override fun onFlutterViewAttached(flutterView: View) {
 //        Log.i("Info","onFlutterViewAttached")
-        if (useLocalReverseProxy) {
+        if (useHttpProxy) {
             if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
-                PixivLocalReverseProxy.startServer("12345")
-                val proxyUrl = "127.0.0.1:12345"
                 val proxyConfig: ProxyConfig = ProxyConfig.Builder()
-                    .addProxyRule(proxyUrl)
+                    .addProxyRule(httpProxyUrl)
                     .addDirect()
                     .build()
                 ProxyController.getInstance().setProxyOverride(
                     proxyConfig,
                     { command -> command?.run() },
                 ) {
-                    Log.i("PlatformWebView", "Set Proxy")
+                    Log.i("PlatformWebView", "SetHttpProxy:$httpProxyUrl")
+                }
+            }
+        } else if (useLocalReverseProxy) {
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+                PixivLocalReverseProxy.startServer("12345")
+                val proxyConfig: ProxyConfig = ProxyConfig.Builder()
+                    .addProxyRule("127.0.0.1:12345")
+                    .addDirect()
+                    .build()
+                ProxyController.getInstance().setProxyOverride(
+                    proxyConfig,
+                    { command -> command?.run() },
+                ) {
+                    Log.i("PlatformWebView", "Set Reverse Proxy")
                 }
             }
         }
         super.onFlutterViewAttached(flutterView)
+    }
+
+    override fun dispose() {
+//        Log.i("Info","dispose")
+        if (useHttpProxy) {
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+                ProxyController.getInstance().clearProxyOverride(
+                    { command -> command?.run() },
+                ) {
+                    Log.i("PlatformWebView", "Clear Http Proxy")
+                }
+
+            }
+        } else if (useLocalReverseProxy) {
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+                ProxyController.getInstance().clearProxyOverride(
+                    { command -> command?.run() },
+                ) {
+                    Log.i("PlatformWebView", "Clear Reverse Proxy")
+                }
+                PixivLocalReverseProxy.stopServer()
+            }
+
+        }
+        super.onFlutterViewDetached()
+        webView.destroy()
     }
 
     init {
@@ -79,6 +120,8 @@ class PlatformWebView(
         }
 
         webView.webViewClient = object : WebViewClient() {
+
+
 
             @SuppressLint("WebViewClientOnReceivedSslError")
             override fun onReceivedSslError(
@@ -153,22 +196,6 @@ class PlatformWebView(
         return webView
     }
 
-    override fun dispose() {
-//        Log.i("Info","dispose")
-        if (useLocalReverseProxy) {
-            if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
-                ProxyController.getInstance().clearProxyOverride(
-                    { command -> command?.run() },
-                ) {
-                    Log.i("PlatformWebView", "Clear Proxy")
-                }
-                PixivLocalReverseProxy.stopServer()
-            }
-
-        }
-        super.onFlutterViewDetached()
-        webView.destroy()
-    }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
