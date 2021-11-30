@@ -62,6 +62,13 @@ class SearchInputController extends GetxController {
     state.filter = value;
   }
 
+  void typeValueOnChanged(int? value) {
+    if (null != value) {
+      state.type = value;
+      update();
+    }
+  }
+
   void toSearchResultPage(String value) {
     switch (state.type) {
       case 0:
@@ -128,7 +135,7 @@ class SearchInputController extends GetxController {
     Get.to(UserPage(id: state.inputAsNumber));
   }
 
-  void searchImage(){
+  void searchImage() {
     ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
       if (null != picker) {
         picker.readAsBytes();

@@ -7,6 +7,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/components/sliding_segmented_control/sliding_segmented_control.dart';
 import 'package:pixiv_func_android/pages/search/filter_editor/filter_editor.dart';
 import 'package:pixiv_func_android/pages/search/input/controller.dart';
 
@@ -67,37 +68,52 @@ class SearchInputPage extends StatelessWidget {
               ),
             ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                if (state.inputIsNumber)
-                  if (state.type == 0)
-                    ListTile(
-                      onTap: () => controller.toIllustPageById(),
-                      title: Text('${state.inputAsNumber}'),
-                      subtitle: const Text('插画ID'),
-                    )
-                  else if (state.type == 1)
-                    ListTile(
-                      onTap: () => controller.toNovelPageById(),
-                      title: Text('${state.inputAsNumber}'),
-                      subtitle: const Text('小说ID'),
-                    )
-                  else if (state.type == 2)
-                    ListTile(
-                      onTap: () => controller.toUserPageById(),
-                      title: Text('${state.inputAsNumber}'),
-                      subtitle: const Text('用户ID'),
-                    ),
-                if (null != state.searchAutocomplete)
-                  for (var tag in state.searchAutocomplete!.tags)
-                    ListTile(
-                      onTap: () => controller.toSearchResultPage(tag.name),
-                      title: Text(tag.name),
-                      subtitle: null != tag.translatedName ? Text(tag.translatedName!) : null,
-                    )
-              ],
-            ),
+          body: Column(
+            children: [
+              SlidingSegmentedControl(
+                children: const <int, Widget>{
+                  0: Text('插画&漫画'),
+                  1: Text('小说'),
+                  2: Text('用户'),
+                },
+                groupValue: state.type,
+                onValueChanged: controller.typeValueOnChanged,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      if (state.inputIsNumber)
+                        if (state.type == 0)
+                          ListTile(
+                            onTap: () => controller.toIllustPageById(),
+                            title: Text('${state.inputAsNumber}'),
+                            subtitle: const Text('插画ID'),
+                          )
+                        else if (state.type == 1)
+                          ListTile(
+                            onTap: () => controller.toNovelPageById(),
+                            title: Text('${state.inputAsNumber}'),
+                            subtitle: const Text('小说ID'),
+                          )
+                        else if (state.type == 2)
+                          ListTile(
+                            onTap: () => controller.toUserPageById(),
+                            title: Text('${state.inputAsNumber}'),
+                            subtitle: const Text('用户ID'),
+                          ),
+                      if (null != state.searchAutocomplete)
+                        for (var tag in state.searchAutocomplete!.tags)
+                          ListTile(
+                            onTap: () => controller.toSearchResultPage(tag.name),
+                            title: Text(tag.name),
+                            subtitle: null != tag.translatedName ? Text(tag.translatedName!) : null,
+                          )
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           floatingActionButton: FloatingActionButton(
             heroTag: 'ToImagePickerHear',

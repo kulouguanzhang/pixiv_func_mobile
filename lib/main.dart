@@ -14,6 +14,7 @@ Future<void> main() async {
   HttpConfig.refreshHttpClient();
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Pixiv Func',
       home: const HomeWidget(),
       theme: AppTheme.lightTheme,

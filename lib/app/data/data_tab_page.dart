@@ -121,6 +121,7 @@ class _DataTabPageState extends State<DataTabPage> with TickerProviderStateMixin
   }
 
   Future<bool> onRefresh() async {
+    PrimaryScrollController.of(context)!.jumpTo(widget.expandedHeight ?? 0);
     final tab = widget.tabs[tabController.index];
     if (tab.isCustomChild) {
       return true;

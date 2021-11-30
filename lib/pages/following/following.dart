@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
-import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
+import 'package:pixiv_func_android/components/user_previewer/user_previewer.dart';
 
 
 import 'content/source.dart';
@@ -34,12 +34,12 @@ class FollowingPage extends StatelessWidget {
             DataTabConfig(
               name: '公开',
               source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId,true),
-              itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
+              itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),
             DataTabConfig(
               name: '私有',
               source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId,false),
-              itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
+              itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),
 
           ],

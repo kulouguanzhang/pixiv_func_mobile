@@ -1,13 +1,6 @@
-# 你好,色批人
-
-### _该项目与一切现有同类项目无关,请不要拿来比较_
-
-### _夹批搪与牲口不得使用_
+# Pixiv第三方客户端
 
 此软件开源且免费(不收取打赏) 禁止用于盈利(包括但不仅限于收取打赏)
-
-我对`人`是非常友好的(😊), 如果发现Bug或者不合理的地方或者想要新增功能(我会酌情考虑要不要做)
-请打开一个 [Issue](https://github.com/xiao-cao-x/pixiv_func_android/issues/new) 哦
 
 如果你觉得我的软件好用 可以推荐给朋友
 
@@ -44,16 +37,6 @@
 | 关注和取消关注(用户) |  |
 | 收藏和取消收藏(插画&漫画/小说) |  |
 
-
-<details>
-<summary>
-适用于 Windows Subsystem for Android™
-</summary>
-
-![](images/WSA测试.png)
-
-</details>
-
 ---
 
 # 关于免代理直连:
@@ -68,3 +51,16 @@
 3. 可能间歇性的失效
 4. 如果无法直连请开代理
 5. 并不是"直连这个功能等于没有"(选自某牲口发言),请好好说话
+
+# 预览
+
+
+![img1](./preview/img1.jpg)
+
+![img2](./preview/img2.jpg)
+
+![img3](./preview/img3.jpg)
+
+![img4](./preview/img4.jpg)
+
+![img5](./preview/img5.jpg)
