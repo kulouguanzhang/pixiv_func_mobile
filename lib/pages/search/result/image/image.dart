@@ -89,9 +89,12 @@ class SearchImageResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SearchImageResultController(imageBytes: imageBytes, filename: filename));
+    final controller = Get.put(SearchImageResultController(imageBytes: imageBytes, filename: filename));
     return GetBuilder<SearchImageResultController>(
       assignId: true,
+      initState: (state) async {
+        await controller.init();
+      },
       builder: (controller) {
         final Widget widget;
         if (controller.loading) {

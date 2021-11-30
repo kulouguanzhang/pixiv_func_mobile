@@ -6,12 +6,16 @@
  * 作者:小草
  */
 
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/data/data_tab_config.dart';
+import 'package:pixiv_func_android/app/data/data_tab_page.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
-import 'package:pixiv_func_android/components/sliver_tab_bar/sliver_tab_bar.dart';
-import 'package:pixiv_func_android/pages/following/content/content.dart';
+import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
+
+
+import 'content/source.dart';
 
 class FollowingPage extends StatelessWidget {
   final int? id;
@@ -20,36 +24,25 @@ class FollowingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return SafeArea(
       child: Scaffold(
-        body: DefaultTabController(
-          length: 2,
-          child: ExtendedNestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-              return [
-                const SliverAppBar(
-                  title: Text('关注'),
-                ),
-                const SliverTabBar(
-                  child: TabBar(
-                    tabs: [
-                      Tab(child: Text('公开')),
-                      Tab(child: Text('私有')),
-                    ],
-                  ),
-                  pinned: true,
-                ),
-              ];
-            },
-            onlyOneScrollInBody: true,
-            floatHeaderSlivers: true,
-            body: TabBarView(
-              children: [
-                FollowingContent(id: id ?? Get.find<AccountService>().currentUserId, restrict: true),
-                FollowingContent(id: id ?? Get.find<AccountService>().currentUserId, restrict: false),
-              ],
+        body: DataTabPage(
+          title: '关注',
+          tabs: [
+            DataTabConfig(
+              name: '公开',
+              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId,true),
+              itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
             ),
-          ),
+            DataTabConfig(
+              name: '私有',
+              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId,false),
+              itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
+            ),
+
+          ],
         ),
       ),
     );

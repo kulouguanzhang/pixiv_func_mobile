@@ -53,7 +53,10 @@ class UserPreviewer extends StatelessWidget {
                 child: AvatarFromUrl(userPreview.user.profileImageUrls.medium),
               ),
             ),
-            title: Text(userPreview.user.name),
+            title: Text(
+              userPreview.user.name,
+              overflow: TextOverflow.ellipsis,
+            ),
             trailing: FollowSwitchButton(
               id: userPreview.user.id,
               initValue: userPreview.user.isFollowed!,

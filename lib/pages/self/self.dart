@@ -12,9 +12,11 @@ import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/components/local_user_card/local_user_card.dart';
 import 'package:pixiv_func_android/pages/about/about.dart';
 import 'package:pixiv_func_android/pages/account/account.dart';
+import 'package:pixiv_func_android/pages/any_new/any_new.dart';
 import 'package:pixiv_func_android/pages/bookmarked/bookmarked.dart';
 import 'package:pixiv_func_android/pages/browsing_history/browsing_history.dart';
 import 'package:pixiv_func_android/pages/download_manager/download_manager.dart';
+import 'package:pixiv_func_android/pages/follower_new/follower_new.dart';
 import 'package:pixiv_func_android/pages/following/following.dart';
 import 'package:pixiv_func_android/pages/settings/settings.dart';
 
@@ -49,6 +51,18 @@ class SelfPage extends StatelessWidget {
                 child: ListTile(
                   onTap: () => Get.to(const FollowingPage()),
                   title: const Text('关注', style: TextStyle(fontSize: 25)),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  onTap: () => Get.to(const FollowerNewPage()),
+                  title: const Text('最新作品(关注者)', style: TextStyle(fontSize: 25)),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  onTap: () => Get.to(const AnyNewPage()),
+                  title: const Text('最新作品(所有人)', style: TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
