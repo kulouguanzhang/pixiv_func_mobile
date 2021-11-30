@@ -125,7 +125,7 @@ class DownloadManagerUtil(private val context: Context) {
         )
     }
 
-    fun install(file: File) {
+    private fun install(file: File) {
         startInstall(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 FileProvider.getUriForFile(

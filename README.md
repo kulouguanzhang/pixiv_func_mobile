@@ -54,6 +54,7 @@
 
 # 预览
 
+![img0](./preview/img0.gif)
 
 ![img1](./preview/img1.jpg)
 

@@ -8,7 +8,6 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/entity/novel.dart';
 import 'package:pixiv_func_android/app/data/data_tab_view_content.dart';
 import 'package:pixiv_func_android/components/novel_previewer/novel_previewer.dart';
@@ -41,7 +40,7 @@ class SearchNovelResultPage extends StatelessWidget {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                title: Text('搜索插画:$word'),
+                title: Text('搜索小说:$word'),
                 actions: [
                   IconButton(
                     tooltip: '打开搜索过滤编辑器',
@@ -68,7 +67,6 @@ class SearchNovelResultPage extends StatelessWidget {
           body: DataTabViewContent<Novel>(
             sourceList: source,
             itemBuilder: (BuildContext context, Novel item, int index) => NovelPreviewer(novel: item),
-            extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           ),
           floatHeaderSlivers: true,
         ),
