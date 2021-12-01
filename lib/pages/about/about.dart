@@ -34,8 +34,8 @@ class AboutPage extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            onTap: () async => await controller.openTagHtmlByBrowser(),
-            onLongPress: () async => await controller.copyTagHtmlUrl(),
+            onTap: () => controller.openTagHtmlByBrowser(),
+            onLongPress: () => controller.copyTagHtmlUrl(),
             title: const Text('打开标签页'),
             subtitle: const Text('长按复制url'),
           ),
@@ -43,8 +43,8 @@ class AboutPage extends StatelessWidget {
         if (controller.appVersion != null && controller.appVersion != releaseInfo.tagName)
           Card(
             child: ListTile(
-              onTap: () async => await controller.startUpdateApp(),
-              onLongPress: () async => await controller.copyAppLatestVersionDownloadUrl(),
+              onTap: () => controller.startUpdateApp(),
+              onLongPress: () => controller.copyAppLatestVersionDownloadUrl(),
               title: const Text('下载最新版本'),
               subtitle: const Text('长按复制url'),
             ),
@@ -58,8 +58,8 @@ class AboutPage extends StatelessWidget {
     final controller = Get.put(AboutController());
     return GetBuilder<AboutController>(
       assignId: true,
-      initState: (state) async {
-        await controller.loadAppVersion();
+      initState: (state) {
+        controller.loadAppVersion();
         controller.loadLatestReleaseInfo();
       },
       builder: (AboutController controller) {
@@ -82,8 +82,8 @@ class AboutPage extends StatelessWidget {
                 Card(
                   margin: EdgeInsets.zero,
                   child: ListTile(
-                    onTap: () async => await controller.openProjectUrlByBrowser(),
-                    onLongPress: () async => await controller.copyProjectUrl(),
+                    onTap: () => controller.openProjectUrlByBrowser(),
+                    onLongPress: () => controller.copyProjectUrl(),
                     title: Text(controller.thisProjectGitHubUrl),
                     subtitle: const Text('项目地址(点击前往浏览器,长按复制url)'),
                   ),
@@ -129,12 +129,12 @@ class AboutPage extends StatelessWidget {
                 else if (null != controller.releaseInfo)
                   _buildReleaseInfo()
                 else if (controller.initFailed)
-                    ListTile(
-                      onTap: () => controller.loadLatestReleaseInfo(),
-                      title: const Center(
-                        child: Text('加载失败发行版信息失败,点击重新加载'),
-                      ),
+                  ListTile(
+                    onTap: () => controller.loadLatestReleaseInfo(),
+                    title: const Center(
+                      child: Text('加载失败发行版信息失败,点击重新加载'),
                     ),
+                  ),
               ],
             ),
           ),
