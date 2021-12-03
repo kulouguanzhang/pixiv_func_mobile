@@ -13,10 +13,15 @@ import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart
 
 import 'controller.dart';
 
-class UgoiraViewer extends StatelessWidget {
+class UgoiraViewer extends StatelessWidget with RouteAware  {
   final int id;
   final String previewUrl;
   final String? heroTag;
+
+  @override
+  void didPopNext(){
+
+  }
 
   const UgoiraViewer({
     Key? key,
@@ -78,3 +83,5 @@ class UgoiraViewer extends StatelessWidget {
     );
   }
 }
+
+

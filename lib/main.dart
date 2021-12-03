@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pixiv_func_android/app/http/http.dart';
 import 'package:pixiv_func_android/app/inject/inject.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_android/app/route/route.dart';
 import 'package:pixiv_func_android/app/theme/app_theme.dart';
 import 'package:pixiv_func_android/pages/home/home.dart';
 
@@ -13,6 +14,7 @@ Future<void> main() async {
 
   await Inject.init();
   HttpConfig.refreshHttpClient();
+
   runApp(const App());
 
   final storageStatus = Permission.storage;
@@ -39,6 +41,7 @@ class App extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: false,
       title: 'Pixiv Func',
+      navigatorObservers: [routeObserver],
       home: WillPopScope(
         onWillPop: () async {
           if (null == _lastPopTime || DateTime.now().difference(_lastPopTime!) > const Duration(seconds: 1)) {

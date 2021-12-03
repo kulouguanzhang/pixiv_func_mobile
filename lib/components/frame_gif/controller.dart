@@ -24,7 +24,7 @@ class FrameGifController extends GetxController {
   final ValueNotifier<int> indexValueNotifier = ValueNotifier<int>(0);
   final ValueNotifier<bool> pauseValueNotifier = ValueNotifier<bool>(false);
 
-  bool _dispose = false;
+  bool playing = false;
 
   bool get isPause => pauseValueNotifier.value;
 
@@ -33,28 +33,30 @@ class FrameGifController extends GetxController {
     update();
   }
 
-  @override
-  void dispose() {
-    _dispose = true;
-    super.dispose();
-  }
-
   Future<void> start() async {
+    playing = true;
     Future.sync(_updateRender);
   }
 
+  void stop() {
+    playing = false;
+  }
+
   void _updateRender() {
-    Future.delayed(Duration(milliseconds: delays[indexValueNotifier.value]), () {
-      if (!isPause) {
-        if (indexValueNotifier.value == images.length - 1) {
-          indexValueNotifier.value = 0;
-        } else {
-          indexValueNotifier.value++;
+    Future.delayed(
+      Duration(milliseconds: delays[indexValueNotifier.value]),
+      () {
+        if (!isPause) {
+          if (indexValueNotifier.value == images.length - 1) {
+            indexValueNotifier.value = 0;
+          } else {
+            indexValueNotifier.value++;
+          }
         }
-      }
-      if (!_dispose) {
-        _updateRender();
-      }
-    });
+        if (playing) {
+          _updateRender();
+        }
+      },
+    );
   }
 }

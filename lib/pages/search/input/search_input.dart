@@ -57,12 +57,11 @@ class SearchInputPage extends StatelessWidget {
             actions: [
               IconButton(
                 tooltip: '打开搜索过滤编辑器',
-                onPressed: () => showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) => SearchFilterEditor(
-                    filter: state.filter,
-                    onChanged: controller.filterOnChanged,
-                  ),
+                onPressed: () => Get.bottomSheet(
+                    SearchFilterEditor(
+                      filter: state.filter,
+                      onChanged: controller.filterOnChanged,
+                    )
                 ),
                 icon: const Icon(Icons.filter_alt_outlined),
               ),

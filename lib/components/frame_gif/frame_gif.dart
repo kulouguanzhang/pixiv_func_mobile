@@ -9,10 +9,11 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/route/route.dart';
 
 import 'controller.dart';
 
-class FrameGif extends StatelessWidget {
+class FrameGif extends StatelessWidget with RouteAware {
   final int id;
   final String previewUrl;
   final List<ui.Image> images;
@@ -31,39 +32,66 @@ class FrameGif extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  void didPushNext() {
+    Get.find<FrameGifController>(tag: '$runtimeType:$id').stop();
+    super.didPushNext();
+  }
+
+  @override
+  void didPopNext() {
+    Get.find<FrameGifController>(tag: '$runtimeType:$id').start();
+    super.didPopNext();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controllerTag = '$runtimeType$id';
+    final controllerTag = '$runtimeType:$id';
     final controller = Get.put(FrameGifController(images, delays), tag: controllerTag);
     return GetBuilder<FrameGifController>(
       tag: controllerTag,
       assignId: true,
+      didChangeDependencies: (state) {
+        routeObserver.subscribe(this, ModalRoute.of(context)!);
+      },
+      dispose: (state) {
+        routeObserver.unsubscribe(this);
+        controller.stop();
+        Get.delete<FrameGifController>(tag: controllerTag);
+      },
       initState: (state) => controller.start(),
       builder: (controller) {
-        return Hero(
-          tag: heroTag ?? 'IllustHero:$id',
-          child: GestureDetector(
-            onTap: () => controller.pauseStateChange(),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomPaint(
-                  size: size,
-                  painter: _GifPainter(
-                    controller.images,
-                    delays: controller.delays,
-                    indexValueNotifier: controller.indexValueNotifier,
-                    pauseValueNotifier: controller.pauseValueNotifier,
+        if (controller.playing) {
+          return Hero(
+            tag: heroTag ?? 'IllustHero:$id',
+            child: GestureDetector(
+              onTap: () => controller.pauseStateChange(),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CustomPaint(
                     size: size,
+                    painter: _GifPainter(
+                      controller.images,
+                      delays: controller.delays,
+                      indexValueNotifier: controller.indexValueNotifier,
+                      pauseValueNotifier: controller.pauseValueNotifier,
+                      size: size,
+                    ),
                   ),
-                ),
-                Visibility(
-                  visible: controller.isPause,
-                  child: const Icon(Icons.play_circle_outline_outlined, size: 70),
-                )
-              ],
+                  Visibility(
+                    visible: controller.isPause,
+                    child: const Icon(Icons.play_circle_outline_outlined, size: 70),
+                  )
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          return SizedBox(
+            height: size.height,
+            width: size.width,
+          );
+        }
       },
     );
   }
@@ -79,6 +107,7 @@ class _GifPainter extends CustomPainter {
   final ValueNotifier<bool> pauseValueNotifier;
 
   final Size size;
+
   _GifPainter(
     this.images, {
     required this.delays,
@@ -91,7 +120,6 @@ class _GifPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) async {
-
     final Size imageSize = Size(
       images[indexValueNotifier.value].width.toDouble(),
       images[indexValueNotifier.value].height.toDouble(),

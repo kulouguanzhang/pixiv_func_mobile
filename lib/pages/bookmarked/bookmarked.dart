@@ -51,12 +51,11 @@ class BookmarkedPage extends StatelessWidget {
                   IconButton(
                     tooltip: '打开搜索过滤编辑器',
                     onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) => BookmarkedFilterEditor(
-                          filter: data.value,
-                          onChanged: (BookmarkedFilter value) => data.value = value,
-                        ),
+                      Get.bottomSheet(
+                          BookmarkedFilterEditor(
+                            filter: data.value,
+                            onChanged: (BookmarkedFilter value) => data.value = value,
+                          )
                       );
                     },
                     icon: const Icon(Icons.filter_alt_outlined),

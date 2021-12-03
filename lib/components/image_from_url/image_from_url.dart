@@ -41,17 +41,11 @@ class ImageFromUrl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //转移 不然 '/' 被当成路径会报错
+    //转义 不然 '/' 被当成路径会报错
     final cacheUrlPath = Uri.parse(url).path.replaceAll('/', '%2F');
     return ExtendedImage.network(
       Utils.replaceImageSource(url),
       headers: const {'Referer': 'https://app-api.pixiv.net/'},
-      //https://github.com/fluttercandies/extended_image/issues/355
-      //https://github.com/fluttercandies/extended_image/issues/351
-      //https://github.com/fluttercandies/extended_image/issues/402
-      //当图像提供者改变时，是继续显示旧图像（真），还是暂时不显示（假）
-      //防止刷新时图片闪烁 (降低extended_image版本到 3.0.0 这些问题都没有了)
-      gaplessPlayback: true,
       cacheKey: cacheUrlPath,
       printError: false,
       loadStateChanged: (ExtendedImageState state) {
@@ -76,6 +70,7 @@ class ImageFromUrl extends StatelessWidget {
       },
       color: color,
       colorBlendMode: colorBlendMode,
+      enableMemoryCache: false,
       width: width,
       height: height,
       fit: fit ?? BoxFit.fitWidth,
