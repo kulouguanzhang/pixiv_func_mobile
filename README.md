@@ -9,7 +9,7 @@ Pixiv第三方安卓客户端
 代码严格按照`flutter_lints`的规范编写  
 或许适合新手学习Flutter(至少我这么认为)  
 
-#下载
+# 下载
 | 下载最新版本 |  |
 | --- | --- |
 | [方式1(点击下载)](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest/download/app-release.apk) | github.com |
