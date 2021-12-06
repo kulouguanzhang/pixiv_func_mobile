@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:pixiv_func_android/components/sliding_segmented_control/sliding_segmented_control.dart';
 import 'package:pixiv_func_android/pages/search/filter_editor/filter_editor.dart';
 import 'package:pixiv_func_android/pages/search/input/controller.dart';
+import 'package:pixiv_func_android/utils/utils.dart';
 
 class SearchInputPage extends StatelessWidget {
   const SearchInputPage({Key? key}) : super(key: key);
@@ -57,12 +58,16 @@ class SearchInputPage extends StatelessWidget {
             actions: [
               IconButton(
                 tooltip: '打开搜索过滤编辑器',
-                onPressed: () => Get.bottomSheet(
+                onPressed: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  Get.bottomSheet(
                     SearchFilterEditor(
                       filter: state.filter,
                       onChanged: controller.filterOnChanged,
-                    )
-                ),
+                    ),
+                    isScrollControlled: true,
+                  );
+                },
                 icon: const Icon(Icons.filter_alt_outlined),
               ),
             ],
@@ -115,7 +120,7 @@ class SearchInputPage extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            heroTag: 'ToImagePickerHear',
+            heroTag: 'ToImagePickerHero',
             backgroundColor: Get.theme.colorScheme.onBackground,
             onPressed: () => controller.searchImage(),
             child: const Icon(Icons.image_search_outlined),

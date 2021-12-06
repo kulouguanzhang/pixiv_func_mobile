@@ -54,8 +54,8 @@ class SearchInputController extends GetxController {
       startAutocomplete();
     } else {
       state.searchAutocomplete = null;
-      update();
     }
+    update();
   }
 
   void filterOnChanged(SearchFilter value) {

@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as html show parseFragment;
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_android/pages/illust/id_search/id_search.dart';
+import 'package:pixiv_func_android/pages/user/user.dart';
 import 'package:pixiv_func_android/utils/log.dart';
 import 'package:pixiv_func_android/utils/utils.dart';
 
@@ -66,10 +68,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
             return TextSpan(
               text: '插画ID:$illustId',
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  // Get.to(IllustPage(illustId));
-                },
+              recognizer: TapGestureRecognizer()..onTap = () => Get.to(IllustIdSearch(id: illustId)),
             );
           }
           if (Utils.urlIsUser(href)) {
@@ -77,10 +76,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
             return TextSpan(
               text: '用户ID:$userId',
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  // PageUtils.to(context, UserPage(userId));
-                },
+              recognizer: TapGestureRecognizer()..onTap = () => Get.to(UserPage(id: userId)),
             );
           }
 
@@ -122,6 +118,13 @@ class _HtmlRichTextState extends State<HtmlRichText> {
         case '<html span>':
           if (node.hasChildNodes()) {
             //忽略span标签的所有属性 (颜色 字体大小等)
+            return _buildNode(node.firstChild!, isStrong: true);
+          }
+
+          return const TextSpan(text: '');
+        case '<html i>':
+          if (node.hasChildNodes()) {
+            //忽略i标签的所有属性 (斜体)
             return _buildNode(node.firstChild!, isStrong: true);
           }
 
