@@ -13,23 +13,22 @@ import 'package:pixiv_func_android/models/bookmarked_filter.dart';
 
 class BookmarkedFilterEditor extends StatelessWidget {
   final BookmarkedFilter filter;
-  final ValueChanged<BookmarkedFilter> onChanged;
 
-  const BookmarkedFilterEditor({Key? key, required this.filter, required this.onChanged}) : super(key: key);
+  const BookmarkedFilterEditor({Key? key, required this.filter}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ObxValue<Rx<BookmarkedFilter>>(
       (Rx<BookmarkedFilter> data) {
-        return Container(
-          height: 450,
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Column(
+        return AlertDialog(
+          title: const Text('收藏过滤器'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               SlidingSegmentedControl(
                 children: const <bool, Widget>{
                   true: Text('公开'),
-                  false: Text('私有'),
+                  false: Text('悄悄'),
                 },
                 groupValue: data.value.restrict,
                 onValueChanged: (bool? value) {
@@ -39,16 +38,18 @@ class BookmarkedFilterEditor extends StatelessWidget {
                     });
                   }
                 },
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  onChanged(data.value);
-                  Get.back();
-                },
-                child: const Text('确定'),
-              ),
+                splitEqually: false,
+              )
             ],
           ),
+          actions: [
+            OutlinedButton(
+              onPressed: () {
+                Get.back(result: data.value);
+              },
+              child: const Text('确定'),
+            ),
+          ],
         );
       },
       BookmarkedFilter.copy(filter).obs,

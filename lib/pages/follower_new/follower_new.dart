@@ -36,7 +36,7 @@ class FollowerNewPage extends StatelessWidget {
                   menuItems: [
                     DropdownItem(null, '全部'),
                     DropdownItem(true, '公开'),
-                    DropdownItem(false, '私有'),
+                    DropdownItem(false, '悄悄'),
                   ],
                   currentValue: data.value,
                   onChanged: (bool? value) => data.value = value,

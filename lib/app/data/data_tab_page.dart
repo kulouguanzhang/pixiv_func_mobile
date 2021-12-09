@@ -86,7 +86,7 @@ class _DataTabPageState extends State<DataTabPage> with TickerProviderStateMixin
               child: TabBar(
                 controller: tabController,
                 isScrollable: widget.isScrollable,
-                onTap: (int index) => tabBarOnTap(context, index),
+                onTap: (int index) => tabBarOnTap(index),
                 tabs: [
                   for (final tab in widget.tabs) Tab(child: Text(tab.name)),
                 ],
@@ -130,7 +130,7 @@ class _DataTabPageState extends State<DataTabPage> with TickerProviderStateMixin
     }
   }
 
-  void tabBarOnTap(BuildContext context, int index) {
+  void tabBarOnTap(int index) {
     final tab = widget.tabs[index];
 
     if (index == tabController.index) {

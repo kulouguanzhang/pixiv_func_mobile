@@ -14,7 +14,6 @@ import 'package:pixiv_func_android/app/data/data_tab_page.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/components/user_previewer/user_previewer.dart';
 
-
 import 'content/source.dart';
 
 class FollowingPage extends StatelessWidget {
@@ -37,8 +36,8 @@ class FollowingPage extends StatelessWidget {
               itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),
             DataTabConfig(
-              name: '私有',
-              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId,false),
+              name: '悄悄',
+              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId, false),
               itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),
 

@@ -22,7 +22,7 @@ class ImageSourceSettingsWidget extends StatelessWidget {
         const List<MapEntry<String, String>> imageSources = [
           MapEntry('使用IP直连(210.140.92.139)', '210.140.92.139'),
           MapEntry('使用原始图片源(i.pximg.net)', 'i.pximg.net'),
-          MapEntry('使用代理图片源(i.pixiv.re)', 'i.pixiv.re'),
+          MapEntry('使用代理图片源(i.pixiv.re)', 'i.pixiv.re(大陆直连推荐用这个)'),
         ];
 
         return Column(

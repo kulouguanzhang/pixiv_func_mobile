@@ -177,28 +177,113 @@ class IllustCommentPage extends StatelessWidget {
     final controllerTag = '$runtimeType:$id';
     Get.put(IllustCommentController(id), tag: controllerTag);
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return [
-            const SliverAppBar(
-              title: Text('插画的评论'),
-            )
-          ];
-        },
-        body: GetBuilder<IllustCommentController>(
-          tag: controllerTag,
-          assignId: true,
-          builder: (IllustCommentController controller) {
-            return DataTabViewContent(
-              sourceList: controller.source,
-              itemBuilder: (BuildContext context, CommentTree item, int index) {
-                return _buildCommentTile(item);
-              },
-            );
-          },
-        ),
-        floatHeaderSlivers: true,
+      appBar: AppBar(
+        title: const Text('插画的评论'),
       ),
+      body: GetBuilder<IllustCommentController>(
+        tag: controllerTag,
+        assignId: true,
+        builder: (IllustCommentController controller) {
+          return Column(
+            children: [
+              Flexible(
+                child: DataTabViewContent(
+                  sourceList: controller.source,
+                  itemBuilder: (BuildContext context, CommentTree item, int index) {
+                    return _buildCommentTile(item);
+                  },
+                ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => controller.repliesCommentTree = null,
+                    icon: const Icon(
+                      Icons.reply_sharp,
+                    ),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      controller: controller.commentInput,
+                      decoration: InputDecoration(
+                        labelText: controller.commentInputLabel,
+                        prefix: const SizedBox(width: 5),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            controller.commentInput.clear();
+                          },
+                          child: const Icon(
+                            Icons.close_sharp,
+                            color: Colors.white54,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: ElevatedButton(
+                      onPressed: controller.doAddComment,
+                      child: const Text('发送'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class InputDialog {
+  static Future<String?> show({required BuildContext context, required Widget child}) async {
+    return Navigator.of(context).push(InputOverlay(child));
+  }
+}
+
+class InputOverlay extends ModalRoute<String> {
+  final Widget child;
+
+  InputOverlay(this.child);
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 200);
+
+  @override
+  bool get opaque => false;
+
+  @override
+  bool get barrierDismissible => true;
+
+  @override
+  Color get barrierColor => const Color(0x01000000);
+
+  @override
+  String? get barrierLabel => null;
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
+    return child;
+  }
+
+  @override
+  Widget buildTransitions(
+      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    return FadeTransition(
+      opacity: CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOut,
+      ),
+      child: child,
     );
   }
 }

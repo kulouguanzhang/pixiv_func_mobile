@@ -29,12 +29,12 @@ class BookmarkSwitchButtonController extends GetxController {
 
   bool get requesting => _requesting;
 
-  void changeBookmarkState() {
+  void changeBookmarkState({bool isChange = false, bool restrict = true}) {
     _requesting = true;
     update();
 
-    if (!_isBookmarked) {
-      Get.find<ApiClient>().bookmarkAdd(id, isNovel: isNovel).then((result) {
+    if (isChange || !_isBookmarked) {
+      Get.find<ApiClient>().bookmarkAdd(id, isNovel: isNovel, restrict: restrict).then((result) {
         _isBookmarked = true;
       }).catchError((e) {
         Log.e('添加书签失败', e);

@@ -39,7 +39,7 @@ class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      color: Get.theme.backgroundColor,
+      color: Get.theme.colorScheme.onSecondary,
       child: child,
     );
   }

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/data/data_source_base.dart';
 import 'package:pixiv_func_android/components/loading_more_indicator/loading_more_indicator.dart';
-import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class DataTabViewContent<T> extends StatelessWidget {
   final DataSourceBase<T> sourceList;
@@ -45,57 +44,4 @@ class DataTabViewContent<T> extends StatelessWidget {
     );
   }
 
-  Widget buildPullToRefreshHeader(PullToRefreshScrollNotificationInfo? info) {
-    var offset = info?.dragOffset ?? 0.0;
-    var mode = info?.mode;
-    // Widget refreshWidget = Container();
-    //
-    // if (info?.refreshWidget != null && offset > 18.0 && mode != RefreshIndicatorMode.error) {
-    //   refreshWidget = info!.refreshWidget!;
-    // }
-
-    final Widget child;
-    if (mode == RefreshIndicatorMode.error) {
-      child = GestureDetector(
-          onTap: () {
-            // refreshNotification;
-            info?.pullToRefreshNotificationState.show();
-          },
-          child: Container(
-            color: Colors.grey,
-            alignment: Alignment.bottomCenter,
-            height: offset,
-            width: double.infinity,
-            //padding: EdgeInsets.only(top: offset),
-            child: Container(
-              padding: const EdgeInsets.only(left: 5.0),
-              alignment: Alignment.center,
-              child: Text(
-                mode.toString() + "  click to retry",
-                style: const TextStyle(fontSize: 12.0, inherit: false),
-              ),
-            ),
-          ));
-    } else {
-      child = Container(
-        color: Colors.grey,
-        alignment: Alignment.bottomCenter,
-        height: offset,
-        width: double.infinity,
-        //padding: EdgeInsets.only(top: offset),
-        child: Container(
-          padding: const EdgeInsets.only(left: 5.0),
-          alignment: Alignment.center,
-          child: Text(
-            mode?.toString() ?? "",
-            style: const TextStyle(fontSize: 12.0, inherit: false),
-          ),
-        ),
-      );
-    }
-
-    return SliverToBoxAdapter(
-      child: child,
-    );
-  }
 }

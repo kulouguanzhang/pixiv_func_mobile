@@ -25,6 +25,58 @@ class BookmarkSwitchButton extends StatelessWidget {
     this.isNovel = false,
   }) : super(key: key);
 
+  void _restrictDialog() {
+    final controller = Get.find<BookmarkSwitchButtonController>(tag: '$runtimeType:$id');
+    Get.dialog(
+      ObxValue<RxBool>(
+        (data) {
+          return AlertDialog(
+            title: const Text('收藏插画'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RadioListTile(
+                  title: const Text('公开'),
+                  value: true,
+                  groupValue: data.value,
+                  onChanged: (bool? value) {
+                    if (null != value) {
+                      data.value = value;
+                    }
+                  },
+                ),
+                RadioListTile(
+                  title: const Text('悄悄'),
+                  value: false,
+                  groupValue: data.value,
+                  onChanged: (bool? value) {
+                    if (null != value) {
+                      data.value = value;
+                    }
+                  },
+                ),
+              ],
+            ),
+            actions: [
+              OutlinedButton(
+                onPressed: () {
+                  controller.changeBookmarkState(isChange: true, restrict: data.value);
+                  Get.back();
+                },
+                child: const Text('确定'),
+              ),
+              OutlinedButton(
+                onPressed: () => Get.back(),
+                child: const Text('取消'),
+              ),
+            ],
+          );
+        },
+        true.obs,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final controllerTag = '$runtimeType:$id';
@@ -43,28 +95,15 @@ class BookmarkSwitchButton extends StatelessWidget {
       },
       builder: (controller) {
         if (floating) {
-          return FloatingActionButton(
-            backgroundColor: Get.theme.colorScheme.onBackground,
-            heroTag: 'IllustBookmarkButtonHero:$id',
-            onPressed: controller.requesting ? null : controller.changeBookmarkState,
-            child: controller.requesting
-                ? const CircularProgressIndicator()
-                : controller.isBookmarked
-                    ? const Icon(
-                        Icons.favorite_sharp,
-                        color: Colors.pinkAccent,
-                      )
-                    : const Icon(
-                        Icons.favorite_outline_sharp,
-                      ),
-          );
-        } else {
-          return controller.requesting
-              ? const RefreshProgressIndicator()
-              : IconButton(
-                  splashRadius: 20,
-                  onPressed: controller.changeBookmarkState,
-                  icon: controller.isBookmarked
+          return GestureDetector(
+            onLongPress: () => controller.requesting || controller.isBookmarked ? null : _restrictDialog(),
+            child: FloatingActionButton(
+              backgroundColor: Get.theme.colorScheme.onBackground,
+              heroTag: 'IllustBookmarkButtonHero:$id',
+              onPressed: () => controller.requesting ? null : controller.changeBookmarkState(),
+              child: controller.requesting
+                  ? const CircularProgressIndicator()
+                  : controller.isBookmarked
                       ? const Icon(
                           Icons.favorite_sharp,
                           color: Colors.pinkAccent,
@@ -72,6 +111,26 @@ class BookmarkSwitchButton extends StatelessWidget {
                       : const Icon(
                           Icons.favorite_outline_sharp,
                         ),
+            ),
+          );
+        } else {
+          return controller.requesting
+              ? const RefreshProgressIndicator()
+              : GestureDetector(
+                  onLongPress: controller.isBookmarked ? null : () => _restrictDialog(),
+                  child: IconButton(
+                    splashRadius: 20,
+                    onPressed: () => controller.changeBookmarkState(),
+                    icon: controller.isBookmarked
+                        ? const Icon(
+                            Icons.favorite_sharp,
+                            color: Colors.pinkAccent,
+                          )
+                        : Icon(
+                            Icons.favorite_outline_sharp,
+                            color: Get.theme.colorScheme.onSurface,
+                          ),
+                  ),
                 );
         }
       },

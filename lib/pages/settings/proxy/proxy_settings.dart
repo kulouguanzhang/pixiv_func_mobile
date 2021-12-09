@@ -86,6 +86,10 @@ class ProxySettingsWidget extends StatelessWidget {
             }
           },
         ),
+        const Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: Text('这个是仅代理模式\n不了解就不要用否则无法正常联网\n是给WSA之类的没有VPN模块的系统用的\n手机用不到'),
+        ),
       ],
     );
   }

@@ -56,20 +56,13 @@ class LoadingMoreIndicator extends StatelessWidget {
       case IndicatorStatus.error:
         widget = InkWell(
           onTap: () => errorRefresh(),
-          child:  const SizedBox.expand(
-            child: Center(
-              child: Text('加载失败', style: textStyle),
-            ),
-          ),
+          child: const Center(child: Text('加载失败 点击重试', style: textStyle)),
         );
         break;
       case IndicatorStatus.fullScreenError:
-        widget = InkWell(
-          onTap: () => errorRefresh(),
-          child: const SizedBox.expand(
-            child: Center(
-              child: Text('加载失败', style: textStyle),
-            ),
+        widget = const SizedBox.expand(
+          child: Center(
+            child: Text('加载失败', style: textStyle),
           ),
         );
 

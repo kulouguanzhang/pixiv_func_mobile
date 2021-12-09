@@ -8,9 +8,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/components/sliding_segmented_control/sliding_segmented_control.dart';
+import 'package:pixiv_func_android/models/search_filter.dart';
 import 'package:pixiv_func_android/pages/search/filter_editor/filter_editor.dart';
 import 'package:pixiv_func_android/pages/search/input/controller.dart';
-import 'package:pixiv_func_android/utils/utils.dart';
 
 class SearchInputPage extends StatelessWidget {
   const SearchInputPage({Key? key}) : super(key: key);
@@ -59,14 +59,11 @@ class SearchInputPage extends StatelessWidget {
               IconButton(
                 tooltip: '打开搜索过滤编辑器',
                 onPressed: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  Get.bottomSheet(
+                  Get.dialog<SearchFilter>(
                     SearchFilterEditor(
                       filter: state.filter,
-                      onChanged: controller.filterOnChanged,
                     ),
-                    isScrollControlled: true,
-                  );
+                  ).then(controller.filterOnChanged);
                 },
                 icon: const Icon(Icons.filter_alt_outlined),
               ),

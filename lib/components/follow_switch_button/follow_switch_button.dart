@@ -20,6 +20,58 @@ class FollowSwitchButton extends StatelessWidget {
     required this.initValue,
   }) : super(key: key);
 
+  void _restrictDialog() {
+    final controller = Get.find<FollowSwitchButtonController>(tag: '$runtimeType:$id');
+    Get.dialog(
+      ObxValue<RxBool>(
+        (data) {
+          return AlertDialog(
+            title: const Text('关注用户'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RadioListTile(
+                  title: const Text('公开'),
+                  value: true,
+                  groupValue: data.value,
+                  onChanged: (bool? value) {
+                    if (null != value) {
+                      data.value = value;
+                    }
+                  },
+                ),
+                RadioListTile(
+                  title: const Text('悄悄'),
+                  value: false,
+                  groupValue: data.value,
+                  onChanged: (bool? value) {
+                    if (null != value) {
+                      data.value = value;
+                    }
+                  },
+                ),
+              ],
+            ),
+            actions: [
+              OutlinedButton(
+                onPressed: () {
+                  controller.changeFollowState(isChange: true, restrict: data.value);
+                  Get.back();
+                },
+                child: const Text('确定'),
+              ),
+              OutlinedButton(
+                onPressed: () => Get.back(),
+                child: const Text('取消'),
+              ),
+            ],
+          );
+        },
+        true.obs,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final controllerTag = '$runtimeType:$id';
@@ -41,8 +93,15 @@ class FollowSwitchButton extends StatelessWidget {
         return controller.requesting
             ? const RefreshProgressIndicator()
             : controller.isFollowed
-                ? ElevatedButton(onPressed: controller.changeFollowState, child: const Text('已关注'))
-                : OutlinedButton(onPressed: controller.changeFollowState, child: const Text('关注'));
+                ? ElevatedButton(
+                    onPressed: () => controller.changeFollowState(),
+                    child: const Text('已关注'),
+                  )
+                : OutlinedButton(
+                    onPressed: () => controller.changeFollowState(),
+                    onLongPress: () => _restrictDialog(),
+                    child: const Text('关注'),
+                  );
       },
     );
   }

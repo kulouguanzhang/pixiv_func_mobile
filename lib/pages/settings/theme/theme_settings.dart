@@ -29,7 +29,7 @@ class ThemeSettingsWidget extends StatelessWidget {
               },
             ),
             RadioListTile(
-              title: const Text('明亮'),
+              title: const Text('明亮(不推荐,没做适配)'),
               value: true,
               groupValue: snapshot,
               onChanged: (bool? value) {

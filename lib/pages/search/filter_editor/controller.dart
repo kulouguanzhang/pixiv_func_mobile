@@ -14,7 +14,7 @@ import 'package:pixiv_func_android/models/search_filter.dart';
 class SearchFilterEditorController extends GetxController {
   SearchFilter filter;
 
-  SearchFilterEditorController(SearchFilter filter) : filter = SearchFilter.create();
+  SearchFilterEditorController(SearchFilter filter) : filter = SearchFilter.copy(filter);
 
   SearchTarget get target => filter.target;
 
@@ -22,7 +22,9 @@ class SearchFilterEditorController extends GetxController {
 
   int get dateTimeRangeType => filter.dateTimeRangeType;
 
-  int get bookmarkTotalSelected => bookmarkTotalItems.indexWhere((item) => item == filter.bookmarkTotal);
+  int get bookmarkTotalSelected => bookmarkTotalItems.indexWhere((item) {
+        return item == filter.bookmarkTotal;
+      });
 
   final bookmarkTotalItems = <int?>[
     null,

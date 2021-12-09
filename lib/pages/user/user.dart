@@ -137,13 +137,19 @@ class UserPage extends StatelessWidget {
               DataTabConfig(
                 name: '插画',
                 source: UserIllustListSource(id, WorkType.illust),
-                itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
+                itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
+                  illust: item,
+                  showUserName: false,
+                ),
                 extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               ),
               DataTabConfig(
                 name: '漫画',
                 source: UserIllustListSource(id, WorkType.manga),
-                itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
+                itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
+                  illust: item,
+                  showUserName: true,
+                ),
                 extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               ),
               DataTabConfig(

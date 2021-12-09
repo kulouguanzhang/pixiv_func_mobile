@@ -68,9 +68,15 @@ class SearchFilter {
           sort == other.sort &&
           enableDateRange == other.enableDateRange &&
           dateTimeRange == other.dateTimeRange &&
-          bookmarkTotal == other.bookmarkTotal;
+          bookmarkTotal == other.bookmarkTotal &&
+          dateTimeRangeType == other.dateTimeRangeType;
 
   @override
   int get hashCode =>
-      target.hashCode ^ sort.hashCode ^ enableDateRange.hashCode ^ dateTimeRange.hashCode ^ bookmarkTotal.hashCode;
+      target.hashCode ^
+      sort.hashCode ^
+      enableDateRange.hashCode ^
+      dateTimeRange.hashCode ^
+      bookmarkTotal.hashCode ^
+      dateTimeRangeType.hashCode;
 }

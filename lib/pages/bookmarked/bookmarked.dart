@@ -49,13 +49,20 @@ class BookmarkedPage extends StatelessWidget {
                 ],
                 actions: [
                   IconButton(
-                    tooltip: '打开搜索过滤编辑器',
+                    tooltip: '打开收藏滤编辑器',
                     onPressed: () {
-                      Get.bottomSheet(
-                          BookmarkedFilterEditor(
-                            filter: data.value,
-                            onChanged: (BookmarkedFilter value) => data.value = value,
-                          )
+                      Get.dialog<BookmarkedFilter>(
+                        BookmarkedFilterEditor(
+                          filter: data.value,
+                        ),
+                      ).then(
+                        (BookmarkedFilter? value) {
+                          if (null != value) {
+                            if (data.value != value) {
+                              data.value = value;
+                            }
+                          }
+                        },
                       );
                     },
                     icon: const Icon(Icons.filter_alt_outlined),

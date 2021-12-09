@@ -58,8 +58,10 @@ class SearchInputController extends GetxController {
     update();
   }
 
-  void filterOnChanged(SearchFilter value) {
-    state.filter = value;
+  void filterOnChanged(SearchFilter? value) {
+    if (null != value) {
+      state.filter = value;
+    }
   }
 
   void typeValueOnChanged(int? value) {

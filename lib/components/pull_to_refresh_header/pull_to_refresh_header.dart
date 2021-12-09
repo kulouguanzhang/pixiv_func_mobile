@@ -12,7 +12,8 @@ import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class PullToRefreshHeader extends StatelessWidget {
   final PullToRefreshScrollNotificationInfo? info;
-  const PullToRefreshHeader({Key? key,required this.info}) : super(key: key);
+
+  const PullToRefreshHeader({Key? key, required this.info}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +23,53 @@ class PullToRefreshHeader extends StatelessWidget {
     final Widget child;
     if (mode == RefreshIndicatorMode.error) {
       child = GestureDetector(
-          onTap: () {
-            // refreshNotification;
-            info?.pullToRefreshNotificationState.show();
-          },
+        onTap: () {
+          info?.pullToRefreshNotificationState.show();
+        },
+        child: Container(
+          color: Get.theme.cardColor,
+          alignment: Alignment.bottomCenter,
+          height: offset,
+          width: double.infinity,
           child: Container(
-            color: Get.theme.cardColor,
-            alignment: Alignment.bottomCenter,
-            height: offset,
-            width: double.infinity,
-            child: Container(
-              padding: const EdgeInsets.only(left: 5.0),
-              alignment: Alignment.center,
-              child: Text(
-                mode.toString() + "  click to retry",
-                style: const TextStyle(fontSize: 12.0, inherit: false),
-              ),
+            padding: const EdgeInsets.only(left: 5.0),
+            alignment: Alignment.center,
+            child: const Text(
+              "加载失败点击重试",
+              style: TextStyle(fontSize: 12.0, inherit: false),
             ),
-          ));
+          ),
+        ),
+      );
     } else {
+      final String text;
+      if (null != mode) {
+        switch (mode) {
+          case RefreshIndicatorMode.drag:
+            text = '继续下拉以刷新';
+            break;
+          case RefreshIndicatorMode.armed:
+            text = '松手刷新';
+            break;
+          case RefreshIndicatorMode.snap:
+            text = '准备刷新';
+            break;
+          case RefreshIndicatorMode.refresh:
+            text = '正在刷新...';
+            break;
+          case RefreshIndicatorMode.done:
+            text = '';
+            break;
+          case RefreshIndicatorMode.canceled:
+            text = '取消';
+            break;
+          case RefreshIndicatorMode.error:
+            text = '';
+            break;
+        }
+      } else {
+        text = '';
+      }
       child = Container(
         color: Get.theme.cardColor,
         alignment: Alignment.bottomCenter,
@@ -51,7 +80,7 @@ class PullToRefreshHeader extends StatelessWidget {
           padding: const EdgeInsets.only(left: 5.0),
           alignment: Alignment.center,
           child: Text(
-            mode?.toString() ?? "",
+            text,
             style: const TextStyle(fontSize: 12.0, inherit: false),
           ),
         ),

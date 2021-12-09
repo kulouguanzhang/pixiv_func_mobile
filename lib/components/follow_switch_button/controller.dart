@@ -23,12 +23,12 @@ class FollowSwitchButtonController extends GetxController {
 
   bool get requesting => _requesting;
 
-  void changeFollowState() {
+  void changeFollowState({bool isChange = false, bool restrict = true}) {
     _requesting = true;
     update();
 
-    if (!_isFollowed) {
-      Get.find<ApiClient>().followAdd(id).then((result) {
+    if (isChange || !_isFollowed) {
+      Get.find<ApiClient>().followAdd(id, restrict: restrict).then((result) {
         _isFollowed = true;
       }).catchError((e) {
         Log.e('关注用户失败', e);

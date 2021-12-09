@@ -46,7 +46,7 @@ class SlidingSegmentedControl<T extends Object> extends StatelessWidget {
         },
       );
     } else {
-      return CupertinoSegmentedControl(
+      return CupertinoSlidingSegmentedControl(
         children: children,
         groupValue: groupValue,
         onValueChanged: onValueChanged,

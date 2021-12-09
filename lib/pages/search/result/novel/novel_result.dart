@@ -44,17 +44,18 @@ class SearchNovelResultPage extends StatelessWidget {
                 actions: [
                   IconButton(
                     tooltip: '打开搜索过滤编辑器',
-                    onPressed: () => Get.bottomSheet(
-                        SearchFilterEditor(
-                          filter: isRegistered && !isTemp ? Get.find<SearchInputController>().state.filter : filter,
-                          onChanged: (SearchFilter value) {
-                            if (isRegistered && !isTemp) {
-                              Get.find<SearchInputController>().filterOnChanged(value);
-                            }
-                            source.filter = value;
-                            source.refresh(true);
-                          },
-                        )
+                    onPressed: () => Get.dialog<SearchFilter>(SearchFilterEditor(
+                      filter: isRegistered && !isTemp ? Get.find<SearchInputController>().state.filter : filter,
+                    )).then(
+                      (SearchFilter? value) {
+                        if (null != value && source.filter != value) {
+                          if (isRegistered && !isTemp) {
+                            Get.find<SearchInputController>().filterOnChanged(value);
+                          }
+                          source.filter = value;
+                          source.refresh(true);
+                        }
+                      },
                     ),
                     icon: const Icon(Icons.filter_alt_outlined),
                   ),

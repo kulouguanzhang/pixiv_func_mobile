@@ -19,13 +19,8 @@ import 'package:pixiv_func_android/pages/search/filter_editor/controller.dart';
 
 class SearchFilterEditor extends StatelessWidget {
   final SearchFilter filter;
-  final ValueChanged<SearchFilter> onChanged;
 
-  const SearchFilterEditor({
-    Key? key,
-    required this.filter,
-    required this.onChanged,
-  }) : super(key: key);
+  const SearchFilterEditor({Key? key, required this.filter}) : super(key: key);
 
   void _openStartDatePicker(BuildContext context) {
     final controller = Get.find<SearchFilterEditorController>();
@@ -170,10 +165,10 @@ class SearchFilterEditor extends StatelessWidget {
     Get.put(SearchFilterEditorController(filter));
     return GetBuilder<SearchFilterEditorController>(
       builder: (SearchFilterEditorController controller) {
-        return Container(
-          height: 450,
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Column(
+        return AlertDialog(
+          title: const Text('搜索过滤器'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
@@ -192,6 +187,7 @@ class SearchFilterEditor extends StatelessWidget {
                       controller.sort = value;
                     }
                   },
+                  splitEqually: false,
                 ),
               ),
               Padding(
@@ -208,6 +204,7 @@ class SearchFilterEditor extends StatelessWidget {
                       controller.target = value;
                     }
                   },
+                  splitEqually: false,
                 ),
               ),
               const Divider(),
@@ -227,15 +224,16 @@ class SearchFilterEditor extends StatelessWidget {
                 visible: controller.dateTimeRangeType == -1,
                 child: _buildDateRangeEdit(context),
               ),
-              OutlinedButton(
-                onPressed: () {
-                  onChanged(controller.filter);
-                  Get.back();
-                },
-                child: const Text('确定'),
-              ),
             ],
           ),
+          actions: [
+            OutlinedButton(
+              onPressed: () {
+                Get.back(result: controller.filter);
+              },
+              child: const Text('确定'),
+            ),
+          ],
         );
       },
     );

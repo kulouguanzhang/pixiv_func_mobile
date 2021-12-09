@@ -2,7 +2,7 @@ name: pixiv_func_android
 description: Pixiv 第三方客户端
 
 publish_to: 'none'
-version: 0.10.7
+version: 0.11.0
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
