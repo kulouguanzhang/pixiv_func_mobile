@@ -15,15 +15,22 @@ class ImageSourceSettingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueBuilder<String?>(
-      builder: (String? snapshot, void Function(String?) updater) {
-        final TextEditingController customImageSourceInput = TextEditingController();
+    final TextEditingController customImageSourceInput = TextEditingController();
 
-        const List<MapEntry<String, String>> imageSources = [
-          MapEntry('使用IP直连(210.140.92.139)', '210.140.92.139'),
-          MapEntry('使用原始图片源(i.pximg.net)', 'i.pximg.net'),
-          MapEntry('使用代理图片源(i.pixiv.re)', 'i.pixiv.re(大陆直连推荐用这个)'),
-        ];
+    const List<MapEntry<String, String>> imageSources = [
+      MapEntry('使用IP直连(210.140.92.139)', '210.140.92.139'),
+      MapEntry('使用原始图片源(i.pximg.net)', 'i.pximg.net'),
+      MapEntry('使用代理图片源(i.pixiv.re)', 'i.pixiv.re'),
+    ];
+
+    return ObxValue<Rx<String>>(
+      (Rx<String> data) {
+        void updater(String? value) {
+          if (null != value) {
+            data.value = value;
+            Get.find<AppSettingsService>().imageSource = value;
+          }
+        }
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,13 +39,14 @@ class ImageSourceSettingsWidget extends StatelessWidget {
               RadioListTile(
                 title: Text(imageSource.key),
                 value: imageSource.value,
-                groupValue: snapshot,
+                subtitle: 'i.pixiv.re' == imageSource.value ? const Text('大陆直连推荐用这个') : null,
+                groupValue: data.value,
                 onChanged: updater,
               ),
             RadioListTile(
               title: const Text('使用自定义图片源'),
               value: customImageSourceInput.text,
-              groupValue: snapshot,
+              groupValue: data.value,
               onChanged: updater,
             ),
             ListTile(
@@ -51,12 +59,7 @@ class ImageSourceSettingsWidget extends StatelessWidget {
           ],
         );
       },
-      initialValue: Get.find<AppSettingsService>().imageSource,
-      onUpdate: (String? value) {
-        if (null != value) {
-          Get.find<AppSettingsService>().imageSource = value;
-        }
-      },
+      Get.find<AppSettingsService>().imageSource.obs,
     );
   }
 }

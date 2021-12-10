@@ -21,7 +21,8 @@ class ThemeSettingsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RadioListTile(
-              title: const Text('黑暗(推荐)'),
+              title: const Text('黑暗'),
+              subtitle: const Text('推荐'),
               value: false,
               groupValue: snapshot,
               onChanged: (bool? value) {
@@ -29,7 +30,8 @@ class ThemeSettingsWidget extends StatelessWidget {
               },
             ),
             RadioListTile(
-              title: const Text('明亮(不推荐,没做适配)'),
+              title: const Text('明亮'),
+              subtitle: const Text('不推荐,没做适配'),
               value: true,
               groupValue: snapshot,
               onChanged: (bool? value) {
