@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/entity/illust.dart';
 import 'package:pixiv_func_android/app/data/data_source_base.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/local_data/browsing_history_manager.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/utils/log.dart';
@@ -60,7 +61,7 @@ class BrowsingHistoryListSource extends DataSourceBase<Illust> {
         }
         setState();
       } else {
-        Get.find<PlatformApi>().toast('删除历史记录$illustId失败');
+        Get.find<PlatformApi>().toast(I18n.failed.tr);
       }
     }).catchError((e) {
       Log.e('删除历史记录$illustId失败 SQL异常');
@@ -69,7 +70,7 @@ class BrowsingHistoryListSource extends DataSourceBase<Illust> {
 
   Future<void> clearItem() async {
     await browsingHistoryService.clear();
-    Get.find<PlatformApi>().toast('历史记录已清空');
+    Get.find<PlatformApi>().toast(I18n.success.tr);
     total = 0;
     clear();
     indicatorStatus = IndicatorStatus.empty;

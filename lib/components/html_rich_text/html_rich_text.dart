@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as html show parseFragment;
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/pages/illust/id_search/id_search.dart';
 import 'package:pixiv_func_android/pages/user/user.dart';
@@ -66,7 +67,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
           if (Utils.urlIsIllust(href)) {
             final illustId = Utils.findIllustIdByUrl(href);
             return TextSpan(
-              text: '插画ID:$illustId',
+              text: '${I18n.illust.tr}ID:$illustId',
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
               recognizer: TapGestureRecognizer()..onTap = () => Get.to(IllustIdSearch(id: illustId)),
             );
@@ -74,7 +75,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
           if (Utils.urlIsUser(href)) {
             final userId = Utils.findUserIdByUrl(href);
             return TextSpan(
-              text: '用户ID:$userId',
+              text: '${I18n.user.tr}ID:$userId',
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
               recognizer: TapGestureRecognizer()..onTap = () => Get.to(UserPage(id: userId)),
             );

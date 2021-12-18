@@ -9,6 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/enums.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/models/search_filter.dart';
 
 class SearchFilterEditorController extends GetxController {
@@ -93,9 +94,9 @@ class SearchFilterEditorController extends GetxController {
   String get bookmarkTotalText {
     final item = bookmarkTotalItems[bookmarkTotalSelected];
     if (null == item) {
-      return '收藏数量不限';
+      return I18n.bookmarksNumUnlimited.tr;
     } else {
-      return '超过$item的收藏';
+      return '$item ${I18n.bookmarksOverNum.tr}';
     }
   }
 }

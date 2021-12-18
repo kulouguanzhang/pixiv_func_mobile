@@ -12,6 +12,7 @@ import 'dart:ui' as ui;
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:pixiv_func_android/app/api/api_client.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/utils/log.dart';
 import 'package:pixiv_func_android/utils/utils.dart';
@@ -56,21 +57,21 @@ class UgoiraViewerController extends GetxController {
     state.loading = true;
     update();
     if (null == state.ugoiraMetadata) {
-      Get.find<PlatformApi>().toast('开始获取动图信息');
+      Get.find<PlatformApi>().toast(I18n.ugoiraLoadStartHint.tr);
       try {
         state.ugoiraMetadata = await Get.find<ApiClient>().getUgoiraMetadata(id, cancelToken: cancelToken);
         state.delays.addAll(state.ugoiraMetadata!.ugoiraMetadata.frames.map((frame) => frame.delay));
         Log.i('获取动图信息成功');
       } catch (e) {
         Log.e('获取动图信息失败', e);
-        Get.find<PlatformApi>().toast('获取动图信息失败');
+        Get.find<PlatformApi>().toast(I18n.ugoiraLoadFailedHint.tr);
         state.loading = false;
         return false;
       }
     }
 
     if (null == state.gifZipResponse) {
-      Get.find<PlatformApi>().toast('开始下载动图压缩包');
+      Get.find<PlatformApi>().toast(I18n.ugoiraDownloadStartHint.tr);
       try {
         state.gifZipResponse = await _httpClient.get<Uint8List>(
           Utils.replaceImageSource(
@@ -79,7 +80,7 @@ class UgoiraViewerController extends GetxController {
         );
       } catch (e) {
         Log.e('下载动图压缩包失败', e);
-        Get.find<PlatformApi>().toast('下载动图压缩包失败');
+        Get.find<PlatformApi>().toast(I18n.ugoiraDownloadFailedHint.tr);
         state.loading = false;
         return false;
       }
@@ -95,8 +96,7 @@ class UgoiraViewerController extends GetxController {
   }
 
   Future<void> _generateImages() async {
-    Log.i('开始生成图片共${state.imageFiles.length}帧');
-    Get.find<PlatformApi>().toast('开始生成图片共${state.imageFiles.length}帧');
+    Get.find<PlatformApi>().toast('${I18n.ugoiraGenerateStartHint.tr} ${state.images.length}${I18n.frame.tr}');
     bool init = false;
     for (final imageBytes in state.imageFiles) {
       state.images.add(await _loadImage(imageBytes));
@@ -137,15 +137,15 @@ class UgoiraViewerController extends GetxController {
       Future.delayed(const Duration(milliseconds: 333), _saveRoutine);
     } else {
       if (state.loaded || !state.loaded && await loadData()) {
-        Get.find<PlatformApi>().toast('动图共${state.imageFiles.length}帧,合成可能需要一些时间');
+        Get.find<PlatformApi>().toast('${I18n.ugoiraSaveStartHint.tr} ${state.images.length}${I18n.frame.tr}');
         final result = await Get.find<PlatformApi>().saveGifImage(id, state.imageFiles, state.delays);
         if (null == result) {
-          Get.find<PlatformApi>().toast('动图已经存在');
+          Get.find<PlatformApi>().toast(I18n.imageIsExist.tr);
         } else {
           if (result) {
-            Get.find<PlatformApi>().toast('保存动图成功');
+            Get.find<PlatformApi>().toast(I18n.saveSuccess.tr);
           } else {
-            Get.find<PlatformApi>().toast('保存动图失败');
+            Get.find<PlatformApi>().toast(I18n.saveFailed.tr);
           }
         }
       }

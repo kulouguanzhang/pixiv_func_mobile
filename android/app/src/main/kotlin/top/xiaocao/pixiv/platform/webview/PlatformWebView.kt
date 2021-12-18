@@ -34,12 +34,6 @@ class PlatformWebView(
     private val useLocalReverseProxy: Boolean =
         (arguments as Map<*, *>)["useLocalReverseProxy"] as Boolean
 
-    private val useHttpProxy: Boolean =
-        (arguments as Map<*, *>)["useHttpProxy"] as Boolean
-
-    private val httpProxyUrl: String =
-        (arguments as Map<*, *>)["httpProxyUrl"] as String
-
     private val messageChannel: BasicMessageChannel<Any> =
         BasicMessageChannel(
             binaryMessenger,
@@ -55,21 +49,8 @@ class PlatformWebView(
 
 
     override fun onFlutterViewAttached(flutterView: View) {
-//        Log.i("Info","onFlutterViewAttached")
-        if (useHttpProxy) {
-            if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
-                val proxyConfig: ProxyConfig = ProxyConfig.Builder()
-                    .addProxyRule(httpProxyUrl)
-                    .addDirect()
-                    .build()
-                ProxyController.getInstance().setProxyOverride(
-                    proxyConfig,
-                    { command -> command?.run() },
-                ) {
-                    Log.i("PlatformWebView", "SetHttpProxy:$httpProxyUrl")
-                }
-            }
-        } else if (useLocalReverseProxy) {
+
+        if (useLocalReverseProxy) {
             if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
                 PixivLocalReverseProxy.startServer("12345")
                 val proxyConfig: ProxyConfig = ProxyConfig.Builder()
@@ -88,17 +69,7 @@ class PlatformWebView(
     }
 
     override fun dispose() {
-//        Log.i("Info","dispose")
-        if (useHttpProxy) {
-            if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
-                ProxyController.getInstance().clearProxyOverride(
-                    { command -> command?.run() },
-                ) {
-                    Log.i("PlatformWebView", "Clear Http Proxy")
-                }
-
-            }
-        } else if (useLocalReverseProxy) {
+        if (useLocalReverseProxy) {
             if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
                 ProxyController.getInstance().clearProxyOverride(
                     { command -> command?.run() },
@@ -120,7 +91,6 @@ class PlatformWebView(
         }
 
         webView.webViewClient = object : WebViewClient() {
-
 
 
             @SuppressLint("WebViewClientOnReceivedSslError")

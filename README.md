@@ -1,21 +1,26 @@
 [![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv-func-android?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest)
 
 # 关于该项目
+
 Pixiv第三方安卓客户端  
-我的GTX750Ti显卡不支持高版本黑苹果以及我没有iOS机器所以不支持iOS  
-与其他现有同类项目无关,以后会写桌面端(还有可能写哔咔客户端)  
-开源且免费(不收取打赏),禁止用于盈利(包括但不仅限于收取打赏)  
+我的GTX750Ti显卡不支持高版本黑苹果以及我没有iOS机器所以没法弄iOS(欢迎PR)  
+开源且免费(不收取打赏),禁止用于盈利(包括但不仅限于收取打赏)    
 使用了`GetX`状态管理框架  
 代码严格按照`flutter_lints`的规范编写  
 或许适合新手学习Flutter(至少我这么认为)  
+以后会写桌面端(还有可能写哔咔客户端)  
+有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_android/issues/new)  
+这是我的个人玩具,与其他现有同类项目无关,如果你想拿我的项目跟其他项目比较,那么请你离开,我并不欢迎你
 
 # 下载
+
 | 下载最新版本 |  |
 | --- | --- |
 | [方式1(点击下载)](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest/download/app-release.apk) | github.com |
 | [方式2(点击下载)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_android/releases/latest/download/app-release.apk) | ghproxy.com(国内用这个) |
 
 # 支持功能
+
 | 名称 | 备注 |
 | --- | --- |
 | 登录 | 用的 [WebView](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/webview/PlatformWebView.kt) 支持免代理直连(本地反向代理) |
@@ -37,12 +42,13 @@ Pixiv第三方安卓客户端
 | 关注和取消关注(用户) |  |
 | 收藏和取消收藏(插画&漫画/小说) |  |
 
-
 # 关于免代理直连
+
 1. API是强制开启的,图片源可以自选选择
 2. 登录(PlatformWebView) 可以选择是否启用(本地反向代理绑定`12345`端口注意不要占用)
 
 ## 关于直连失效
+
 1. 与运营商有关
 2. 与地区有关
 3. 可能间歇性的失效
@@ -50,14 +56,32 @@ Pixiv第三方安卓客户端
 
 # 预览
 
-![img0](./preview/img0.gif)
-
-![img1](./preview/img1.jpg)
-
-![img2](./preview/img2.jpg)
-
-![img3](./preview/img3.jpg)
+![img5](./preview/img5.jpg)
 
 ![img4](./preview/img4.jpg)
 
-![img5](./preview/img5.jpg)
+![img3](./preview/img3.jpg)
+
+![img2](./preview/img2.jpg)
+
+![img1](./preview/img1.jpg)
+
+![img0](./preview/img0.gif)
+
+# 鸣谢
+
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_android)
+
+> 感谢 [JetBrains](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_android) 为开源项目提供的以下IDE的免费授权
+
+
+
+
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)](https://www.jetbrains.com/idea/?from=xiao-cao-x/pixiv_func_android)
+
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.svg)](https://www.jetbrains.com/datagrip/?from=xiao-cao-x/pixiv_func_android)
+
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/DataGrip.svg)](https://www.jetbrains.com/go/?from=xiao-cao-x/pixiv_func_android)  
+
+
+

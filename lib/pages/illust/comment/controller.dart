@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/api_client.dart';
 import 'package:pixiv_func_android/app/api/model/comments.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/models/comment_tree.dart';
 import 'package:pixiv_func_android/pages/illust/comment/source.dart';
@@ -40,7 +41,8 @@ class IllustCommentController extends GetxController {
 
   bool get isReplies => null != _repliesCommentTree;
 
-  String get commentInputLabel => isReplies ? '回复 ${repliesCommentTree!.data.user.name}' : '评论 插画';
+  String get commentInputLabel =>
+      isReplies ? '${I18n.replice.tr} ${repliesCommentTree!.data.user.name}' : '${I18n.comment.tr} ${I18n.illust.tr}';
 
   @override
   void dispose() {
@@ -89,17 +91,17 @@ class IllustCommentController extends GetxController {
       if (null != commentTree) {
         commentTree.children.insert(0, CommentTree(data: result, parent: commentTree));
         source.setState();
-        Get.find<PlatformApi>().toast('回复 ${commentTree.data.user.name} 成功');
+        Get.find<PlatformApi>().toast('${I18n.replice.tr} ${commentTree.data.user.name} ${I18n.success.tr}');
       } else {
         source.insert(0, CommentTree(data: result, parent: null));
         source.setState();
-        Get.find<PlatformApi>().toast('评论 插画 成功');
+        Get.find<PlatformApi>().toast('${I18n.comment.tr}${I18n.illust.tr}${I18n.success.tr}');
       }
     }).catchError((e, s) {
       if (e is DioError && e.response?.statusCode == HttpStatus.notFound) {
-        Get.find<PlatformApi>().toast('评论失败,欲回复的评论不存在');
+        Get.find<PlatformApi>().toast(I18n.commentNotFoundHint.tr);
       } else {
-        Get.find<PlatformApi>().toast('评论失败,请重试');
+        Get.find<PlatformApi>().toast(I18n.commentFailedHint.tr);
       }
       Log.e('评论异常', e, s);
     });
@@ -116,10 +118,10 @@ class IllustCommentController extends GetxController {
         commentTree.parent!.children.removeWhere((element) => commentTree.data.id == element.data.id);
         source.setState();
       }
-      Get.find<PlatformApi>().toast('删除评论成功');
+      Get.find<PlatformApi>().toast('${I18n.delete.tr}${I18n.comment.tr}${I18n.success.tr}');
     }).catchError((e) {
       Log.e('删除评论失败', e);
-      Get.find<PlatformApi>().toast('删除评论失败');
+      Get.find<PlatformApi>().toast('${I18n.delete.tr}${I18n.comment.tr}${I18n.failed.tr}');
     });
   }
 }

@@ -14,6 +14,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/entity/illust.dart';
 import 'package:pixiv_func_android/app/download/download_manager_controller.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/models/download_task.dart';
 import 'package:pixiv_func_android/utils/utils.dart';
@@ -42,16 +43,16 @@ class Downloader {
     } else if (message is _DownloadComplete) {
       final saveResult = await Get.find<PlatformApi>().saveImage(message.imageBytes, message.filename);
       if (null == saveResult) {
-        Get.find<PlatformApi>().toast('图片已经存在');
+        Get.find<PlatformApi>().toast(I18n.imageIsExist.tr);
         return;
       }
       if (saveResult) {
-        Get.find<PlatformApi>().toast('保存成功');
+        Get.find<PlatformApi>().toast(I18n.saveSuccess.tr);
       } else {
-        Get.find<PlatformApi>().toast('保存失败');
+        Get.find<PlatformApi>().toast(I18n.saveFailed.tr);
       }
     } else if (message is _DownloadError) {
-      Get.find<PlatformApi>().toast('下载失败');
+      Get.find<PlatformApi>().toast(I18n.downloadFailed.tr);
     }
   }
 
@@ -119,17 +120,17 @@ class Downloader {
     final imageUrl = Utils.replaceImageSource(url);
 
     if (await Get.find<PlatformApi>().imageIsExist(filename)) {
-      Get.find<PlatformApi>().toast('图片已经存在');
+      Get.find<PlatformApi>().toast(I18n.imageIsExist.tr);
       return;
     }
 
     final taskIndex = Get.find<DownloadManagerController>().tasks.indexWhere((task) => filename == task.filename);
     if (-1 != taskIndex && DownloadState.failed != Get.find<DownloadManagerController>().tasks[taskIndex].state) {
-      Get.find<PlatformApi>().toast('下载任务已存在');
+      Get.find<PlatformApi>().toast(I18n.downloadTaskIsExist.tr);
       return;
     }
 
-    Get.find<PlatformApi>().toast('开始下载');
+    Get.find<PlatformApi>().toast(I18n.downloadStart.tr);
     Isolate.spawn(
       _task,
       _DownloadStartProps(

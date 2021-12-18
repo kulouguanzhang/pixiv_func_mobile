@@ -1,7 +1,4 @@
 class LoginState {
-  late bool agreementAccepted;
-
-  LoginState() {
-    agreementAccepted = false;
-  }
+  bool agreementAccepted = false;
+  bool useReverseProxy = false;
 }

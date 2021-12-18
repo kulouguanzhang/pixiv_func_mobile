@@ -7,6 +7,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_android/pages/login/login.dart';
@@ -21,11 +22,10 @@ class AccountPage extends StatelessWidget {
       () {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('账号'),
+            title: Text(I18n.account.tr),
             actions: [
               const SizedBox(height: 5),
               IconButton(
-                tooltip: '登录一个账号',
                 onPressed: () => Get.to(const LoginPage()),
                 icon: const Icon(Icons.add),
               ),
@@ -50,7 +50,6 @@ class AccountPage extends StatelessWidget {
                       subtitle: Text('${account.user.account}(${account.user.id})'),
                       leading: AvatarFromUrl(account.user.profileImageUrls.px50x50),
                       trailing: IconButton(
-                        tooltip: '移除这个账号',
                         splashRadius: 40,
                         onPressed: () {
                           final removeIndex = accountService.accounts().indexWhere((element) => element == account);

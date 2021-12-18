@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/lazy_indexed_stack/lazy_indexed_stack.dart';
 import 'package:pixiv_func_android/pages/ranking/ranking.dart';
 import 'package:pixiv_func_android/pages/recommended/recommended.dart';
@@ -27,22 +28,22 @@ class AppBodyPage extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             currentIndex: data.value,
             onTap: (int index) => data.value = index,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                label: '推荐',
-                icon: Icon(Icons.alt_route_outlined),
+                label: I18n.recommended.tr,
+                icon: const Icon(Icons.alt_route_outlined),
               ),
               BottomNavigationBarItem(
-                label: '排行榜',
-                icon: Icon(Icons.leaderboard_outlined),
+                label: I18n.ranking.tr,
+                icon: const Icon(Icons.leaderboard_outlined),
               ),
               BottomNavigationBarItem(
-                label: '搜索',
-                icon: Icon(Icons.search_outlined),
+                label: I18n.search.tr,
+                icon: const Icon(Icons.search_outlined),
               ),
               BottomNavigationBarItem(
-                label: '我的',
-                icon: Icon(Icons.account_circle),
+                label: I18n.self.tr,
+                icon: const Icon(Icons.account_circle),
               ),
             ],
           ),

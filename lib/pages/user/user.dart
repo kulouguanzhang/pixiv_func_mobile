@@ -14,6 +14,7 @@ import 'package:pixiv_func_android/app/api/model/user_detail.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
 import 'package:pixiv_func_android/app/download/downloader.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_android/components/follow_switch_button/follow_switch_button.dart';
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
@@ -48,32 +49,24 @@ class UserPage extends StatelessWidget {
             ),
           )
         else
-          const Expanded(
+          Expanded(
             child: Center(
-              child: Text('没有背景图片'),
+              child: Text(I18n.noBackgroundImage.tr),
             ),
           ),
         ListTile(
           leading: GestureDetector(
-            onTap: () => Get.dialog(Dialog(
-              child: SizedBox(
-                height: 350,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: ImageFromUrl(user.profileImageUrls.medium),
-                    ),
-                    IconButton(
-                      tooltip: '保存原图',
-                      splashRadius: 20,
-                      onPressed: () => Downloader.start(url: user.profileImageUrls.medium),
-                      icon: const Icon(Icons.save_alt_outlined),
-                    ),
-                  ],
+            onTap: () => Get.dialog(
+              Dialog(
+                child: SizedBox(
+                  height: 300,
+                  child: GestureDetector(
+                    child: ImageFromUrl(user.profileImageUrls.medium),
+                    onLongPress: () => Downloader.start(url: user.profileImageUrls.medium),
+                  ),
                 ),
               ),
-            )),
+            ),
             child: Hero(
               tag: 'UserHero:${user.id}',
               child: AvatarFromUrl(
@@ -85,7 +78,7 @@ class UserPage extends StatelessWidget {
           title: Text(user.name),
           subtitle: GestureDetector(
             onTap: () {},
-            child: Text('${userDetail.profile.totalFollowUsers}关注'),
+            child: Text('${userDetail.profile.totalFollowUsers}${I18n.follow.tr}'),
           ),
           trailing: FollowSwitchButton(id: user.id, initValue: user.isFollowed),
         )
@@ -110,24 +103,24 @@ class UserPage extends StatelessWidget {
           widget = Center(
             child: ListTile(
               onTap: () => controller.loadData(),
-              title: const Center(child: Text('加载失败,点击重新加载')),
+              title: Center(child: Text(I18n.loadFailedRetry.tr)),
             ),
           );
         } else if (controller.notFound) {
           widget = Center(
             child: ListTile(
               title: Center(
-                child: Text('用户ID:$id不存在'),
+                child: Text('${I18n.user.tr}ID:$id${I18n.notExist.tr}'),
               ),
             ),
           );
         } else {
           final userDetail = Get.find<UserController>(tag: '$runtimeType:$id').userDetail!;
           widget = DataTabPage(
-            title: '用户',
+            title: I18n.user.tr,
             tabs: [
               DataTabConfig(
-                name: '信息',
+                name: I18n.info.tr,
                 source: null,
                 itemBuilder: (BuildContext context, dynamic item, int index) {
                   return UserInfoContent(userDetail: userDetail);
@@ -135,7 +128,7 @@ class UserPage extends StatelessWidget {
                 isCustomChild: true,
               ),
               DataTabConfig(
-                name: '插画',
+                name: I18n.illust.tr,
                 source: UserIllustListSource(id, WorkType.illust),
                 itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
                   illust: item,
@@ -144,7 +137,7 @@ class UserPage extends StatelessWidget {
                 extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               ),
               DataTabConfig(
-                name: '漫画',
+                name: I18n.manga.tr,
                 source: UserIllustListSource(id, WorkType.manga),
                 itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
                   illust: item,
@@ -153,12 +146,12 @@ class UserPage extends StatelessWidget {
                 extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               ),
               DataTabConfig(
-                name: '小说',
+                name: I18n.novel.tr,
                 source: UserNovelListSource(id),
                 itemBuilder: (BuildContext context, item, int index) => NovelPreviewer(novel: item),
               ),
               DataTabConfig(
-                name: '收藏',
+                name: I18n.bookmark.tr,
                 source: UserBookmarkedListSource(id),
                 itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
                 extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

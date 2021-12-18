@@ -6,7 +6,9 @@
  * 作者:小草
  */
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 
 class LoadingMoreIndicator extends StatelessWidget {
   final IndicatorStatus status;
@@ -30,10 +32,10 @@ class LoadingMoreIndicator extends StatelessWidget {
         widget = const SizedBox();
         break;
       case IndicatorStatus.loadingMoreBusying:
-        widget = const Center(
+        widget = Center(
           child: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            child: Text("正在加载...", style: textStyle),
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            child: Text(I18n.statusBusying.tr, style: textStyle),
           ),
         );
         break;
@@ -56,13 +58,13 @@ class LoadingMoreIndicator extends StatelessWidget {
       case IndicatorStatus.error:
         widget = InkWell(
           onTap: () => errorRefresh(),
-          child: const Center(child: Text('加载失败 点击重试', style: textStyle)),
+          child: Center(child: Text(I18n.statusError.tr, style: textStyle)),
         );
         break;
       case IndicatorStatus.fullScreenError:
-        widget = const SizedBox.expand(
+        widget = SizedBox.expand(
           child: Center(
-            child: Text('加载失败', style: textStyle),
+            child: Text(I18n.statusFullScreenError.tr, style: textStyle),
           ),
         );
 
@@ -79,16 +81,16 @@ class LoadingMoreIndicator extends StatelessWidget {
         }
         break;
       case IndicatorStatus.noMoreLoad:
-        widget = const Center(
+        widget = Center(
           child: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            child: Text('没有更多数据了', style: textStyle),
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            child: Text(I18n.statusNoMoreLoad.tr, style: textStyle),
           ),
         );
         break;
       case IndicatorStatus.empty:
-        widget = const Center(
-          child: Text('没有任何数据', style: textStyle),
+        widget = Center(
+          child: Text(I18n.statusEmpty.tr, style: textStyle),
         );
         if (isSliver) {
           widget = SliverFillRemaining(child: widget);

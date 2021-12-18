@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/entity/illust.dart';
 import 'package:pixiv_func_android/app/data/data_tab_view_content.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_android/components/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pixiv_func_android/models/search_filter.dart';
@@ -42,10 +43,9 @@ class SearchIllustResultPage extends StatelessWidget {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                title: Text('搜索插画:$word'),
+                title: Text('${I18n.search.tr}${I18n.illust.tr}:$word'),
                 actions: [
                   IconButton(
-                    tooltip: '打开搜索过滤编辑器',
                     onPressed: () => Get.dialog<SearchFilter>(
                       SearchFilterEditor(
                         filter: isRegistered && !isTemp ? Get.find<SearchInputController>().state.filter : filter,

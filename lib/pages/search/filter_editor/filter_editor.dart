@@ -9,6 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/enums.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/components/dropdown_menu/dropdown_menu.dart';
@@ -74,17 +75,17 @@ class SearchFilterEditor extends StatelessWidget {
   Widget _buildDateRangeTypeEdit() {
     final controller = Get.find<SearchFilterEditorController>();
     return ListTile(
-      title: const Text('时间范围'),
+      title: Text(I18n.timeRange.tr),
       trailing: DropdownButtonHideUnderline(
         child: DropdownMenu<int>(
           menuItems: [
-            DropdownItem(0, '不限'),
-            DropdownItem(1, '一天内'),
-            DropdownItem(2, '一周内'),
-            DropdownItem(3, '一月内'),
-            DropdownItem(4, '半年内'),
-            DropdownItem(5, '一年内'),
-            DropdownItem(-1, '自定义'),
+            DropdownItem(0, I18n.timeRangeUnlimit.tr),
+            DropdownItem(1, I18n.timeRangeOneDay.tr),
+            DropdownItem(2, I18n.timeRangeOneWeek.tr),
+            DropdownItem(3, I18n.timeRangeOneMonth.tr),
+            DropdownItem(4, I18n.timeRangeHalfYear.tr),
+            DropdownItem(5, I18n.timeRangeOneYear.tr),
+            DropdownItem(-1, I18n.timeRangeCustom.tr),
           ],
           currentValue: controller.dateTimeRangeType,
           onChanged: (int? value) {
@@ -166,23 +167,22 @@ class SearchFilterEditor extends StatelessWidget {
     return GetBuilder<SearchFilterEditorController>(
       builder: (SearchFilterEditorController controller) {
         return AlertDialog(
-          title: const Text('搜索过滤器'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: SlidingSegmentedControl(
-                  children: const <SearchSort, Widget>{
-                    SearchSort.dateDesc: Text('时间降序'),
-                    SearchSort.dateAsc: Text('时间升序'),
-                    SearchSort.popularDesc: Text('热度降序'),
+                  children: <SearchSort, Widget>{
+                    SearchSort.dateDesc: Text(I18n.dateDesc.tr),
+                    SearchSort.dateAsc: Text(I18n.dateAsc.tr),
+                    SearchSort.popularDesc: Text(I18n.popularDesc.tr),
                   },
                   groupValue: controller.sort,
                   onValueChanged: (SearchSort? value) {
                     if (null != value) {
                       if (SearchSort.popularDesc == value && !Get.find<AccountService>().current!.user.isPremium) {
-                        Get.find<PlatformApi>().toast('你不是Pixiv高级会员,所以该选项与时间降序行为一致');
+                        Get.find<PlatformApi>().toast(I18n.noPremiumHint.tr);
                       }
                       controller.sort = value;
                     }
@@ -193,10 +193,10 @@ class SearchFilterEditor extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: SlidingSegmentedControl(
-                  children: const <SearchTarget, Widget>{
-                    SearchTarget.partialMatchForTags: Text('标签(部分匹配)'),
-                    SearchTarget.exactMatchForTags: Text('标签(完全匹配)'),
-                    SearchTarget.titleAndCaption: Text('标签&简介'),
+                  children: <SearchTarget, Widget>{
+                    SearchTarget.partialMatchForTags: Text(I18n.partialMatchForTags.tr),
+                    SearchTarget.exactMatchForTags: Text(I18n.exactMatchForTags.tr),
+                    SearchTarget.titleAndCaption: Text(I18n.titleAndCaption.tr),
                   },
                   groupValue: controller.target,
                   onValueChanged: (SearchTarget? value) {
@@ -231,7 +231,7 @@ class SearchFilterEditor extends StatelessWidget {
               onPressed: () {
                 Get.back(result: controller.filter);
               },
-              child: const Text('确定'),
+              child: Text(I18n.confirm.tr),
             ),
           ],
         );

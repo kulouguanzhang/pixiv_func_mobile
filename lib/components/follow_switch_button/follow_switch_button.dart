@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/follow_switch_button/controller.dart';
 
 class FollowSwitchButton extends StatelessWidget {
@@ -26,12 +27,12 @@ class FollowSwitchButton extends StatelessWidget {
       ObxValue<RxBool>(
         (data) {
           return AlertDialog(
-            title: const Text('关注用户'),
+            title: Text(I18n.followUser.tr),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 RadioListTile(
-                  title: const Text('公开'),
+                  title: Text(I18n.public.tr),
                   value: true,
                   groupValue: data.value,
                   onChanged: (bool? value) {
@@ -41,7 +42,7 @@ class FollowSwitchButton extends StatelessWidget {
                   },
                 ),
                 RadioListTile(
-                  title: const Text('悄悄'),
+                  title: Text(I18n.private.tr),
                   value: false,
                   groupValue: data.value,
                   onChanged: (bool? value) {
@@ -58,11 +59,11 @@ class FollowSwitchButton extends StatelessWidget {
                   controller.changeFollowState(isChange: true, restrict: data.value);
                   Get.back();
                 },
-                child: const Text('确定'),
+                child: Text(I18n.confirm.tr),
               ),
               OutlinedButton(
                 onPressed: () => Get.back(),
-                child: const Text('取消'),
+                child: Text(I18n.cancel.tr),
               ),
             ],
           );
@@ -86,7 +87,6 @@ class FollowSwitchButton extends StatelessWidget {
       dispose: (state) {
         if (isRootController) {
           Get.delete<FollowSwitchButtonController>(tag: controllerTag);
-          // print('根控制器删除:$controllerTag');
         }
       },
       builder: (controller) {
@@ -94,13 +94,13 @@ class FollowSwitchButton extends StatelessWidget {
             ? const RefreshProgressIndicator()
             : controller.isFollowed
                 ? ElevatedButton(
-                    onPressed: () => controller.changeFollowState(),
-                    child: const Text('已关注'),
+          onPressed: () => controller.changeFollowState(),
+                    child: Text(I18n.followed.tr),
                   )
                 : OutlinedButton(
-                    onPressed: () => controller.changeFollowState(),
+          onPressed: () => controller.changeFollowState(),
                     onLongPress: () => _restrictDialog(),
-                    child: const Text('关注'),
+                    child: Text(I18n.follow.tr),
                   );
       },
     );

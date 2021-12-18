@@ -11,6 +11,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/entity/novel.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_android/components/bookmark_switch_button/bookmark_switch_button.dart';
 import 'package:pixiv_func_android/components/html_rich_text/html_rich_text.dart';
@@ -97,13 +98,14 @@ class NovelDetailDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        OutlinedButton(onPressed: () => Get.back(), child: const Text('关闭')),
+        OutlinedButton(onPressed: () => Get.back(), child: Text(I18n.close.tr)),
         OutlinedButton(
-            onPressed: () {
-              Get.back();
-              Get.to(NovelPage(id: novel.id), preventDuplicates: false);
-            },
-            child: const Text('阅读')),
+          onPressed: () {
+            Get.back();
+            Get.to(NovelPage(id: novel.id), preventDuplicates: false);
+          },
+          child: Text(I18n.read.tr),
+        ),
         BookmarkSwitchButton(id: novel.id, floating: false, initValue: novel.isBookmarked),
       ],
     );

@@ -10,13 +10,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/models/release_info.dart';
 import 'package:pixiv_func_android/utils/log.dart';
 import 'package:pixiv_func_android/utils/utils.dart';
 
 class AboutController extends GetxController {
-
   final thisProjectGitHubUrl = 'https://github.com/xiao-cao-x/pixiv_func_android';
 
   String? _appVersion;
@@ -64,13 +64,13 @@ class AboutController extends GetxController {
 
   Future<void> openTagHtmlByBrowser() async {
     if (!await Get.find<PlatformApi>().urlLaunch(releaseInfo!.htmlUrl)) {
-      Get.find<PlatformApi>().toast('打开浏览器失败');
+      Get.find<PlatformApi>().toast(I18n.openBrowserFailed.tr);
     }
   }
 
   Future<void> copyTagHtmlUrl() async {
     await Utils.copyToClipboard(releaseInfo!.htmlUrl);
-    Get.find<PlatformApi>().toast('已将 ${releaseInfo!.htmlUrl} 复制到剪切板');
+    Get.find<PlatformApi>().toast(I18n.copySuccess.tr);
   }
 
   Future<void> startUpdateApp() async {
@@ -78,24 +78,23 @@ class AboutController extends GetxController {
       'https://ghproxy.com/${releaseInfo!.browserDownloadUrl}',
       releaseInfo!.tagName,
     )) {
-      Get.find<PlatformApi>().toast('启动下载失败');
+      Get.find<PlatformApi>().toast(I18n.startUpdateFailed.tr);
     }
   }
 
   Future<void> copyAppLatestVersionDownloadUrl() async {
     await Utils.copyToClipboard(releaseInfo!.browserDownloadUrl);
-    Get.find<PlatformApi>().toast('已将 ${releaseInfo!.browserDownloadUrl} 复制到剪切板');
+    Get.find<PlatformApi>().toast(I18n.copySuccess.tr);
   }
 
-  Future<void> openProjectUrlByBrowser()async{
+  Future<void> openProjectUrlByBrowser() async {
     if (!await Get.find<PlatformApi>().urlLaunch(thisProjectGitHubUrl)) {
-      Get.find<PlatformApi>().toast('打开浏览器失败');
+      Get.find<PlatformApi>().toast(I18n.openBrowserFailed.tr);
     }
   }
 
-  Future<void> copyProjectUrl()async{
+  Future<void> copyProjectUrl() async {
     await Utils.copyToClipboard(thisProjectGitHubUrl);
-    Get.find<PlatformApi>().toast('已将 $thisProjectGitHubUrl 复制到剪切板');
+    Get.find<PlatformApi>().toast(I18n.copySuccess.tr);
   }
-
 }

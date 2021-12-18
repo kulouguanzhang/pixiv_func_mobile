@@ -8,6 +8,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/sliding_segmented_control/sliding_segmented_control.dart';
 import 'package:pixiv_func_android/models/bookmarked_filter.dart';
 
@@ -21,14 +22,13 @@ class BookmarkedFilterEditor extends StatelessWidget {
     return ObxValue<Rx<BookmarkedFilter>>(
       (Rx<BookmarkedFilter> data) {
         return AlertDialog(
-          title: const Text('收藏过滤器'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               SlidingSegmentedControl(
-                children: const <bool, Widget>{
-                  true: Text('公开'),
-                  false: Text('悄悄'),
+                children: <bool, Widget>{
+                  true: Text(I18n.public.tr),
+                  false: Text(I18n.private.tr),
                 },
                 groupValue: data.value.restrict,
                 onValueChanged: (bool? value) {
@@ -47,7 +47,7 @@ class BookmarkedFilterEditor extends StatelessWidget {
               onPressed: () {
                 Get.back(result: data.value);
               },
-              child: const Text('确定'),
+              child: Text(I18n.confirm.tr),
             ),
           ],
         );

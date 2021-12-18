@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 
 import 'controller.dart';
 
@@ -31,12 +32,12 @@ class BookmarkSwitchButton extends StatelessWidget {
       ObxValue<RxBool>(
         (data) {
           return AlertDialog(
-            title: const Text('收藏插画'),
+            title: Text('${I18n.follow.tr}${I18n.illust.tr}'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 RadioListTile(
-                  title: const Text('公开'),
+                  title: Text(I18n.public.tr),
                   value: true,
                   groupValue: data.value,
                   onChanged: (bool? value) {
@@ -46,7 +47,7 @@ class BookmarkSwitchButton extends StatelessWidget {
                   },
                 ),
                 RadioListTile(
-                  title: const Text('悄悄'),
+                  title: Text(I18n.private.tr),
                   value: false,
                   groupValue: data.value,
                   onChanged: (bool? value) {
@@ -63,11 +64,11 @@ class BookmarkSwitchButton extends StatelessWidget {
                   controller.changeBookmarkState(isChange: true, restrict: data.value);
                   Get.back();
                 },
-                child: const Text('确定'),
+                child: Text(I18n.confirm.tr),
               ),
               OutlinedButton(
                 onPressed: () => Get.back(),
-                child: const Text('取消'),
+                child: Text(I18n.cancel.tr),
               ),
             ],
           );
@@ -90,7 +91,6 @@ class BookmarkSwitchButton extends StatelessWidget {
       dispose: (state) {
         if (isRootController) {
           Get.delete<BookmarkSwitchButtonController>(tag: controllerTag);
-          // print('根控制器删除:$controllerTag');
         }
       },
       builder: (controller) {

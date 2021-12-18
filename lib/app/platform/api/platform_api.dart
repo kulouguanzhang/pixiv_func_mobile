@@ -10,6 +10,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 
 class PlatformApi extends GetxService {
   static const _pluginName = 'xiaocao/platform/api';
@@ -27,7 +28,7 @@ class PlatformApi extends GetxService {
       );
       return result;
     } on PlatformException {
-      toast('保存失败 可能是没有存储权限');
+      toast(I18n.saveExceptionHint.tr);
       return null;
     }
   }
@@ -44,7 +45,7 @@ class PlatformApi extends GetxService {
       );
       return result;
     } on PlatformException {
-      toast('保存失败 可能是没有存储权限');
+      toast(I18n.saveExceptionHint.tr);
       return null;
     }
   }

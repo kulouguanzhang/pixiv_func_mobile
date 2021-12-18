@@ -66,7 +66,7 @@ class IllustPreviewer extends StatelessWidget {
                   bottom: 2,
                   child: Card(
                     color: Colors.white12,
-                    child: Padding(padding: EdgeInsets.fromLTRB(5, 0, 5, 0), child: Text('动图')),
+                    child: Padding(padding: EdgeInsets.fromLTRB(5, 0, 5, 0), child: Text('Ugoira')),
                   ),
                 ),
               ),

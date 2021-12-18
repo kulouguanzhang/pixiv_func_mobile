@@ -7,8 +7,10 @@
  */
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/entity/user_preview.dart';
 import 'package:pixiv_func_android/app/data/data_tab_view_content.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pixiv_func_android/components/user_previewer/user_previewer.dart';
 import 'package:pixiv_func_android/pages/search/result/user/source.dart';
@@ -31,7 +33,7 @@ class SearchUserResultPage extends StatelessWidget {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                title: Text('搜索用户:$word'),
+                title: Text('${I18n.search.tr}${I18n.user.tr}:$word'),
               ),
               PullToRefreshContainer((info) => PullToRefreshHeader(info: info)),
             ];

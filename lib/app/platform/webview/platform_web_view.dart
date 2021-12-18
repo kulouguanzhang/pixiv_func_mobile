@@ -8,21 +8,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/settings/app_settings.dart';
 
 class PlatformWebView extends StatefulWidget {
   final String url;
   final Future<dynamic> Function(BuildContext context, dynamic message) onMessageHandler;
   final bool useLocalReverseProxy;
-  final bool useHttpProxy;
 
   const PlatformWebView({
     Key? key,
     required this.url,
     required this.onMessageHandler,
     this.useLocalReverseProxy = false,
-    this.useHttpProxy = false,
   }) : super(key: key);
 
   @override
@@ -95,8 +91,6 @@ class _PlatformWebViewState extends State<PlatformWebView> {
               viewType: _pluginName,
               creationParams: {
                 'useLocalReverseProxy': widget.useLocalReverseProxy,
-                'useHttpProxy': widget.useHttpProxy,
-                'httpProxyUrl': Get.find<AppSettingsService>().httpProxyUrl,
               },
               creationParamsCodec: const StandardMessageCodec(),
               onPlatformViewCreated: onViewCreated,

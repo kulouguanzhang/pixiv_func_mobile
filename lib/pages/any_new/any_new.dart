@@ -7,10 +7,12 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/enums.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_android/components/novel_previewer/novel_previewer.dart';
 import 'package:pixiv_func_android/pages/any_new/illust/source.dart';
@@ -24,22 +26,22 @@ class AnyNewPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: DataTabPage(
-          title: '所有人的新作品',
+          title: I18n.anyNewIllust.tr,
           tabs: [
             DataTabConfig(
-              name: '插画',
+              name: I18n.illust.tr,
               source: AnyNewIllustListSource(WorkType.illust),
               itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
               extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             ),
             DataTabConfig(
-              name: '漫画',
+              name: I18n.manga.tr,
               source: AnyNewIllustListSource(WorkType.manga),
               itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
               extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             ),
             DataTabConfig(
-              name: '小说',
+              name: I18n.novel.tr,
               source: AnyNewNovelListSource(),
               itemBuilder: (BuildContext context, item, int index) => NovelPreviewer(novel: item),
             ),

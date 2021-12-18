@@ -21,7 +21,32 @@ class AuthClient extends GetxService {
   static const _targetIP = '210.140.131.199';
   static const _targetHost = 'oauth.secure.pixiv.net';
 
-  late final Dio _httpClient;
+  Dio get _httpClient {
+    final time = getIsoDate();
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://$_targetIP',
+        responseType: ResponseType.plain,
+        contentType: Headers.formUrlEncodedContentType,
+        headers: {
+          'X-Client-Time': time,
+          'X-Client-Hash': getHash(time + _hashSalt),
+          'User-Agent': 'PixivAndroidApp/6.21.1 (Android 7.1.2; XiaoCao)',
+          'App-OS': 'android',
+          'App-OS-Version': '7.1.2',
+          'App-Version': '6.21.1',
+          'Accept-Language': Get.locale!.toLanguageTag(),
+          'Host': _targetHost,
+        },
+        connectTimeout: 6 * 1000,
+        receiveTimeout: 6 * 1000,
+        sendTimeout: 6 * 1000,
+      ),
+    );
+    dio.interceptors.add(RetryInterceptor(dio, hasMore: false));
+
+    return dio;
+  }
 
   static const fieldName = 'Authorization';
 
@@ -41,31 +66,6 @@ class AuthClient extends GetxService {
     final content = const Utf8Encoder().convert(string);
     final digest = md5.convert(content);
     return digest.toString();
-  }
-
-  AuthClient() {
-    final time = getIsoDate();
-    _httpClient = Dio(
-      BaseOptions(
-        baseUrl: 'https://$_targetIP',
-        responseType: ResponseType.plain,
-        contentType: Headers.formUrlEncodedContentType,
-        headers: {
-          'X-Client-Time': time,
-          'X-Client-Hash': getHash(time + _hashSalt),
-          'User-Agent': 'PixivAndroidApp/6.21.1 (Android 7.1.2; XiaoCao)',
-          'App-OS': 'android',
-          'App-OS-Version': '7.1.2',
-          'App-Version': '6.21.1',
-          'Accept-Language': 'zh-CN',
-          'Host': _targetHost,
-        },
-        connectTimeout: 6 * 1000,
-        receiveTimeout: 6 * 1000,
-        sendTimeout: 6 * 1000,
-      ),
-    );
-    _httpClient.interceptors.add(RetryInterceptor(_httpClient, hasMore: false));
   }
 
   ///刷新token

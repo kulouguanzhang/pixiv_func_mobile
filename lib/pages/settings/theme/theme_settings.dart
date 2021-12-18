@@ -7,22 +7,24 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/settings/app_settings.dart';
 import 'package:pixiv_func_android/app/theme/app_theme.dart';
 
 class ThemeSettingsWidget extends StatelessWidget {
-  const ThemeSettingsWidget({Key? key}) : super(key: key);
+  final bool isPage;
+
+  const ThemeSettingsWidget({Key? key, this.isPage = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ValueBuilder<bool?>(
+    final widget = ValueBuilder<bool?>(
       builder: (bool? snapshot, void Function(bool?) updater) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RadioListTile(
-              title: const Text('黑暗'),
-              subtitle: const Text('推荐'),
+              title: Text(I18n.dark.tr),
               value: false,
               groupValue: snapshot,
               onChanged: (bool? value) {
@@ -30,8 +32,7 @@ class ThemeSettingsWidget extends StatelessWidget {
               },
             ),
             RadioListTile(
-              title: const Text('明亮'),
-              subtitle: const Text('不推荐,没做适配'),
+              title: Text(I18n.light.tr),
               value: true,
               groupValue: snapshot,
               onChanged: (bool? value) {
@@ -49,5 +50,15 @@ class ThemeSettingsWidget extends StatelessWidget {
         }
       },
     );
+    if (isPage) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('${I18n.theme.tr}${I18n.settings.tr}'),
+        ),
+        body: widget,
+      );
+    } else {
+      return widget;
+    }
   }
 }

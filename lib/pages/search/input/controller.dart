@@ -9,11 +9,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pixiv_func_android/app/api/api_client.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/models/search_filter.dart';
 import 'package:pixiv_func_android/pages/illust/illust.dart';
@@ -107,10 +107,10 @@ class SearchInputController extends GetxController {
 
             if (HttpStatus.notFound == e.response?.statusCode) {
               Log.i('插画ID不存在${state.inputAsNumber}', e);
-              Get.find<PlatformApi>().toast('插画ID不存在${state.inputAsNumber}');
+              Get.find<PlatformApi>().toast('${I18n.illust.tr}ID${I18n.notExist.tr}${state.inputAsNumber}');
             } else {
               Log.e('查询插画信息异常', e);
-              Get.find<PlatformApi>().toast('搜索插画ID失败');
+              Get.find<PlatformApi>().toast('${I18n.search.tr}${I18n.illust.tr}ID${I18n.failed.tr}');
             }
           }
         }
@@ -118,9 +118,9 @@ class SearchInputController extends GetxController {
     );
 
     Get.defaultDialog<bool>(
-      title: '搜索插画ID${state.inputAsNumber}',
+      title: '${I18n.search.tr}${I18n.illust.tr}ID${state.inputAsNumber}',
       content: const CircularProgressIndicator(),
-      cancel: OutlinedButton(onPressed: () => Get.back(), child: const Text('取消')),
+      cancel: OutlinedButton(onPressed: () => Get.back(), child: Text(I18n.cancel.tr)),
     ).then((value) {
       if (true != value) {
         queryIllustCancelToken?.cancel();

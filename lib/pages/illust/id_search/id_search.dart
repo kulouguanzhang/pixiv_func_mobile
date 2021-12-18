@@ -7,6 +7,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/pages/illust/illust.dart';
 
 import 'controller.dart';
@@ -29,7 +30,7 @@ class IllustIdSearch extends StatelessWidget {
           return Center(
             child: ListTile(
               onTap: () => controller.loadData(),
-              title: const Text('加载失败点击重新加载'),
+              title: Text(I18n.loadFailedRetry.tr),
             ),
           );
         } else {

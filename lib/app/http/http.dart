@@ -8,31 +8,16 @@
 
 import 'dart:io';
 
-import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/settings/app_settings.dart';
-
-class HttpConfig{
-  static void refreshHttpClient(){
-    HttpOverrides.global = _MyHttpOverrides(
-      Get.find<AppSettingsService>().enableProxy,
-      Get.find<AppSettingsService>().httpProxyUrl,
-    );
+class HttpConfig {
+  static void refreshHttpClient() {
+    HttpOverrides.global = _MyHttpOverrides();
   }
 }
 
 class _MyHttpOverrides extends HttpOverrides {
-  final bool enableProxy;
-  final String httpProxyUrl;
-
-  _MyHttpOverrides(this.enableProxy, this.httpProxyUrl);
-
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    final client = super.createHttpClient(context);
-    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-    if (enableProxy) {
-      client.findProxy = (Uri? uri) => httpProxyUrl;
-    }
-    return client;
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }

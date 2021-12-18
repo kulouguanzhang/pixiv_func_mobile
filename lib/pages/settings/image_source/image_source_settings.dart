@@ -8,22 +8,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/settings/app_settings.dart';
 
 class ImageSourceSettingsWidget extends StatelessWidget {
-  const ImageSourceSettingsWidget({Key? key}) : super(key: key);
+  final bool isPage;
+
+  const ImageSourceSettingsWidget({Key? key, this.isPage = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController customImageSourceInput = TextEditingController();
 
     const List<MapEntry<String, String>> imageSources = [
-      MapEntry('使用IP直连(210.140.92.139)', '210.140.92.139'),
-      MapEntry('使用原始图片源(i.pximg.net)', 'i.pximg.net'),
-      MapEntry('使用代理图片源(i.pixiv.re)', 'i.pixiv.re'),
+      MapEntry('IP(210.140.92.139)', '210.140.92.139'),
+      MapEntry('Original(i.pximg.net)', 'i.pximg.net'),
+      MapEntry('MirroImage(i.pixiv.re)', 'i.pixiv.re'),
     ];
 
-    return ObxValue<Rx<String>>(
+    final widget = ObxValue<Rx<String>>(
       (Rx<String> data) {
         void updater(String? value) {
           if (null != value) {
@@ -39,19 +42,18 @@ class ImageSourceSettingsWidget extends StatelessWidget {
               RadioListTile(
                 title: Text(imageSource.key),
                 value: imageSource.value,
-                subtitle: 'i.pixiv.re' == imageSource.value ? const Text('大陆直连推荐用这个') : null,
                 groupValue: data.value,
                 onChanged: updater,
               ),
             RadioListTile(
-              title: const Text('使用自定义图片源'),
+              title: Text('${I18n.use.tr}${I18n.imageSource.tr}'),
               value: customImageSourceInput.text,
               groupValue: data.value,
               onChanged: updater,
             ),
             ListTile(
               title: TextField(
-                decoration: const InputDecoration(label: Text('自定义图片源')),
+                decoration: InputDecoration(label: Text(I18n.imageSource.tr)),
                 controller: customImageSourceInput,
                 onChanged: updater,
               ),
@@ -61,5 +63,15 @@ class ImageSourceSettingsWidget extends StatelessWidget {
       },
       Get.find<AppSettingsService>().imageSource.obs,
     );
+    if (isPage) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('${I18n.imageSource.tr}${I18n.settings.tr}'),
+        ),
+        body: widget,
+      );
+    } else {
+      return widget;
+    }
   }
 }

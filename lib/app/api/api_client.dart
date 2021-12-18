@@ -9,7 +9,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import 'entity/comment.dart';
 import 'interceptors/auth_token_interceptor.dart';
@@ -31,31 +33,32 @@ import 'model/users.dart';
 class ApiClient extends GetxService {
   static const _targetIP = '210.140.131.199';
   static const _targetHost = 'app-api.pixiv.net';
-  final Dio httpClient = Dio(
-    BaseOptions(
-      baseUrl: 'https://$_targetIP',
-      responseType: ResponseType.plain,
-      headers: {
-        'User-Agent': 'PixivAndroidApp/6.21.1 (Android 7.1.2; XiaoCao)',
-        'App-OS': 'android',
-        'App-OS-Version': '7.1.2',
-        'App-Version': '6.21.1',
-        'Accept-Language': 'zh-CN',
-        'Host': _targetHost
-      },
-      connectTimeout: 5 * 1000,
-      receiveTimeout: 5 * 1000,
-      sendTimeout: 5 * 1000,
-    ),
-  );
 
-  ApiClient() {
-    httpClient.interceptors.addAll(
+  Dio get _httpClient {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://$_targetIP',
+        responseType: ResponseType.plain,
+        headers: {
+          'User-Agent': 'PixivAndroidApp/6.21.1 (Android 7.1.2; XiaoCao)',
+          'App-OS': 'android',
+          'App-OS-Version': '7.1.2',
+          'App-Version': '6.21.1',
+          'Accept-Language': Get.locale!.toLanguageTag(),
+          'Host': _targetHost
+        },
+        connectTimeout: 5 * 1000,
+        receiveTimeout: 5 * 1000,
+        sendTimeout: 5 * 1000,
+      ),
+    );
+    dio.interceptors.addAll(
       [
-        RetryInterceptor(httpClient, hasMore: true),
-        AuthTokenInterceptor(httpClient),
+        RetryInterceptor(dio, hasMore: true),
+        AuthTokenInterceptor(dio),
       ],
     );
+    return dio;
   }
 
   ///```kotlin
@@ -67,7 +70,7 @@ class ApiClient extends GetxService {
     String url, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       url.replaceFirst(_targetHost, _targetIP),
       cancelToken: cancelToken,
     );
@@ -103,7 +106,7 @@ class ApiClient extends GetxService {
     int userId, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/user/detail',
       queryParameters: {
         'filter': 'for_android',
@@ -123,7 +126,7 @@ class ApiClient extends GetxService {
     bool restrict = true,
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/user/bookmarks/illust',
       queryParameters: {
         'user_id': userId,
@@ -143,7 +146,7 @@ class ApiClient extends GetxService {
     bool restrict = true,
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/user/bookmarks/novel',
       queryParameters: {
         'user_id': userId,
@@ -163,7 +166,7 @@ class ApiClient extends GetxService {
     String type, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/user/illusts',
       queryParameters: {
         'filter': 'for_android',
@@ -182,7 +185,7 @@ class ApiClient extends GetxService {
     int userId, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/user/novels',
       queryParameters: {
         'user_id': userId,
@@ -199,7 +202,7 @@ class ApiClient extends GetxService {
     String type, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/$type/recommended',
       queryParameters: {
         'filter': 'for_android',
@@ -214,7 +217,7 @@ class ApiClient extends GetxService {
   Future<Novels> getRecommendedNovels({
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/novel/recommended',
       queryParameters: {
         'include_ranking_novels': false,
@@ -232,7 +235,7 @@ class ApiClient extends GetxService {
     String mode, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/illust/ranking',
       queryParameters: {
         'filter': 'for_android',
@@ -248,7 +251,7 @@ class ApiClient extends GetxService {
   Future<TrendingTags> getTrendingTags({
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/trending-tags/illust',
       queryParameters: {
         'filter': 'for_android',
@@ -263,7 +266,7 @@ class ApiClient extends GetxService {
   Future<Users> getRecommendedUsers({
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/user/recommended',
       queryParameters: {
         'filter': 'for_android',
@@ -282,7 +285,7 @@ class ApiClient extends GetxService {
     bool restrict = true,
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/user/following',
       queryParameters: {
         'filter': 'for_android',
@@ -301,7 +304,7 @@ class ApiClient extends GetxService {
     required bool? restrict,
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v2/illust/follow',
       queryParameters: {
         'filter': 'for_android',
@@ -323,7 +326,7 @@ class ApiClient extends GetxService {
     required bool? restrict,
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/novel/follow',
       queryParameters: {
         'filter': 'for_android',
@@ -345,7 +348,7 @@ class ApiClient extends GetxService {
     String type, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/illust/new',
       queryParameters: {
         'filter': 'for_android',
@@ -362,7 +365,7 @@ class ApiClient extends GetxService {
   Future<Novels> getNewNovels({
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/novel/new',
       cancelToken: cancelToken,
     );
@@ -376,7 +379,7 @@ class ApiClient extends GetxService {
     int illustId, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v2/illust/related',
       queryParameters: {
         'filter': 'for_android',
@@ -396,7 +399,7 @@ class ApiClient extends GetxService {
     int illustId, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/illust/detail',
       queryParameters: {
         'filter': 'for_android',
@@ -415,7 +418,7 @@ class ApiClient extends GetxService {
     int illustId, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/webview/v1/novel',
       queryParameters: {
         'id': illustId,
@@ -431,7 +434,7 @@ class ApiClient extends GetxService {
     int illustId, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/ugoira/metadata',
       queryParameters: {
         'illust_id': illustId,
@@ -449,7 +452,7 @@ class ApiClient extends GetxService {
     int commentId, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v2/illust/comment/replies',
       queryParameters: {
         'comment_id': commentId,
@@ -466,7 +469,7 @@ class ApiClient extends GetxService {
     int illustId, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v3/illust/comments',
       queryParameters: {
         'illust_id': illustId,
@@ -488,7 +491,7 @@ class ApiClient extends GetxService {
     int? stampId,
     int? parentCommentId,
   }) async {
-    final response = await httpClient.post<String>(
+    final response = await _httpClient.post<String>(
       '/v1/illust/comment/add',
       data: FormData.fromMap(
         {
@@ -506,7 +509,7 @@ class ApiClient extends GetxService {
   ///删除评论(自己的) <br/>
   ///[commentId] - 评论ID
   Future<void> deleteComment(int commentId) async {
-    await httpClient.post<String>(
+    await _httpClient.post<String>(
       '/v1/illust/comment/delete',
       data: FormData.fromMap(
         {
@@ -522,7 +525,7 @@ class ApiClient extends GetxService {
     String word, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v2/search/autocomplete',
       queryParameters: {
         'merge_plain_keyword_results': true,
@@ -550,7 +553,7 @@ class ApiClient extends GetxService {
     int? bookmarkTotal,
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/search/illust',
       queryParameters: {
         'filter': 'for_android',
@@ -584,7 +587,7 @@ class ApiClient extends GetxService {
     int? bookmarkTotal,
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/search/novel',
       queryParameters: {
         'include_translated_tag_results': true,
@@ -606,7 +609,7 @@ class ApiClient extends GetxService {
     String word, {
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/search/user',
       queryParameters: {
         'filter': 'for_android',
@@ -624,7 +627,7 @@ class ApiClient extends GetxService {
     bool isNovel = false,
     required CancelToken cancelToken,
   }) async {
-    final response = await httpClient.get<String>(
+    final response = await _httpClient.get<String>(
       '/v1/user/bookmark-tags/${isNovel ? 'novel' : 'illust'}',
       queryParameters: {
         'user_id': userId,
@@ -643,7 +646,7 @@ class ApiClient extends GetxService {
   ///[isNovel] 小说
   Future<void> bookmarkAdd(int illustId,
       {List<String> tags = const [], bool restrict = true, bool isNovel = false}) async {
-    await httpClient.post<String>(
+    await _httpClient.post<String>(
       '/v2/${isNovel ? 'novel' : 'illust'}/bookmark/add',
       data: FormData.fromMap(
         {
@@ -662,7 +665,7 @@ class ApiClient extends GetxService {
     int illustId, {
     bool isNovel = false,
   }) async {
-    await httpClient.post<String>(
+    await _httpClient.post<String>(
       '/v1/${isNovel ? 'novel' : 'illust'}/bookmark/delete',
       data: FormData.fromMap(
         {
@@ -679,7 +682,7 @@ class ApiClient extends GetxService {
     int userId, {
     bool restrict = true,
   }) async {
-    await httpClient.post<String>(
+    await _httpClient.post<String>(
       '/v1/user/follow/add',
       data: FormData.fromMap(
         {
@@ -693,7 +696,7 @@ class ApiClient extends GetxService {
   ///取消收藏插画 <br/>
   ///[userId] - 用户ID
   Future<void> followDelete(int userId) async {
-    await httpClient.post<String>(
+    await _httpClient.post<String>(
       '/v1/user/follow/delete',
       data: FormData.fromMap(
         {

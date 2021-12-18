@@ -10,6 +10,7 @@ import 'dart:typed_data';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_android/models/search_image_item.dart';
 import 'package:pixiv_func_android/pages/illust/illust.dart';
@@ -26,11 +27,11 @@ class SearchImageResultPage extends StatelessWidget {
     if (item.loadFailed) {
       return InkWell(
         onTap: () => controller.loadData(item),
-        child: const Card(
+        child: Card(
           child: SizedBox(
             height: 180,
             child: Center(
-              child: Text('加载失败,点击重新加载'),
+              child: Text(I18n.loadFailedRetry.tr),
             ),
           ),
         ),
@@ -72,7 +73,7 @@ class SearchImageResultPage extends StatelessWidget {
                         Expanded(
                           child: ListTile(
                             title: Text(illust.title, overflow: TextOverflow.ellipsis),
-                            subtitle: Text('相似度:${item.result.similarityText}'),
+                            subtitle: Text('${I18n.similarity.tr}:${item.result.similarityText}'),
                           ),
                         ),
                       ],
@@ -105,8 +106,8 @@ class SearchImageResultPage extends StatelessWidget {
           widget = Center(
             child: ListTile(
               onTap: () => controller.init(),
-              title: const Center(
-                child: Text('搜索失败 点击重新搜索'),
+              title: Center(
+                child: Text(I18n.loadFailedRetry.tr),
               ),
             ),
           );
@@ -122,10 +123,9 @@ class SearchImageResultPage extends StatelessWidget {
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
               return [
                 SliverAppBar(
-                  title: const Text('搜索图片'),
+                  title: Text('${I18n.search.tr}${I18n.image.tr}'),
                   actions: [
                     IconButton(
-                      tooltip: '重新加载',
                       onPressed: () => controller.init(),
                       icon: const Icon(Icons.refresh_outlined),
                     )

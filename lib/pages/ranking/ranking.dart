@@ -7,10 +7,12 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/enums.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 
 import 'content/source.dart';
@@ -18,18 +20,17 @@ import 'content/source.dart';
 class RankingPage extends StatelessWidget {
   const RankingPage({Key? key}) : super(key: key);
 
-  static const tabNames = [
-    '每日',
-    '每日(R-18)',
-    '每日(男性欢迎)',
-    '每日(男性欢迎 & R-18)',
-    '每日(女性欢迎)',
-    '每日(女性欢迎 & R-18)',
-    '每周',
-    '每周(R-18)',
-    '每周(原创)',
-    '每周(新人)',
-    '每月',
+  static final tabNames = [
+    I18n.day.tr,
+    I18n.dayR18.tr,
+    I18n.dayMaleR18.tr,
+    I18n.dayFemale.tr,
+    I18n.dayFemaleR18.tr,
+    I18n.week.tr,
+    I18n.weekR18.tr,
+    I18n.weekOriginal.tr,
+    I18n.weekRookie.tr,
+    I18n.month.tr,
   ];
 
   @override

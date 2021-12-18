@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/components/local_user_card/local_user_card.dart';
 import 'package:pixiv_func_android/pages/about/about.dart';
@@ -44,49 +45,49 @@ class SelfPage extends StatelessWidget {
               Card(
                 child: ListTile(
                   onTap: () => Get.to(const BookmarkedPage()),
-                  title: const Text('收藏', style: TextStyle(fontSize: 25)),
+                  title: Text(I18n.bookmark.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
                 child: ListTile(
                   onTap: () => Get.to(const FollowingPage()),
-                  title: const Text('关注', style: TextStyle(fontSize: 25)),
+                  title: Text(I18n.follow.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
                 child: ListTile(
                   onTap: () => Get.to(const FollowerNewPage()),
-                  title: const Text('最新作品(关注者)', style: TextStyle(fontSize: 25)),
+                  title: Text(I18n.followerNewIllust.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
                 child: ListTile(
                   onTap: () => Get.to(const AnyNewPage()),
-                  title: const Text('最新作品(所有人)', style: TextStyle(fontSize: 25)),
+                  title: Text(I18n.anyNewIllust.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
                 child: ListTile(
                   onTap: () => Get.to(const SettingsPage()),
-                  title: const Text('设置', style: TextStyle(fontSize: 25)),
+                  title: Text(I18n.settings.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
                 child: ListTile(
                   onTap: () => Get.to(const DownloadManagerPage()),
-                  title: const Text('下载任务', style: TextStyle(fontSize: 25)),
+                  title: Text(I18n.downloadTask.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
                 child: ListTile(
                   onTap: () => Get.to(const BrowsingHistoryPage()),
-                  title: const Text('历史记录', style: TextStyle(fontSize: 25)),
+                  title: Text(I18n.browsingHistory.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
                 child: ListTile(
                   onTap: () => Get.to(const AboutPage()),
-                  title: const Text('关于', style: TextStyle(fontSize: 25)),
+                  title: Text(I18n.about.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
             ],

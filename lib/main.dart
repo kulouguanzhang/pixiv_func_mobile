@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pixiv_func_android/app/http/http.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
+import 'package:pixiv_func_android/app/i18n/i18n_translations.dart';
 import 'package:pixiv_func_android/app/inject/inject.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/app/route/route.dart';
@@ -32,13 +36,19 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: I18nTranslations(),
+      locale: window.locale,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: const [
         Locale('zh', 'CN'),
+        Locale('en', 'US'),
+        Locale('ja', 'JP'),
       ],
+      fallbackLocale: const Locale('en', 'US'),
       debugShowCheckedModeBanner: false,
       title: 'Pixiv Func',
       navigatorObservers: [routeObserver],
@@ -46,7 +56,7 @@ class App extends StatelessWidget {
         onWillPop: () async {
           if (null == _lastPopTime || DateTime.now().difference(_lastPopTime!) > const Duration(seconds: 1)) {
             _lastPopTime = DateTime.now();
-            Get.find<PlatformApi>().toast('再按一次退出');
+            Get.find<PlatformApi>().toast(I18n.doubleClickExitHint.tr);
             return false;
           } else {
             return true;

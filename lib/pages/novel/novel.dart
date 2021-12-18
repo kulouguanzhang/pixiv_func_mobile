@@ -9,6 +9,7 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/html_rich_text/html_rich_text.dart';
 import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_android/pages/novel/controller.dart';
@@ -44,16 +45,16 @@ class NovelPage extends StatelessWidget {
         } else if (controller.error) {
           widget = GestureDetector(
             onTap: () => controller.loadData(),
-            child: const SizedBox.expand(
+            child: SizedBox.expand(
               child: Center(
-                child: Text('加载失败 点击重新加载', style: TextStyle(fontSize: 25)),
+                child: Text(I18n.loadFailedRetry.tr, style: const TextStyle(fontSize: 25)),
               ),
             ),
           );
         } else if (controller.notFound) {
           widget = SizedBox.expand(
             child: Center(
-              child: Text('小说:$id不存在', style: const TextStyle(fontSize: 25)),
+              child: Text('${I18n.novel.tr}:$id${I18n.notExist}', style: const TextStyle(fontSize: 25)),
             ),
           );
         } else {
@@ -72,7 +73,7 @@ class NovelPage extends StatelessWidget {
                     visible: null != novelJSData.seriesNavigation?.prevNovel,
                     child: ListTile(
                       onTap: () => Get.back(),
-                      title: const Text('上一页'),
+                      title: Text(I18n.prePage.tr),
                       subtitle: Text('${novelJSData.seriesNavigation?.prevNovel?.title}'),
                     ),
                   ),
@@ -90,7 +91,7 @@ class NovelPage extends StatelessWidget {
                           preventDuplicates: false,
                         );
                       },
-                      title: const Text('下一页'),
+                      title: Text(I18n.nextPage.tr),
                       subtitle: Text('${novelJSData.seriesNavigation?.nextNovel?.title}'),
                     ),
                   ),
@@ -105,7 +106,7 @@ class NovelPage extends StatelessWidget {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                title: Text('小说 第${page + 1}页'),
+                title: Text(I18n.novel.tr),
                 actions: [
                   IconButton(
                     onPressed: () => controller.loadData(),

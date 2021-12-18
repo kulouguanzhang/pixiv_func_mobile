@@ -35,19 +35,7 @@ class AppSettingsService extends GetxService {
 
   set guideInit(bool value) => _sharedPreferences.setBool('guide_init', value);
 
-  bool get enableProxy => settings.enableProxy;
 
-  set enableProxy(bool value) {
-    settings.enableProxy = value;
-    _update();
-  }
-
-  String get httpProxyUrl => settings.httpProxyUrl;
-
-  set httpProxyUrl(String value) {
-    settings.httpProxyUrl = value;
-    _update();
-  }
 
   bool get isLightTheme => settings.isLightTheme;
 
@@ -81,6 +69,13 @@ class AppSettingsService extends GetxService {
 
   set enableBrowsingHistory(bool value) {
     settings.enableBrowsingHistory = value;
+    _update();
+  }
+
+  String get language => settings.language;
+
+  set language(String value) {
+    settings.language = value;
     _update();
   }
 

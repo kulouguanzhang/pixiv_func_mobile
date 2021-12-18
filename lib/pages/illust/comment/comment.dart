@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/entity/comment.dart';
 import 'package:pixiv_func_android/app/data/data_tab_view_content.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_android/models/comment_tree.dart';
@@ -84,7 +85,7 @@ class IllustCommentPage extends StatelessWidget {
                     Expanded(child: Container()),
                     OutlinedButton(
                       onPressed: () => controller.doDeleteComment(commentTree),
-                      child: const Text('删除'),
+                      child: Text(I18n.delete.tr),
                     )
                   ],
                 )
@@ -125,7 +126,7 @@ class IllustCommentPage extends StatelessWidget {
             child: Card(
               child: ListTile(
                 onTap: () => controller.loadNextReplies(commentTree),
-                title: const Center(child: Text('点击加载更多')),
+                title: Center(child: Text(I18n.loadingMore.tr)),
               ),
             ),
           ),
@@ -140,7 +141,7 @@ class IllustCommentPage extends StatelessWidget {
             leading: GestureDetector(
               onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
               child: Hero(
-                tag: 'user:${commentTree.data.user.id}',
+                tag: 'UserHero:${commentTree.data.user.id}',
                 child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium),
               ),
             ),
@@ -158,7 +159,7 @@ class IllustCommentPage extends StatelessWidget {
                       Expanded(child: Container()),
                       OutlinedButton(
                         onPressed: () => controller.doDeleteComment(commentTree),
-                        child: const Text('删除'),
+                        child: Text(I18n.delete.tr),
                       )
                     ],
                   )
@@ -178,7 +179,7 @@ class IllustCommentPage extends StatelessWidget {
     Get.put(IllustCommentController(id), tag: controllerTag);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('插画的评论'),
+        title: Text(I18n.comment.tr),
       ),
       body: GetBuilder<IllustCommentController>(
         tag: controllerTag,
@@ -224,7 +225,7 @@ class IllustCommentPage extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 5),
                     child: ElevatedButton(
                       onPressed: controller.doAddComment,
-                      child: const Text('发送'),
+                      child: Text(I18n.send.tr),
                     ),
                   ),
                 ],
@@ -233,57 +234,6 @@ class IllustCommentPage extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-}
-
-class InputDialog {
-  static Future<String?> show({required BuildContext context, required Widget child}) async {
-    return Navigator.of(context).push(InputOverlay(child));
-  }
-}
-
-class InputOverlay extends ModalRoute<String> {
-  final Widget child;
-
-  InputOverlay(this.child);
-
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 200);
-
-  @override
-  bool get opaque => false;
-
-  @override
-  bool get barrierDismissible => true;
-
-  @override
-  Color get barrierColor => const Color(0x01000000);
-
-  @override
-  String? get barrierLabel => null;
-
-  @override
-  bool get maintainState => true;
-
-  @override
-  Widget buildPage(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-  ) {
-    return child;
-  }
-
-  @override
-  Widget buildTransitions(
-      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-    return FadeTransition(
-      opacity: CurvedAnimation(
-        parent: animation,
-        curve: Curves.easeOut,
-      ),
-      child: child,
     );
   }
 }

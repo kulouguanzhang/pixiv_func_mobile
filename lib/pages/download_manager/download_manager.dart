@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/download/download_manager_controller.dart';
 import 'package:pixiv_func_android/app/download/downloader.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/models/download_task.dart';
 import 'package:pixiv_func_android/pages/illust/illust.dart';
 
@@ -42,8 +43,9 @@ class DownloadManagerPage extends StatelessWidget {
       child: ListTile(
         onTap: () => Get.to(IllustPage(illust: task.illust)),
         title: Text(task.illust.title, overflow: TextOverflow.ellipsis),
-        subtitle:
-            DownloadState.failed != task.state ? LinearProgressIndicator(value: task.progress) : const Text('下载失败'),
+        subtitle: DownloadState.failed != task.state
+            ? LinearProgressIndicator(value: task.progress)
+            : Text(I18n.downloadFailed.tr),
         trailing: SizedBox(
           width: 48,
           child: trailing,
@@ -56,7 +58,7 @@ class DownloadManagerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('下载任务'),
+        title: Text(I18n.downloadTask.tr),
       ),
       body: GetBuilder<DownloadManagerController>(
         builder: (controller) {

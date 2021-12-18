@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/entity/illust.dart';
 import 'package:pixiv_func_android/app/download/downloader.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/local_data/browsing_history_manager.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/app/settings/app_settings.dart';
@@ -79,9 +80,9 @@ class IllustPage extends StatelessWidget {
             child: InkWell(
               onLongPress: () async {
                 await Utils.copyToClipboard('${illust.id}');
-                Get.find<PlatformApi>().toast('已将插画ID复制到剪切板');
+                Get.find<PlatformApi>().toast(I18n.copySuccess.tr);
               },
-              child: Text('插画ID:${illust.id}'),
+              child: Text('${I18n.illust.tr}ID:${illust.id}'),
             ),
           ),
           Padding(
@@ -98,13 +99,13 @@ class IllustPage extends StatelessWidget {
                         text: '${illust.totalView} ',
                         style: TextStyle(color: Get.theme.colorScheme.primary),
                       ),
-                      const TextSpan(text: '查看'),
+                      TextSpan(text: I18n.totalView.tr),
                       const TextSpan(text: '  '),
                       TextSpan(
                         text: '${illust.totalBookmarks} ',
                         style: TextStyle(color: Get.theme.colorScheme.primary),
                       ),
-                      const TextSpan(text: '收藏'),
+                      TextSpan(text: I18n.totalBookmark.tr),
                     ],
                   ),
                 ),
@@ -169,8 +170,8 @@ class IllustPage extends StatelessWidget {
             child: Card(
               child: ListTile(
                 onTap: () => Get.to(IllustCommentPage(id: illust.id)),
-                title: const Center(
-                  child: Text('查看评论'),
+                title: Center(
+                  child: Text(I18n.viewComment.tr),
                 ),
               ),
             ),
@@ -195,8 +196,8 @@ class IllustPage extends StatelessWidget {
     return Scaffold(
       body: LoadingMoreCustomScrollView(
         slivers: [
-          const SliverAppBar(
-            title: Text('插画详细'),
+          SliverAppBar(
+            title: Text(I18n.illust.tr),
           ),
           if (illust.isUgoira)
             SliverToBoxAdapter(

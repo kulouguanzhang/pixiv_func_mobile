@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/auth_client.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/app/platform/webview/platform_web_view.dart';
@@ -20,7 +21,14 @@ class LoginController extends GetxController {
     }
   }
 
-  void login(bool create, bool useLocalReverseProxy) {
+  void useReverseProxyOnChanged(bool? value) {
+    if (null != value) {
+      state.useReverseProxy = value;
+      update();
+    }
+  }
+
+  void login(bool create) {
     final AccountService accountManager = Get.find();
     final AuthClient oAuthAPI = Get.find();
     final AppSettingsService appInfo = Get.find();
@@ -32,7 +40,7 @@ class LoginController extends GetxController {
 
     Get.to(
       PlatformWebView(
-        useLocalReverseProxy: useLocalReverseProxy,
+        useLocalReverseProxy: state.useReverseProxy,
         url: url,
         onMessageHandler: (BuildContext context, dynamic message) async {
           final map = message as Map;
@@ -44,7 +52,7 @@ class LoginController extends GetxController {
               oAuthAPI.initAccountAuthToken(code, s).then((result) {
                 Log.i(result);
 
-                Get.find<PlatformApi>().toast('登录成功');
+                Get.find<PlatformApi>().toast('${I18n.login.tr}${I18n.success.tr}');
                 accountManager.add(result);
                 Get.back();
                 appInfo.guideInit = true;

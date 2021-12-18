@@ -6,11 +6,11 @@
  * 作者:小草
  */
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/components/user_previewer/user_previewer.dart';
 
@@ -23,24 +23,21 @@ class FollowingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return SafeArea(
       child: Scaffold(
         body: DataTabPage(
-          title: '关注',
+          title: I18n.follow.tr,
           tabs: [
             DataTabConfig(
-              name: '公开',
-              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId,true),
+              name: I18n.public.tr,
+              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId, true),
               itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),
             DataTabConfig(
-              name: '悄悄',
+              name: I18n.private.tr,
               source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId, false),
               itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),
-
           ],
         ),
       ),

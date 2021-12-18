@@ -71,7 +71,6 @@ class ImageScalePage extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                        tooltip: '保存原图',
                         splashRadius: 20,
                         onPressed: () => Downloader.start(illust: illust, url: urls[i]),
                         icon: const Icon(Icons.save_alt_outlined),

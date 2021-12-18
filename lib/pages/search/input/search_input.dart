@@ -7,6 +7,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/sliding_segmented_control/sliding_segmented_control.dart';
 import 'package:pixiv_func_android/models/search_filter.dart';
 import 'package:pixiv_func_android/pages/search/filter_editor/filter_editor.dart';
@@ -25,7 +26,7 @@ class SearchInputPage extends StatelessWidget {
       decoration: InputDecoration(
         fillColor: Get.theme.backgroundColor,
         filled: true,
-        hintText: '搜索关键字或ID',
+        hintText: I18n.searchInputHint.tr,
         border: InputBorder.none,
         prefix: const SizedBox(width: 5),
         suffixIcon: state.inputAsString.isNotEmpty
@@ -57,7 +58,6 @@ class SearchInputPage extends StatelessWidget {
             title: _buildInputBox(),
             actions: [
               IconButton(
-                tooltip: '打开搜索过滤编辑器',
                 onPressed: () {
                   Get.dialog<SearchFilter>(
                     SearchFilterEditor(
@@ -72,10 +72,10 @@ class SearchInputPage extends StatelessWidget {
           body: Column(
             children: [
               SlidingSegmentedControl(
-                children: const <int, Widget>{
-                  0: Text('插画&漫画'),
-                  1: Text('小说'),
-                  2: Text('用户'),
+                children: <int, Widget>{
+                  0: Text(I18n.illustAndManga.tr),
+                  1: Text(I18n.novel.tr),
+                  2: Text(I18n.user.tr),
                 },
                 groupValue: state.type,
                 onValueChanged: controller.typeValueOnChanged,
@@ -89,19 +89,19 @@ class SearchInputPage extends StatelessWidget {
                           ListTile(
                             onTap: () => controller.toIllustPageById(),
                             title: Text('${state.inputAsNumber}'),
-                            subtitle: const Text('插画ID'),
+                            subtitle: Text('${I18n.illust.tr}ID'),
                           )
                         else if (state.type == 1)
                           ListTile(
                             onTap: () => controller.toNovelPageById(),
                             title: Text('${state.inputAsNumber}'),
-                            subtitle: const Text('小说ID'),
+                            subtitle: Text('${I18n.novel.tr}ID'),
                           )
                         else if (state.type == 2)
                           ListTile(
                             onTap: () => controller.toUserPageById(),
                             title: Text('${state.inputAsNumber}'),
-                            subtitle: const Text('用户ID'),
+                            subtitle: Text('${I18n.user.tr}ID'),
                           ),
                       if (null != state.searchAutocomplete)
                         for (var tag in state.searchAutocomplete!.tags)

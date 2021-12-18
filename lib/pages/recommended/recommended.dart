@@ -7,10 +7,12 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/enums.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_android/components/novel_previewer/novel_previewer.dart';
 import 'package:pixiv_func_android/components/user_previewer/user_previewer.dart';
@@ -30,24 +32,24 @@ class RecommendedPage extends StatelessWidget {
           title: 'Pixiv Func',
           tabs: [
             DataTabConfig(
-              name: '插画',
+              name: I18n.illust.tr,
               source: RecommendedIllustListSource(WorkType.illust),
               extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
             ),
             DataTabConfig(
-              name: '漫画',
+              name: I18n.manga.tr,
               source: RecommendedIllustListSource(WorkType.manga),
               extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
             ),
             DataTabConfig(
-              name: '小说',
+              name: I18n.novel.tr,
               source: RecommendedNovelListSource(),
               itemBuilder: (BuildContext context, item, int index) => NovelPreviewer(novel: item),
             ),
             DataTabConfig(
-              name: '用户',
+              name: I18n.user.tr,
               source: RecommendedUserListSource(),
               itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),

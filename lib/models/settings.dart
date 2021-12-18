@@ -7,6 +7,7 @@
  */
 
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,10 +15,6 @@ part 'settings.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Settings {
-  bool enableProxy;
-
-  String httpProxyUrl;
-
   bool isLightTheme;
 
   String imageSource;
@@ -31,17 +28,26 @@ class Settings {
   //启用浏览历史记录
   bool enableBrowsingHistory;
 
+  //语言
+  String language;
+
   Settings(
-    this.enableProxy,
-    this.httpProxyUrl,
     this.isLightTheme,
     this.imageSource,
     this.previewQuality,
     this.scaleQuality,
     this.enableBrowsingHistory,
+    this.language,
   );
 
-  factory Settings.defaultValue() => Settings(false, '127.0.0.1:10809', false, '210.140.92.139', true, true, false);
+  factory Settings.defaultValue() => Settings(
+        false,
+        '210.140.92.139',
+        true,
+        true,
+        false,
+        window.locale.toLanguageTag(),
+      );
 
   factory Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
 

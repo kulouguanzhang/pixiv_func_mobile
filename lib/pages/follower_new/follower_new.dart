@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/dropdown_menu/dropdown_menu.dart';
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_android/components/novel_previewer/novel_previewer.dart';
@@ -29,14 +30,14 @@ class FollowerNewPage extends StatelessWidget {
         body: ObxValue<Rx<bool?>>((data) {
           return DataTabPage(
             key: Key('Key($runtimeType:${data.hashCode})'),
-            title: '关注者的新作品',
+            title: I18n.followerNewIllust.tr,
             actions: [
               DropdownButtonHideUnderline(
                 child: DropdownMenu<bool?>(
                   menuItems: [
-                    DropdownItem(null, '全部'),
-                    DropdownItem(true, '公开'),
-                    DropdownItem(false, '悄悄'),
+                    DropdownItem(null, I18n.all.tr),
+                    DropdownItem(true, I18n.public.tr),
+                    DropdownItem(false, I18n.private.tr),
                   ],
                   currentValue: data.value,
                   onChanged: (bool? value) => data.value = value,
@@ -45,13 +46,13 @@ class FollowerNewPage extends StatelessWidget {
             ],
             tabs: [
               DataTabConfig(
-                name: '插画&漫画',
+                name: I18n.illustAndManga.tr,
                 source: FollowerNewIllustListSource(data.value),
                 itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
                 extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               ),
               DataTabConfig(
-                name: '小说',
+                name: I18n.novel.tr,
                 source: FollowerNewNovelListSource(data.value),
                 itemBuilder: (BuildContext context, item, int index) => NovelPreviewer(novel: item),
               ),

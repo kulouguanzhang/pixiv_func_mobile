@@ -7,9 +7,9 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
+import 'package:pixiv_func_android/pages/login/login.dart';
 import 'package:pixiv_func_android/pages/settings/theme/theme_settings.dart';
-
-import 'step2_proxy_set.dart';
 
 class ThemeSetPage extends StatelessWidget {
   const ThemeSetPage({Key? key}) : super(key: key);
@@ -20,13 +20,13 @@ class ThemeSetPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('主题设置'),
+        title: Text('${I18n.theme.tr}${I18n.settings.tr}'),
       ),
       body: const ThemeSettingsWidget(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.arrow_forward_outlined),
-        tooltip: '下一步',
-        onPressed: () => Get.to(const ProxySetPage()),
+        tooltip: I18n.nextStep.tr,
+        onPressed: () => Get.to(const LoginPage()),
         backgroundColor: Get.theme.colorScheme.onBackground,
       ),
     );

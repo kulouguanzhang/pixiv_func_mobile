@@ -7,20 +7,23 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/settings/app_settings.dart';
 
 class ScaleQualitySettingsWidget extends StatelessWidget {
-  const ScaleQualitySettingsWidget({Key? key}) : super(key: key);
+  final bool isPage;
+
+  const ScaleQualitySettingsWidget({Key? key, this.isPage = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ValueBuilder<bool?>(
+    final widget = ValueBuilder<bool?>(
       builder: (bool? snapshot, void Function(bool?) updater) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RadioListTile(
-              title: const Text('大图'),
+              title: Text(I18n.scaleQualityItem1.tr),
               value: false,
               groupValue: snapshot,
               onChanged: (bool? value) {
@@ -28,7 +31,7 @@ class ScaleQualitySettingsWidget extends StatelessWidget {
               },
             ),
             RadioListTile(
-              title: const Text('原图'),
+              title: Text(I18n.scaleQualityItem2.tr),
               value: true,
               groupValue: snapshot,
               onChanged: (bool? value) {
@@ -45,5 +48,15 @@ class ScaleQualitySettingsWidget extends StatelessWidget {
         }
       },
     );
+    if (isPage) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('${I18n.scaleQuality.tr}${I18n.settings.tr}'),
+        ),
+        body: widget,
+      );
+    } else {
+      return widget;
+    }
   }
 }

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/entity/illust.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_android/components/loading_more_indicator/loading_more_indicator.dart';
 import 'package:pixiv_func_android/pages/browsing_history/source.dart';
@@ -25,18 +26,23 @@ class BrowsingHistoryPage extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              title: const Text('历史记录'),
+              title: Text(I18n.browsingHistory.tr),
               actions: [
                 IconButton(
-                  tooltip: '清空历史记录',
                   icon: const Icon(Icons.delete_forever_outlined),
                   onPressed: () {
                     Get.dialog<bool>(AlertDialog(
-                      title: const Text('清空'),
-                      content: const Text('确定要清空历史记录嘛?'),
+                      title: Text(I18n.clear.tr),
+                      content: Text(I18n.clearBrowsingHistoryAsk.tr),
                       actions: [
-                        OutlinedButton(onPressed: () => Navigator.pop<bool>(context, true), child: const Text('确定')),
-                        OutlinedButton(onPressed: () => Navigator.pop<bool>(context, false), child: const Text('取消')),
+                        OutlinedButton(
+                          onPressed: () => Get.back<bool>(result: true),
+                          child: Text(I18n.confirm.tr),
+                        ),
+                        OutlinedButton(
+                          onPressed: () => Get.back<bool>(result: false),
+                          child: Text(I18n.cancel.tr),
+                        ),
                       ],
                     )).then((value) {
                       if (true == value) {
@@ -59,11 +65,17 @@ class BrowsingHistoryPage extends StatelessWidget {
                 onLongPress: () {
                   Get.dialog<bool>(
                     AlertDialog(
-                      title: const Text('删除这一条历史记录'),
-                      content: const Text('确定要删除嘛?'),
+                      title: Text(I18n.removeBrowsingHistoryOne.tr),
+                      content: Text(I18n.removeBrowsingHistoryOneAsk.tr),
                       actions: [
-                        OutlinedButton(onPressed: () => Navigator.pop<bool>(context, true), child: const Text('确定')),
-                        OutlinedButton(onPressed: () => Navigator.pop<bool>(context, false), child: const Text('取消')),
+                        OutlinedButton(
+                          onPressed: () => Navigator.pop<bool>(context, true),
+                          child: Text(I18n.confirm.tr),
+                        ),
+                        OutlinedButton(
+                          onPressed: () => Navigator.pop<bool>(context, false),
+                          child: Text(I18n.cancel.tr),
+                        ),
                       ],
                     ),
                   ).then(

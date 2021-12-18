@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_android/components/novel_previewer/novel_previewer.dart';
 import 'package:pixiv_func_android/models/bookmarked_filter.dart';
@@ -35,13 +36,13 @@ class BookmarkedPage extends StatelessWidget {
                 title: 'Pixiv Func',
                 tabs: [
                   DataTabConfig(
-                    name: '插画&漫画',
+                    name: I18n.illustAndManga.tr,
                     source: BookmarkedIllustListSource(data.value),
                     itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
                     extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                   ),
                   DataTabConfig(
-                    name: '小说',
+                    name: I18n.novel.tr,
                     source: BookmarkedNovelListSource(data.value),
                     itemBuilder: (BuildContext context, item, int index) => NovelPreviewer(novel: item),
                     extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -49,7 +50,6 @@ class BookmarkedPage extends StatelessWidget {
                 ],
                 actions: [
                   IconButton(
-                    tooltip: '打开收藏滤编辑器',
                     onPressed: () {
                       Get.dialog<BookmarkedFilter>(
                         BookmarkedFilterEditor(

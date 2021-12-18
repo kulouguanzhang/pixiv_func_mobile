@@ -7,7 +7,9 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/pages/guide/step1_theme_set.dart';
+import 'package:pixiv_func_android/pages/settings/language/language_settings.dart';
 
 class LanguageSetPage extends StatelessWidget {
   const LanguageSetPage({Key? key}) : super(key: key);
@@ -17,17 +19,12 @@ class LanguageSetPage extends StatelessWidget {
     // final AppSettingsService appInfo = Get.find();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('语言设置'),
+        title: Text('${I18n.language.tr}${I18n.settings.tr}'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Center(child: Text('目前仅支持简体中文', style: TextStyle(fontSize: 25))),
-        ],
-      ),
+      body: const LanguageSettingsWidget(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.arrow_forward_outlined),
-        tooltip: '下一步',
+        tooltip: I18n.nextStep.tr,
         onPressed: () => Get.to(const ThemeSetPage()),
         backgroundColor: Get.theme.colorScheme.onBackground,
       ),

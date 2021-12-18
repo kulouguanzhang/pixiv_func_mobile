@@ -8,34 +8,48 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/settings/app_settings.dart';
 
 class BrowsingHistorySettingsWidget extends StatelessWidget {
-  const BrowsingHistorySettingsWidget({Key? key}) : super(key: key);
+  final bool isPage;
+
+  const BrowsingHistorySettingsWidget({Key? key, this.isPage = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ValueBuilder<bool?>(
-          builder: (bool? snapshot, void Function(bool?) updater) {
-            return CheckboxListTile(
+    final widget = ValueBuilder<bool?>(
+      builder: (bool? snapshot, void Function(bool?) updater) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CheckboxListTile(
               value: snapshot,
               onChanged: (bool? value) {
                 updater(value);
               },
-              title: const Text('启用历史记录'),
-            );
-          },
-          initialValue: Get.find<AppSettingsService>().enableBrowsingHistory,
-          onUpdate: (bool? value) {
-            if (null != value) {
-              Get.find<AppSettingsService>().enableBrowsingHistory = value;
-            }
-          },
-        ),
-      ],
+              title: Text(I18n.enableBrowsingHistory.tr),
+            ),
+          ],
+        );
+      },
+      initialValue: Get.find<AppSettingsService>().enableBrowsingHistory,
+      onUpdate: (bool? value) {
+        if (null != value) {
+          Get.find<AppSettingsService>().enableBrowsingHistory = value;
+        }
+      },
     );
+
+    if (isPage) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('${I18n.browsingHistory.tr}${I18n.settings.tr}'),
+        ),
+        body: widget,
+      );
+    } else {
+      return widget;
+    }
   }
 }

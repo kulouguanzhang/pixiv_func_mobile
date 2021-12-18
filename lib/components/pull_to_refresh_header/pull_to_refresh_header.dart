@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class PullToRefreshHeader extends StatelessWidget {
@@ -46,22 +47,22 @@ class PullToRefreshHeader extends StatelessWidget {
       if (null != mode) {
         switch (mode) {
           case RefreshIndicatorMode.drag:
-            text = '继续下拉以刷新';
+            text = I18n.refreshIndicatorModeDarg.tr;
             break;
           case RefreshIndicatorMode.armed:
-            text = '松手刷新';
+            text = I18n.refreshIndicatorModeArmed.tr;
             break;
           case RefreshIndicatorMode.snap:
-            text = '准备刷新';
+            text = I18n.refreshIndicatorModeSnap.tr;
             break;
           case RefreshIndicatorMode.refresh:
-            text = '正在刷新...';
+            text = I18n.refreshIndicatorModeRefresh.tr;
             break;
           case RefreshIndicatorMode.done:
             text = '';
             break;
           case RefreshIndicatorMode.canceled:
-            text = '取消';
+            text = I18n.refreshIndicatorModeCanceled.tr;
             break;
           case RefreshIndicatorMode.error:
             text = '';
