@@ -73,9 +73,9 @@
 
 [![](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)](https://www.jetbrains.com/idea/?from=xiao-cao-x/pixiv_func_android)
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.svg)](https://www.jetbrains.com/datagrip/?from=xiao-cao-x/pixiv_func_android)
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.svg)](https://www.jetbrains.com/go/?from=xiao-cao-x/pixiv_func_android)
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/DataGrip.svg)](https://www.jetbrains.com/go/?from=xiao-cao-x/pixiv_func_android)  
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/DataGrip.svg)](https://www.jetbrains.com/datagrip/?from=xiao-cao-x/pixiv_func_android)  
 
 
 
