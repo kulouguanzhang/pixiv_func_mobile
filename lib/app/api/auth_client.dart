@@ -18,7 +18,7 @@ import 'interceptors/retry_interceptor.dart';
 import 'model/user_account.dart';
 
 class AuthClient extends GetxService {
-  static const _targetIP = '210.140.131.199';
+  static const _targetIP = '210.140.92.183';
   static const _targetHost = 'oauth.secure.pixiv.net';
 
   Dio get _httpClient {

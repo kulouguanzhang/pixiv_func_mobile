@@ -21,7 +21,7 @@ class ImageSourceSettingsWidget extends StatelessWidget {
     final TextEditingController customImageSourceInput = TextEditingController();
 
     const List<MapEntry<String, String>> imageSources = [
-      MapEntry('IP(210.140.92.139)', '210.140.92.139'),
+      MapEntry('IP(210.140.92.146)', '210.140.92.146'),
       MapEntry('Original(i.pximg.net)', 'i.pximg.net'),
       MapEntry('MirroImage(i.pixiv.re)', 'i.pixiv.re'),
     ];
@@ -46,14 +46,14 @@ class ImageSourceSettingsWidget extends StatelessWidget {
                 onChanged: updater,
               ),
             RadioListTile(
-              title: Text('${I18n.use.tr}${I18n.imageSource.tr}'),
+              title: Text('${I18n.use.tr}${I18n.customImageSource.tr}'),
               value: customImageSourceInput.text,
               groupValue: data.value,
               onChanged: updater,
             ),
             ListTile(
               title: TextField(
-                decoration: InputDecoration(label: Text(I18n.imageSource.tr)),
+                decoration: InputDecoration(label: Text(I18n.customImageSource.tr)),
                 controller: customImageSourceInput,
                 onChanged: updater,
               ),

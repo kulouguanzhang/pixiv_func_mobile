@@ -181,6 +181,9 @@ class I18n {
   ///最新发行版
   static const latestRelease = 'latestRelease';
 
+  ///项目地址
+  static const projectAddress = 'projectAddress';
+
   ///点击检查更新
   static const clickCheckUpdate = 'clickCheckUpdate';
 

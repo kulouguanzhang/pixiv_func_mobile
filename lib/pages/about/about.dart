@@ -74,7 +74,7 @@ class AboutPage extends StatelessWidget {
                   child: ListTile(
                     onTap: () => controller.openProjectUrlByBrowser(),
                     onLongPress: () => controller.copyProjectUrl(),
-                    title: Text(controller.thisProjectGitHubUrl),
+                    title: Text('${I18n.projectAddress.tr}${controller.thisProjectGitHubUrl}'),
                     subtitle: Text(I18n.longPressCopyUrl.tr),
                   ),
                 ),

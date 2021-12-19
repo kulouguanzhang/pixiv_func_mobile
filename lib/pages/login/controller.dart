@@ -53,11 +53,14 @@ class LoginController extends GetxController {
                 Log.i(result);
 
                 Get.find<PlatformApi>().toast('${I18n.login.tr}${I18n.success.tr}');
+
+                final firstAccount = accountManager.isEmpty;
+
                 accountManager.add(result);
                 Get.back();
                 appInfo.guideInit = true;
 
-                if (1 == accountManager.accounts().length) {
+                if (firstAccount) {
                   Get.offAll(const AppBodyPage());
                 } else {
                   Get.back();

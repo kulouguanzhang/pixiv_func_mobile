@@ -31,7 +31,7 @@ import 'model/user_detail.dart';
 import 'model/users.dart';
 
 class ApiClient extends GetxService {
-  static const _targetIP = '210.140.131.199';
+  static const _targetIP = '210.140.92.183';
   static const _targetHost = 'app-api.pixiv.net';
 
   Dio get _httpClient {
