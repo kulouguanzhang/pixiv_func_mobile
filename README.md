@@ -11,7 +11,7 @@
 - 开源且免费(不收取打赏),禁止用于盈利(包括但不仅限于收取打赏)  
 - 我的代码随便用,不需要提到我(与我无关)  
 - 以后会写桌面端(还有可能写哔咔客户端)  
-有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_android/issues/new)  
+- 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_android/issues/new)  
 
 # 下载
 
