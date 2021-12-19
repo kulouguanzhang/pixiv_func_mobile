@@ -2,15 +2,16 @@
 
 # 关于该项目
 
-Pixiv第三方安卓客户端  
-我的GTX750Ti显卡不支持高版本黑苹果以及我没有iOS机器所以没法弄iOS(欢迎PR)  
-开源且免费(不收取打赏),禁止用于盈利(包括但不仅限于收取打赏)    
-使用了`GetX`状态管理框架  
-代码严格按照`flutter_lints`的规范编写  
-或许适合新手学习Flutter(至少我这么认为)  
-以后会写桌面端(还有可能写哔咔客户端)  
+- Pixiv第三方安卓客户端  
+- 我的GTX750Ti显卡不支持高版本黑苹果以及我没有iOS机器所以没法弄iOS(欢迎PR)
+- 使用了`GetX`状态管理框架  
+- 代码严格按照`flutter_lints`的规范编写  
+- 或许适合新手学习Flutter(这也是我学习Flutter的点滴)  
+- 这是我的个人玩具,与其他现有同类项目无关,如果你想拿我的项目跟其他项目比较,那么请你离开,我并不欢迎你  
+- 开源且免费(不收取打赏),禁止用于盈利(包括但不仅限于收取打赏)  
+- 我的代码随便用,不需要提到我(与我无关)  
+- 以后会写桌面端(还有可能写哔咔客户端)  
 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_android/issues/new)  
-这是我的个人玩具,与其他现有同类项目无关,如果你想拿我的项目跟其他项目比较,那么请你离开,我并不欢迎你
 
 # 下载
 
@@ -41,6 +42,7 @@ Pixiv第三方安卓客户端
 | 保存原图到系统相册 | 可以查看下载任务 |
 | 关注和取消关注(用户) |  |
 | 收藏和取消收藏(插画&漫画/小说) |  |
+| 国际化 | 几乎全是机翻(欢迎PR) |
 
 # 关于免代理直连
 
@@ -56,17 +58,9 @@ Pixiv第三方安卓客户端
 
 # 预览
 
-![img5](./preview/img5.jpg)
-
-![img4](./preview/img4.jpg)
-
-![img3](./preview/img3.jpg)
-
-![img2](./preview/img2.jpg)
-
-![img1](./preview/img1.jpg)
-
-![img0](./preview/img0.gif)
+| <img src='./preview/img5.jpg' width='300px'/> | <img src='./preview/img4.jpg' width='300px'/> | <img src='./preview/img3.jpg' width='300px'/> |
+| --- | --- | --- |
+| <img src='./preview/img2.jpg' width='300px'/> | <img src='./preview/img1.jpg' width='300px'/> | <img src='./preview/img0.gif' width='300px'/> |
 
 # 鸣谢
 
