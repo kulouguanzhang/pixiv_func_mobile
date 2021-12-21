@@ -1,4 +1,3 @@
 class LoginState {
-  bool agreementAccepted = false;
-  bool useReverseProxy = false;
+  bool useReverseProxy = true;
 }

@@ -14,13 +14,6 @@ import 'state.dart';
 class LoginController extends GetxController {
   final LoginState state = LoginState();
 
-  void agreementOnChanged(bool? value) {
-    if (null != value) {
-      state.agreementAccepted = value;
-      update();
-    }
-  }
-
   void useReverseProxyOnChanged(bool? value) {
     if (null != value) {
       state.useReverseProxy = value;

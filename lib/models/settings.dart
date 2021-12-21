@@ -42,7 +42,7 @@ class Settings {
 
   factory Settings.defaultValue() => Settings(
         false,
-        '210.140.92.139',
+        'i.pixiv.re',
         true,
         true,
         false,
