@@ -316,14 +316,14 @@ class I18n {
   ///每月
   static const month = 'month';
 
-  ///加载失败,点击重试
+  ///加载失败
   static const statusError = 'statusError';
+
+  ///点击重试
+  static const clickRetry = 'clickRetry';
 
   ///正在加载...
   static const statusBusying = 'statusBusying';
-
-  ///加载失败
-  static const statusFullScreenError = 'statusFullScreenError';
 
   ///没有更多数据了
   static const statusNoMoreLoad = 'statusNoMoreLoad';

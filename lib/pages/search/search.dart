@@ -104,6 +104,7 @@ class SearchPage extends StatelessWidget {
                   status: status,
                   errorRefresh: () async => await source.errorRefresh(),
                   isSliver: true,
+                  fullScreenErrorCanRetry: true,
                 ),
               ),
             ),

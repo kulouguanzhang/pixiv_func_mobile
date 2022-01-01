@@ -236,6 +236,7 @@ class IllustPage extends StatelessWidget {
                 status: status,
                 errorRefresh: () => source.errorRefresh(),
                 isSliver: true,
+                fullScreenErrorCanRetry: true,
               ),
             ),
           )

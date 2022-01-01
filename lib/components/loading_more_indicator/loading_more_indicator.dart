@@ -14,12 +14,14 @@ class LoadingMoreIndicator extends StatelessWidget {
   final IndicatorStatus status;
   final Future<bool> Function() errorRefresh;
   final bool isSliver;
+  final bool fullScreenErrorCanRetry;
 
   const LoadingMoreIndicator({
     Key? key,
     required this.status,
     required this.errorRefresh,
     this.isSliver = false,
+    this.fullScreenErrorCanRetry = false,
   }) : super(key: key);
 
   static const textStyle = TextStyle(fontSize: 20);
@@ -63,9 +65,22 @@ class LoadingMoreIndicator extends StatelessWidget {
         break;
       case IndicatorStatus.fullScreenError:
         widget = SizedBox.expand(
-          child: Center(
-            child: Text(I18n.statusFullScreenError.tr, style: textStyle),
-          ),
+          child: fullScreenErrorCanRetry
+              ? InkWell(
+                  onTap: () => errorRefresh(),
+                  child: Center(
+                    child: Text(
+                      '${I18n.statusError.tr}${fullScreenErrorCanRetry ? ', ${I18n.clickRetry.tr}' : ''}',
+                      style: textStyle,
+                    ),
+                  ),
+                )
+              : Center(
+                  child: Text(
+                    I18n.statusError.tr,
+                    style: textStyle,
+                  ),
+                ),
         );
 
         if (isSliver) {

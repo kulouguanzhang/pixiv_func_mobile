@@ -23,6 +23,7 @@ class RankingPage extends StatelessWidget {
   static final tabNames = [
     I18n.day.tr,
     I18n.dayR18.tr,
+    I18n.dayMale.tr,
     I18n.dayMaleR18.tr,
     I18n.dayFemale.tr,
     I18n.dayFemaleR18.tr,
