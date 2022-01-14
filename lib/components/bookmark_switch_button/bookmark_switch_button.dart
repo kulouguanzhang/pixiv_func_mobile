@@ -108,8 +108,9 @@ class BookmarkSwitchButton extends StatelessWidget {
                           Icons.favorite_sharp,
                           color: Colors.pinkAccent,
                         )
-                      : const Icon(
+                      : Icon(
                           Icons.favorite_outline_sharp,
+                          color: Get.theme.colorScheme.background,
                         ),
             ),
           );

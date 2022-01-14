@@ -7,7 +7,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/entity/local_user.dart';
 import 'package:pixiv_func_android/components/avatar_from_url/avatar_from_url.dart';
 
@@ -42,7 +41,6 @@ class LocalUserCard extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   localUser.mailAddress,
-                  style: Get.textTheme.subtitle1,
                 ),
               ],
             ),

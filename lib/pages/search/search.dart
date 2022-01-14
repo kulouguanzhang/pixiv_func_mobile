@@ -31,7 +31,10 @@ class SearchPage extends StatelessWidget {
           heroTag: 'ToSearchInputPageHero',
           backgroundColor: Get.theme.colorScheme.onBackground,
           onPressed: () => Get.to(const SearchInputPage()),
-          child: const Icon(Icons.search_outlined),
+          child: Icon(
+            Icons.search_outlined,
+            color: Get.theme.colorScheme.background,
+          ),
         ),
         body: LoadingMoreCustomScrollView(
           slivers: [

@@ -91,7 +91,7 @@ class IllustPage extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                    style: const TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 12, color: Get.textTheme.bodyText1?.color),
                     children: [
                       TextSpan(text: Utils.japanDateToLocalDateString(DateTime.parse(illust.createDate))),
                       const TextSpan(text: '  '),

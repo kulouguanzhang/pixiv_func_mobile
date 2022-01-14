@@ -147,6 +147,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
       } else {
         child = RichText(
           text: TextSpan(
+            style: TextStyle(color: Get.textTheme.bodyText2?.color),
             children: [for (final node in htmlDocument.nodes) _buildNode(node)],
           ),
         );
@@ -164,6 +165,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
     } else {
       return RichText(
         text: TextSpan(
+          style: TextStyle(color: Get.textTheme.bodyText2?.color),
           children: [for (final node in htmlDocument.nodes) _buildNode(node)],
         ),
       );
