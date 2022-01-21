@@ -23,17 +23,15 @@ import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class SearchIllustResultPage extends StatelessWidget {
   final String word;
-  final SearchFilter filter;
   final bool isTemp;
 
-  SearchIllustResultPage({Key? key, required this.word, required SearchFilter filter, this.isTemp = false})
-      : filter = SearchFilter.copy(filter),
-        super(key: key);
+  const SearchIllustResultPage({Key? key, required this.word, this.isTemp = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final source = SearchIllustResultListSource(word, filter);
     final isRegistered = Get.isRegistered<SearchInputController>();
+    final source =
+        SearchIllustResultListSource(word, isRegistered && !isTemp ? Get.find<SearchInputController>().state.filter : SearchFilter.create());
 
     return Scaffold(
       body: PullToRefreshNotification(
@@ -47,16 +45,14 @@ class SearchIllustResultPage extends StatelessWidget {
                 actions: [
                   IconButton(
                     onPressed: () => Get.dialog<SearchFilter>(
-                      SearchFilterEditor(
-                        filter: isRegistered && !isTemp ? Get.find<SearchInputController>().state.filter : filter,
-                      ),
+                      SearchFilterEditor(filter: source.filter),
                     ).then(
                       (SearchFilter? value) {
                         if (null != value && source.filter != value) {
                           if (isRegistered && !isTemp) {
-                            Get.find<SearchInputController>().filterOnChanged(value);
+                            Get.find<SearchInputController>().onFilterChanged(value);
                           }
-                          source.filter = value;
+                          source.onFilterChanged(value);
                           source.refresh(true);
                         }
                       },

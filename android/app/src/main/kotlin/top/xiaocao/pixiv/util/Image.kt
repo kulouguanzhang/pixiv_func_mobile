@@ -10,6 +10,7 @@ package top.xiaocao.pixiv.util
 
 import android.content.ContentValues
 import android.content.Context
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -44,6 +45,15 @@ fun Context.saveImage(imageBytes: ByteArray, filename: String): Boolean? {
         imageFile.outputStream().use {
             it.write(imageBytes)
         }
+        MediaScannerConnection.scanFile(
+            this, arrayOf(imageFile.absolutePath), arrayOf(
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    MimeTypeMap.getFileExtensionFromUrl(filename)
+                )
+            )
+        ) { _, _ ->
+
+        }
         return true
     }
 
@@ -62,7 +72,7 @@ fun Context.saveImage(imageBytes: ByteArray, filename: String): Boolean? {
     //相册目录
     values.put(
         MediaStore.MediaColumns.RELATIVE_PATH,
-        "${Environment.DIRECTORY_PICTURES}/${"PixivFunc"}"
+        "${Environment.DIRECTORY_PICTURES}/PixivFunc"
     )
 
     var uri: Uri? = null

@@ -96,15 +96,13 @@ class UgoiraViewerController extends GetxController {
   }
 
   Future<void> _generateImages() async {
-    Get.find<PlatformApi>().toast('${I18n.ugoiraGenerateStartHint.tr} ${state.images.length}${I18n.frame.tr}');
+    Get.find<PlatformApi>().toast('${I18n.ugoiraGenerateStartHint.tr}${state.imageFiles.length}${I18n.frame.tr}');
     bool init = false;
     for (final imageBytes in state.imageFiles) {
       state.images.add(await _loadImage(imageBytes));
       if (!init) {
         init = true;
-        final previewWidth = state.images.first.width > Get.mediaQuery.size.width
-            ? Get.mediaQuery.size.width
-            : state.images.first.width.toDouble();
+        final previewWidth = state.images.first.width > Get.mediaQuery.size.width ? Get.mediaQuery.size.width : state.images.first.width.toDouble();
         final previewHeight = previewWidth / state.images.first.width * state.images.first.height.toDouble();
         state.size = ui.Size(previewWidth, previewHeight.toDouble());
       }

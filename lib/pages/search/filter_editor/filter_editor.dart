@@ -148,7 +148,7 @@ class SearchFilterEditor extends StatelessWidget {
               style: Get.textTheme.headline5,
             ),
           ),
-          const Text(' 到 '),
+          const Text(' - '),
           InkWell(
             onTap: () => _openEndDatePicker(context),
             child: Text(
@@ -229,7 +229,7 @@ class SearchFilterEditor extends StatelessWidget {
           actions: [
             OutlinedButton(
               onPressed: () {
-                Get.back(result: controller.filter);
+                Get.back(result: SearchFilter.copy(controller.filter));
               },
               child: Text(I18n.confirm.tr),
             ),

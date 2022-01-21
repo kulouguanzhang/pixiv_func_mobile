@@ -63,7 +63,7 @@ class SearchInputPage extends StatelessWidget {
                     SearchFilterEditor(
                       filter: state.filter,
                     ),
-                  ).then(controller.filterOnChanged);
+                  ).then(controller.onFilterChanged);
                 },
                 icon: const Icon(Icons.filter_alt_outlined),
               ),

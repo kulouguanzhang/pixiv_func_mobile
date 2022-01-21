@@ -23,6 +23,10 @@ class SearchIllustResultListSource extends DataSourceBase<Illust> {
 
   final api = Get.find<ApiClient>();
 
+  void onFilterChanged(SearchFilter value) {
+    filter = value;
+  }
+
   @override
   Future<bool> loadData([bool isLoadMoreAction = false]) async {
     try {

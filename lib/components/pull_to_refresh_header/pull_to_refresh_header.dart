@@ -82,7 +82,7 @@ class PullToRefreshHeader extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             text,
-            style: const TextStyle(fontSize: 12.0, inherit: false),
+            style: TextStyle(fontSize: 12.0, inherit: false, color: Get.theme.textTheme.bodyText2?.color),
           ),
         ),
       );
