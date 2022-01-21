@@ -58,7 +58,7 @@ class SearchInputController extends GetxController {
     update();
   }
 
-  void filterOnChanged(SearchFilter? value) {
+  void onFilterChanged(SearchFilter? value) {
     if (null != value) {
       state.filter = value;
     }
@@ -74,10 +74,10 @@ class SearchInputController extends GetxController {
   void toSearchResultPage(String value) {
     switch (state.type) {
       case 0:
-        Get.to(SearchIllustResultPage(word: value, filter: state.filter));
+        Get.to(SearchIllustResultPage(word: value));
         break;
       case 1:
-        Get.to(SearchNovelResultPage(word: value, filter: state.filter));
+        Get.to(SearchNovelResultPage(word: value));
         break;
       case 2:
         Get.to(SearchUserResultPage(word: value));

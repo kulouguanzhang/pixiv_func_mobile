@@ -13,7 +13,6 @@ import 'package:pixiv_func_android/components/html_rich_text/html_rich_text.dart
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_android/components/loading_more_indicator/loading_more_indicator.dart';
-import 'package:pixiv_func_android/models/search_filter.dart';
 import 'package:pixiv_func_android/pages/illust/related/source.dart';
 import 'package:pixiv_func_android/pages/illust/scale/scale.dart';
 import 'package:pixiv_func_android/pages/search/result/illust/illust_result.dart';
@@ -125,10 +124,13 @@ class IllustPage extends StatelessWidget {
                     onTap: () => Get.to(
                       SearchIllustResultPage(
                         word: tag.name,
-                        filter: SearchFilter.create(),
                         isTemp: true,
                       ),
                     ),
+                    onLongPress: () {
+                      Utils.copyToClipboard(tag.name);
+                      Get.find<PlatformApi>().toast('${I18n.copySuccess.tr}[${tag.name}]');
+                    },
                     child: RichText(
                       text: TextSpan(
                         style: Get.theme.textTheme.bodyText2,

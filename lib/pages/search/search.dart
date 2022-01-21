@@ -12,7 +12,6 @@ import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_android/app/api/model/trending_tags.dart';
 import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_android/components/loading_more_indicator/loading_more_indicator.dart';
-import 'package:pixiv_func_android/models/search_filter.dart';
 import 'package:pixiv_func_android/pages/illust/illust.dart';
 import 'package:pixiv_func_android/pages/search/result/illust/illust_result.dart';
 import 'package:pixiv_func_android/pages/search/trending_illust/source.dart';
@@ -63,10 +62,7 @@ class SearchPage extends StatelessWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () => Get.to(
-                                    SearchIllustResultPage(
-                                      word: item.tag,
-                                      filter: SearchFilter.create(),
-                                    ),
+                                    SearchIllustResultPage(word: item.tag),
                                   ),
                                   onLongPress: () => Get.to(
                                     IllustPage(illust: item.illust),
