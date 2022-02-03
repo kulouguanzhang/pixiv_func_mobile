@@ -8,9 +8,9 @@
 
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/api_client.dart';
+import 'package:pixiv_func_android/app/api/dto/illusts.dart';
 import 'package:pixiv_func_android/app/api/entity/illust.dart';
 import 'package:pixiv_func_android/app/api/enums.dart';
-import 'package:pixiv_func_android/app/api/model/illusts.dart';
 import 'package:pixiv_func_android/app/data/data_source_base.dart';
 import 'package:pixiv_func_android/utils/utils.dart';
 
@@ -28,7 +28,7 @@ class UserIllustListSource extends DataSourceBase<Illust> {
       if (!initData) {
         final result = await api.getUserIllusts(
           id,
-          Utils.enumTypeStringToLittleHump(type),
+          Utils.enumToPixivParameter(type),
           cancelToken: cancelToken,
         );
         nextUrl = result.nextUrl;

@@ -75,7 +75,6 @@ class UserProfile {
   int totalMyPixivUsers;
   @JsonKey(name: 'total_illusts')
   int totalIllusts;
-
   @JsonKey(name: 'total_manga')
   int totalManga;
   @JsonKey(name: 'total_novels')

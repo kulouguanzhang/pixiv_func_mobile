@@ -8,8 +8,8 @@
 
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/api_client.dart';
+import 'package:pixiv_func_android/app/api/dto/users.dart';
 import 'package:pixiv_func_android/app/api/entity/user_preview.dart';
-import 'package:pixiv_func_android/app/api/model/users.dart';
 import 'package:pixiv_func_android/app/data/data_source_base.dart';
 
 class RecommendedUserListSource extends DataSourceBase<UserPreview> {

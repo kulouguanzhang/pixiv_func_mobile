@@ -9,7 +9,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/api_client.dart';
-import 'package:pixiv_func_android/app/api/model/illust_detail.dart';
+import 'package:pixiv_func_android/app/api/dto/illust_detail.dart';
 
 class IllustIdSearchController extends GetxController {
   final int id;

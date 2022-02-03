@@ -14,8 +14,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import 'dto/user_account.dart';
 import 'interceptors/retry_interceptor.dart';
-import 'model/user_account.dart';
 
 class AuthClient extends GetxService {
   static const _targetIP = '210.140.92.183';
@@ -108,7 +108,6 @@ class AuthClient extends GetxService {
   }
 
   String generateCodeChallenge(String s) {
-    final codeChallenge = base64Url.encode(sha256.convert(ascii.encode(s)).bytes).replaceAll('=', '');
-    return codeChallenge;
+    return base64Url.encode(sha256.convert(ascii.encode(s)).bytes).replaceAll('=', '');
   }
 }

@@ -15,7 +15,7 @@ import 'package:pixiv_func_android/app/local_data/account_manager.dart';
 import 'package:pixiv_func_android/utils/log.dart';
 
 import '../auth_client.dart';
-import '../model/error_message.dart';
+import '../dto/error_message.dart';
 
 class AuthTokenInterceptor extends QueuedInterceptorsWrapper {
   final Dio httpClient;

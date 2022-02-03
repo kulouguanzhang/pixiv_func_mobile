@@ -135,8 +135,11 @@ class UgoiraViewerController extends GetxController {
       Future.delayed(const Duration(milliseconds: 333), _saveRoutine);
     } else {
       if (state.loaded || !state.loaded && await loadData()) {
-        Get.find<PlatformApi>().toast('${I18n.ugoiraSaveStartHint.tr} ${state.images.length}${I18n.frame.tr}');
+        state.loading = false;
+        update();
+        Get.find<PlatformApi>().toast('${I18n.ugoiraSaveStartHint.tr} ${state.imageFiles.length}${I18n.frame.tr}');
         final result = await Get.find<PlatformApi>().saveGifImage(id, state.imageFiles, state.delays);
+
         if (null == result) {
           Get.find<PlatformApi>().toast(I18n.imageIsExist.tr);
         } else {

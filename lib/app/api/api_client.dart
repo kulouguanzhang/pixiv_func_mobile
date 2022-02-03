@@ -13,22 +13,22 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
+import 'dto/bookmark_tags.dart';
+import 'dto/comments.dart';
+import 'dto/error_message.dart';
+import 'dto/illust_detail.dart';
+import 'dto/illusts.dart';
+import 'dto/novels.dart';
+import 'dto/search_autocomplete.dart';
+import 'dto/search_illust.dart';
+import 'dto/search_novel.dart';
+import 'dto/trending_tags.dart';
+import 'dto/ugoira_metadata.dart';
+import 'dto/user_detail.dart';
+import 'dto/users.dart';
 import 'entity/comment.dart';
 import 'interceptors/auth_token_interceptor.dart';
 import 'interceptors/retry_interceptor.dart';
-import 'model/bookmark_tags.dart';
-import 'model/comments.dart';
-import 'model/error_message.dart';
-import 'model/illust_detail.dart';
-import 'model/illusts.dart';
-import 'model/novels.dart';
-import 'model/search_autocomplete.dart';
-import 'model/search_illust.dart';
-import 'model/search_novel.dart';
-import 'model/trending_tags.dart';
-import 'model/ugoira_metadata.dart';
-import 'model/user_detail.dart';
-import 'model/users.dart';
 
 class ApiClient extends GetxService {
   static const _targetIP = '210.140.92.183';
@@ -100,7 +100,6 @@ class ApiClient extends GetxService {
 
   ///获取用户详细信息 <br/>
   ///如果没有查询到会返回404 : [ErrorMessage.fromJson] => <br/>
-  ///{ user_message:"该作品已被删除，或作品ID不存在。", message:"", reason:"", user_message_details:{} } <br/>
   ///[userId] - 用户ID
   Future<UserDetail> getUserDetail(
     int userId, {
@@ -196,7 +195,7 @@ class ApiClient extends GetxService {
     return data;
   }
 
-  ///获取推荐作品 <br/>
+  ///获取推荐插画 <br/>
   ///[type] - 类型([WorkType])
   Future<Illusts> getRecommendedIllusts(
     String type, {
@@ -229,7 +228,7 @@ class ApiClient extends GetxService {
     return data;
   }
 
-  ///获取推荐作品 <br/>
+  ///获取排行榜 <br/>
   ///[mode] - 方式([RankingMode])
   Future<Illusts> getRanking(
     String mode, {
@@ -360,7 +359,7 @@ class ApiClient extends GetxService {
     return data;
   }
 
-  ///获取最近发布的插画 <br/>
+  ///获取最近发布的小说 <br/>
   ///[type] - 类型([WorkType]) illust , manga
   Future<Novels> getNewNovels({
     required CancelToken cancelToken,
@@ -413,15 +412,15 @@ class ApiClient extends GetxService {
   }
 
   ///获取小说HTML页面 <br/>
-  ///[illustId] - 插画ID
+  ///[novelId] - 小说ID
   Future<String> getNovelHtml(
-    int illustId, {
+    int novelId, {
     required CancelToken cancelToken,
   }) async {
     final response = await _httpClient.get<String>(
       '/webview/v1/novel',
       queryParameters: {
-        'id': illustId,
+        'id': novelId,
       },
       cancelToken: cancelToken,
     );
@@ -478,45 +477,6 @@ class ApiClient extends GetxService {
     );
     final data = Comments.fromJson(jsonDecode(response.data!));
     return data;
-  }
-
-  ///添加评论(评论一个插画) <br/>
-  ///[illustId] - 插画ID <br/>
-  ///[comment] - 评论内容 <br/>
-  ///[stampId] - 表情包ID <br/>
-  ///[parentCommentId] - 父评论ID(用来回复)
-  Future<Comment> addComment(
-    int illustId, {
-    String comment = '',
-    int? stampId,
-    int? parentCommentId,
-  }) async {
-    final response = await _httpClient.post<String>(
-      '/v1/illust/comment/add',
-      data: FormData.fromMap(
-        {
-          'illust_id': illustId,
-          'comment': comment,
-          'stamp_id': stampId,
-          'parent_comment_id': parentCommentId,
-        }..removeWhere((key, value) => null == value),
-      ),
-    );
-    final data = Comment.fromJson(jsonDecode(response.data!)['comment']);
-    return data;
-  }
-
-  ///删除评论(自己的) <br/>
-  ///[commentId] - 评论ID
-  Future<void> deleteComment(int commentId) async {
-    await _httpClient.post<String>(
-      '/v1/illust/comment/delete',
-      data: FormData.fromMap(
-        {
-          'comment_id': commentId,
-        },
-      ),
-    );
   }
 
   ///**搜索**的**关键字**自动补全 <br/>
@@ -639,18 +599,17 @@ class ApiClient extends GetxService {
     return data;
   }
 
-  ///收藏插画 <br/>
-  ///[illustId] - 插画ID <br/>
+  ///收藏作品 <br/>
+  ///[id] - 作品ID <br/>
   ///[tags] - 标签(自己添加的) <br/>
   ///[restrict] 为ture获取公开的(public) 反之不公开(private) <br/>
   ///[isNovel] 小说
-  Future<void> bookmarkAdd(int illustId,
-      {List<String> tags = const [], bool restrict = true, bool isNovel = false}) async {
+  Future<void> addBookmark(int id, {List<String> tags = const [], bool restrict = true, bool isNovel = false}) async {
     await _httpClient.post<String>(
       '/v2/${isNovel ? 'novel' : 'illust'}/bookmark/add',
       data: FormData.fromMap(
         {
-          '${isNovel ? 'novel' : 'illust'}_id': illustId,
+          '${isNovel ? 'novel' : 'illust'}_id': id,
           'restrict': restrict ? 'public' : 'private',
           'tags': tags,
         },
@@ -658,27 +617,27 @@ class ApiClient extends GetxService {
     );
   }
 
-  ///取消收藏插画 <br/>
-  ///[illustId] - 插画ID <br/>
+  ///取消收藏作品 <br/>
+  ///[id] - 作品ID <br/>
   ///[isNovel] 小说
-  Future<void> bookmarkDelete(
-    int illustId, {
+  Future<void> deleteBookmark(
+    int id, {
     bool isNovel = false,
   }) async {
     await _httpClient.post<String>(
       '/v1/${isNovel ? 'novel' : 'illust'}/bookmark/delete',
       data: FormData.fromMap(
         {
-          '${isNovel ? 'novel' : 'illust'}_id': illustId,
+          '${isNovel ? 'novel' : 'illust'}_id': id,
         },
       ),
     );
   }
 
-  ///收藏插画 <br/>
+  ///关注用户 <br/>
   ///[userId] - 用户ID <br/>
   ///[restrict] 为ture获取公开的(public) 反之不公开(private)
-  Future<void> followAdd(
+  Future<void> addFollow(
     int userId, {
     bool restrict = true,
   }) async {
@@ -693,14 +652,53 @@ class ApiClient extends GetxService {
     );
   }
 
-  ///取消收藏插画 <br/>
+  ///取消关注用户 <br/>
   ///[userId] - 用户ID
-  Future<void> followDelete(int userId) async {
+  Future<void> deleteFollow(int userId) async {
     await _httpClient.post<String>(
       '/v1/user/follow/delete',
       data: FormData.fromMap(
         {
           'user_id': userId,
+        },
+      ),
+    );
+  }
+
+  ///添加评论(评论一个插画) <br/>
+  ///[illustId] - 插画ID <br/>
+  ///[comment] - 评论内容 <br/>
+  ///[stampId] - 表情包ID <br/>
+  ///[parentCommentId] - 父评论ID(用来回复)
+  Future<Comment> addComment(
+    int illustId, {
+    String comment = '',
+    int? stampId,
+    int? parentCommentId,
+  }) async {
+    final response = await _httpClient.post<String>(
+      '/v1/illust/comment/add',
+      data: FormData.fromMap(
+        {
+          'illust_id': illustId,
+          'comment': comment,
+          'stamp_id': stampId,
+          'parent_comment_id': parentCommentId,
+        }..removeWhere((key, value) => null == value),
+      ),
+    );
+    final data = Comment.fromJson(jsonDecode(response.data!)['comment']);
+    return data;
+  }
+
+  ///删除评论(自己的) <br/>
+  ///[commentId] - 评论ID
+  Future<void> deleteComment(int commentId) async {
+    await _httpClient.post<String>(
+      '/v1/illust/comment/delete',
+      data: FormData.fromMap(
+        {
+          'comment_id': commentId,
         },
       ),
     );

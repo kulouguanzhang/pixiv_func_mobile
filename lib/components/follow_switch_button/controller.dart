@@ -28,7 +28,7 @@ class FollowSwitchButtonController extends GetxController {
     update();
 
     if (isChange || !_isFollowed) {
-      Get.find<ApiClient>().followAdd(id, restrict: restrict).then((result) {
+      Get.find<ApiClient>().addFollow(id, restrict: restrict).then((result) {
         _isFollowed = true;
       }).catchError((e) {
         Log.e('关注用户失败', e);
@@ -37,7 +37,7 @@ class FollowSwitchButtonController extends GetxController {
         update();
       });
     } else {
-      Get.find<ApiClient>().followDelete(id).then((result) {
+      Get.find<ApiClient>().deleteFollow(id).then((result) {
         _isFollowed = false;
         update();
       }).catchError((e) {

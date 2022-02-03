@@ -34,7 +34,7 @@ class BookmarkSwitchButtonController extends GetxController {
     update();
 
     if (isChange || !_isBookmarked) {
-      Get.find<ApiClient>().bookmarkAdd(id, isNovel: isNovel, restrict: restrict).then((result) {
+      Get.find<ApiClient>().addBookmark(id, isNovel: isNovel, restrict: restrict).then((result) {
         _isBookmarked = true;
       }).catchError((e) {
         Log.e('添加书签失败', e);
@@ -43,7 +43,7 @@ class BookmarkSwitchButtonController extends GetxController {
         update();
       });
     } else {
-      Get.find<ApiClient>().bookmarkDelete(id, isNovel: isNovel).then((result) {
+      Get.find<ApiClient>().deleteBookmark(id, isNovel: isNovel).then((result) {
         _isBookmarked = false;
         update();
       }).catchError((e) {

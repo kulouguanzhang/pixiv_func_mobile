@@ -68,8 +68,8 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation files("libs/androidndkgif-0.3.3.aar")
-    implementation files("libs/pixiv_local_reverse_proxy.aar")
+    implementation 'io.github.waynejo:androidndkgif:1.0.1'
+    implementation files('libs/pixiv_local_reverse_proxy.aar')
     implementation 'androidx.webkit:webkit:1.4.0'
 }
 

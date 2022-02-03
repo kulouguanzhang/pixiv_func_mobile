@@ -9,8 +9,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
+import 'package:pixiv_func_android/app/api/dto/user_detail.dart';
 import 'package:pixiv_func_android/app/api/enums.dart';
-import 'package:pixiv_func_android/app/api/model/user_detail.dart';
 import 'package:pixiv_func_android/app/data/data_tab_config.dart';
 import 'package:pixiv_func_android/app/data/data_tab_page.dart';
 import 'package:pixiv_func_android/app/download/downloader.dart';
@@ -20,6 +20,7 @@ import 'package:pixiv_func_android/components/follow_switch_button/follow_switch
 import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_android/components/novel_previewer/novel_previewer.dart';
+import 'package:pixiv_func_android/pages/following/following.dart';
 
 import 'bookmarked/source.dart';
 import 'controller.dart';
@@ -77,7 +78,7 @@ class UserPage extends StatelessWidget {
           ),
           title: Text(user.name),
           subtitle: GestureDetector(
-            onTap: () {},
+            onTap: () => Get.to(FollowingPage(id: userDetail.user.id)),
             child: Text('${userDetail.profile.totalFollowUsers}${I18n.follow.tr}'),
           ),
           trailing: FollowSwitchButton(id: user.id, initValue: user.isFollowed),
@@ -127,29 +128,32 @@ class UserPage extends StatelessWidget {
                 },
                 isCustomChild: true,
               ),
-              DataTabConfig(
-                name: I18n.illust.tr,
-                source: UserIllustListSource(id, WorkType.illust),
-                itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
-                  illust: item,
-                  showUserName: false,
+              if (userDetail.profile.totalIllusts > 0)
+                DataTabConfig(
+                  name: I18n.illust.tr,
+                  source: UserIllustListSource(id, WorkType.illust),
+                  itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
+                    illust: item,
+                    showUserName: false,
+                  ),
+                  extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 ),
-                extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              ),
-              DataTabConfig(
-                name: I18n.manga.tr,
-                source: UserIllustListSource(id, WorkType.manga),
-                itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
-                  illust: item,
-                  showUserName: true,
+              if (userDetail.profile.totalManga > 0)
+                DataTabConfig(
+                  name: I18n.manga.tr,
+                  source: UserIllustListSource(id, WorkType.manga),
+                  itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
+                    illust: item,
+                    showUserName: true,
+                  ),
+                  extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 ),
-                extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              ),
-              DataTabConfig(
-                name: I18n.novel.tr,
-                source: UserNovelListSource(id),
-                itemBuilder: (BuildContext context, item, int index) => NovelPreviewer(novel: item),
-              ),
+              if (userDetail.profile.totalNovels > 0)
+                DataTabConfig(
+                  name: I18n.novel.tr,
+                  source: UserNovelListSource(id),
+                  itemBuilder: (BuildContext context, item, int index) => NovelPreviewer(novel: item),
+                ),
               DataTabConfig(
                 name: I18n.bookmark.tr,
                 source: UserBookmarkedListSource(id),

@@ -8,7 +8,7 @@
 
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/api_client.dart';
-import 'package:pixiv_func_android/app/api/model/comments.dart';
+import 'package:pixiv_func_android/app/api/dto/comments.dart';
 import 'package:pixiv_func_android/app/data/data_source_base.dart';
 import 'package:pixiv_func_android/models/comment_tree.dart';
 

@@ -8,12 +8,13 @@
 
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:html/dom.dart' as html;
-import 'package:html/parser.dart' as html show parse;
+
 import 'package:dio/dio.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:html/dom.dart' as html;
+import 'package:html/parser.dart' as html show parse;
 import 'package:pixiv_func_android/app/api/api_client.dart';
 import 'package:pixiv_func_android/models/search_image_item.dart';
 import 'package:pixiv_func_android/models/search_image_result.dart';
@@ -69,18 +70,16 @@ class SearchImageResultController extends GetxController {
           'file',
           MultipartFile.fromBytes(imageBytes, filename: filename),
         ),
-      )
-      ..fields.add(
-        const MapEntry(
-          'dbs[]',
-          //pixiv Images
-          '5',
-        ),
       );
+    // ..fields.add(
+    //   const MapEntry(
+    //     'dbs[]',
+    //     //pixiv Images
+    //     '5',
+    //   ),
+    // );
 
-    httpClient
-        .post<String>('https://saucenao.com/search.php', data: fromData, cancelToken: cancelToken)
-        .then((response) {
+    httpClient.post<String>('https://saucenao.com/search.php', data: fromData, cancelToken: cancelToken).then((response) {
       final document = html.parse(response.data!);
       decodeSearchHtml(document).forEach((result) {
         list.add(SearchImageItem(result));

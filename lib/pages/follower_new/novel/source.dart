@@ -8,8 +8,8 @@
 
 import 'package:get/get.dart';
 import 'package:pixiv_func_android/app/api/api_client.dart';
+import 'package:pixiv_func_android/app/api/dto/novels.dart';
 import 'package:pixiv_func_android/app/api/entity/novel.dart';
-import 'package:pixiv_func_android/app/api/model/novels.dart';
 import 'package:pixiv_func_android/app/data/data_source_base.dart';
 
 class FollowerNewNovelListSource extends DataSourceBase<Novel> {

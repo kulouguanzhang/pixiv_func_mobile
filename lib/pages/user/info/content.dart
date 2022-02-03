@@ -7,7 +7,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/api/model/user_detail.dart';
+import 'package:pixiv_func_android/app/api/dto/user_detail.dart';
 import 'package:pixiv_func_android/app/i18n/i18n.dart';
 import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_android/components/html_rich_text/html_rich_text.dart';

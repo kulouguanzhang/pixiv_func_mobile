@@ -13,10 +13,10 @@ import 'package:pixiv_func_android/app/api/entity/image_urls.dart';
 import 'package:pixiv_func_android/app/settings/app_settings.dart';
 
 class Utils {
-  /// 枚举类型(的值)转小驼峰字符串
+  /// 枚举类型(的值)转小写下划线字符串
   /// SearchTarget.partialMatchForTags => 'partial_match_for_tags'
   /// 用于API
-  static String enumTypeStringToLittleHump<T extends Enum>(T type) {
+  static String enumToPixivParameter<T extends Enum>(T type) {
     final typeString = type.toString();
 
     final typeValueString = typeString.substring(typeString.indexOf('.') + 1);

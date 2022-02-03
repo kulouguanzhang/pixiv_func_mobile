@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as html show parse;
 import 'package:pixiv_func_android/app/api/api_client.dart';
-import 'package:pixiv_func_android/app/api/model/novel_js_data.dart';
+import 'package:pixiv_func_android/app/api/dto/novel_js_data.dart';
 
 class NovelController extends GetxController {
   final int id;

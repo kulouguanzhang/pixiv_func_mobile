@@ -9,7 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_func_android/app/api/model/trending_tags.dart';
+import 'package:pixiv_func_android/app/api/dto/trending_tags.dart';
 import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_android/components/loading_more_indicator/loading_more_indicator.dart';
 import 'package:pixiv_func_android/pages/illust/illust.dart';
