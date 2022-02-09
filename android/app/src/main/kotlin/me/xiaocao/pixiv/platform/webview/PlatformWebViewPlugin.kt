@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:PlatformWebViewPlugin.kt
  * 创建时间:2021/9/5 下午4:49
  * 作者:小草
  */
 
-package top.xiaocao.pixiv.platform.webview
+package me.xiaocao.pixiv.platform.webview
 
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin

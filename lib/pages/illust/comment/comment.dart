@@ -1,21 +1,21 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:comment.dart
  * 创建时间:2021/11/28 上午12:54
  * 作者:小草
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/api/entity/comment.dart';
-import 'package:pixiv_func_android/app/data/data_tab_view_content.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/app/local_data/account_manager.dart';
-import 'package:pixiv_func_android/components/avatar_from_url/avatar_from_url.dart';
-import 'package:pixiv_func_android/models/comment_tree.dart';
-import 'package:pixiv_func_android/pages/illust/comment/controller.dart';
-import 'package:pixiv_func_android/pages/user/user.dart';
-import 'package:pixiv_func_android/utils/utils.dart';
+import 'package:pixiv_func_mobile/app/api/entity/comment.dart';
+import 'package:pixiv_func_mobile/app/data/data_tab_view_content.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
+import 'package:pixiv_func_mobile/models/comment_tree.dart';
+import 'package:pixiv_func_mobile/pages/illust/comment/controller.dart';
+import 'package:pixiv_func_mobile/pages/user/user.dart';
+import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class IllustCommentPage extends StatelessWidget {
   final int id;

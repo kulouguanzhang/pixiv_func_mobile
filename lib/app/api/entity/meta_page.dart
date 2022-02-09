@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:meta_page.dart
  * 创建时间:2021/9/19 下午6:28
  * 作者:小草

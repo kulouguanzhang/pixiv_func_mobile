@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:controller.dart
  * 创建时间:2021/11/29 下午9:11
  * 作者:小草
@@ -10,14 +10,14 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
-import 'package:pixiv_func_android/models/release_info.dart';
-import 'package:pixiv_func_android/utils/log.dart';
-import 'package:pixiv_func_android/utils/utils.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_mobile/models/release_info.dart';
+import 'package:pixiv_func_mobile/utils/log.dart';
+import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class AboutController extends GetxController {
-  final thisProjectGitHubUrl = 'https://github.com/xiao-cao-x/pixiv_func_android';
+  final thisProjectGitHubUrl = 'https://github.com/xiao-cao-x/pixiv_func_mobile';
 
   String? _appVersion;
 

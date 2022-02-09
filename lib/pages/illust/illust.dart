@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_func_android/app/api/entity/illust.dart';
-import 'package:pixiv_func_android/app/download/downloader.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/app/local_data/browsing_history_manager.dart';
-import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
-import 'package:pixiv_func_android/app/settings/app_settings.dart';
-import 'package:pixiv_func_android/components/avatar_from_url/avatar_from_url.dart';
-import 'package:pixiv_func_android/components/bookmark_switch_button/bookmark_switch_button.dart';
-import 'package:pixiv_func_android/components/html_rich_text/html_rich_text.dart';
-import 'package:pixiv_func_android/components/illust_previewer/illust_previewer.dart';
-import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
-import 'package:pixiv_func_android/components/loading_more_indicator/loading_more_indicator.dart';
-import 'package:pixiv_func_android/pages/illust/related/source.dart';
-import 'package:pixiv_func_android/pages/illust/scale/scale.dart';
-import 'package:pixiv_func_android/pages/search/result/illust/illust_result.dart';
-import 'package:pixiv_func_android/pages/user/user.dart';
-import 'package:pixiv_func_android/utils/utils.dart';
+import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
+import 'package:pixiv_func_mobile/app/download/downloader.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/local_data/browsing_history_manager.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
+import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
+import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
+import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
+import 'package:pixiv_func_mobile/components/html_rich_text/html_rich_text.dart';
+import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
+import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/loading_more_indicator/loading_more_indicator.dart';
+import 'package:pixiv_func_mobile/pages/illust/related/source.dart';
+import 'package:pixiv_func_mobile/pages/illust/scale/scale.dart';
+import 'package:pixiv_func_mobile/pages/search/result/illust/illust_result.dart';
+import 'package:pixiv_func_mobile/pages/user/user.dart';
+import 'package:pixiv_func_mobile/utils/utils.dart';
 
 import 'comment/comment.dart';
 import 'ugoira_viewer/ugoira_viewer.dart';
@@ -59,20 +60,23 @@ class IllustPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              //头像
-              leading: GestureDetector(
-                onTap: () => Get.to(UserPage(id: illust.user.id)),
-                child: Hero(
-                  tag: 'UserHero:${illust.user.id}',
-                  child: AvatarFromUrl(illust.user.profileImageUrls.medium),
+                contentPadding: EdgeInsets.zero,
+                //头像
+                leading: GestureDetector(
+                  onTap: () => Get.to(UserPage(id: illust.user.id)),
+                  child: Hero(
+                    tag: 'UserHero:${illust.user.id}',
+                    child: AvatarFromUrl(illust.user.profileImageUrls.medium),
+                  ),
                 ),
-              ),
-              //标题
-              title: SelectableText(illust.title),
-              //用户名
-              subtitle: Text(illust.user.name),
-            ),
+                trailing: FollowSwitchButton(
+                  id: illust.user.id,
+                  initValue: illust.user.isFollowed!,
+                ),
+                //标题
+                title: SelectableText(illust.title),
+                //用户名
+                subtitle: Text(illust.user.name)),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),

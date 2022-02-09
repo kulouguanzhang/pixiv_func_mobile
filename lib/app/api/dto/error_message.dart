@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:error_message.dart
  * 创建时间:2021/8/24 下午12:16
  * 作者:小草

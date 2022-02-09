@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 
 import 'controller.dart';
 
@@ -22,11 +24,13 @@ class LoginPage extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CheckboxListTile(
-                value: state.useReverseProxy,
-                onChanged: controller.useReverseProxyOnChanged,
-                title: Text(I18n.useReverseProxy.tr),
-              ),
+              //iOS暂不支持本地反向代理
+              if (!Platform.isIOS)
+                CheckboxListTile(
+                  value: state.useReverseProxy,
+                  onChanged: controller.useReverseProxyOnChanged,
+                  title: Text(I18n.useReverseProxy.tr),
+                ),
               const Divider(),
               Card(
                 child: ListTile(

@@ -1,16 +1,16 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:account.dart
  * 创建时间:2021/11/29 下午9:39
  * 作者:小草
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/app/local_data/account_manager.dart';
-import 'package:pixiv_func_android/components/avatar_from_url/avatar_from_url.dart';
-import 'package:pixiv_func_android/pages/login/login.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
+import 'package:pixiv_func_mobile/pages/login/login.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);

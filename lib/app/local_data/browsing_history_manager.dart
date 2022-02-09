@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:browsing_history_manager.dart
  * 创建时间:2021/10/2 下午11:12
  * 作者:小草
@@ -10,12 +10,12 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:path/path.dart';
-import 'package:pixiv_func_android/app/api/entity/illust.dart';
-import 'package:pixiv_func_android/app/api/entity/image_urls.dart';
-import 'package:pixiv_func_android/app/api/entity/meta_page.dart';
-import 'package:pixiv_func_android/app/api/entity/meta_single_page.dart';
-import 'package:pixiv_func_android/app/api/entity/tag.dart';
-import 'package:pixiv_func_android/app/api/entity/user.dart';
+import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
+import 'package:pixiv_func_mobile/app/api/entity/image_urls.dart';
+import 'package:pixiv_func_mobile/app/api/entity/meta_page.dart';
+import 'package:pixiv_func_mobile/app/api/entity/meta_single_page.dart';
+import 'package:pixiv_func_mobile/app/api/entity/tag.dart';
+import 'package:pixiv_func_mobile/app/api/entity/user.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BrowsingHistoryService extends GetxService {

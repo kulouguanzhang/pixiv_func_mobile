@@ -1,29 +1,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="top.xiaocao.pixiv">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+          xmlns:tools="http://schemas.android.com/tools"
+          package="me.xiaocao.pixiv">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <!--查询-->
     <queries>
         <intent>
-            <action android:name="android.intent.action.VIEW" />
+            <action android:name="android.intent.action.VIEW"/>
         </intent>
     </queries>
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="Pixiv Func">
         <activity
-            android:name="top.xiaocao.pixiv.MainActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:exported="true"
-            android:hardwareAccelerated="true"
-            android:launchMode="singleTop"
-            android:theme="@style/LaunchTheme"
-            android:windowSoftInputMode="adjustResize"
-            tools:targetApi="honeycomb">
+                android:name="me.xiaocao.pixiv.MainActivity"
+                android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+                android:exported="true"
+                android:hardwareAccelerated="true"
+                android:launchMode="singleTop"
+                android:theme="@style/LaunchTheme"
+                android:windowSoftInputMode="adjustResize"
+                tools:targetApi="honeycomb">
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
@@ -32,10 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="top.xiaocao.pixiv.update.DownloadReceiver"
-            android:exported="true">
+        <receiver android:name="me.xiaocao.pixiv.update.DownloadReceiver"
+                  android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
             </intent-filter>
         </receiver>

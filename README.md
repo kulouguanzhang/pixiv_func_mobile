@@ -1,48 +1,42 @@
-[![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv-func-android?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest)
+# Pixiv Func
 
-# 关于该项目
-
-- Pixiv第三方安卓客户端  
-- 我的GTX750Ti显卡不支持高版本黑苹果以及我没有iOS机器所以没法弄iOS(欢迎PR)
-- 使用了`GetX`状态管理框架  
-- 代码严格按照`flutter_lints`的规范编写  
-- 或许适合新手学习Flutter(这也是我学习Flutter的点滴)  
-- 这是我的个人玩具,与其他现有同类项目无关,如果你想拿我的项目跟其他项目比较,那么请你离开,我并不欢迎你  
-- 开源且免费(不收取打赏),禁止用于盈利(包括但不仅限于收取打赏)  
-- 我的代码随便用,不需要提到我(与我无关)  
-- 以后会写桌面端(还有可能写哔咔客户端)  
-- 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_android/issues/new)  
-
+- Pixiv第三方安卓客户端
+- 使用了`GetX`状态管理框架
+- 代码严格按照`flutter_lints`的规范编写
+- 适合新手学习Flutter
+- 这是我的个人玩具,与其他现有同类项目无关,如果你想拿我的项目跟其他项目比较,那么请你离开,我并不欢迎你
+- 该项目用于我个人学习Flutter,开源且免费
+- 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_mobile/issues/new)
 # 下载
 
-| 下载最新版本 |  |
-| --- | --- |
-| [方式1(点击下载)](https://github.com/xiao-cao-x/pixiv_func_android/releases/latest/download/app-release.apk) | github.com |
-| [方式2(点击下载)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_android/releases/latest/download/app-release.apk) | ghproxy.com(国内用这个) |
+| 下载最新版本                                                                                                                    | [![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv-func-android?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest) |
+|---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [方式1(点击下载)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/app-release.apk)                     | github.com                                                                                                                                                                       |
+| [方式2(点击下载)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/app-release.apk) | ghproxy.com(国内用这个)                                                                                                                                                               |
 
 # 支持功能
 
-| 名称 | 备注 |
-| --- | --- |
-| 登录 | 用的 [WebView](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/webview/PlatformWebView.kt) 支持免代理直连(本地反向代理) |
-| 浏览历史记录 | 存储在`SQLite`数据库中 可以在设置中开关 |
-| 查看推荐作品 | 插画/漫画/小说 |
-| 查看收藏作品 | 插画&漫画/小说  |
-| 查看已关注用户的最新作品  |  |
-| 查看陌生人的最新作品 | 插画&漫画/小说 |
-| 查看关注用户 |  |
-| 查看排行榜 |  |
-| 推荐 | 推荐用户/推荐标签 |
-| 搜索插画&漫画/小说  | 支持排序,支持时间范围,支持搜索ID,支持按收藏数量搜索 |
-| 搜索用户 | 支持搜索ID |
-| 图片搜源 | [集成了一个外部网站(非WebView)](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/lib/pages/search/result/image/controller.dart#L104) |
-| 查看小说 | [解析HTML(非WebView)](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/lib/pages/novel/controller.dart#L40) |
-| 查看动图 | [Native解压](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/api/PlatformApi.kt#L60)   [CustomPainter播放](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/lib/components/frame_gif/frame_gif.dart) 支持暂停 |
-| 保存动图 | [Native合成](https://github.com/xiao-cao-x/pixiv_func_android/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/api/PlatformApi.kt#L26) |
-| 保存原图到系统相册 | 可以查看下载任务 |
-| 关注和取消关注(用户) |  |
-| 收藏和取消收藏(插画&漫画/小说) |  |
-| 国际化 | 几乎全是机翻(欢迎PR) |
+| 名称                | 备注                                                                                                                                                                                                                                                                              |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 登录                | 用的 [WebView](https://github.com/xiao-cao-x/pixiv_func_mobile/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/webview/PlatformWebView.kt) 支持免代理直连([本地反向代理](https://github.com/xiao-cao-x/pixiv-local-reverse-proxy))                                            |
+| 浏览历史记录            | 存储在`SQLite`数据库中 可以在设置中开关                                                                                                                                                                                                                                                        |
+| 查看推荐作品            | 插画/漫画/小说                                                                                                                                                                                                                                                                        |
+| 查看收藏作品            | 插画&漫画/小说                                                                                                                                                                                                                                                                        |
+| 查看已关注用户的最新作品      |                                                                                                                                                                                                                                                                                 |
+| 查看陌生人的最新作品        | 插画&漫画/小说                                                                                                                                                                                                                                                                        |
+| 查看关注用户            |                                                                                                                                                                                                                                                                                 |
+| 查看排行榜             |                                                                                                                                                                                                                                                                                 |
+| 推荐                | 推荐用户/推荐标签                                                                                                                                                                                                                                                                       |
+| 搜索插画&漫画/小说        | 支持排序,支持时间范围,支持搜索ID,支持按收藏数量搜索                                                                                                                                                                                                                                                    |
+| 搜索用户              | 支持搜索ID                                                                                                                                                                                                                                                                          |
+| 图片搜源              | [集成了一个外部网站(非WebView)](https://github.com/xiao-cao-x/pixiv_func_mobile/blob/main/lib/pages/search/result/image/controller.dart#L104)                                                                                                                                             |
+| 查看小说              | [解析HTML(非WebView)](https://github.com/xiao-cao-x/pixiv_func_mobile/blob/main/lib/pages/novel/controller.dart#L40)                                                                                                                                                               |
+| 查看动图              | [Native解压](https://github.com/xiao-cao-x/pixiv_func_mobile/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/api/PlatformApi.kt#L60)   [CustomPainter播放](https://github.com/xiao-cao-x/pixiv_func_mobile/blob/main/lib/components/frame_gif/frame_gif.dart) 支持暂停 |
+| 保存动图              | [Native合成](https://github.com/xiao-cao-x/pixiv_func_mobile/blob/main/android/app/src/main/kotlin/top/xiaocao/pixiv/platform/api/PlatformApi.kt#L26)                                                                                                                             |
+| 保存原图到系统相册         | 可以查看下载任务                                                                                                                                                                                                                                                                        |
+| 关注和取消关注(用户)       |                                                                                                                                                                                                                                                                                 |
+| 收藏和取消收藏(插画&漫画/小说) |                                                                                                                                                                                                                                                                                 |
+| 国际化               | 几乎全是机翻(欢迎PR)                                                                                                                                                                                                                                                                    |
 
 # 关于免代理直连
 
@@ -59,23 +53,23 @@
 # 预览
 
 | <img src='./preview/img5.jpg' width='300px'/> | <img src='./preview/img4.jpg' width='300px'/> | <img src='./preview/img3.jpg' width='300px'/> |
-| --- | --- | --- |
+|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
 | <img src='./preview/img2.jpg' width='300px'/> | <img src='./preview/img1.jpg' width='300px'/> | <img src='./preview/img0.gif' width='300px'/> |
 
 # 鸣谢
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_android)
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_mobile)
 
-> 感谢 [JetBrains](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_android) 为开源项目提供的以下IDE的免费授权
-
-
+> 感谢 [JetBrains](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_mobile) 为开源项目提供的以下IDE的免费授权
 
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)](https://www.jetbrains.com/idea/?from=xiao-cao-x/pixiv_func_android)
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.svg)](https://www.jetbrains.com/go/?from=xiao-cao-x/pixiv_func_android)
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/DataGrip.svg)](https://www.jetbrains.com/datagrip/?from=xiao-cao-x/pixiv_func_android)  
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)](https://www.jetbrains.com/idea/?from=xiao-cao-x/pixiv_func_mobile)
+
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.svg)](https://www.jetbrains.com/go/?from=xiao-cao-x/pixiv_func_mobile)
+
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/DataGrip.svg)](https://www.jetbrains.com/datagrip/?from=xiao-cao-x/pixiv_func_mobile)  
 
 
 

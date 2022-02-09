@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/api/auth_client.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/app/local_data/account_manager.dart';
-import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
-import 'package:pixiv_func_android/app/platform/webview/platform_web_view.dart';
-import 'package:pixiv_func_android/app/settings/app_settings.dart';
-import 'package:pixiv_func_android/pages/app_body/app_body.dart';
-import 'package:pixiv_func_android/utils/log.dart';
+import 'package:pixiv_func_mobile/app/api/auth_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_mobile/app/platform/webview/platform_web_view.dart';
+import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
+import 'package:pixiv_func_mobile/pages/app_body/app_body.dart';
+import 'package:pixiv_func_mobile/utils/log.dart';
 
 import 'state.dart';
 

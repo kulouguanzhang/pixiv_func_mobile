@@ -1,4 +1,4 @@
-package top.xiaocao.pixiv.update
+package me.xiaocao.pixiv.update
 
 import android.app.DownloadManager
 import android.content.BroadcastReceiver

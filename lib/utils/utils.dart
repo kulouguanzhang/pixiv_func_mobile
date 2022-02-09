@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:utils.dart
  * 创建时间:2021/8/26 下午1:30
  * 作者:小草
@@ -9,8 +9,8 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pixiv_func_android/app/api/entity/image_urls.dart';
-import 'package:pixiv_func_android/app/settings/app_settings.dart';
+import 'package:pixiv_func_mobile/app/api/entity/image_urls.dart';
+import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
 
 class Utils {
   /// 枚举类型(的值)转小写下划线字符串

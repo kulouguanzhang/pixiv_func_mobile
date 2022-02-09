@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:theme_settings.dart
  * 创建时间:2021/11/24 下午4:37
  * 作者:小草
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/app/settings/app_settings.dart';
-import 'package:pixiv_func_android/app/theme/app_theme.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
+import 'package:pixiv_func_mobile/app/theme/app_theme.dart';
 
 class ThemeSettingsWidget extends StatelessWidget {
   final bool isPage;

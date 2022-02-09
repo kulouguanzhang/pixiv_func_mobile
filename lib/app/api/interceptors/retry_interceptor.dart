@@ -1,13 +1,13 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:retry_interceptor.dart
  * 创建时间:2021/11/15 下午12:26
  * 作者:小草
  */
 
 import 'package:dio/dio.dart';
-import 'package:pixiv_func_android/utils/log.dart';
+import 'package:pixiv_func_mobile/utils/log.dart';
 
 class RetryInterceptor extends InterceptorsWrapper {
   final Dio httpClient;

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:image.dart
  * 创建时间:2021/11/29 下午6:18
  * 作者:小草
@@ -10,11 +10,11 @@ import 'dart:typed_data';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
-import 'package:pixiv_func_android/models/search_image_item.dart';
-import 'package:pixiv_func_android/pages/illust/illust.dart';
-import 'package:pixiv_func_android/pages/search/result/image/controller.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/models/search_image_item.dart';
+import 'package:pixiv_func_mobile/pages/illust/illust.dart';
+import 'package:pixiv_func_mobile/pages/search/result/image/controller.dart';
 
 class SearchImageResultPage extends StatelessWidget {
   final Uint8List imageBytes;

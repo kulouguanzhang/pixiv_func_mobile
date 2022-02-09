@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pixiv_func_android/app/http/http.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/app/i18n/i18n_translations.dart';
-import 'package:pixiv_func_android/app/inject/inject.dart';
-import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
-import 'package:pixiv_func_android/app/route/route.dart';
-import 'package:pixiv_func_android/app/settings/app_settings.dart';
-import 'package:pixiv_func_android/app/theme/app_theme.dart';
-import 'package:pixiv_func_android/pages/home/home.dart';
+import 'package:pixiv_func_mobile/app/http/http.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n_translations.dart';
+import 'package:pixiv_func_mobile/app/inject/inject.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_mobile/app/route/route.dart';
+import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
+import 'package:pixiv_func_mobile/app/theme/app_theme.dart';
+import 'package:pixiv_func_mobile/pages/home/home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

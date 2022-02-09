@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:data_tab_view_content.dart
  * 创建时间:2021/11/27 下午3:35
  * 作者:小草
@@ -8,8 +8,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_func_android/app/data/data_source_base.dart';
-import 'package:pixiv_func_android/components/loading_more_indicator/loading_more_indicator.dart';
+import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
+import 'package:pixiv_func_mobile/components/loading_more_indicator/loading_more_indicator.dart';
 
 class DataTabViewContent<T> extends StatelessWidget {
   final DataSourceBase<T> sourceList;

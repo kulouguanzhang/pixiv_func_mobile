@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/components/lazy_indexed_stack/lazy_indexed_stack.dart';
-import 'package:pixiv_func_android/pages/ranking/ranking.dart';
-import 'package:pixiv_func_android/pages/recommended/recommended.dart';
-import 'package:pixiv_func_android/pages/search/search.dart';
-import 'package:pixiv_func_android/pages/self/self.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/components/lazy_indexed_stack/lazy_indexed_stack.dart';
+import 'package:pixiv_func_mobile/pages/ranking/ranking.dart';
+import 'package:pixiv_func_mobile/pages/recommended/recommended.dart';
+import 'package:pixiv_func_mobile/pages/search/search.dart';
+import 'package:pixiv_func_mobile/pages/self/self.dart';
 
 class AppBodyPage extends StatelessWidget {
   const AppBodyPage({Key? key}) : super(key: key);

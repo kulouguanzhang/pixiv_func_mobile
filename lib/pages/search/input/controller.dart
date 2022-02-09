@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:controller.dart
  * 创建时间:2021/11/29 下午12:45
  * 作者:小草
@@ -12,19 +12,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pixiv_func_android/app/api/api_client.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/app/platform/api/platform_api.dart';
-import 'package:pixiv_func_android/models/search_filter.dart';
-import 'package:pixiv_func_android/pages/illust/illust.dart';
-import 'package:pixiv_func_android/pages/novel/novel.dart';
-import 'package:pixiv_func_android/pages/search/input/state.dart';
-import 'package:pixiv_func_android/pages/search/result/illust/illust_result.dart';
-import 'package:pixiv_func_android/pages/search/result/image/image.dart';
-import 'package:pixiv_func_android/pages/search/result/novel/novel_result.dart';
-import 'package:pixiv_func_android/pages/search/result/user/user_result.dart';
-import 'package:pixiv_func_android/pages/user/user.dart';
-import 'package:pixiv_func_android/utils/log.dart';
+import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_mobile/models/search_filter.dart';
+import 'package:pixiv_func_mobile/pages/illust/illust.dart';
+import 'package:pixiv_func_mobile/pages/novel/novel.dart';
+import 'package:pixiv_func_mobile/pages/search/input/state.dart';
+import 'package:pixiv_func_mobile/pages/search/result/illust/illust_result.dart';
+import 'package:pixiv_func_mobile/pages/search/result/image/image.dart';
+import 'package:pixiv_func_mobile/pages/search/result/novel/novel_result.dart';
+import 'package:pixiv_func_mobile/pages/search/result/user/user_result.dart';
+import 'package:pixiv_func_mobile/pages/user/user.dart';
+import 'package:pixiv_func_mobile/utils/log.dart';
 
 class SearchInputController extends GetxController {
   final SearchInputState state = SearchInputState();

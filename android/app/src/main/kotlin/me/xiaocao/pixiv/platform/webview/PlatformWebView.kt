@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:PlatformWebView.kt
  * 创建时间:2021/9/5 下午4:49
  * 作者:小草
  */
 
-package top.xiaocao.pixiv.platform.webview
+package me.xiaocao.pixiv.platform.webview
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -135,15 +135,7 @@ class PlatformWebView(
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 view?.apply {
-                    evaluateJavascript(
-                        "document.querySelectorAll('input').forEach((current)=>{\n" +
-                                "            if('password' === current.type){\n" +
-                                "            current.type='text';\n" +
-                                "            }\n" +
-                                "            });"
-                    ) {
-
-                    }
+                    evaluateJavascript("javascript:(function () { document.getElementsByClassName('signup-form__sns-btn-area')[0].style.display = 'none';document.querySelectorAll('input').forEach((current) => {if ('password' === current.type) {current.type = 'text';}});})();") {}
                 }
                 super.onPageFinished(view, url)
             }

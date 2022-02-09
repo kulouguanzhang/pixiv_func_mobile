@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:auth_token_interceptor.dart
  * 创建时间:2021/11/15 下午12:35
  * 作者:小草
@@ -11,8 +11,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/local_data/account_manager.dart';
-import 'package:pixiv_func_android/utils/log.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/utils/log.dart';
 
 import '../auth_client.dart';
 import '../dto/error_message.dart';
@@ -21,7 +21,9 @@ class AuthTokenInterceptor extends QueuedInterceptorsWrapper {
   final Dio httpClient;
 
   AuthTokenInterceptor(this.httpClient);
+
   final AccountService _accountManager = Get.find();
+
   String? getToken() {
     final currentAccount = _accountManager.current;
     if (null == currentAccount) {

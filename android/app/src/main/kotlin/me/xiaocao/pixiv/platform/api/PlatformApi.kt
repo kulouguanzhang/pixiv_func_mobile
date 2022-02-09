@@ -1,4 +1,4 @@
-package top.xiaocao.pixiv.platform.api
+package me.xiaocao.pixiv.platform.api
 
 import android.content.Context
 import android.content.Intent
@@ -8,10 +8,10 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import com.waynejo.androidndkgif.GifEncoder
-import top.xiaocao.pixiv.update.DownloadManagerUtil
-import top.xiaocao.pixiv.util.forEachEntry
-import top.xiaocao.pixiv.util.imageIsExist
-import top.xiaocao.pixiv.util.saveImage
+import me.xiaocao.pixiv.update.DownloadManagerUtil
+import me.xiaocao.pixiv.util.forEachEntry
+import me.xiaocao.pixiv.util.imageIsExist
+import me.xiaocao.pixiv.util.saveImage
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.util.zip.ZipInputStream
@@ -23,7 +23,7 @@ class PlatformApi(private val context: Context) {
         return context.saveImage(imageBytes, filename)
     }
 
-    fun saveGifImage(id: Int, images: List<ByteArray>, delays: List<Int>):Boolean {
+    fun saveGifImage(id: Int, images: List<ByteArray>, delays: List<Int>): Boolean {
         var init = false
         var index = 0
 

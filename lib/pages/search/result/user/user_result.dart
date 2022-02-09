@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:user_result.dart
  * 创建时间:2021/11/29 下午1:48
  * 作者:小草
@@ -8,12 +8,12 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/api/entity/user_preview.dart';
-import 'package:pixiv_func_android/app/data/data_tab_view_content.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/components/pull_to_refresh_header/pull_to_refresh_header.dart';
-import 'package:pixiv_func_android/components/user_previewer/user_previewer.dart';
-import 'package:pixiv_func_android/pages/search/result/user/source.dart';
+import 'package:pixiv_func_mobile/app/api/entity/user_preview.dart';
+import 'package:pixiv_func_mobile/app/data/data_tab_view_content.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
+import 'package:pixiv_func_mobile/components/user_previewer/user_previewer.dart';
+import 'package:pixiv_func_mobile/pages/search/result/user/source.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class SearchUserResultPage extends StatelessWidget {

@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:step0_language_set.dart
  * 创建时间:2021/11/15 下午11:04
  * 作者:小草
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/pages/guide/step1_theme_set.dart';
-import 'package:pixiv_func_android/pages/settings/language/language_settings.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/pages/guide/step1_theme_set.dart';
+import 'package:pixiv_func_mobile/pages/settings/language/language_settings.dart';
 
 class LanguageSetPage extends StatelessWidget {
   const LanguageSetPage({Key? key}) : super(key: key);

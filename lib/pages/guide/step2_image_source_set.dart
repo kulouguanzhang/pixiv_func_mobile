@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:step2_image_source_set.dart
  * 创建时间:2021/11/15 下午10:37
  * 作者:小草
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/app/i18n/i18n.dart';
-import 'package:pixiv_func_android/pages/login/login.dart';
-import 'package:pixiv_func_android/pages/settings/image_source/image_source_settings.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/pages/login/login.dart';
+import 'package:pixiv_func_mobile/pages/settings/image_source/image_source_settings.dart';
 
 class ImageSourceSetPage extends StatelessWidget {
   const ImageSourceSetPage({Key? key}) : super(key: key);

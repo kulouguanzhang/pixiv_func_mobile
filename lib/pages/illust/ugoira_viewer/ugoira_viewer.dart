@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_android
+ * 项目名称:pixiv_func_mobile
  * 文件名称:ugoira_viewer.dart
  * 创建时间:2021/11/28 下午1:38
  * 作者:小草
@@ -8,20 +8,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_android/components/frame_gif/frame_gif.dart';
-import 'package:pixiv_func_android/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/frame_gif/frame_gif.dart';
+import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 
 import 'controller.dart';
 
-class UgoiraViewer extends StatelessWidget with RouteAware  {
+class UgoiraViewer extends StatelessWidget with RouteAware {
   final int id;
   final String previewUrl;
   final String? heroTag;
 
   @override
-  void didPopNext(){
-
-  }
+  void didPopNext() {}
 
   const UgoiraViewer({
     Key? key,
