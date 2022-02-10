@@ -6,12 +6,15 @@
  * 作者:小草
  */
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PlatformWebView extends StatefulWidget {
   final String url;
-  final Future<dynamic> Function(BuildContext context, dynamic message) onMessageHandler;
+  final Future<dynamic> Function(BuildContext context, dynamic message)
+      onMessageHandler;
   final bool useLocalReverseProxy;
 
   const PlatformWebView({
@@ -87,14 +90,23 @@ class _PlatformWebViewState extends State<PlatformWebView> {
             child: LinearProgressIndicator(value: _progress),
           ),
           Expanded(
-            child: AndroidView(
-              viewType: _pluginName,
-              creationParams: {
-                'useLocalReverseProxy': widget.useLocalReverseProxy,
-              },
-              creationParamsCodec: const StandardMessageCodec(),
-              onPlatformViewCreated: onViewCreated,
-            ),
+            child: Platform.isIOS
+                ? UiKitView(
+                    viewType: _pluginName,
+                    creationParams: {
+                      'useLocalReverseProxy': widget.useLocalReverseProxy,
+                    },
+                    creationParamsCodec: const StandardMessageCodec(),
+                    onPlatformViewCreated: onViewCreated,
+                  )
+                : AndroidView(
+                    viewType: _pluginName,
+                    creationParams: {
+                      'useLocalReverseProxy': widget.useLocalReverseProxy,
+                    },
+                    creationParamsCodec: const StandardMessageCodec(),
+                    onPlatformViewCreated: onViewCreated,
+                  ),
           )
         ],
       ),
