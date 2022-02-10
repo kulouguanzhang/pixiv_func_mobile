@@ -8,14 +8,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
+import 'package:pixiv_func_mobile/app/version_info/version_info.dart';
 import 'package:pixiv_func_mobile/components/html_rich_text/html_rich_text.dart';
-import 'package:pixiv_func_mobile/pages/about/controller.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
 
   Widget _buildReleaseInfo() {
-    final controller = Get.find<AboutController>();
+    final controller = Get.find<VersionInfoController>();
     final releaseInfo = controller.releaseInfo!;
     return Column(
       children: [
@@ -54,14 +54,8 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AboutController());
-    return GetBuilder<AboutController>(
-      assignId: true,
-      initState: (state) {
-        controller.loadAppVersion();
-        controller.loadLatestReleaseInfo();
-      },
-      builder: (AboutController controller) {
+    return GetBuilder<VersionInfoController>(
+      builder: (VersionInfoController controller) {
         return Scaffold(
           appBar: AppBar(
             title: Text(I18n.about.tr),
