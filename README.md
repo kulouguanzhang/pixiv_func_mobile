@@ -1,6 +1,6 @@
 # Pixiv Func
 
-- Pixiv第三方安卓客户端
+- Pixiv第三方移动客户端
 - 使用了`GetX`状态管理框架
 - 代码严格按照`flutter_lints`的规范编写
 - 适合新手学习Flutter
@@ -9,10 +9,23 @@
 - 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_mobile/issues/new)
 # 下载
 
-| 下载最新版本                                                                                                                    | [![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv-func-android?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest) |
-|---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [方式1(点击下载)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/app-release.apk)                     | github.com                                                                                                                                                                       |
-| [方式2(点击下载)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/app-release.apk) | ghproxy.com(国内用这个)                                                                                                                                                               |
+[![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv-func-android?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
+
+## Android
+
+- [点击下载最新版本](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/app-release.apk)
+- [点击下载最新版本(国内备用)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/app-release.apk)
+- 前往[Release](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/)下载
+
+
+## iOS
+- 目前是实验性的,WebView反向代理不能用(没处理SSL证书错误)
+- [点击下载最新版本](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/Payload.ipa)
+- [点击下载最新版本(国内备用)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/Payload.ipa)
+- 前往[Release](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/)下载
+- 可以根据[PicAcg(哔咔)的iOS安装教程](https://download.picacn.xyz/page/ios-tip-simplified.php)来安装此ipa
+
+
 
 # 支持功能
 
