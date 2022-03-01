@@ -91,6 +91,7 @@ class _PlatformWebViewState extends State<PlatformWebView> {
               viewType: _pluginName,
               creationParams: {
                 'useLocalReverseProxy': widget.useLocalReverseProxy,
+                'enableLog': true,
               },
               creationParamsCodec: const StandardMessageCodec(),
               onPlatformViewCreated: onViewCreated,

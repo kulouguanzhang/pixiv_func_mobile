@@ -61,11 +61,6 @@ class ApiClient extends GetxService {
     return dio;
   }
 
-  ///```kotlin
-  ///suspend inline fun <reified T> next(url: String): T {
-  ///     return httpClient.get(url.replaceFirst("app-api.pixiv.net", "210.140.131.187"))
-  ///}
-  ///```
   Future<T> next<T>(
     String url, {
     required CancelToken cancelToken,
@@ -359,8 +354,7 @@ class ApiClient extends GetxService {
     return data;
   }
 
-  ///获取最近发布的小说 <br/>
-  ///[type] - 类型([WorkType]) illust , manga
+  ///获取最近发布的小说
   Future<Novels> getNewNovels({
     required CancelToken cancelToken,
   }) async {

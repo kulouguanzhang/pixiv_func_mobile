@@ -8,18 +8,20 @@
 
 package me.xiaocao.pixiv.platform.webview
 
+import PixivLocalReverseProxy.PixivLocalReverseProxy
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.http.SslError
+import android.util.Log
 import android.view.View
 import android.webkit.*
-import io.flutter.plugin.common.*
-import io.flutter.plugin.platform.PlatformView
-import PixivLocalReverseProxy.PixivLocalReverseProxy
-import android.util.Log
 import androidx.webkit.ProxyConfig
 import androidx.webkit.ProxyController
 import androidx.webkit.WebViewFeature
+import io.flutter.plugin.common.*
+import io.flutter.plugin.platform.PlatformView
+import java.util.*
+import kotlin.collections.HashMap
 
 @SuppressLint("SetJavaScriptEnabled")
 class PlatformWebView(
@@ -33,6 +35,9 @@ class PlatformWebView(
 
     private val useLocalReverseProxy: Boolean =
         (arguments as Map<*, *>)["useLocalReverseProxy"] as Boolean
+
+    private val enableLog: Boolean =
+        (arguments as Map<*, *>)["enableLog"] as Boolean
 
     private val messageChannel: BasicMessageChannel<Any> =
         BasicMessageChannel(
@@ -52,7 +57,7 @@ class PlatformWebView(
 
         if (useLocalReverseProxy) {
             if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
-                PixivLocalReverseProxy.startServer("12345")
+                PixivLocalReverseProxy.startServer("12345", enableLog)
                 val proxyConfig: ProxyConfig = ProxyConfig.Builder()
                     .addProxyRule("127.0.0.1:12345")
                     .addDirect()
@@ -102,6 +107,14 @@ class PlatformWebView(
                 handler?.proceed()
             }
 
+            override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
+                request?.let {
+                    it.requestHeaders["Accept-Language"] = "zh-CN"
+                }
+                return super.shouldInterceptRequest(view, request)
+            }
+
+
             override fun shouldOverrideUrlLoading(
                 view: WebView?,
                 request: WebResourceRequest?
@@ -146,6 +159,7 @@ class PlatformWebView(
                 progressMessageChannel.send(newProgress)
                 super.onProgressChanged(view, newProgress)
             }
+
         }
 
         MethodChannel(
@@ -162,7 +176,11 @@ class PlatformWebView(
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             PlatformWebViewPlugin.methodLoadUrl -> {
-                webView.loadUrl(call.argument<String>("url")!!)
+                val headers: MutableMap<String, String> = HashMap()
+
+                headers["Accept-Language"] = "zh-CN"
+
+                webView.loadUrl(call.argument<String>("url")!!, headers)
             }
             PlatformWebViewPlugin.methodReload -> {
                 webView.reload()

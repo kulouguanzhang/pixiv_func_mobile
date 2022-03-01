@@ -176,10 +176,11 @@ class IllustCommentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controllerTag = '$runtimeType:$id';
-    Get.put(IllustCommentController(id), tag: controllerTag);
+    final controller = Get.put(IllustCommentController(id), tag: controllerTag);
     return Scaffold(
       appBar: AppBar(
         title: Text(I18n.comment.tr),
+        actions: [IconButton(onPressed: () => controller.source.refresh(true), icon: const Icon(Icons.refresh_outlined))],
       ),
       body: GetBuilder<IllustCommentController>(
         tag: controllerTag,
