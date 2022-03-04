@@ -20,8 +20,8 @@
 
 ## iOS
 - 目前是实验性的,WebView反向代理不能用(没处理SSL证书错误)
-- [点击下载最新版本](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/Payload.ipa)
-- [点击下载最新版本(国内备用)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/Payload.ipa)
+- [点击下载最新版本](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/download/1.0.0-preview1/Payload.ipa)
+- [点击下载最新版本(国内备用)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_mobile/releases/download/1.0.0-preview1/Payload.ipa)
 - 前往[Release](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/)下载
 - 可以根据[PicAcg(哔咔)的iOS安装教程](https://download.picacn.xyz/page/ios-tip-simplified.php)来安装此ipa
 
