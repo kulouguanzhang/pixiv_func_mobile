@@ -1,0 +1,22 @@
+<b>Features</b>
+<ul>
+<li>Login</li>
+<li>Browser history</li>
+<li>View recommanded artworks</li>
+<li>View favorite artworks</li>
+<li>View latest artworks from followed users</li>
+<li>View latest artworks from strangers</li>
+<li>View followed users</li>
+<li>View rank</li>
+<li>Recommand</li>
+<li>Search illustration & Comic / Novel</li>
+<li>Search users</li>
+<li>Search the source from picture</li>
+<li>View novel</li>
+<li>View animated pictures</li>
+<li>Save animated pictures</li>
+<li>Save the origin picture to gallery</li>
+<li>Follow and unfollow (user)</li>
+<li>Add into and remove from favorites (illustration & Comic / Novel)</li>
+<li>International</li>
+</ul>
