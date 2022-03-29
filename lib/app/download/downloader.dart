@@ -71,6 +71,7 @@ class Downloader {
       client.badCertificateCallback = (cert, host, port) {
         return true;
       };
+      return client;
     };
 
     if (null != props.illust) {

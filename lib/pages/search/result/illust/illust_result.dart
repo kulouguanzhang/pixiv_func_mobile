@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
-import 'package:pixiv_func_mobile/app/data/data_tab_view_content.dart';
+import 'package:pixiv_func_mobile/app/data/data_content.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
@@ -64,7 +64,7 @@ class SearchIllustResultPage extends StatelessWidget {
               PullToRefreshContainer((info) => PullToRefreshHeader(info: info)),
             ];
           },
-          body: DataTabViewContent<Illust>(
+          body: DataContent<Illust>(
             sourceList: source,
             itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
             extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

@@ -14,9 +14,7 @@ class AppTheme {
     toggleableActiveColor: const Color(0xffea638c),
     colorScheme: const ColorScheme(
       primary: Color(0xffea638c),
-      primaryVariant: Color(0xffbc2f58),
       secondary: Color(0xffde4f78),
-      secondaryVariant: Color(0xffea638c),
       background: Color(0xff121212),
       surface: Color(0xff121212),
       error: Colors.red,
@@ -34,9 +32,7 @@ class AppTheme {
     toggleableActiveColor: const Color(0xffea638c),
     colorScheme: const ColorScheme(
       primary: Color(0xffea638c),
-      primaryVariant: Color(0xffbc2f58),
       secondary: Color(0xffde4f78),
-      secondaryVariant: Color(0xffea638c),
       background: Colors.white,
       surface: Colors.white,
       error: Color(0xFFB00020),

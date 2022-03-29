@@ -26,25 +26,26 @@ class UserPreviewer extends StatelessWidget {
     return Card(
       child: Column(
         children: [
-          LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              final itemWidth = constraints.maxWidth / 3 - padding;
-              return SizedBox(
-                width: constraints.maxWidth,
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    for (final illust in userPreview.illusts)
-                      Container(
-                        padding: const EdgeInsets.all(padding),
-                        width: itemWidth,
-                        child: IllustPreviewer(illust: illust, square: true),
-                      )
-                  ],
-                ),
-              );
-            },
-          ),
+          if (userPreview.illusts.isNotEmpty)
+            LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final itemWidth = constraints.maxWidth / 3 - padding;
+                return SizedBox(
+                  width: constraints.maxWidth,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      for (final illust in userPreview.illusts)
+                        Container(
+                          padding: const EdgeInsets.all(padding),
+                          width: itemWidth,
+                          child: IllustPreviewer(illust: illust, square: true),
+                        )
+                    ],
+                  ),
+                );
+              },
+            ),
           ListTile(
             leading: GestureDetector(
               onTap: () => Get.to(UserPage(id: userPreview.user.id)),

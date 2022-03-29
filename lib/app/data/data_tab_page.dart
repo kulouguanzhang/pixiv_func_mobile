@@ -8,8 +8,8 @@
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:pixiv_func_mobile/app/data/data_content.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_config.dart';
-import 'package:pixiv_func_mobile/app/data/data_tab_view_content.dart';
 import 'package:pixiv_func_mobile/components/auto_keep/auto_keep.dart';
 import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pixiv_func_mobile/components/sliver_tab_bar/sliver_tab_bar.dart';
@@ -104,7 +104,7 @@ class _DataTabPageState extends State<DataTabPage> with TickerProviderStateMixin
                 tab.itemBuilder(context, null, 0)
               else
                 AutomaticKeepWidget(
-                  child: DataTabViewContent(
+                  child: DataContent(
                     sourceList: tab.source!,
                     itemBuilder: tab.itemBuilder,
                     gridDelegate: tab.gridDelegate,

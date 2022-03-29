@@ -5,17 +5,20 @@
  * 创建时间:2021/11/28 上午12:54
  * 作者:小草
  */
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/api/entity/comment.dart';
-import 'package:pixiv_func_mobile/app/data/data_tab_view_content.dart';
+import 'package:pixiv_func_mobile/app/data/data_content.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
+import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
 import 'package:pixiv_func_mobile/pages/illust/comment/controller.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
+import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class IllustCommentPage extends StatelessWidget {
   final int id;
@@ -178,62 +181,70 @@ class IllustCommentPage extends StatelessWidget {
     final controllerTag = '$runtimeType:$id';
     final controller = Get.put(IllustCommentController(id), tag: controllerTag);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(I18n.comment.tr),
-        actions: [IconButton(onPressed: () => controller.source.refresh(true), icon: const Icon(Icons.refresh_outlined))],
-      ),
-      body: GetBuilder<IllustCommentController>(
-        tag: controllerTag,
-        assignId: true,
-        builder: (IllustCommentController controller) {
-          return Column(
-            children: [
-              Flexible(
-                child: DataTabViewContent(
-                  sourceList: controller.source,
-                  itemBuilder: (BuildContext context, CommentTree item, int index) {
-                    return _buildCommentTile(item);
-                  },
-                ),
-              ),
-              Row(
+      body: PullToRefreshNotification(
+        onRefresh: () async => await controller.source.refresh(true),
+        maxDragOffset: 100,
+        child: ExtendedNestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverAppBar(title: Text(I18n.comment.tr)),
+              PullToRefreshContainer((info) => PullToRefreshHeader(info: info)),
+            ];
+          },
+          body: GetBuilder<IllustCommentController>(
+            tag: controllerTag,
+            assignId: true,
+            builder: (IllustCommentController controller) {
+              return Column(
                 children: [
-                  IconButton(
-                    onPressed: () => controller.repliesCommentTree = null,
-                    icon: const Icon(
-                      Icons.reply_sharp,
+                  Flexible(
+                    child: DataContent(
+                      sourceList: controller.source,
+                      itemBuilder: (BuildContext context, CommentTree item, int index) {
+                        return _buildCommentTile(item);
+                      },
                     ),
                   ),
-                  Expanded(
-                    child: TextField(
-                      controller: controller.commentInput,
-                      decoration: InputDecoration(
-                        labelText: controller.commentInputLabel,
-                        prefix: const SizedBox(width: 5),
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            controller.commentInput.clear();
-                          },
-                          child: const Icon(
-                            Icons.close_sharp,
-                            color: Colors.white54,
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => controller.repliesCommentTree = null,
+                        icon: const Icon(
+                          Icons.reply_sharp,
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: controller.commentInput,
+                          decoration: InputDecoration(
+                            labelText: controller.commentInputLabel,
+                            prefix: const SizedBox(width: 5),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                controller.commentInput.clear();
+                              },
+                              child: const Icon(
+                                Icons.close_sharp,
+                                color: Colors.white54,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: ElevatedButton(
-                      onPressed: controller.doAddComment,
-                      child: Text(I18n.send.tr),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: ElevatedButton(
+                          onPressed: controller.doAddComment,
+                          child: Text(I18n.send.tr),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }

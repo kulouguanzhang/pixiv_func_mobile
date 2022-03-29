@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/platform/webview/platform_web_view.dart';
 import 'package:pixiv_func_mobile/components/local_user_card/local_user_card.dart';
 import 'package:pixiv_func_mobile/pages/about/about.dart';
 import 'package:pixiv_func_mobile/pages/account/account.dart';
@@ -17,8 +18,9 @@ import 'package:pixiv_func_mobile/pages/any_new/any_new.dart';
 import 'package:pixiv_func_mobile/pages/bookmarked/bookmarked.dart';
 import 'package:pixiv_func_mobile/pages/browsing_history/browsing_history.dart';
 import 'package:pixiv_func_mobile/pages/download_manager/download_manager.dart';
-import 'package:pixiv_func_mobile/pages/follower_new/follower_new.dart';
+import 'package:pixiv_func_mobile/pages/fans/fans.dart';
 import 'package:pixiv_func_mobile/pages/following/following.dart';
+import 'package:pixiv_func_mobile/pages/following_new/following_new.dart';
 import 'package:pixiv_func_mobile/pages/settings/settings.dart';
 
 class SelfPage extends StatelessWidget {
@@ -56,8 +58,14 @@ class SelfPage extends StatelessWidget {
               ),
               Card(
                 child: ListTile(
-                  onTap: () => Get.to(const FollowerNewPage()),
-                  title: Text(I18n.followerNewIllust.tr, style: const TextStyle(fontSize: 25)),
+                  onTap: () => Get.to(const FansPage()),
+                  title: Text(I18n.fans.tr, style: const TextStyle(fontSize: 25)),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  onTap: () => Get.to(const FollowingNewPage()),
+                  title: Text(I18n.followingNewIllust.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
               Card(
@@ -88,6 +96,33 @@ class SelfPage extends StatelessWidget {
                 child: ListTile(
                   onTap: () => Get.to(const AboutPage()),
                   title: Text(I18n.about.tr, style: const TextStyle(fontSize: 25)),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  onTap: () {
+                    //打开对话框询问是否使用本地反向代理
+                    Get.dialog<bool>(
+                      AlertDialog(
+                        content: Text(I18n.useReverseProxy.tr),
+                        actions: [
+                          OutlinedButton(
+                            onPressed: () => Get.back<bool>(result: true),
+                            child: Text(I18n.confirm.tr),
+                          ),
+                          OutlinedButton(
+                            onPressed: () => Get.back<bool>(result: false),
+                            child: Text(I18n.cancel.tr),
+                          ),
+                        ],
+                      ),
+                    ).then((value) {
+                      if (value != null) {
+                        Get.to(PlatformWebView(url: 'https://www.pixiv.net/settings.php?', useLocalReverseProxy: value));
+                      }
+                    });
+                  },
+                  title: Text(I18n.openSettingsPageInBrowser.tr, style: const TextStyle(fontSize: 25)),
                 ),
               ),
             ],

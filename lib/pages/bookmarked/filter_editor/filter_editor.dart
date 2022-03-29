@@ -5,7 +5,6 @@
  * 创建时间:2021/10/4 下午2:56
  * 作者:小草
  */
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';

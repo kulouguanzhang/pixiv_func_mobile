@@ -20,7 +20,7 @@ Future<void> main() async {
 
   runApp(const App());
 
-  final storageStatus = Permission.storage;
+  const storageStatus = Permission.storage;
 
   if (!await storageStatus.isGranted) {
     Permission.storage.request();

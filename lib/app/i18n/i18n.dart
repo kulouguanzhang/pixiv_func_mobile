@@ -37,6 +37,9 @@ class I18n {
   ///关注
   static const follow = 'follow';
 
+  //粉丝
+  static const fans = 'fans';
+
   ///关注用户
   static const followUser = 'followUser';
 
@@ -92,7 +95,7 @@ class I18n {
   static const loadFailedRetry = 'loadFailedRetry';
 
   ///最新作品(关注者)
-  static const followerNewIllust = 'followerNewIllust';
+  static const followingNewIllust = 'followingNewIllust';
 
   ///最新作品(所有人)
   static const anyNewIllust = 'anyNewIllust';
@@ -108,6 +111,9 @@ class I18n {
 
   ///关于
   static const about = 'about';
+
+  //在浏览器中打开设置页面
+  static const openSettingsPageInBrowser = 'openSettingsPageInBrowser';
 
   ///继续下拉以刷新
   static const refreshIndicatorModeDarg = 'refreshIndicatorModeDarg';

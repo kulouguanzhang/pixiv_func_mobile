@@ -271,6 +271,22 @@ class ApiClient extends GetxService {
     return data;
   }
 
+  Future<Users> getFollower(
+    int userId, {
+    required CancelToken cancelToken,
+  }) async {
+    final response = await _httpClient.get<String>(
+      '/v1/user/follower',
+      queryParameters: {
+        'filter': 'for_android',
+        'user_id': userId,
+      },
+      cancelToken: cancelToken,
+    );
+    final data = Users.fromJson(jsonDecode(response.data!));
+    return data;
+  }
+
   ///获取关注用户 <br/>
   ///[userId] - 用户ID <br/>
   ///[restrict] - 为ture获取公开的(public) 反之不公开(private)

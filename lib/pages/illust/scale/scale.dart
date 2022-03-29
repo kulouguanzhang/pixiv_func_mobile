@@ -60,6 +60,7 @@ class ImageScalePage extends StatelessWidget {
                             if (state.extendedImageLoadState == LoadState.loading) {
                               return const Center(child: CircularProgressIndicator());
                             }
+                            return null;
                           },
                           initGestureConfigHandler: (ExtendedImageState state) => GestureConfig(
                             minScale: 0.9,

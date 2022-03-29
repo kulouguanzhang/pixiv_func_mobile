@@ -11,13 +11,13 @@ import 'package:flutter/services.dart';
 
 class PlatformWebView extends StatefulWidget {
   final String url;
-  final Future<dynamic> Function(BuildContext context, dynamic message) onMessageHandler;
+  final Future<dynamic> Function(BuildContext context, dynamic message)? onMessageHandler;
   final bool useLocalReverseProxy;
 
   const PlatformWebView({
     Key? key,
     required this.url,
-    required this.onMessageHandler,
+    this.onMessageHandler,
     this.useLocalReverseProxy = false,
   }) : super(key: key);
 
@@ -42,7 +42,8 @@ class _PlatformWebViewState extends State<PlatformWebView> {
       StandardMessageCodec(),
     ).setMessageHandler(
       (dynamic message) async {
-        widget.onMessageHandler(context, message);
+        widget.onMessageHandler?.call(context, message);
+        return null;
       },
     );
 
@@ -56,6 +57,7 @@ class _PlatformWebViewState extends State<PlatformWebView> {
             _progress = message / 100;
           });
         }
+        return null;
       },
     );
     super.initState();

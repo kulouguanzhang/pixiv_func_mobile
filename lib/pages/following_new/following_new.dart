@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
  * 项目名称:pixiv_func_mobile
- * 文件名称:follower_new.dart
+ * 文件名称:following_new.dart
  * 创建时间:2021/11/30 下午12:29
  * 作者:小草
  */
@@ -20,8 +20,8 @@ import 'package:pixiv_func_mobile/models/dropdown_item.dart';
 import 'illust/source.dart';
 import 'novel/source.dart';
 
-class FollowerNewPage extends StatelessWidget {
-  const FollowerNewPage({Key? key}) : super(key: key);
+class FollowingNewPage extends StatelessWidget {
+  const FollowingNewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class FollowerNewPage extends StatelessWidget {
         body: ObxValue<Rx<bool?>>((data) {
           return DataTabPage(
             key: Key('Key($runtimeType:${data.hashCode})'),
-            title: I18n.followerNewIllust.tr,
+            title: I18n.followingNewIllust.tr,
             actions: [
               DropdownButtonHideUnderline(
                 child: DropdownMenu<bool?>(
