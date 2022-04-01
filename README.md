@@ -7,25 +7,10 @@
 - 这是我的个人玩具,与其他现有同类项目无关,如果你想拿我的项目跟其他项目比较,那么请你离开,我并不欢迎你
 - 该项目用于我个人学习Flutter,开源且免费
 - 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_mobile/issues/new)
-# 下载
 
-[![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv-func-android?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
+[![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv_func_mobile?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
 
-## Android
-
-- [点击下载最新版本](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/app-release.apk)
-- [点击下载最新版本(国内备用)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/download/app-release.apk)
-- 前往[Release](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/)下载
-
-
-## iOS
-- 目前是实验性的,WebView反向代理不能用(没处理SSL证书错误)
-- [点击下载最新版本](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/download/1.0.0-preview1/Payload.ipa)
-- [点击下载最新版本(国内备用)](https://ghproxy.com/https://github.com/xiao-cao-x/pixiv_func_mobile/releases/download/1.0.0-preview1/Payload.ipa)
-- 前往[Release](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest/)下载
-- 可以根据[PicAcg(哔咔)的iOS安装教程](https://download.picacn.xyz/page/ios-tip-simplified.php)来安装此ipa
-
-
+<a href="https://pixiv.xiaocao.site/#/pixiv-func/mobile" target="_blank">获取帮助</a>
 
 # 支持功能
 
@@ -63,19 +48,11 @@
 3. 可能间歇性的失效
 4. 如果无法直连请开代理
 
-# 预览
-
-| <img src='./preview/img5.jpg' width='300px'/> | <img src='./preview/img4.jpg' width='300px'/> | <img src='./preview/img3.jpg' width='300px'/> |
-|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
-| <img src='./preview/img2.jpg' width='300px'/> | <img src='./preview/img1.jpg' width='300px'/> | <img src='./preview/img0.gif' width='300px'/> |
-
 # 鸣谢
 
 [![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_mobile)
 
 > 感谢 [JetBrains](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_mobile) 为开源项目提供的以下IDE的免费授权
-
-
 
 
 [![](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)](https://www.jetbrains.com/idea/?from=xiao-cao-x/pixiv_func_mobile)

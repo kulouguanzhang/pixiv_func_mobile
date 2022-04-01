@@ -118,7 +118,7 @@ class SelfPage extends StatelessWidget {
                       ),
                     ).then((value) {
                       if (value != null) {
-                        Get.to(PlatformWebView(url: 'https://www.pixiv.net/settings.php?', useLocalReverseProxy: value));
+                        Get.to(PlatformWebView(url: 'https://www.pixiv.net/settings.php', useLocalReverseProxy: value));
                       }
                     });
                   },
