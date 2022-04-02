@@ -6,8 +6,10 @@
  * 作者:小草
  */
 
+import 'package:pixiv_dart_api/enums.dart';
+
 class BookmarkedFilter {
-  bool restrict;
+  Restrict restrict;
   String? tag;
 
   //未分类(日语)
@@ -16,7 +18,7 @@ class BookmarkedFilter {
   BookmarkedFilter({required this.restrict, required this.tag});
 
   factory BookmarkedFilter.create() => BookmarkedFilter(
-        restrict: true,
+        restrict: Restrict.public,
         tag: null,
       );
 

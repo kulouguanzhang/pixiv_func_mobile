@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/api/entity/novel.dart';
+import 'package:pixiv_dart_api/entity/novel.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_mobile/components/novel_detail_dialog/novel_detail_dialog.dart';

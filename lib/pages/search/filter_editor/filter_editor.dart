@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/api/enums.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';

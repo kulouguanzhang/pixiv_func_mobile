@@ -6,7 +6,7 @@
  * 作者:小草
  */
 
-import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
+import 'package:pixiv_dart_api/entity/illust.dart';
 
 enum DownloadState {
   idle,

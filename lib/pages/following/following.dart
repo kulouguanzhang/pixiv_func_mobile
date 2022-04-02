@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_config.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_page.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
@@ -30,12 +31,12 @@ class FollowingPage extends StatelessWidget {
           tabs: [
             DataTabConfig(
               name: I18n.public.tr,
-              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId, true),
+              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId, Restrict.public),
               itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),
             DataTabConfig(
               name: I18n.private.tr,
-              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId, false),
+              source: FollowingListSource(id ?? Get.find<AccountService>().currentUserId, Restrict.private),
               itemBuilder: (BuildContext context, item, int index) => UserPreviewer(userPreview: item),
             ),
           ],

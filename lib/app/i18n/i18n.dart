@@ -187,8 +187,11 @@ class I18n {
   ///最新发行版
   static const latestRelease = 'latestRelease';
 
-  ///项目地址
-  static const projectAddress = 'projectAddress';
+  ///在GitHub中打开
+  static const openInGitHub = 'openInGitHub';
+
+  ///获取帮助
+  static const getHelp = 'getHelp';
 
   ///点击检查更新
   static const clickCheckUpdate = 'clickCheckUpdate';

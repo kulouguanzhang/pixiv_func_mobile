@@ -10,8 +10,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/user_detail.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/user_detail.dart';
 
 class UserController extends GetxController {
   final int id;

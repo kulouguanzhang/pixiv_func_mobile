@@ -8,8 +8,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/illust_detail.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/illust_detail.dart';
 
 class IllustIdSearchController extends GetxController {
   final int id;

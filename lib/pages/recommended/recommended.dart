@@ -9,7 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_func_mobile/app/api/enums.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_config.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_page.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
@@ -33,13 +33,13 @@ class RecommendedPage extends StatelessWidget {
           tabs: [
             DataTabConfig(
               name: I18n.illust.tr,
-              source: RecommendedIllustListSource(WorkType.illust),
+              source: RecommendedIllustListSource(IllustType.illust),
               extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
             ),
             DataTabConfig(
               name: I18n.manga.tr,
-              source: RecommendedIllustListSource(WorkType.manga),
+              source: RecommendedIllustListSource(IllustType.manga),
               extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(illust: item),
             ),

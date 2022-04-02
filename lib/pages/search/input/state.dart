@@ -7,7 +7,7 @@
  */
 
 import 'package:flutter/cupertino.dart';
-import 'package:pixiv_func_mobile/app/api/dto/search_autocomplete.dart';
+import 'package:pixiv_dart_api/dto/search_autocomplete.dart';
 import 'package:pixiv_func_mobile/models/search_filter.dart';
 
 class SearchInputState {

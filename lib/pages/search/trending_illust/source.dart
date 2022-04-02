@@ -7,8 +7,8 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/trending_tags.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/trending_tags.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 
 class TrendingIllustListSource extends DataSourceBase<TrendTag> {

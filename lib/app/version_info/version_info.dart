@@ -18,9 +18,11 @@ import 'package:pixiv_func_mobile/utils/log.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class VersionInfoController extends GetxController implements GetxService {
-  final thisProjectGitHubUrl = 'https://github.com/xiao-cao-x/pixiv_func_mobile';
+  final _projectGitHubUrl = 'https://github.com/xiao-cao-x/pixiv_func_mobile';
 
-  bool _frist = true;
+  final _getHelpUrl = 'https://pixiv.xiaocao.site/#/pixiv-func/mobile';
+
+  bool _first = true;
 
   String? _appVersion;
 
@@ -53,14 +55,14 @@ class VersionInfoController extends GetxController implements GetxService {
         body: json['body'] as String,
       );
       if (releaseInfo!.tagName != appVersion) {
-        if (_frist) {
+        if (_first) {
           Get.snackbar(
             '版本信息',
             '当前版本:$appVersion,最新版本:${releaseInfo!.tagName},点击前往查看',
             duration: const Duration(seconds: 6),
             onTap: (snack) => Get.to(const AboutPage()),
           );
-          _frist = false;
+          _first = false;
         }
       }
     }).catchError((e, s) {
@@ -102,13 +104,24 @@ class VersionInfoController extends GetxController implements GetxService {
   }
 
   Future<void> openProjectUrlByBrowser() async {
-    if (!await Get.find<PlatformApi>().urlLaunch(thisProjectGitHubUrl)) {
+    if (!await Get.find<PlatformApi>().urlLaunch(_projectGitHubUrl)) {
       Get.find<PlatformApi>().toast(I18n.openBrowserFailed.tr);
     }
   }
 
   Future<void> copyProjectUrl() async {
-    await Utils.copyToClipboard(thisProjectGitHubUrl);
+    await Utils.copyToClipboard(_projectGitHubUrl);
+    Get.find<PlatformApi>().toast(I18n.copySuccess.tr);
+  }
+
+  Future<void> openGetHelpUrlByBrowser() async {
+    if (!await Get.find<PlatformApi>().urlLaunch(_getHelpUrl)) {
+      Get.find<PlatformApi>().toast(I18n.openBrowserFailed.tr);
+    }
+  }
+
+  Future<void> copyGetHelpUrl() async {
+    await Utils.copyToClipboard(_getHelpUrl);
     Get.find<PlatformApi>().toast(I18n.copySuccess.tr);
   }
 

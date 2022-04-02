@@ -9,7 +9,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:dio/dio.dart';
-import 'package:pixiv_func_mobile/app/api/dto/ugoira_metadata.dart';
+import 'package:pixiv_dart_api/dto/ugoira_metadata.dart';
 
 class UgoiraViewerState {
   final List<Uint8List> imageFiles = [];

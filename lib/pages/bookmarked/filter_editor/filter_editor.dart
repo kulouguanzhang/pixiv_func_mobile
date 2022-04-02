@@ -7,6 +7,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/sliding_segmented_control/sliding_segmented_control.dart';
 import 'package:pixiv_func_mobile/models/bookmarked_filter.dart';
@@ -25,12 +26,12 @@ class BookmarkedFilterEditor extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SlidingSegmentedControl(
-                children: <bool, Widget>{
-                  true: Text(I18n.public.tr),
-                  false: Text(I18n.private.tr),
+                children: <Restrict, Widget>{
+                  Restrict.public: Text(I18n.public.tr),
+                  Restrict.private: Text(I18n.private.tr),
                 },
                 groupValue: data.value.restrict,
-                onValueChanged: (bool? value) {
+                onValueChanged: (Restrict? value) {
                   if (null != value) {
                     data.update((val) {
                       val?.restrict = value;

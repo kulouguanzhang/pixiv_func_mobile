@@ -7,12 +7,11 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/illusts.dart';
+import 'package:pixiv_dart_api/entity/illust.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/illusts.dart';
-import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 import 'package:pixiv_func_mobile/models/search_filter.dart';
-import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class SearchIllustResultListSource extends DataSourceBase<Illust> {
   final String word;
@@ -33,8 +32,8 @@ class SearchIllustResultListSource extends DataSourceBase<Illust> {
       if (!initData) {
         final result = await api.searchIllust(
           word,
-          Utils.enumToPixivParameter(filter.sort),
-          Utils.enumToPixivParameter(filter.target),
+          filter.sort,
+          filter.target,
           startDate: filter.enableDateRange ? filter.formatStartDate : null,
           endDate: filter.enableDateRange ? filter.formatEndDate : null,
           bookmarkTotal: filter.bookmarkTotal,

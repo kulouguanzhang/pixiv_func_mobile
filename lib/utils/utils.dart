@@ -9,7 +9,7 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pixiv_func_mobile/app/api/entity/image_urls.dart';
+import 'package:pixiv_dart_api/entity/image_urls.dart';
 import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
 
 class Utils {

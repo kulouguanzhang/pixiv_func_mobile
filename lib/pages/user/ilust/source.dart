@@ -7,16 +7,15 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/illusts.dart';
+import 'package:pixiv_dart_api/entity/illust.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/illusts.dart';
-import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
-import 'package:pixiv_func_mobile/app/api/enums.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
-import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class UserIllustListSource extends DataSourceBase<Illust> {
   final int id;
-  final WorkType type;
+  final IllustType type;
 
   UserIllustListSource(this.id, this.type);
 
@@ -28,7 +27,7 @@ class UserIllustListSource extends DataSourceBase<Illust> {
       if (!initData) {
         final result = await api.getUserIllusts(
           id,
-          Utils.enumToPixivParameter(type),
+          type,
           cancelToken: cancelToken,
         );
         nextUrl = result.nextUrl;

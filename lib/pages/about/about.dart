@@ -68,14 +68,23 @@ class AboutPage extends StatelessWidget {
                   child: ListTile(
                     onTap: () => controller.openProjectUrlByBrowser(),
                     onLongPress: () => controller.copyProjectUrl(),
-                    title: Text('${I18n.projectAddress.tr}${controller.thisProjectGitHubUrl}'),
+                    title: Text(I18n.openInGitHub.tr),
+                    subtitle: Text(I18n.longPressCopyUrl.tr),
+                  ),
+                ),
+                const Divider(),
+                Card(
+                  margin: EdgeInsets.zero,
+                  child: ListTile(
+                    onTap: () => controller.openGetHelpUrlByBrowser(),
+                    onLongPress: () => controller.copyGetHelpUrl(),
+                    title: Text(I18n.getHelp.tr),
                     subtitle: Text(I18n.longPressCopyUrl.tr),
                   ),
                 ),
                 const Divider(),
                 ListTile(
-                  title: Text(
-                      '${I18n.currentVersion.tr}:${null != controller.appVersion ? controller.appVersion! : '...'}'),
+                  title: Text('${I18n.currentVersion.tr}:${null != controller.appVersion ? controller.appVersion! : '...'}'),
                 ),
                 const Divider(),
                 if (controller.loading)

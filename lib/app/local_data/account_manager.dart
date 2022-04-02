@@ -9,7 +9,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/api/dto/user_account.dart';
+import 'package:pixiv_dart_api/dto/user_account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountService extends GetxService {

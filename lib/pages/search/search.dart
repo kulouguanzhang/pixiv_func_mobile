@@ -9,7 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_func_mobile/app/api/dto/trending_tags.dart';
+import 'package:pixiv_dart_api/dto/trending_tags.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_mobile/components/loading_more_indicator/loading_more_indicator.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
@@ -57,41 +57,37 @@ class SearchPage extends StatelessWidget {
                           colorBlendMode: BlendMode.srcOver,
                           fit: BoxFit.fill,
                           imageBuilder: (Widget imageWidget) {
-                            return Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => Get.to(
-                                    SearchIllustResultPage(word: item.tag),
-                                  ),
-                                  onLongPress: () => Get.to(
-                                    IllustPage(illust: item.illust),
-                                  ),
-                                  child: imageWidget,
-                                ),
-                                Positioned(
-                                  bottom: 3,
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(bottom: 5),
-                                        child: Text(
-                                          '#${item.tag}',
-                                          style: const TextStyle(fontSize: 15),
-                                        ),
-                                      ),
-                                      if (null != item.translatedName)
+                            return GestureDetector(
+                              onTap: () => Get.to(SearchIllustResultPage(word: item.tag)),
+                              onLongPress: () => Get.to(IllustPage(illust: item.illust)),
+                              child: Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  imageWidget,
+                                  Positioned(
+                                    bottom: 3,
+                                    child: Column(
+                                      children: [
                                         Padding(
                                           padding: const EdgeInsets.only(bottom: 5),
                                           child: Text(
-                                            item.translatedName!,
-                                            style: const TextStyle(fontSize: 12),
+                                            '#${item.tag}',
+                                            style: const TextStyle(fontSize: 15),
                                           ),
                                         ),
-                                    ],
+                                        if (null != item.translatedName)
+                                          Padding(
+                                            padding: const EdgeInsets.only(bottom: 5),
+                                            child: Text(
+                                              item.translatedName!,
+                                              style: const TextStyle(fontSize: 12),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             );
                           },
                         ),

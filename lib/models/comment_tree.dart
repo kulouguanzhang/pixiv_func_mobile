@@ -6,7 +6,7 @@
  * 作者:小草
  */
 
-import 'package:pixiv_func_mobile/app/api/entity/comment.dart';
+import 'package:pixiv_dart_api/entity/comment.dart';
 
 class CommentTree {
   Comment data;

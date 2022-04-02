@@ -9,7 +9,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
+import 'package:pixiv_dart_api/entity/illust.dart';
 import 'package:pixiv_func_mobile/app/download/downloader.dart';
 import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';

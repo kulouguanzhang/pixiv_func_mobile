@@ -7,12 +7,11 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/novels.dart';
+import 'package:pixiv_dart_api/entity/novel.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/novels.dart';
-import 'package:pixiv_func_mobile/app/api/entity/novel.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 import 'package:pixiv_func_mobile/models/search_filter.dart';
-import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class SearchNovelResultListSource extends DataSourceBase<Novel> {
   final String word;
@@ -33,8 +32,8 @@ class SearchNovelResultListSource extends DataSourceBase<Novel> {
       if (!initData) {
         final result = await api.searchNovel(
           word,
-          Utils.enumToPixivParameter(filter.sort),
-          Utils.enumToPixivParameter(filter.target),
+          filter.sort,
+          filter.target,
           startDate: filter.enableDateRange ? filter.formatStartDate : null,
           endDate: filter.enableDateRange ? filter.formatEndDate : null,
           bookmarkTotal: filter.bookmarkTotal,

@@ -24,6 +24,16 @@ class LoginPage extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Card(
+                margin: EdgeInsets.zero,
+                child: ListTile(
+                  onTap: () => controller.openGetHelpUrlByBrowser(),
+                  onLongPress: () => controller.copyGetHelpUrl(),
+                  title: Text(I18n.getHelp.tr),
+                  subtitle: Text(I18n.longPressCopyUrl.tr),
+                ),
+              ),
+              const Divider(),
               //iOS暂不支持本地反向代理
               if (!Platform.isIOS)
                 CheckboxListTile(

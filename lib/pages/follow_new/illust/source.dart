@@ -7,13 +7,14 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/illusts.dart';
+import 'package:pixiv_dart_api/entity/illust.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/illusts.dart';
-import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 
 class FollowerNewIllustListSource extends DataSourceBase<Illust> {
-  final bool? restrict;
+  final Restrict? restrict;
 
   FollowerNewIllustListSource(this.restrict);
 
@@ -23,7 +24,7 @@ class FollowerNewIllustListSource extends DataSourceBase<Illust> {
   Future<bool> loadData([bool isLoadMoreAction = false]) async {
     try {
       if (!initData) {
-        final result = await api.getFollowerNewIllusts(
+        final result = await api.getFollowNewIllusts(
           cancelToken: cancelToken,
           restrict: restrict,
         );

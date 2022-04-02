@@ -7,12 +7,11 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/illusts.dart';
+import 'package:pixiv_dart_api/entity/illust.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/illusts.dart';
-import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
-import 'package:pixiv_func_mobile/app/api/enums.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
-import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class RankingListSource extends DataSourceBase<Illust> {
   final RankingMode mode;
@@ -26,7 +25,7 @@ class RankingListSource extends DataSourceBase<Illust> {
     try {
       if (!initData) {
         final result = await api.getRanking(
-          Utils.enumToPixivParameter(mode),
+          mode,
           cancelToken: cancelToken,
         );
         nextUrl = result.nextUrl;

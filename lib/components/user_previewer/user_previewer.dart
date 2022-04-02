@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/api/entity/user_preview.dart';
+import 'package:pixiv_dart_api/entity/user_preview.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';

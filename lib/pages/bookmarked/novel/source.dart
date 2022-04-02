@@ -7,9 +7,9 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/novels.dart';
+import 'package:pixiv_dart_api/entity/novel.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/novels.dart';
-import 'package:pixiv_func_mobile/app/api/entity/novel.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
 import 'package:pixiv_func_mobile/models/bookmarked_filter.dart';

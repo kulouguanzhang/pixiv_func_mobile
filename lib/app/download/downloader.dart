@@ -12,7 +12,7 @@ import 'dart:typed_data';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
+import 'package:pixiv_dart_api/entity/illust.dart';
 import 'package:pixiv_func_mobile/app/download/download_manager_controller.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';

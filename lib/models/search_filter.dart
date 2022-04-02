@@ -7,7 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:pixiv_func_mobile/app/api/enums.dart';
+import 'package:pixiv_dart_api/enums.dart';
 
 class SearchFilter {
   SearchTarget target;

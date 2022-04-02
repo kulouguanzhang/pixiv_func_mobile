@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2021. by xiao-cao-x, All rights reserved
  * 项目名称:pixiv_func_mobile
- * 文件名称:following_new.dart
+ * 文件名称:follow_new.dart
  * 创建时间:2021/11/30 下午12:29
  * 作者:小草
  */
@@ -9,6 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_config.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_page.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
@@ -20,27 +21,27 @@ import 'package:pixiv_func_mobile/models/dropdown_item.dart';
 import 'illust/source.dart';
 import 'novel/source.dart';
 
-class FollowingNewPage extends StatelessWidget {
-  const FollowingNewPage({Key? key}) : super(key: key);
+class FollowNewPage extends StatelessWidget {
+  const FollowNewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: ObxValue<Rx<bool?>>((data) {
+        body: ObxValue<Rx<Restrict?>>((data) {
           return DataTabPage(
             key: Key('Key($runtimeType:${data.hashCode})'),
             title: I18n.followingNewIllust.tr,
             actions: [
               DropdownButtonHideUnderline(
-                child: DropdownMenu<bool?>(
+                child: DropdownMenu<Restrict?>(
                   menuItems: [
                     DropdownItem(null, I18n.all.tr),
-                    DropdownItem(true, I18n.public.tr),
-                    DropdownItem(false, I18n.private.tr),
+                    DropdownItem(Restrict.public, I18n.public.tr),
+                    DropdownItem(Restrict.private, I18n.private.tr),
                   ],
                   currentValue: data.value,
-                  onChanged: (bool? value) => data.value = value,
+                  onChanged: (Restrict? value) => data.value = value,
                 ),
               ),
             ],
@@ -58,7 +59,7 @@ class FollowingNewPage extends StatelessWidget {
               ),
             ],
           );
-        }, Rx<bool?>(null)),
+        }, Rx<Restrict?>(null)),
       ),
     );
   }

@@ -19,9 +19,9 @@ import 'package:pixiv_func_mobile/app/version_info/version_info.dart';
 class Inject {
   static Future<void> init() async {
     Get.lazyPut(() => PlatformApi());
-    Get.lazyPut(() => ApiClient());
-    Get.lazyPut(() => AuthClient());
     Get.lazyPut(() => DownloadManagerController());
+    Get.lazyPut(() => AuthClient().initSuper());
+    Get.lazyPut(() => ApiClient().initSuper(Get.find()));
 
     await Get.putAsync(() => AccountService().init());
     await Get.putAsync(() => BrowsingHistoryService().init());

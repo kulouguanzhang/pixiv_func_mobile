@@ -10,7 +10,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/api/entity/novel.dart';
+import 'package:pixiv_dart_api/entity/novel.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';

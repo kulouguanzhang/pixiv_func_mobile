@@ -541,6 +541,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.0"
+  pixiv_dart_api:
+    dependency: "direct main"
+    description:
+      name: pixiv_dart_api
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1"
   platform:
     dependency: transitive
     description:
@@ -806,5 +813,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.16.0 <3.0.0"
+  dart: ">=2.16.2 <3.0.0"
   flutter: ">=2.8.0"

@@ -7,7 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:pixiv_func_mobile/app/api/entity/local_user.dart';
+import 'package:pixiv_dart_api/entity/local_user.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 
 class LocalUserCard extends StatelessWidget {

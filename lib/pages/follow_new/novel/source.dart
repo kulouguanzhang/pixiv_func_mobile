@@ -7,13 +7,14 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/novels.dart';
+import 'package:pixiv_dart_api/entity/novel.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/novels.dart';
-import 'package:pixiv_func_mobile/app/api/entity/novel.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 
 class FollowerNewNovelListSource extends DataSourceBase<Novel> {
-  final bool? restrict;
+  final Restrict? restrict;
 
   FollowerNewNovelListSource(this.restrict);
 
@@ -23,7 +24,7 @@ class FollowerNewNovelListSource extends DataSourceBase<Novel> {
   Future<bool> loadData([bool isLoadMoreAction = false]) async {
     try {
       if (!initData) {
-        final result = await api.getFollowerNewNovels(
+        final result = await api.getFollowNewNovels(
           cancelToken: cancelToken,
           restrict: restrict,
         );

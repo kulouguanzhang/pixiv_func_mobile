@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/controller.dart';
 
@@ -24,7 +25,7 @@ class FollowSwitchButton extends StatelessWidget {
   void _restrictDialog() {
     final controller = Get.find<FollowSwitchButtonController>(tag: '$runtimeType:$id');
     Get.dialog(
-      ObxValue<RxBool>(
+      ObxValue<Rx<Restrict>>(
         (data) {
           return AlertDialog(
             title: Text(I18n.followUser.tr),
@@ -33,9 +34,9 @@ class FollowSwitchButton extends StatelessWidget {
               children: [
                 RadioListTile(
                   title: Text(I18n.public.tr),
-                  value: true,
+                  value: Restrict.public,
                   groupValue: data.value,
-                  onChanged: (bool? value) {
+                  onChanged: (Restrict? value) {
                     if (null != value) {
                       data.value = value;
                     }
@@ -43,9 +44,9 @@ class FollowSwitchButton extends StatelessWidget {
                 ),
                 RadioListTile(
                   title: Text(I18n.private.tr),
-                  value: false,
+                  value: Restrict.private,
                   groupValue: data.value,
-                  onChanged: (bool? value) {
+                  onChanged: (Restrict? value) {
                     if (null != value) {
                       data.value = value;
                     }
@@ -68,7 +69,7 @@ class FollowSwitchButton extends StatelessWidget {
             ],
           );
         },
-        true.obs,
+        Restrict.public.obs,
       ),
     );
   }
@@ -94,11 +95,11 @@ class FollowSwitchButton extends StatelessWidget {
             ? const RefreshProgressIndicator()
             : controller.isFollowed
                 ? ElevatedButton(
-          onPressed: () => controller.changeFollowState(),
+                    onPressed: () => controller.changeFollowState(),
                     child: Text(I18n.followed.tr),
                   )
                 : OutlinedButton(
-          onPressed: () => controller.changeFollowState(),
+                    onPressed: () => controller.changeFollowState(),
                     onLongPress: () => _restrictDialog(),
                     child: Text(I18n.follow.tr),
                   );

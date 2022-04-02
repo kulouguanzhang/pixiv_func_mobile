@@ -7,6 +7,7 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 
@@ -23,7 +24,7 @@ class FollowSwitchButtonController extends GetxController {
 
   bool get requesting => _requesting;
 
-  void changeFollowState({bool isChange = false, bool restrict = true}) {
+  void changeFollowState({bool isChange = false, Restrict restrict = Restrict.public}) {
     _requesting = true;
     update();
 

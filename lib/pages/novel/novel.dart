@@ -54,7 +54,7 @@ class NovelPage extends StatelessWidget {
         } else if (controller.notFound) {
           widget = SizedBox.expand(
             child: Center(
-              child: Text('${I18n.novel.tr}:$id${I18n.notExist}', style: const TextStyle(fontSize: 25)),
+              child: Text('${I18n.novel.tr}:$id${I18n.notExist.tr}', style: const TextStyle(fontSize: 25)),
             ),
           );
         } else {

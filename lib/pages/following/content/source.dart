@@ -7,14 +7,15 @@
  */
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/users.dart';
+import 'package:pixiv_dart_api/entity/user_preview.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/api/dto/users.dart';
-import 'package:pixiv_func_mobile/app/api/entity/user_preview.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 
 class FollowingListSource extends DataSourceBase<UserPreview> {
   final int id;
-  final bool restrict;
+  final Restrict restrict;
 
   FollowingListSource(this.id, this.restrict);
 

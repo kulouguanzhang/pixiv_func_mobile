@@ -10,12 +10,12 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:path/path.dart';
-import 'package:pixiv_func_mobile/app/api/entity/illust.dart';
-import 'package:pixiv_func_mobile/app/api/entity/image_urls.dart';
-import 'package:pixiv_func_mobile/app/api/entity/meta_page.dart';
-import 'package:pixiv_func_mobile/app/api/entity/meta_single_page.dart';
-import 'package:pixiv_func_mobile/app/api/entity/tag.dart';
-import 'package:pixiv_func_mobile/app/api/entity/user.dart';
+import 'package:pixiv_dart_api/entity/illust.dart';
+import 'package:pixiv_dart_api/entity/image_urls.dart';
+import 'package:pixiv_dart_api/entity/meta_page.dart';
+import 'package:pixiv_dart_api/entity/meta_single_page.dart';
+import 'package:pixiv_dart_api/entity/tag.dart';
+import 'package:pixiv_dart_api/entity/user.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BrowsingHistoryService extends GetxService {

@@ -9,8 +9,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_func_mobile/app/api/dto/user_detail.dart';
-import 'package:pixiv_func_mobile/app/api/enums.dart';
+import 'package:pixiv_dart_api/dto/user_detail.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_config.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_page.dart';
 import 'package:pixiv_func_mobile/app/download/downloader.dart';
@@ -131,7 +131,7 @@ class UserPage extends StatelessWidget {
               if (userDetail.profile.totalIllusts > 0)
                 DataTabConfig(
                   name: I18n.illust.tr,
-                  source: UserIllustListSource(id, WorkType.illust),
+                  source: UserIllustListSource(id, IllustType.illust),
                   itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
                     illust: item,
                     showUserName: false,
@@ -141,7 +141,7 @@ class UserPage extends StatelessWidget {
               if (userDetail.profile.totalManga > 0)
                 DataTabConfig(
                   name: I18n.manga.tr,
-                  source: UserIllustListSource(id, WorkType.manga),
+                  source: UserIllustListSource(id, IllustType.manga),
                   itemBuilder: (BuildContext context, item, int index) => IllustPreviewer(
                     illust: item,
                     showUserName: true,

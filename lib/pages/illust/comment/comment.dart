@@ -8,7 +8,7 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/api/entity/comment.dart';
+import 'package:pixiv_dart_api/entity/comment.dart';
 import 'package:pixiv_func_mobile/app/data/data_content.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
