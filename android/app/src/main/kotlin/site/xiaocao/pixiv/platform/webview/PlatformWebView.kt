@@ -6,7 +6,7 @@
  * 作者:小草
  */
 
-package me.xiaocao.pixiv.platform.webview
+package site.xiaocao.pixiv.platform.webview
 
 import PixivLocalReverseProxy.PixivLocalReverseProxy
 import android.annotation.SuppressLint
@@ -20,7 +20,6 @@ import androidx.webkit.ProxyController
 import androidx.webkit.WebViewFeature
 import io.flutter.plugin.common.*
 import io.flutter.plugin.platform.PlatformView
-import java.util.*
 import kotlin.collections.HashMap
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -184,6 +183,12 @@ class PlatformWebView(
             }
             PlatformWebViewPlugin.methodReload -> {
                 webView.reload()
+            }
+            PlatformWebViewPlugin.methodCanGoBack -> {
+                result.success(webView.canGoBack())
+            }
+            PlatformWebViewPlugin.methodGoBack -> {
+                webView.goBack()
             }
             else -> {
                 result.notImplemented()

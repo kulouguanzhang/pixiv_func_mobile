@@ -6,7 +6,7 @@
  * 作者:小草
  */
 
-package me.xiaocao.pixiv.util
+package site.xiaocao.pixiv.util
 
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream

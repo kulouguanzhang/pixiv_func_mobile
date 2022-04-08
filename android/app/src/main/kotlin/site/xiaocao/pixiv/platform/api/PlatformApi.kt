@@ -1,4 +1,4 @@
-package me.xiaocao.pixiv.platform.api
+package site.xiaocao.pixiv.platform.api
 
 import android.content.Context
 import android.content.Intent
@@ -8,10 +8,10 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import com.waynejo.androidndkgif.GifEncoder
-import me.xiaocao.pixiv.update.DownloadManagerUtil
-import me.xiaocao.pixiv.util.forEachEntry
-import me.xiaocao.pixiv.util.imageIsExist
-import me.xiaocao.pixiv.util.saveImage
+import site.xiaocao.pixiv.update.DownloadManagerUtil
+import site.xiaocao.pixiv.util.forEachEntry
+import site.xiaocao.pixiv.util.imageIsExist
+import site.xiaocao.pixiv.util.saveImage
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.util.zip.ZipInputStream

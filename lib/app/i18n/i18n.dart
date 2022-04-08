@@ -370,6 +370,14 @@ class I18n {
   ///明亮
   static const light = 'light';
 
+  ///从剪切板获取登录后的账号
+  static const loginFromClipboard = 'loginFromClipboard';
+
+  static const loginFromClipboardHint = 'loginFromClipboardHint';
+
+  //剪切板数据不是有效的账号数据
+  static const clipboardDataIsNotValidAccountData = 'clipboardDataIsNotValidAccountData';
+
   ///登录
   static const login = 'login';
 

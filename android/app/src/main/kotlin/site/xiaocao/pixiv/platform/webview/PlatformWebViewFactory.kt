@@ -6,7 +6,7 @@
  * 作者:小草
  */
 
-package me.xiaocao.pixiv.platform.webview
+package site.xiaocao.pixiv.platform.webview
 
 import android.content.Context
 import io.flutter.plugin.common.BinaryMessenger

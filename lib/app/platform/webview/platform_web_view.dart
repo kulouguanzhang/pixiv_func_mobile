@@ -30,6 +30,8 @@ class _PlatformWebViewState extends State<PlatformWebView> {
 
   static const _methodLoadUrl = 'loadUrl';
   static const _methodReload = 'reload';
+  static const _methodCanGoBack = 'canGoBack';
+  static const _methodGoBack = 'goBack';
 
   late final MethodChannel _channel;
 
@@ -70,37 +72,46 @@ class _PlatformWebViewState extends State<PlatformWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //不设置这个点输入框的时候 键盘会直接弹回很难输入进去东西
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text('PlatformWebView'),
-        actions: [
-          IconButton(
-            onPressed: () => _channel.invokeMethod(_methodReload),
-            icon: const Icon(Icons.refresh_outlined),
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          Visibility(
-            visible: _progress < 1.0,
-            child: LinearProgressIndicator(value: _progress),
+    return WillPopScope(
+        child: Scaffold(
+          //不设置这个点输入框的时候 键盘会直接弹回很难输入进去东西
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: const Text('PlatformWebView'),
+            actions: [
+              IconButton(
+                onPressed: () => _channel.invokeMethod(_methodReload),
+                icon: const Icon(Icons.refresh_outlined),
+              )
+            ],
           ),
-          Expanded(
-            child: AndroidView(
-              viewType: _pluginName,
-              creationParams: {
-                'useLocalReverseProxy': widget.useLocalReverseProxy,
-                'enableLog': true,
-              },
-              creationParamsCodec: const StandardMessageCodec(),
-              onPlatformViewCreated: onViewCreated,
-            ),
-          )
-        ],
-      ),
-    );
+          body: Column(
+            children: [
+              Visibility(
+                visible: _progress < 1.0,
+                child: LinearProgressIndicator(value: _progress),
+              ),
+              Expanded(
+                child: AndroidView(
+                  viewType: _pluginName,
+                  creationParams: {
+                    'useLocalReverseProxy': widget.useLocalReverseProxy,
+                    'enableLog': true,
+                  },
+                  creationParamsCodec: const StandardMessageCodec(),
+                  onPlatformViewCreated: onViewCreated,
+                ),
+              )
+            ],
+          ),
+        ),
+        onWillPop: () async {
+          if (await _channel.invokeMethod(_methodCanGoBack) as bool) {
+            _channel.invokeMethod(_methodGoBack);
+            return false;
+          } else {
+            return true;
+          }
+        });
   }
 }

@@ -11,7 +11,7 @@ import 'package:pixiv_dart_api/dto/users.dart';
 import 'package:pixiv_dart_api/entity/user_preview.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
 
 class FansListSource extends DataSourceBase<UserPreview> {
   FansListSource();

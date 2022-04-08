@@ -4,7 +4,7 @@ import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/entity/illust.dart';
 import 'package:pixiv_func_mobile/app/download/downloader.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/local_data/browsing_history_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/browsing_history_service.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';

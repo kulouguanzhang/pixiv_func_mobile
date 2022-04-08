@@ -1,4 +1,4 @@
-package me.xiaocao.pixiv.update
+package site.xiaocao.pixiv.update
 
 import android.app.DownloadManager
 import android.content.ActivityNotFoundException

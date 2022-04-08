@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/dropdown_menu/dropdown_menu.dart';
 import 'package:pixiv_func_mobile/components/sliding_segmented_control/sliding_segmented_control.dart';

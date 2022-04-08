@@ -6,7 +6,7 @@
  * 作者:小草
  */
 
-package me.xiaocao.pixiv.util
+package site.xiaocao.pixiv.util
 
 import android.content.ContentValues
 import android.content.Context

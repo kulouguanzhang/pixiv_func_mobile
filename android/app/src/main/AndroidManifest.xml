@@ -16,7 +16,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Pixiv Func">
         <activity
-                android:name="me.xiaocao.pixiv.MainActivity"
+                android:name="site.xiaocao.pixiv.MainActivity"
                 android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
                 android:exported="true"
                 android:hardwareAccelerated="true"
@@ -32,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="me.xiaocao.pixiv.update.DownloadReceiver"
+        <receiver android:name="site.xiaocao.pixiv.update.DownloadReceiver"
                   android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>

@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/dto/user_account.dart';
 import 'package:pixiv_func_mobile/app/api/auth_client.dart';
+import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/platform/webview/platform_web_view.dart';
 import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
@@ -80,5 +85,17 @@ class LoginController extends GetxController {
   Future<void> copyGetHelpUrl() async {
     await Utils.copyToClipboard(_getHelpUrl);
     Get.find<PlatformApi>().toast(I18n.copySuccess.tr);
+  }
+
+  void loginFromClipboard() async {
+    try {
+      final clipboardDataString = Encrypt.decode((await Clipboard.getData(Clipboard.kTextPlain))?.text ?? '');
+      final json = jsonDecode(clipboardDataString);
+      final account = UserAccount.fromJson(json);
+      Get.find<AccountService>().add(account);
+      Get.find<PlatformApi>().toast('${I18n.login.tr}${I18n.success.tr}');
+    } catch (e) {
+      Get.find<PlatformApi>().toast(I18n.clipboardDataIsNotValidAccountData.tr);
+    }
   }
 }

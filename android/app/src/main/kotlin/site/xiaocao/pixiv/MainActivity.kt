@@ -1,12 +1,12 @@
-package me.xiaocao.pixiv
+package site.xiaocao.pixiv
 
 import android.content.IntentFilter
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
-import me.xiaocao.pixiv.platform.api.PlatformApiPlugin
-import me.xiaocao.pixiv.platform.webview.PlatformWebViewPlugin
-import me.xiaocao.pixiv.update.DownloadReceiver
+import site.xiaocao.pixiv.platform.api.PlatformApiPlugin
+import site.xiaocao.pixiv.platform.webview.PlatformWebViewPlugin
+import site.xiaocao.pixiv.update.DownloadReceiver
 
 
 class MainActivity : FlutterActivity() {

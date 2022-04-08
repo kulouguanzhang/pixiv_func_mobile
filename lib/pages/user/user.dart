@@ -81,7 +81,11 @@ class UserPage extends StatelessWidget {
             onTap: () => Get.to(FollowingPage(id: userDetail.user.id)),
             child: Text('${userDetail.profile.totalFollowUsers}${I18n.follow.tr}'),
           ),
-          trailing: FollowSwitchButton(id: user.id, initValue: user.isFollowed),
+          trailing: Row(
+            children: [
+              FollowSwitchButton(id: user.id, initValue: user.isFollowed),
+            ],
+          ),
         )
       ]),
       collapseMode: CollapseMode.pin,

@@ -27,6 +27,14 @@ class LoginPage extends StatelessWidget {
               Card(
                 margin: EdgeInsets.zero,
                 child: ListTile(
+                  onTap: () => controller.loginFromClipboard(),
+                  title: Text(I18n.loginFromClipboard.tr),
+                  subtitle: Text(I18n.loginFromClipboardHint.tr),
+                ),
+              ),
+              Card(
+                margin: EdgeInsets.zero,
+                child: ListTile(
                   onTap: () => controller.openGetHelpUrlByBrowser(),
                   onLongPress: () => controller.copyGetHelpUrl(),
                   title: Text(I18n.getHelp.tr),

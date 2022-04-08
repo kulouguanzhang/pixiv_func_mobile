@@ -60,6 +60,8 @@ class AccountService extends GetxService {
       });
       if (1 == accounts().length) {
         select(0);
+      } else {
+        select(accounts().length - 1);
       }
       save();
     }

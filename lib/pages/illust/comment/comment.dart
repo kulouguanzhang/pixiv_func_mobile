@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:pixiv_dart_api/entity/comment.dart';
 import 'package:pixiv_func_mobile/app/data/data_content.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';

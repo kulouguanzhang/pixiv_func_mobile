@@ -12,7 +12,7 @@ import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_config.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_page.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
 import 'package:pixiv_func_mobile/components/user_previewer/user_previewer.dart';
 
 import 'content/source.dart';

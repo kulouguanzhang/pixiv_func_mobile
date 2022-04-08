@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
 import 'package:pixiv_func_mobile/app/settings/app_settings.dart';
 import 'package:pixiv_func_mobile/pages/app_body/app_body.dart';
 import 'package:pixiv_func_mobile/pages/guide/step0_language_set.dart';

@@ -6,10 +6,15 @@
  * 作者:小草
  */
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/platform/webview/platform_web_view.dart';
 import 'package:pixiv_func_mobile/components/local_user_card/local_user_card.dart';
 import 'package:pixiv_func_mobile/pages/about/about.dart';
@@ -32,14 +37,24 @@ class SelfPage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            InkWell(
-              onTap: () => Get.to(const AccountPage()),
-              child: Obx(
-                () {
-                  return LocalUserCard(
-                    Get.find<AccountService>().accounts()[Get.find<AccountService>().currentIndex.value].user,
-                  );
-                },
+            GestureDetector(
+              onLongPress: () async {
+                await Clipboard.setData(
+                  ClipboardData(
+                    text: Encrypt.encode(jsonEncode(Get.find<AccountService>().current)),
+                  ),
+                );
+                Get.find<PlatformApi>().toast(I18n.copySuccess.tr);
+              },
+              child: InkWell(
+                onTap: () => Get.to(const AccountPage()),
+                child: Obx(
+                  () {
+                    return LocalUserCard(
+                      Get.find<AccountService>().accounts()[Get.find<AccountService>().currentIndex.value].user,
+                    );
+                  },
+                ),
               ),
             ),
             Card(

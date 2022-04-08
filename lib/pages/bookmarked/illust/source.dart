@@ -11,7 +11,7 @@ import 'package:pixiv_dart_api/dto/illusts.dart';
 import 'package:pixiv_dart_api/entity/illust.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
 import 'package:pixiv_func_mobile/models/bookmarked_filter.dart';
 
 class BookmarkedIllustListSource extends DataSourceBase<Illust> {

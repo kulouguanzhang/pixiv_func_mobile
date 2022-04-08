@@ -6,7 +6,7 @@
  * 作者:小草
  */
 
-package me.xiaocao.pixiv.platform.webview
+package site.xiaocao.pixiv.platform.webview
 
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -18,6 +18,8 @@ class PlatformWebViewPlugin : FlutterPlugin {
 
         const val methodLoadUrl = "loadUrl"
         const val methodReload = "reload"
+        const val methodCanGoBack = "canGoBack"
+        const val methodGoBack = "goBack"
     }
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {

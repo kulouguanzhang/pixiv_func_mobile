@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/local_data/account_manager.dart';
+import 'package:pixiv_func_mobile/app/local_data/account_service.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/pages/login/login.dart';
 

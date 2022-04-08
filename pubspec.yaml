@@ -2,7 +2,7 @@ name: pixiv_func_mobile
 description: Pixiv 第三方客户端
 
 publish_to: 'none'
-version: 1.0.0-preview4+4
+version: 1.0.0-preview5+5
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -15,25 +15,26 @@ dependencies:
   cupertino_icons: ^1.0.4
   json_annotation: ^4.4.0
   get: ^4.6.1
-  dio: ^4.0.4
+  dio: ^4.0.6
   crypto: ^3.0.1
   intl: ^0.17.0
   logger: ^1.1.0
   shared_preferences: ^2.0.13
   sqflite: ^2.0.2
-  extended_image: ^6.0.1
+  extended_image: ^6.0.2+1
   extended_nested_scroll_view: ^5.0.0
   waterfall_flow: ^3.0.2
   pull_to_refresh_notification: ^2.3.0
-  loading_more_list: ^4.1.0
+  loading_more_list: ^4.1.2
   html: ^0.15.0
   permission_handler: ^9.2.0
-  image_picker: ^0.8.4+10
+  image_picker: ^0.8.5
+  encrypt: ^5.0.1
   pixiv_dart_api: ^1.0.1
 dev_dependencies:
   flutter_lints: ^1.0.4
-  json_serializable: ^6.1.4
-  build_runner: ^2.1.7
+  json_serializable: ^6.1.5
+  build_runner: ^2.1.8
 flutter:
   uses-material-design: true
   assets:
