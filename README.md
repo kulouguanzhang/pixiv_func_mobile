@@ -10,7 +10,13 @@
 
 [![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv_func_mobile?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
 
-<a href="https://pixiv.xiaocao.site/#/pixiv-func/mobile" target="_blank">获取帮助</a>
+[获取帮助](https://pixiv.xiaocao.site/#/pixiv-func/mobile)
+
+# 如何编译?
+
+1. 在项目目录打开终端
+2. 执行`flutter pub get`
+3. 把[build_release](./build_release)复制到终端执行
 
 # 支持功能
 
