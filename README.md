@@ -1,5 +1,10 @@
 # Pixiv Func
 
+[![latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv_func_mobile?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
+![total downloads](https://img.shields.io/github/downloads/xiao-cao-x/pixiv_func_mobile/total.svg?label=total%20downloads)
+![total stars](https://img.shields.io/github/stars/xiao-cao-x/pixiv_func_mobile?label=total%20stars)
+![total forks](https://img.shields.io/github/forks/xiao-cao-x/pixiv_func_mobile?label=total%20forks)
+
 - Pixiv第三方移动客户端
 - 使用了`GetX`状态管理框架
 - 代码严格按照`flutter_lints`的规范编写
@@ -8,9 +13,7 @@
 - 该项目用于我个人学习Flutter,开源且免费
 - 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_mobile/issues/new)
 
-[![Latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv_func_mobile?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
-
-[获取帮助](https://pixiv.xiaocao.site/#/pixiv-func/mobile)
+## [获取帮助以及预览](https://pixiv.xiaocao.site/#/pixiv-func/mobile)
 
 # 如何编译?
 
