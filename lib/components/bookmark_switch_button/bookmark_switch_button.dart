@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 
 import 'controller.dart';
@@ -29,7 +30,7 @@ class BookmarkSwitchButton extends StatelessWidget {
   void _restrictDialog() {
     final controller = Get.find<BookmarkSwitchButtonController>(tag: '$runtimeType:$id');
     Get.dialog(
-      ObxValue<RxBool>(
+      ObxValue<Rx<Restrict>>(
         (data) {
           return AlertDialog(
             title: Text('${I18n.follow.tr}${I18n.illust.tr}'),
@@ -38,9 +39,9 @@ class BookmarkSwitchButton extends StatelessWidget {
               children: [
                 RadioListTile(
                   title: Text(I18n.public.tr),
-                  value: true,
+                  value: Restrict.public,
                   groupValue: data.value,
-                  onChanged: (bool? value) {
+                  onChanged: (Restrict? value) {
                     if (null != value) {
                       data.value = value;
                     }
@@ -48,9 +49,9 @@ class BookmarkSwitchButton extends StatelessWidget {
                 ),
                 RadioListTile(
                   title: Text(I18n.private.tr),
-                  value: false,
+                  value: Restrict.private,
                   groupValue: data.value,
-                  onChanged: (bool? value) {
+                  onChanged: (Restrict? value) {
                     if (null != value) {
                       data.value = value;
                     }
@@ -73,7 +74,7 @@ class BookmarkSwitchButton extends StatelessWidget {
             ],
           );
         },
-        true.obs,
+        Restrict.public.obs,
       ),
     );
   }
