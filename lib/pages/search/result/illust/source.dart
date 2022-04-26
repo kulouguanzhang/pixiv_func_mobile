@@ -1,14 +1,6 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:source.dart
- * 创建时间:2021/11/29 下午12:49
- * 作者:小草
- */
-
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/dto/illusts.dart';
-import 'package:pixiv_dart_api/entity/illust.dart';
+import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_dart_api/vo/illust_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 import 'package:pixiv_func_mobile/models/search_filter.dart';
@@ -30,7 +22,7 @@ class SearchIllustResultListSource extends DataSourceBase<Illust> {
   Future<bool> loadData([bool isLoadMoreAction = false]) async {
     try {
       if (!initData) {
-        final result = await api.searchIllust(
+        final result = await api.getSearchIllustPage(
           word,
           filter.sort,
           filter.target,
@@ -44,7 +36,7 @@ class SearchIllustResultListSource extends DataSourceBase<Illust> {
         initData = true;
       } else {
         if (hasMore) {
-          final result = await api.next<Illusts>(nextUrl!, cancelToken: cancelToken);
+          final result = await api.getNextPage<IllustPageResult>(nextUrl!, cancelToken: cancelToken);
           nextUrl = result.nextUrl;
           addAll(result.illusts);
         }

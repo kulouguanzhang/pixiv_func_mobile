@@ -1,16 +1,8 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:illust_result.dart
- * 创建时间:2021/11/29 下午12:48
- * 作者:小草
- */
-
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_dart_api/entity/illust.dart';
+import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_func_mobile/app/data/data_content.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';

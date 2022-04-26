@@ -1,13 +1,5 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:state.dart
- * 创建时间:2021/11/29 下午1:39
- * 作者:小草
- */
-
 import 'package:flutter/cupertino.dart';
-import 'package:pixiv_dart_api/dto/search_autocomplete.dart';
+import 'package:pixiv_dart_api/vo/search_autocomplete_result.dart';
 import 'package:pixiv_func_mobile/models/search_filter.dart';
 
 class SearchInputState {
@@ -20,7 +12,7 @@ class SearchInputState {
   String get inputAsString => wordInput.text;
 
   SearchFilter filter = SearchFilter.create();
-  SearchAutocomplete? searchAutocomplete;
+  SearchAutocompleteResult? searchAutocomplete;
   int type = 0;
 
   DateTime lastInputTime = DateTime.now();

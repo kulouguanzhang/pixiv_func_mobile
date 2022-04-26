@@ -1,16 +1,8 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:user.dart
- * 创建时间:2021/11/25 下午9:12
- * 作者:小草
- */
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_dart_api/dto/user_detail.dart';
 import 'package:pixiv_dart_api/enums.dart';
+import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_config.dart';
 import 'package:pixiv_func_mobile/app/data/data_tab_page.dart';
 import 'package:pixiv_func_mobile/app/download/downloader.dart';
@@ -37,7 +29,7 @@ class UserPage extends StatelessWidget {
   }) : super(key: key);
 
   Widget _buildFlexibleSpace() {
-    final userDetail = Get.find<UserController>(tag: '$runtimeType:$id').userDetail!;
+    final userDetail = Get.find<UserController>(tag: '$runtimeType:$id').userDetailResult!;
     final String? backgroundImageUrl = userDetail.profile.backgroundImageUrl;
     final UserInfo user = userDetail.user;
     return FlexibleSpaceBar(
@@ -116,7 +108,7 @@ class UserPage extends StatelessWidget {
             ),
           );
         } else {
-          final userDetail = Get.find<UserController>(tag: '$runtimeType:$id').userDetail!;
+          final userDetail = Get.find<UserController>(tag: '$runtimeType:$id').userDetailResult!;
           widget = DataTabPage(
             title: I18n.user.tr,
             tabs: [
@@ -170,24 +162,4 @@ class UserPage extends StatelessWidget {
       },
     );
   }
-}
-
-class TabBarDelegate extends SliverPersistentHeaderDelegate {
-  final TabBar child;
-
-  TabBarDelegate({required this.child});
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return child;
-  }
-
-  @override
-  double get maxExtent => child.preferredSize.height;
-
-  @override
-  double get minExtent => child.preferredSize.height;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
 }

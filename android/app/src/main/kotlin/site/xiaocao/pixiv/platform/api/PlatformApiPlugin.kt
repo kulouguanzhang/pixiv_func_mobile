@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_android
- * 文件名称:PlatformApiPlugin.kt
- * 创建时间:2021/9/5 下午4:48
- * 作者:小草
- */
-
 package site.xiaocao.pixiv.platform.api
 
 import android.content.Context

@@ -1,22 +1,14 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:account_manager.dart
- * 创建时间:2021/8/23 上午10:55
- * 作者:小草
- */
-
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/dto/user_account.dart';
+import 'package:pixiv_dart_api/vo/user_account_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountService extends GetxService {
   static const _dataKeyName = "accounts";
   static const _dataIndexKeyName = "account_index";
 
-  final Rx<List<UserAccount>> accounts = Rx([]);
+  final Rx<List<UserAccountResult>> accounts = Rx([]);
 
   late final SharedPreferences _sharedPreferences;
 
@@ -30,7 +22,7 @@ class AccountService extends GetxService {
         tempAccounts.map(
           (jsonString) {
             final json = jsonDecode(jsonString);
-            return UserAccount.fromJson(json);
+            return UserAccountResult.fromJson(json);
           },
         ),
       );
@@ -50,7 +42,7 @@ class AccountService extends GetxService {
   }
 
   ///添加账号
-  void add(UserAccount account) {
+  void add(UserAccountResult account) {
     //如果已经存在就更新
     if (accounts().any((element) => element.user.id == account.user.id)) {
       update(account);
@@ -68,7 +60,7 @@ class AccountService extends GetxService {
   }
 
   ///更新账号
-  void update(UserAccount account) {
+  void update(UserAccountResult account) {
     accounts.update((val) {
       if (null != val) {
         for (int i = 0; i < val.length; i++) {
@@ -83,7 +75,7 @@ class AccountService extends GetxService {
   }
 
   ///移除账号
-  void remove(UserAccount account) {
+  void remove(UserAccountResult account) {
     accounts.update((val) {
       val?.remove(account);
     });
@@ -98,7 +90,7 @@ class AccountService extends GetxService {
     save();
   }
 
-  UserAccount? get current {
+  UserAccountResult? get current {
     if (-1 == currentIndex.value) {
       return null;
     }

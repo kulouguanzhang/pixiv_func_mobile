@@ -21,12 +21,6 @@ class DownloadManagerUtil(private val context: Context) {
             context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
 
-    /**
-     * 可能会出错Cannot update URI: content://downloads/my_downloads/-1
-     * 检查下载管理器是否被禁用
-     *
-     * @return true
-     */
     fun checkDownloadManagerEnable(): Boolean {
         try {
             // 获取下载管理器的状态

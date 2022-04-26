@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:data_source_base.dart
- * 创建时间:2021/11/17 下午4:59
- * 作者:小草
- */
-
 import 'package:dio/dio.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 

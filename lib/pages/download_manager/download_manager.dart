@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:download_manager.dart
- * 创建时间:2021/11/26 下午6:48
- * 作者:小草
- */
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/download/download_manager_controller.dart';
@@ -43,9 +35,7 @@ class DownloadManagerPage extends StatelessWidget {
       child: ListTile(
         onTap: () => Get.to(IllustPage(illust: task.illust)),
         title: Text(task.illust.title, overflow: TextOverflow.ellipsis),
-        subtitle: DownloadState.failed != task.state
-            ? LinearProgressIndicator(value: task.progress)
-            : Text(I18n.downloadFailed.tr),
+        subtitle: DownloadState.failed != task.state ? LinearProgressIndicator(value: task.progress) : Text(I18n.downloadFailed.tr),
         trailing: SizedBox(
           width: 48,
           child: trailing,

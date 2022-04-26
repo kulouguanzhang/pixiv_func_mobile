@@ -1,14 +1,6 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:novel_previewer.dart
- * 创建时间:2021/11/25 下午1:56
- * 作者:小草
- */
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/entity/novel.dart';
+import 'package:pixiv_dart_api/model/novel.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_mobile/components/novel_detail_dialog/novel_detail_dialog.dart';

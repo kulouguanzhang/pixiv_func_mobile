@@ -1,13 +1,5 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:source.dart
- * 创建时间:2021/11/28 上午12:55
- * 作者:小草
- */
-
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/dto/comments.dart';
+import 'package:pixiv_dart_api/vo/comment_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/data/data_source_base.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
@@ -23,7 +15,7 @@ class IllustCommentListSource extends DataSourceBase<CommentTree> {
   Future<bool> loadData([bool isLoadMoreAction = false]) async {
     try {
       if (!initData) {
-        final result = await api.getIllustComments(
+        final result = await api.getIllustCommentPage(
           id,
           cancelToken: cancelToken,
         );
@@ -36,7 +28,7 @@ class IllustCommentListSource extends DataSourceBase<CommentTree> {
         initData = true;
       } else {
         if (hasMore) {
-          final result = await api.next<Comments>(nextUrl!, cancelToken: cancelToken);
+          final result = await api.getNextPage<CommentPageResult>(nextUrl!, cancelToken: cancelToken);
           nextUrl = result.nextUrl;
           addAll(
             [

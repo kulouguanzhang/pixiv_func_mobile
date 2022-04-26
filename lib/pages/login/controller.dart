@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/dto/user_account.dart';
+import 'package:pixiv_dart_api/vo/user_account_result.dart';
 import 'package:pixiv_func_mobile/app/api/auth_client.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
@@ -91,7 +91,7 @@ class LoginController extends GetxController {
     try {
       final clipboardDataString = Encrypt.decode((await Clipboard.getData(Clipboard.kTextPlain))?.text ?? '');
       final json = jsonDecode(clipboardDataString);
-      final account = UserAccount.fromJson(json);
+      final account = UserAccountResult.fromJson(json);
       Get.find<AccountService>().add(account);
       Get.find<PlatformApi>().toast('${I18n.login.tr}${I18n.success.tr}');
     } catch (e) {

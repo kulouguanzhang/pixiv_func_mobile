@@ -1,20 +1,13 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:content.dart
- * 创建时间:2021/11/25 下午10:22
- * 作者:小草
- */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/dto/user_detail.dart';
+import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/html_rich_text/html_rich_text.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class UserInfoContent extends StatelessWidget {
-  final UserDetail userDetail;
+  final UserDetailResult userDetail;
 
   const UserInfoContent({Key? key, required this.userDetail}) : super(key: key);
 

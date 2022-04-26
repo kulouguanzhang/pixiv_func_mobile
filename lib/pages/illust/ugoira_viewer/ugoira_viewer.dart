@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:ugoira_viewer.dart
- * 创建时间:2021/11/28 下午1:38
- * 作者:小草
- */
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/components/frame_gif/frame_gif.dart';
@@ -69,9 +61,7 @@ class UgoiraViewer extends StatelessWidget with RouteAware {
                             ),
                           ),
                         ),
-                        state.loading
-                            ? const CircularProgressIndicator()
-                            : const Icon(Icons.play_circle_outline_outlined, size: 70),
+                        state.loading ? const CircularProgressIndicator() : const Icon(Icons.play_circle_outline_outlined, size: 70),
                       ],
                     ),
                   ),
@@ -81,5 +71,3 @@ class UgoiraViewer extends StatelessWidget with RouteAware {
     );
   }
 }
-
-

@@ -1,21 +1,13 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:browsing_history_service.dart
- * 创建时间:2021/10/2 下午11:12
- * 作者:小草
- */
-
 import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:path/path.dart';
-import 'package:pixiv_dart_api/entity/illust.dart';
-import 'package:pixiv_dart_api/entity/image_urls.dart';
-import 'package:pixiv_dart_api/entity/meta_page.dart';
-import 'package:pixiv_dart_api/entity/meta_single_page.dart';
-import 'package:pixiv_dart_api/entity/tag.dart';
-import 'package:pixiv_dart_api/entity/user.dart';
+import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_dart_api/model/image_urls.dart';
+import 'package:pixiv_dart_api/model/meta_page.dart';
+import 'package:pixiv_dart_api/model/meta_single_page.dart';
+import 'package:pixiv_dart_api/model/tag.dart';
+import 'package:pixiv_dart_api/model/user.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BrowsingHistoryService extends GetxService {
@@ -146,9 +138,7 @@ class BrowsingHistoryService extends GetxService {
       map['sanity_level'] as int,
       map['x_restrict'] as int,
       MetaSinglePage.fromJson(jsonDecode(map['meta_single_page_json']) as Map<String, dynamic>),
-      (jsonDecode(map['meta_pages_json']) as List<dynamic>)
-          .map((e) => MetaPage.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (jsonDecode(map['meta_pages_json']) as List<dynamic>).map((e) => MetaPage.fromJson(e as Map<String, dynamic>)).toList(),
       map['total_view'] as int,
       map['total_bookmarks'] as int,
       map['is_bookmarked'] as int == 1,

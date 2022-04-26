@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:pull_to_refresh_header.dart
- * 创建时间:2021/11/29 下午11:51
- * 作者:小草
- */
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
@@ -35,9 +27,9 @@ class PullToRefreshHeader extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(left: 5.0),
             alignment: Alignment.center,
-            child: const Text(
-              "加载失败点击重试",
-              style: TextStyle(fontSize: 12.0, inherit: false),
+            child: Text(
+              I18n.loadFailedRetry.tr,
+              style: const TextStyle(fontSize: 12.0, inherit: false),
             ),
           ),
         ),

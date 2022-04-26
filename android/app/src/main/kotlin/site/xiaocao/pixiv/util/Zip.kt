@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:Zip.kt
- * 创建时间:2021/9/12 下午6:26
- * 作者:小草
- */
-
 package site.xiaocao.pixiv.util
 
 import java.util.zip.ZipEntry

@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:app_theme.dart
- * 创建时间:2021/11/23 下午5:17
- * 作者:小草
- */
-
 import 'package:flutter/material.dart';
 
 class AppTheme {

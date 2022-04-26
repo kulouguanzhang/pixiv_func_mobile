@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:controller.dart
- * 创建时间:2021/11/23 下午11:33
- * 作者:小草
- */
-
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
@@ -29,7 +21,7 @@ class FollowSwitchButtonController extends GetxController {
     update();
 
     if (isChange || !_isFollowed) {
-      Get.find<ApiClient>().addFollow(id, restrict: restrict).then((result) {
+      Get.find<ApiClient>().postFollowAdd(id, restrict: restrict).then((result) {
         _isFollowed = true;
       }).catchError((e) {
         Log.e('关注用户失败', e);
@@ -38,7 +30,7 @@ class FollowSwitchButtonController extends GetxController {
         update();
       });
     } else {
-      Get.find<ApiClient>().deleteFollow(id).then((result) {
+      Get.find<ApiClient>().postFollowDelete(id).then((result) {
         _isFollowed = false;
         update();
       }).catchError((e) {

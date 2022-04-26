@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:controller.dart
- * 创建时间:2021/11/25 下午4:34
- * 作者:小草
- */
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -13,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as html show parse;
-import 'package:pixiv_dart_api/dto/novel_js_data.dart';
+import 'package:pixiv_dart_api/vo/novel_js_data.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 
 class NovelController extends GetxController {

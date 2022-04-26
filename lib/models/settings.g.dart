@@ -15,8 +15,7 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
       json['language'] as String,
     );
 
-Map<String, dynamic> _$SettingsToJson(Settings instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$SettingsToJson(Settings instance) => <String, dynamic>{
       'isLightTheme': instance.isLightTheme,
       'imageSource': instance.imageSource,
       'previewQuality': instance.previewQuality,

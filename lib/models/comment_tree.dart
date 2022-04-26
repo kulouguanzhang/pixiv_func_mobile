@@ -1,12 +1,4 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:comment_tree.dart
- * 创建时间:2021/11/28 上午12:59
- * 作者:小草
- */
-
-import 'package:pixiv_dart_api/entity/comment.dart';
+import 'package:pixiv_dart_api/model/comment.dart';
 
 class CommentTree {
   Comment data;

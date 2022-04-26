@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_dart_api/entity/illust.dart';
+import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_func_mobile/app/download/downloader.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/local_data/browsing_history_service.dart';

@@ -1,15 +1,7 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:search.dart
- * 创建时间:2021/11/29 上午11:40
- * 作者:小草
- */
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_dart_api/dto/trending_tags.dart';
+import 'package:pixiv_dart_api/vo/trending_tag_list_result.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_mobile/components/loading_more_indicator/loading_more_indicator.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';

@@ -1,10 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:avatar_from_url.dart
- * 创建时间:2021/11/20 上午12:54
- * 作者:小草
- */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/settings/app_settings.dart';

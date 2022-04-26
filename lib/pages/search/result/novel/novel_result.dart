@@ -1,14 +1,7 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:novel_result.dart
- * 创建时间:2021/11/29 下午1:47
- * 作者:小草
- */
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/entity/novel.dart';
+import 'package:pixiv_dart_api/model/novel.dart';
 import 'package:pixiv_func_mobile/app/data/data_content.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/novel_previewer/novel_previewer.dart';

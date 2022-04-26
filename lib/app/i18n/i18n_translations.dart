@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:i18n_translations.dart
- * 创建时间:2021/12/13 下午1:31
- * 作者:小草
- */
-
 import 'package:get/get_navigation/src/root/internacionalization.dart';
 
 import 'i18n.dart';

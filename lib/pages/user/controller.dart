@@ -1,16 +1,8 @@
-/*
- * Copyright (C) 2021. by xiao-cao-x, All rights reserved
- * 项目名称:pixiv_func_mobile
- * 文件名称:controller.dart
- * 创建时间:2021/11/25 下午10:34
- * 作者:小草
- */
-
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/dto/user_detail.dart';
+import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 
 class UserController extends GetxController {
@@ -20,7 +12,7 @@ class UserController extends GetxController {
 
   final CancelToken cancelToken = CancelToken();
 
-  UserDetail? userDetail;
+  UserDetailResult? userDetailResult;
 
   bool error = false;
 
@@ -35,13 +27,13 @@ class UserController extends GetxController {
   }
 
   void loadData() {
-    userDetail = null;
+    userDetailResult = null;
     error = false;
     notFound = false;
     loading = true;
     update();
     Get.find<ApiClient>().getUserDetail(id, cancelToken: cancelToken).then((result) {
-      userDetail = result;
+      userDetailResult = result;
     }).catchError((e) {
       if (e is DioError && HttpStatus.notFound == e.response?.statusCode) {
         notFound = true;
