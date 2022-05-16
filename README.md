@@ -13,7 +13,7 @@
 - 该项目用于我个人学习Flutter,开源且免费
 - 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/xiao-cao-x/pixiv_func_mobile/issues/new)
 
-## [获取帮助以及预览](https://pixiv.xiaocao.site/#/pixiv-func/mobile)
+## [获取帮助以及预览](https://pixiv.xiaocao.moe/#/pixiv-func/mobile)
 
 # 如何编译?
 
