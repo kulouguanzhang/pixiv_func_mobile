@@ -10,7 +10,7 @@ abstract class DataSourceBase<T> extends LoadingMoreBase<T> {
   final CancelToken _cancelToken = CancelToken();
 
   @override
-  Future<bool> refresh([bool notifyStateChanged = false]) {
+  Future<bool> refresh([bool notifyStateChanged = false])async {
     _initData = false;
     nextUrl = null;
     final result = super.refresh(notifyStateChanged);

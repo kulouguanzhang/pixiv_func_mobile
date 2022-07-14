@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_dart_api/model/novel.dart';
 import 'package:pixiv_dart_api/vo/novel_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/data_page/data_source_base.dart';
+import 'package:pixiv_func_mobile/data_content/data_source_base.dart';
 
 class RecommendedNovelListSource extends DataSourceBase<Novel> {
   final api = Get.find<ApiClient>();

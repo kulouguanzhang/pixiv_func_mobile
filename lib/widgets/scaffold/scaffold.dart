@@ -25,19 +25,19 @@ class ScaffoldWidget extends StatelessWidget {
     final AppBar? appBar;
     if (null != emptyAppBar) {
       if (emptyAppBar!) {
-        appBar = AppBar(elevation: 0, toolbarHeight: 0);
+        appBar = AppBar(elevation: 0, toolbarHeight: 0,);
       } else if (null != titleWidget) {
-        appBar = AppBar(title: titleWidget, centerTitle: centerTitle, actions: actions);
+        appBar = AppBar(elevation: 0, title: titleWidget, centerTitle: centerTitle, actions: actions);
       } else if (null != title) {
-        appBar = AppBar(title: TextWidget(title!), centerTitle: centerTitle, actions: actions);
+        appBar = AppBar(elevation: 0, title: TextWidget(title!), centerTitle: centerTitle, actions: actions);
       } else {
         appBar = null;
       }
     } else {
       if (null != titleWidget) {
-        appBar = AppBar(title: titleWidget, centerTitle: centerTitle, actions: actions);
+        appBar = AppBar(elevation: 0, title: titleWidget, centerTitle: centerTitle, actions: actions);
       } else if (null != title) {
-        appBar = AppBar(title: TextWidget(title!), centerTitle: centerTitle, actions: actions);
+        appBar = AppBar(elevation: 0, title: TextWidget(title!), centerTitle: centerTitle, actions: actions);
       } else {
         appBar = null;
       }

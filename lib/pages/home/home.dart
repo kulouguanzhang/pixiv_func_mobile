@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/pages/home/controller.dart';
+import 'package:pixiv_func_mobile/pages/ranking/ranking.dart';
 import 'package:pixiv_func_mobile/pages/recommended/recommended.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
               index: controller.index,
               children: const [
                 RecommendedPage(),
-                SizedBox(),
+                RankingPage(),
                 SizedBox(),
                 SizedBox(),
               ],
