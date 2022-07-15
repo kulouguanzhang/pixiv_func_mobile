@@ -22,7 +22,7 @@ class TextWidget extends StatelessWidget {
       text,
       style: TextStyle(
         fontSize: fontSize,
-        color: color,
+        color: color ?? Theme.of(context).textTheme.caption?.color,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         overflow: overflow,
       ),

@@ -33,14 +33,14 @@ class SearchFilter {
     SearchSort sort = SearchSort.dateDesc,
     bool enableDateLimit = false,
   }) {
-    final DateTime _currentDate = DateTime.now();
+    final DateTime currentDate = DateTime.now();
     return SearchFilter(
       target: target,
       sort: sort,
       enableDateRange: enableDateLimit,
       dateTimeRange: DateTimeRange(
-        start: DateTime(_currentDate.year - 1, _currentDate.month, _currentDate.day),
-        end: DateTime(_currentDate.year, _currentDate.month, _currentDate.day),
+        start: DateTime(currentDate.year - 1, currentDate.month, currentDate.day),
+        end: DateTime(currentDate.year, currentDate.month, currentDate.day),
       ),
       bookmarkTotal: null,
       dateTimeRangeType: 0,

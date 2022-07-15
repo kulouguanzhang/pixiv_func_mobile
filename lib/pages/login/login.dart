@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
       builder: (controller) => ScaffoldWidget(
         emptyAppBar: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 80),
+          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
           child: Column(
             children: [
               const Spacer(flex: 1),
@@ -54,14 +54,14 @@ class LoginPage extends StatelessWidget {
                               text: 'Pixiv官方页面无法注册或登陆时，建议开启本地反向代理，稍后您可以在设置中进行相应变更。',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Get.theme.colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onBackground,
                               ),
                             ),
-                            const TextSpan(
+                            TextSpan(
                               text: '获取更多帮助 >>',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Color(0xFFFF6289),
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
                           ],
@@ -88,7 +88,7 @@ class LoginPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 20),
                           child: TextWidget('从剪贴板登陆', fontSize: 18, color: Colors.white, isBold: true),
                         ),
-                        onPressed: () {},
+                        onPressed: () => controller.loginFromClipboard(),
                       )
                     else
                       Row(

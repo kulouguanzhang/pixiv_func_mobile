@@ -12,7 +12,7 @@ class WelcomePage extends StatelessWidget {
     return ScaffoldWidget(
       emptyAppBar: false,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60),
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

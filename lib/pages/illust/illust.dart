@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/html_rich_text/html_rich_text.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
+import 'package:pixiv_func_mobile/widgets/sliver_tab_bar/sliver_tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -70,23 +72,24 @@ class IllustPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextWidget(
-                    illust.user.name,
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: 16,
-                    isBold: true,
-                  ),
-                  TextWidget(
-                    illust.user.account,
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: 12,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextWidget(
+                      illust.user.name,
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 16,
+                      isBold: true,
+                    ),
+                    TextWidget(
+                      illust.user.account,
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 12,
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
               FollowSwitchButton(
                 id: illust.user.id,
                 initValue: illust.user.isFollowed!,
@@ -136,12 +139,12 @@ class IllustPage extends StatelessWidget {
                     children: [
                       TextWidget(
                         '详情',
-                        color: controller.showComment ? Get.theme.colorScheme.primary : null,
+                        color: controller.showCaption ? Get.theme.colorScheme.primary : null,
                       ),
                       const SizedBox(width: 5),
                       Icon(
-                        controller.showComment ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                        color: controller.showComment ? Get.theme.colorScheme.primary : null,
+                        controller.showCaption ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                        color: controller.showCaption ? Get.theme.colorScheme.primary : null,
                         size: 12,
                       ),
                     ],
@@ -149,32 +152,36 @@ class IllustPage extends StatelessWidget {
                 ),
             ],
           ),
-          if (controller.showComment)
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+          const SizedBox(height: 20),
+          ExpandablePanel(
+            controller: controller.captionPanelController,
+            collapsed: const SizedBox(),
+            expanded: Container(
+              padding: const EdgeInsets.only(bottom: 20),
               alignment: Alignment.topLeft,
               child: HtmlRichText(controller.illust.caption),
             ),
-          Padding(
-            padding: EdgeInsets.only(top: controller.showComment ? 0 : 20),
-            child: Wrap(
-              runSpacing: 5,
-              spacing: 5,
-              children: [
-                for (final tag in illust.tags)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 2, top: 5, bottom: 5),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 9),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Get.theme.colorScheme.surface,
-                      ),
-                      child: TextWidget('#${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}', fontSize: 14),
-                    ),
-                  ),
-              ],
+            theme: const ExpandableThemeData(
+              hasIcon: false,
             ),
+          ),
+          Wrap(
+            runSpacing: 5,
+            spacing: 5,
+            children: [
+              for (final tag in illust.tags)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 9),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Get.theme.colorScheme.surface,
+                    ),
+                    child: TextWidget('#${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}', fontSize: 14),
+                  ),
+                ),
+            ],
           ),
         ],
       ),
@@ -183,7 +190,6 @@ class IllustPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Get.put(IllustController(illust), tag: controllerTag);
     return GetBuilder<IllustController>(
       tag: controllerTag,
@@ -191,7 +197,7 @@ class IllustPage extends StatelessWidget {
       builder: (controller) => DefaultTabController(
         length: 2,
         child: ScaffoldWidget(
-          title: illust.title,
+          titleWidget: TextWidget(illust.title, fontSize: 16),
           centerTitle: true,
           actions: [
             BookmarkSwitchButton(id: illust.id, initValue: illust.isBookmarked),
@@ -199,6 +205,7 @@ class IllustPage extends StatelessWidget {
           ],
           child: NoScrollBehaviorWidget(
             child: ExtendedNestedScrollView(
+              onlyOneScrollInBody: true,
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
                 if (illust.isUgoira)
                   SliverToBoxAdapter(
@@ -235,44 +242,44 @@ class IllustPage extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: _buildImageDetail(),
                 ),
-                SliverAppBar(
-                  toolbarHeight: 0,
-                  automaticallyImplyLeading: false,
-                  bottom: PreferredSize(
-                    preferredSize: const Size.fromHeight(50),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: 0.5,
-                          color: const Color(0xFF373737),
-                        ),
-                        const TabBarWidget(
-                          indicatorMinWidth: 15,
-                          indicator: RRecTabIndicator(
-                            radius: 4,
-                            insets: EdgeInsets.only(bottom: 5),
+                SliverPersistentHeader(
+                  delegate: SliverTabBarDelegate(
+                    child: PreferredSize(
+                      preferredSize: const Size.fromHeight(kToolbarHeight),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 0.5,
+                            color: const Color(0xFF373737),
                           ),
-                          tabs: [
-                            Tab(text: '推荐'),
-                            Tab(text: '评论'),
-                          ],
-                        )
-                      ],
+                          const TabBarWidget(
+                            indicatorMinWidth: 15,
+                            indicator: RRecTabIndicator(
+                              radius: 4,
+                              insets: EdgeInsets.only(bottom: 5),
+                            ),
+                            tabs: [
+                              Tab(text: '推荐'),
+                              Tab(text: '评论'),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   pinned: true,
+                  floating: true,
                 ),
               ],
+              pinnedHeaderSliverHeightBuilder: () => kToolbarHeight,
               body: TabBarView(
                 children: [
                   DataContent(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                     sourceList: () => controller.illustRelatedSource,
-                    itemBuilder: (BuildContext context, Illust item, int index) {
-                      return IllustPreviewer(illust: item, square: true);
-                    },
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item, square: true),
                   ),
                   IllustCommentContent(id: illust.id),
                 ],

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/pages/home/controller.dart';
 import 'package:pixiv_func_mobile/pages/ranking/ranking.dart';
 import 'package:pixiv_func_mobile/pages/recommended/recommended.dart';
+import 'package:pixiv_func_mobile/pages/search_guide/search_guide.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class HomePage extends StatelessWidget {
               children: const [
                 RecommendedPage(),
                 RankingPage(),
-                SizedBox(),
+                SearchGuidePage(),
                 SizedBox(),
               ],
             ),

@@ -1,47 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
 
-class SliverTabBar extends StatelessWidget {
-  final PreferredSizeWidget child;
-  final bool pinned;
-  final bool floating;
-
-  const SliverTabBar({
-    Key? key,
-    required this.child,
-    this.pinned = false,
-    this.floating = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPersistentHeader(
-      delegate: _SliverTabBarDelegate(child: child),
-      pinned: pinned,
-      floating: floating,
-    );
-  }
-}
-
-class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
+class SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
   final PreferredSizeWidget child;
 
-  _SliverTabBarDelegate({required this.child});
+  SliverTabBarDelegate({required this.child});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Get.theme.colorScheme.onSecondary,
-      child: child,
-    );
+    return child;
   }
 
   @override
-  double get maxExtent => 35;
+  double get maxExtent => child.preferredSize.height;
 
   @override
-  double get minExtent => 35;
+  double get minExtent => child.preferredSize.height;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => oldDelegate != this;

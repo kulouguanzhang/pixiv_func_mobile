@@ -76,7 +76,7 @@ class NovelPreviewer extends StatelessWidget {
                             children: [
                               for (final tag in novel.tags)
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 2, top: 5, bottom: 5),
+                                  padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 9),
                                     decoration: BoxDecoration(

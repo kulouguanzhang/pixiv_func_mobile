@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
@@ -24,6 +25,8 @@ class IllustController extends GetxController {
   final IllustRelatedListSource illustRelatedSource;
 
   final TextEditingController commentInput = TextEditingController();
+
+  final captionPanelController = ExpandableController();
 
   final CancelToken cancelToken = CancelToken();
 
@@ -50,7 +53,7 @@ class IllustController extends GetxController {
 
   bool _showComment = false;
 
-  bool get showComment => _showComment;
+  bool get showCaption => _showComment;
 
   @override
   void dispose() {
@@ -148,6 +151,7 @@ class IllustController extends GetxController {
 
   void showCommentChangeState() {
     _showComment = !_showComment;
+    captionPanelController.expanded = _showComment;
     update();
   }
 }

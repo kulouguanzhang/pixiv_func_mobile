@@ -5,11 +5,10 @@ import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/data/history_service.dart';
 import 'package:pixiv_func_mobile/app/data/settings_service.dart';
 
-
 class Inject {
   static Future<void> init() async {
-    Get.lazyPut(() => AuthClient().initSuper());
-    Get.lazyPut(() => ApiClient().initSuper(Get.find()));
+    await Get.putAsync(() => AuthClient().initSuper());
+    await Get.putAsync(() => ApiClient().initSuper(Get.find()));
 
     await Get.putAsync(() => AccountService().init());
     await Get.putAsync(() => HistoryService().init());

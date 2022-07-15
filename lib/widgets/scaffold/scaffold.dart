@@ -7,8 +7,9 @@ class ScaffoldWidget extends StatelessWidget {
   final List<Widget>? actions;
   final bool? centerTitle;
   final bool? emptyAppBar;
-
+  final bool automaticallyImplyLeading;
   final Widget? child;
+
 
   const ScaffoldWidget({
     Key? key,
@@ -17,6 +18,7 @@ class ScaffoldWidget extends StatelessWidget {
     this.actions,
     this.centerTitle,
     this.emptyAppBar,
+    this.automaticallyImplyLeading = true,
     this.child,
   }) : super(key: key);
 
@@ -25,19 +27,47 @@ class ScaffoldWidget extends StatelessWidget {
     final AppBar? appBar;
     if (null != emptyAppBar) {
       if (emptyAppBar!) {
-        appBar = AppBar(elevation: 0, toolbarHeight: 0,);
+        appBar = AppBar(
+          elevation: 0,
+          toolbarHeight: 0,
+          automaticallyImplyLeading: automaticallyImplyLeading,
+        );
       } else if (null != titleWidget) {
-        appBar = AppBar(elevation: 0, title: titleWidget, centerTitle: centerTitle, actions: actions);
+        appBar = AppBar(
+          elevation: 0,
+          title: titleWidget,
+          centerTitle: centerTitle,
+          actions: actions,
+          automaticallyImplyLeading: automaticallyImplyLeading,
+        );
       } else if (null != title) {
-        appBar = AppBar(elevation: 0, title: TextWidget(title!), centerTitle: centerTitle, actions: actions);
+        appBar = AppBar(
+          elevation: 0,
+          title: TextWidget(title!),
+          centerTitle: centerTitle,
+          actions: actions,
+          automaticallyImplyLeading: automaticallyImplyLeading,
+        );
       } else {
         appBar = null;
       }
     } else {
       if (null != titleWidget) {
-        appBar = AppBar(elevation: 0, title: titleWidget, centerTitle: centerTitle, actions: actions);
+        appBar = AppBar(
+          elevation: 0,
+          title: titleWidget,
+          centerTitle: centerTitle,
+          actions: actions,
+          automaticallyImplyLeading: automaticallyImplyLeading,
+        );
       } else if (null != title) {
-        appBar = AppBar(elevation: 0, title: TextWidget(title!), centerTitle: centerTitle, actions: actions);
+        appBar = AppBar(
+          elevation: 0,
+          title: TextWidget(title!),
+          centerTitle: centerTitle,
+          actions: actions,
+          automaticallyImplyLeading: automaticallyImplyLeading,
+        );
       } else {
         appBar = null;
       }

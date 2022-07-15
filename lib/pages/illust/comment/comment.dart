@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/comment.dart';
@@ -25,7 +24,7 @@ class IllustCommentContent extends StatelessWidget {
           if (null != comment.stamp)
             Image.asset('assets/stamps/stamp-${comment.stamp!.stampId}.jpg')
           else if (comment.comment.isNotEmpty)
-            TextWidget(comment.comment,fontSize: 14),
+            TextWidget(comment.comment, fontSize: 14),
         ],
       ),
     );
@@ -163,46 +162,47 @@ class IllustCommentContent extends StatelessWidget {
             Flexible(
               child: DataContent(
                 sourceList: () => controller.source,
+                padding: EdgeInsets.zero,
                 itemBuilder: (BuildContext context, CommentTree item, int index) {
                   return _buildCommentItem(item);
                 },
               ),
             ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () => controller.repliesCommentTree = null,
-                    icon: const Icon(
-                      Icons.reply_sharp,
-                    ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () => controller.repliesCommentTree = null,
+                  icon: const Icon(
+                    Icons.reply_sharp,
                   ),
-                  Expanded(
-                    child: TextField(
-                      controller: controller.commentInput,
-                      decoration: InputDecoration(
-                        labelText: controller.commentInputLabel,
-                        prefix: const SizedBox(width: 5),
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            controller.commentInput.clear();
-                          },
-                          child: const Icon(
-                            Icons.close_sharp,
-                            color: Colors.white54,
-                          ),
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: controller.commentInput,
+                    decoration: InputDecoration(
+                      labelText: controller.commentInputLabel,
+                      prefix: const SizedBox(width: 5),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          controller.commentInput.clear();
+                        },
+                        child: const Icon(
+                          Icons.close_sharp,
+                          color: Colors.white54,
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: ElevatedButton(
-                      onPressed: controller.onCommentAdd,
-                      child: const TextWidget('发送'),
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: ElevatedButton(
+                    onPressed: controller.onCommentAdd,
+                    child: const TextWidget('发送'),
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
           ],
         );
       },

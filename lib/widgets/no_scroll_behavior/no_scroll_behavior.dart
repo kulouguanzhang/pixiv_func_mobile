@@ -24,7 +24,7 @@ class _NoScrollBehavior extends ScrollBehavior {
       case TargetPlatform.fuchsia:
         return GlowingOverscrollIndicator(
           axisDirection: axisDirection,
-          color: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).colorScheme.primary,
           showTrailing: false,
           showLeading: false,
           child: child,

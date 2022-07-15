@@ -15,7 +15,7 @@ class GuideSelectLanguagePage extends StatelessWidget {
       (data) => ScaffoldWidget(
         emptyAppBar: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 80),
+          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

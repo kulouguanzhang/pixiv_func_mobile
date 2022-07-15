@@ -44,52 +44,49 @@ class IllustPreviewer extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             imageWidget,
-            Visibility(
-              visible: illust.isR18,
-              child: Positioned(
-                left: 2,
-                top: 2,
+            if (illust.isR18)
+              Positioned(
+                left: 7,
+                top: 7,
                 child: Card(
-                  color: Colors.pink.shade300,
+                  color: Get.theme.colorScheme.primary,
                   child: const Padding(
-                    padding: EdgeInsets.all(1.5),
-                    child: Text('R-18'),
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: TextWidget('R-18', color: Colors.white),
                   ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: illust.isUgoira,
-              child: const Positioned(
-                left: 2,
-                bottom: 2,
+            if (illust.isUgoira)
+              const Positioned(
+                left: 7,
+                bottom: 7,
                 child: Card(
-                  color: Colors.white12,
-                  child: Padding(padding: EdgeInsets.fromLTRB(5, 0, 5, 0), child: Text('Ugoira')),
+                  color: Color(0x40383838),
+                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 5), child: TextWidget('Ugoira')),
                 ),
               ),
-            ),
-            Visibility(
-              visible: pageCount > 1,
-              child: Positioned(
-                right: 2,
-                top: 2,
-                child: Card(
-                  color: Colors.white12,
+            if (pageCount > 1)
+              Positioned(
+                right: 7,
+                top: 7,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7.5),
+                    color: const Color(0x40383838),
+                  ),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Text('$pageCount'),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: TextWidget('$pageCount'),
                   ),
                 ),
               ),
-            ),
           ],
         );
       },
     );
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => Get.to(IllustPage(illust: illust), preventDuplicates: false),
+      onTap: () => Get.to(IllustPage(illust: illust), routeName: 'IllustPage:${illust.id}'),
       child: borderRadius != null
           ? ClipRRect(
               borderRadius: borderRadius,

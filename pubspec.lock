@@ -232,6 +232,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.0.1"
+  expandable:
+    dependency: "direct main"
+    description:
+      name: expandable
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.0.1"
   extended_image:
     dependency: "direct main"
     description:
@@ -841,7 +848,7 @@ packages:
     source: hosted
     version: "2.1.2"
   visibility_detector:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: visibility_detector
       url: "https://pub.flutter-io.cn"
