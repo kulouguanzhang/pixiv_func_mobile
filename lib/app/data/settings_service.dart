@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingsService extends GetxService {
   late final SharedPreferences _sharedPreferences;
 
-
   Future<SettingsService> init() async {
     _sharedPreferences = await SharedPreferences.getInstance();
     return this;
@@ -42,7 +41,7 @@ class SettingsService extends GetxService {
 
   bool get enableHistory => _sharedPreferences.getBool('enable_history') ?? false;
 
-  set enableBrowsingHistory(bool value) {
+  set enableHistory(bool value) {
     _sharedPreferences.setBool('enable_history', value);
   }
 
@@ -51,5 +50,4 @@ class SettingsService extends GetxService {
   set language(String value) {
     _sharedPreferences.setString('language', value);
   }
-
 }

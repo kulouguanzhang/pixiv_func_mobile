@@ -5,17 +5,17 @@ class SearchFilter {
   SearchTarget target;
   SearchSort sort;
   bool enableDateRange;
-  DateTimeRange dateTimeRange;
+  DateTimeRange dateRange;
   int? bookmarkTotal;
-  int dateTimeRangeType;
+  int dateRangeType;
 
   SearchFilter({
     required this.target,
     required this.sort,
     required this.enableDateRange,
-    required this.dateTimeRange,
+    required this.dateRange,
     required this.bookmarkTotal,
-    required this.dateTimeRangeType,
+    required this.dateRangeType,
   });
 
   ///因为Dart直接传对线是引用类型 所以需要创建一个副本 用于编辑
@@ -23,9 +23,9 @@ class SearchFilter {
         target: filter.target,
         sort: filter.sort,
         enableDateRange: filter.enableDateRange,
-        dateTimeRange: filter.dateTimeRange,
+        dateRange: filter.dateRange,
         bookmarkTotal: filter.bookmarkTotal,
-        dateTimeRangeType: filter.dateTimeRangeType,
+        dateRangeType: filter.dateRangeType,
       );
 
   factory SearchFilter.create({
@@ -38,18 +38,18 @@ class SearchFilter {
       target: target,
       sort: sort,
       enableDateRange: enableDateLimit,
-      dateTimeRange: DateTimeRange(
+      dateRange: DateTimeRange(
         start: DateTime(currentDate.year - 1, currentDate.month, currentDate.day),
         end: DateTime(currentDate.year, currentDate.month, currentDate.day),
       ),
       bookmarkTotal: null,
-      dateTimeRangeType: 0,
+      dateRangeType: 0,
     );
   }
 
-  String get formatStartDate => '${dateTimeRange.start.year}-${dateTimeRange.start.month}-${dateTimeRange.start.day}';
+  String get formatStartDate => '${dateRange.start.year}-${dateRange.start.month}-${dateRange.start.day}';
 
-  String get formatEndDate => '${dateTimeRange.end.year}-${dateTimeRange.end.month}-${dateTimeRange.end.day}';
+  String get formatEndDate => '${dateRange.end.year}-${dateRange.end.month}-${dateRange.end.day}';
 
   @override
   bool operator ==(Object other) =>
@@ -59,11 +59,11 @@ class SearchFilter {
           target == other.target &&
           sort == other.sort &&
           enableDateRange == other.enableDateRange &&
-          dateTimeRange == other.dateTimeRange &&
+          dateRange == other.dateRange &&
           bookmarkTotal == other.bookmarkTotal &&
-          dateTimeRangeType == other.dateTimeRangeType;
+          dateRangeType == other.dateRangeType;
 
   @override
   int get hashCode =>
-      target.hashCode ^ sort.hashCode ^ enableDateRange.hashCode ^ dateTimeRange.hashCode ^ bookmarkTotal.hashCode ^ dateTimeRangeType.hashCode;
+      target.hashCode ^ sort.hashCode ^ enableDateRange.hashCode ^ dateRange.hashCode ^ bookmarkTotal.hashCode ^ dateRangeType.hashCode;
 }

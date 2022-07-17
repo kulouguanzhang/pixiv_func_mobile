@@ -31,4 +31,7 @@ class IllustCommentListSource extends DataSourceBase<CommentTree> {
       ];
     });
   }
+
+  @override
+  String tag() => '$runtimeType-$id';
 }

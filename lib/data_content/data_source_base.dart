@@ -2,16 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 
 abstract class DataSourceBase<T> extends LoadingMoreBase<T> {
-  bool _initData = false;
+  bool initData = false;
   String? nextUrl;
 
   @override
-  bool get hasMore => !_initData || null != nextUrl;
+  bool get hasMore => !initData || null != nextUrl;
   final CancelToken _cancelToken = CancelToken();
 
   @override
-  Future<bool> refresh([bool notifyStateChanged = false])async {
-    _initData = false;
+  Future<bool> refresh([bool notifyStateChanged = false]) async {
+    initData = false;
     nextUrl = null;
     final result = super.refresh(notifyStateChanged);
     return result;
@@ -20,9 +20,9 @@ abstract class DataSourceBase<T> extends LoadingMoreBase<T> {
   @override
   Future<bool> loadData([bool isLoadMoreAction = false]) async {
     try {
-      if (!_initData) {
+      if (!initData) {
         addAll(await init(_cancelToken));
-        _initData = true;
+        initData = true;
       } else {
         if (hasMore) {
           addAll(await next(_cancelToken));
@@ -37,6 +37,14 @@ abstract class DataSourceBase<T> extends LoadingMoreBase<T> {
   Future<List<T>> init(CancelToken cancelToken);
 
   Future<List<T>> next(CancelToken cancelToken);
+
+  String tag();
+
+  @override
+  bool operator ==(Object other) => identical(this, other) || other is DataSourceBase && tag() == other.tag();
+
+  @override
+  int get hashCode => tag().hashCode;
 
   @override
   void dispose() {

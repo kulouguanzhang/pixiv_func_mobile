@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/platform/webview/platform_webview.dart';
-import 'package:pixiv_func_mobile/pages/login/web_view/controller.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
+
+import 'controller.dart';
 
 class LoginWebViewPage extends StatelessWidget {
   final bool useLocalReverseProxy;

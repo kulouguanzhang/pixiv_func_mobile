@@ -1,4 +1,4 @@
-import 'package:dio/src/cancel_token.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
@@ -13,10 +13,9 @@ class RankingListSource extends DataSourceBase<Illust> {
 
   final api = Get.find<ApiClient>();
 
-
   @override
-  Future<List<Illust>> init(CancelToken cancelToken)async {
-    return api.getRankingPage(mode,cancelToken: cancelToken).then((result) {
+  Future<List<Illust>> init(CancelToken cancelToken) async {
+    return api.getRankingPage(mode, cancelToken: cancelToken).then((result) {
       nextUrl = result.nextUrl;
       return result.illusts;
     });
@@ -29,4 +28,7 @@ class RankingListSource extends DataSourceBase<Illust> {
       return result.illusts;
     });
   }
+
+  @override
+  String tag() => '$runtimeType-$mode';
 }

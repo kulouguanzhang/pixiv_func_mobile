@@ -26,19 +26,19 @@ class FrameGifWidget extends StatelessWidget with RouteAware {
 
   @override
   void didPushNext() {
-    Get.find<FrameGifController>(tag: '$runtimeType:$id').stop();
+    Get.find<FrameGifController>(tag: '$runtimeType-$id').stop();
     super.didPushNext();
   }
 
   @override
   void didPopNext() {
-    Get.find<FrameGifController>(tag: '$runtimeType:$id').start();
+    Get.find<FrameGifController>(tag: '$runtimeType-$id').start();
     super.didPopNext();
   }
 
   @override
   Widget build(BuildContext context) {
-    final controllerTag = '$runtimeType:$id';
+    final controllerTag = '$runtimeType-$id';
     final controller = Get.put(FrameGifController(images, delays), tag: controllerTag);
     return GetBuilder<FrameGifController>(
       tag: controllerTag,

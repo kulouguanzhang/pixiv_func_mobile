@@ -7,8 +7,12 @@ import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_dart_api/vo/comment_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/data/history_service.dart';
+import 'package:pixiv_func_mobile/app/data/settings_service.dart';
+import 'package:pixiv_func_mobile/app/downloader/downloader.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
+import 'package:pixiv_func_mobile/models/illust_save_state.dart';
 import 'package:pixiv_func_mobile/pages/illust/comment/source.dart';
 import 'package:pixiv_func_mobile/pages/illust/related/source.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
@@ -55,25 +59,16 @@ class IllustController extends GetxController {
 
   bool get showCaption => _showComment;
 
-  @override
-  void dispose() {
-    illustRelatedSource.dispose();
-    illustCommentSource.dispose();
-    cancelToken.cancel();
-    super.dispose();
+  bool _downloadMode = false;
+
+  bool get downloadMode => _downloadMode;
+
+  void downloadModeChangeState() {
+    _downloadMode = !_downloadMode;
+    update();
   }
 
-  @override
-  void onInit() {
-    scrollController.addListener(() {
-      if (scrollController.hasClients) {
-        _showInputBox = _previousOffset < scrollController.offset;
-        update();
-        _previousOffset = scrollController.offset;
-      }
-    });
-    super.onInit();
-  }
+  final Map<int, IllustSaveState> illustStates = {};
 
   void loadFirstReplies(CommentTree commentTree) {
     commentTree.loading = true;
@@ -153,5 +148,83 @@ class IllustController extends GetxController {
     _showComment = !_showComment;
     captionPanelController.expanded = _showComment;
     update();
+  }
+
+  void initIllustStates() async {
+    final urls = <String>[];
+    if (illust.pageCount > 1) {
+      urls.addAll(illust.metaPages.map((e) => e.imageUrls.original!));
+    } else {
+      urls.add(illust.metaSinglePage.originalImageUrl!);
+    }
+    for (int i = 0; i < urls.length; ++i) {
+      final url = urls[i];
+      final filename = url.substring(url.lastIndexOf('/') + 1);
+
+      illustStates[i] = await PlatformApi.imageIsExist(filename) ? IllustSaveState.exist : IllustSaveState.none;
+    }
+  }
+
+  void download(int index) {
+    final String url;
+    if (illust.pageCount > 1) {
+      url = illust.metaPages[index].imageUrls.original!;
+    } else {
+      url = illust.metaSinglePage.originalImageUrl!;
+    }
+    illustStates[index] = IllustSaveState.downloading;
+    update();
+    Downloader.start(
+      illust: illust,
+      url: url,
+      id: illust.id,
+      index: index,
+    );
+  }
+
+  void downloadComplete(int index, bool success) {
+    if (success) {
+      illustStates[index] = IllustSaveState.exist;
+      update();
+    } else {
+      illustStates[index] = IllustSaveState.error;
+      update();
+    }
+  }
+
+  void downloadAll() {
+    for (int i = 0; i < illustStates.length; ++i) {
+      download(i);
+    }
+  }
+
+  @override
+  void dispose() {
+    illustRelatedSource.dispose();
+    illustCommentSource.dispose();
+    cancelToken.cancel();
+    super.dispose();
+  }
+
+  @override
+  void onInit() {
+    scrollController.addListener(() {
+      if (scrollController.hasClients) {
+        _showInputBox = _previousOffset < scrollController.offset;
+        update();
+        _previousOffset = scrollController.offset;
+      }
+    });
+    initIllustStates();
+    if (Get.find<SettingsService>().enableHistory) {
+      Get.find<HistoryService>().exist(illust.id).then(
+        (exist) {
+          if (!exist) {
+            Get.find<HistoryService>().insert(illust);
+          }
+        },
+      );
+    }
+    super.onInit();
   }
 }

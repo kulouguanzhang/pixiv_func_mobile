@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_mobile/components/loading_more_indicator/loading_more_indicator.dart';
+
 import 'data_source_base.dart';
 
 class DataContent<T> extends StatefulWidget {
-  final DataSourceBase<T> Function() sourceList;
+  final DataSourceBase<T> sourceList;
   final bool isCustomScrollView;
   final EdgeInsetsGeometry padding;
   final SliverGridDelegate? gridDelegate;
@@ -26,17 +27,19 @@ class DataContent<T> extends StatefulWidget {
 }
 
 class _DataContentState<T> extends State<DataContent<T>> {
-  late final LoadingMoreBase<T> sourceList;
+  late DataSourceBase<T> sourceList = widget.sourceList;
 
   @override
-  void initState() {
-    sourceList = widget.sourceList();
-    super.initState();
+  void didUpdateWidget(covariant DataContent<T> oldWidget) {
+    if (widget.sourceList != oldWidget.sourceList) {
+      sourceList = widget.sourceList;
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    if(widget.isCustomScrollView){
+    if (widget.isCustomScrollView) {
       return LoadingMoreSliverList(
         SliverListConfig(
           padding: widget.padding,
@@ -52,7 +55,7 @@ class _DataContentState<T> extends State<DataContent<T>> {
           ),
         ),
       );
-    }else{
+    } else {
       return LoadingMoreList(
         ListConfig(
           padding: widget.padding,

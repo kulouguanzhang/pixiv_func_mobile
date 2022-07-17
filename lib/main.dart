@@ -11,7 +11,6 @@ import 'package:pixiv_func_mobile/app/route/route.dart';
 import 'package:pixiv_func_mobile/app/theme/theme.dart';
 import 'package:pixiv_func_mobile/pages/index.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

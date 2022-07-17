@@ -1,3 +1,1 @@
-class I18n {
-
-}
+class I18n {}

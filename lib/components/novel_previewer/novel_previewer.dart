@@ -38,7 +38,7 @@ class NovelPreviewer extends StatelessWidget {
                   height: Get.height * 0.3,
                   child: Container(
                     color: Colors.white,
-                    child: ImageFromUrl(novel.imageUrls.medium, fit: BoxFit.fitHeight),
+                    child: ImageFromUrl(novel.imageUrls.medium, fit: BoxFit.fill),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -56,7 +56,7 @@ class NovelPreviewer extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TextWidget(novel.title, fontSize: 16, isBold: true, overflow: TextOverflow.ellipsis),
-                                TextWidget(novel.user.name, fontSize: 10),
+                                TextWidget(novel.user.name, fontSize: 10, overflow: TextOverflow.ellipsis),
                               ],
                             ),
                           ),
@@ -67,31 +67,31 @@ class NovelPreviewer extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: Get.height * 0.15,
-                        child: SingleChildScrollView(
-                          child: Wrap(
-                            runSpacing: 5,
-                            spacing: 5,
-                            children: [
-                              for (final tag in novel.tags)
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 9),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Theme.of(context).colorScheme.surface,
-                                    ),
-                                    child: TextWidget('${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}', fontSize: 12),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxHeight: Get.height * 0.15),
+                        child: Wrap(
+                          runSpacing: 5,
+                          spacing: 5,
+                          clipBehavior: Clip.hardEdge,
+                          children: [
+                            for (final tag in novel.tags)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 2),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 9),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Theme.of(context).colorScheme.surface,
                                   ),
+                                  child: TextWidget('${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}',
+                                      fontSize: 12, forceStrutHeight: true),
                                 ),
-                            ],
-                          ),
+                              ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 5),
-                      Expanded(child: SingleChildScrollView(child: HtmlRichText(novel.caption, overflow: TextOverflow.clip))),
+                      Expanded(child: HtmlRichText(novel.caption, overflow: TextOverflow.fade)),
                     ],
                   ),
                 ),

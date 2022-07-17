@@ -55,21 +55,28 @@ class AppTheme {
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xff181818),
+      iconTheme: IconThemeData(color: Color(0xFFD5D5D5)),
+      actionsIconTheme: IconThemeData(color: Color(0xFFD5D5D5)),
+      titleTextStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Color(0xFFD5D5D5),
+      ),
     ),
     iconTheme: const IconThemeData(
       color: Color(0xFFD5D5D5),
     ),
     colorScheme: const ColorScheme(
       primary: Color(0xFFFF6289),
-      secondary:  Color(0xFFFF6289),
+      secondary: Color(0xFFFF6289),
       background: Color(0xFF181818),
       surface: Color(0xFF252628),
       error: Colors.red,
       onPrimary: Colors.white,
-      onSecondary:  Colors.white,
-      onSurface: Color(0xFF606163),
-      onBackground: Color(0xFFD5D5D5),
-      onError:  Colors.white,
+      onSecondary: Colors.white,
+      onSurface: Color(0xFFD5D5D5),
+      onBackground: Color(0xFF606163),
+      onError: Colors.white,
       brightness: Brightness.dark,
     ),
   );

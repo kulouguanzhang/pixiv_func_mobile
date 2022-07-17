@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
+class SliverHeader extends SliverPersistentHeaderDelegate {
   final PreferredSizeWidget child;
 
-  SliverTabBarDelegate({required this.child});
+  SliverHeader({required this.child});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {

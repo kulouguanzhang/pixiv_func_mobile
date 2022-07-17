@@ -9,9 +9,11 @@ class SearchTrendingIllustList extends DataSourceBase<TrendTag> {
 
   @override
   Future<List<TrendTag>> init(CancelToken cancelToken) {
-    return api.getTrendingTagList(
+    return api
+        .getTrendingTagList(
       cancelToken: cancelToken,
-    ).then((result){
+    )
+        .then((result) {
       return result.trendTags;
     });
   }
@@ -21,5 +23,6 @@ class SearchTrendingIllustList extends DataSourceBase<TrendTag> {
     return Future.value([]);
   }
 
-
+  @override
+  String tag() => '$runtimeType';
 }

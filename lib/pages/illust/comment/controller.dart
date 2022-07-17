@@ -7,8 +7,9 @@ import 'package:pixiv_dart_api/vo/comment_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
-import 'package:pixiv_func_mobile/pages/illust/comment/source.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
+
+import 'source.dart';
 
 class IllustCommentController extends GetxController {
   final int id;
@@ -24,7 +25,6 @@ class IllustCommentController extends GetxController {
   CommentTree? _repliesCommentTree;
 
   CommentTree? get repliesCommentTree => _repliesCommentTree;
-
 
   set repliesCommentTree(CommentTree? value) {
     _repliesCommentTree = value;

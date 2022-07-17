@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/components/follow_switch_button/controller.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
+
+import 'controller.dart';
 
 class FollowSwitchButton extends StatelessWidget {
   final int id;
@@ -15,12 +16,12 @@ class FollowSwitchButton extends StatelessWidget {
   }) : super(key: key);
 
   void _restrictDialog() {
-    final controller = Get.find<FollowSwitchButtonController>(tag: '$runtimeType:$id');
+    final controller = Get.find<FollowSwitchButtonController>(tag: '$runtimeType-$id');
   }
 
   @override
   Widget build(BuildContext context) {
-    final controllerTag = '$runtimeType:$id';
+    final controllerTag = '$runtimeType-$id';
 
     final bool isRootController = !Get.isRegistered<FollowSwitchButtonController>(tag: controllerTag);
     if (isRootController) {

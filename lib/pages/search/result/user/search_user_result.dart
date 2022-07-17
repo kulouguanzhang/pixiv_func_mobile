@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/user_preview.dart';
 import 'package:pixiv_func_mobile/components/user_previewer/user_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
-import 'package:pixiv_func_mobile/pages/search/result/user/source.dart';
 import 'package:pixiv_func_mobile/widgets/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
+
+import 'source.dart';
 
 class SearchUserResultPage extends StatelessWidget {
   final String keyword;
@@ -39,7 +40,7 @@ class SearchUserResultPage extends StatelessWidget {
                       borderSide: BorderSide.none,
                     ),
                     hintText: '搜索',
-                    prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurface),
+                    prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 3),
                     fillColor: Theme.of(context).colorScheme.surface,
                     filled: true,
@@ -50,7 +51,7 @@ class SearchUserResultPage extends StatelessWidget {
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () => Get.back(),
-                child: TextWidget('取消', color: Theme.of(context).colorScheme.onSurface),
+                child: TextWidget('取消', color: Theme.of(context).colorScheme.onBackground),
               ),
               const SizedBox(width: 20),
             ],
@@ -62,7 +63,7 @@ class SearchUserResultPage extends StatelessWidget {
           PullToRefreshContainer((info) => PullToRefreshHeader(info: info)),
         ],
         body: DataContent<UserPreview>(
-          sourceList: () => SearchUserResultListSource(keyword),
+          sourceList: SearchUserResultListSource(keyword),
           itemBuilder: (BuildContext context, UserPreview item, int index) => UserPreviewer(userPreview: item),
         ),
       ),

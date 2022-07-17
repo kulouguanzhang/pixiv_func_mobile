@@ -8,7 +8,6 @@ import 'package:pixiv_func_mobile/data_content/data_source_base.dart';
 class RecommendedUserListSource extends DataSourceBase<UserPreview> {
   final api = Get.find<ApiClient>();
 
-
   @override
   Future<List<UserPreview>> init(CancelToken cancelToken) {
     return api.getRecommendedUserPage(cancelToken: cancelToken).then((result) {
@@ -25,5 +24,6 @@ class RecommendedUserListSource extends DataSourceBase<UserPreview> {
     });
   }
 
-
+  @override
+  String tag() => '$runtimeType';
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class PullToRefreshHeader extends StatelessWidget {

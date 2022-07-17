@@ -6,7 +6,7 @@ class AutomaticKeepWidget extends StatefulWidget {
   const AutomaticKeepWidget({Key? key, required this.child}) : super(key: key);
 
   @override
-  _AutomaticKeepWidgetState createState() => _AutomaticKeepWidgetState();
+  State<AutomaticKeepWidget> createState() => _AutomaticKeepWidgetState();
 }
 
 class _AutomaticKeepWidgetState extends State<AutomaticKeepWidget> with AutomaticKeepAliveClientMixin {

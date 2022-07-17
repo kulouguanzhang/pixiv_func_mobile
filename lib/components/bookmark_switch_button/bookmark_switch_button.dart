@@ -16,7 +16,7 @@ class BookmarkSwitchButton extends StatelessWidget {
   }) : super(key: key);
 
   // void _restrictDialog() {
-  //   final controller = Get.find<BookmarkSwitchButtonController>(tag: '$runtimeType:$id');
+  //   final controller = Get.find<BookmarkSwitchButtonController>(tag: '$runtimeType-$id');
   //   Get.dialog(
   //     ObxValue<Rx<Restrict>>(
   //       (data) {
@@ -69,7 +69,7 @@ class BookmarkSwitchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controllerTag = '$runtimeType:$id';
+    final controllerTag = '$runtimeType-$id';
     final bool isRootController = !Get.isRegistered<BookmarkSwitchButtonController>(tag: controllerTag);
     if (isRootController) {
       Get.put(BookmarkSwitchButtonController(id, initValue: initValue, isNovel: isNovel), tag: controllerTag);
@@ -86,18 +86,18 @@ class BookmarkSwitchButton extends StatelessWidget {
         return controller.requesting
             ? const RefreshProgressIndicator()
             : GestureDetector(
-          // onLongPress: controller.isBookmarked ? null : () => _restrictDialog(),
-          child: IconButton(
-            splashRadius: 20,
-            onPressed: () => controller.changeBookmarkState(),
-            icon: controller.isBookmarked
-                ? Icon(
-              Icons.favorite_sharp,
-              color: Theme.of(context).colorScheme.primary,
-            )
-                : const Icon(Icons.favorite_outline_sharp),
-          ),
-        );
+                // onLongPress: controller.isBookmarked ? null : () => _restrictDialog(),
+                child: IconButton(
+                  splashRadius: 20,
+                  onPressed: () => controller.changeBookmarkState(),
+                  icon: controller.isBookmarked
+                      ? Icon(
+                          Icons.favorite_sharp,
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                      : const Icon(Icons.favorite_outline_sharp),
+                ),
+              );
       },
     );
   }

@@ -60,10 +60,7 @@ class IllustPreviewer extends StatelessWidget {
               const Positioned(
                 left: 7,
                 bottom: 7,
-                child: Card(
-                  color: Color(0x40383838),
-                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 5), child: TextWidget('Ugoira')),
-                ),
+                child: Icon(Icons.gif_box_outlined, color: Color(0xFF606163)),
               ),
             if (pageCount > 1)
               Positioned(
@@ -75,8 +72,8 @@ class IllustPreviewer extends StatelessWidget {
                     color: const Color(0x40383838),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: TextWidget('$pageCount'),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: TextWidget('$pageCount', color: const Color(0xFF606163)),
                   ),
                 ),
               ),
@@ -86,7 +83,7 @@ class IllustPreviewer extends StatelessWidget {
     );
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => Get.to(IllustPage(illust: illust), routeName: 'IllustPage:${illust.id}'),
+      onTap: () => Get.to(IllustPage(illust: illust), routeName: 'IllustPage:${illust.id}', preventDuplicates: false),
       child: borderRadius != null
           ? ClipRRect(
               borderRadius: borderRadius,

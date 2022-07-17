@@ -17,7 +17,7 @@ class LazyIndexedStack extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LazyIndexedStackState createState() => _LazyIndexedStackState();
+  State<LazyIndexedStack> createState() => _LazyIndexedStackState();
 }
 
 class _LazyIndexedStackState extends State<LazyIndexedStack> {
@@ -83,10 +83,10 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
     _activeCurrentIndex(index);
     return IndexedStack(
       index: index,
-      children: _buildChildren(context),
       alignment: widget.alignment,
       sizing: widget.sizing,
       textDirection: widget.textDirection,
+      children: _buildChildren(context),
     );
   }
 }

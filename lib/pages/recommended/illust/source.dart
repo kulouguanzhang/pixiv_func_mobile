@@ -28,4 +28,7 @@ class RecommendedIllustListSource extends DataSourceBase<Illust> {
       return result.illusts;
     });
   }
+
+  @override
+  String tag() => '$runtimeType-$type';
 }

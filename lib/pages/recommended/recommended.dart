@@ -30,32 +30,33 @@ class RecommendedPage extends StatelessWidget {
             insets: EdgeInsets.only(bottom: 5),
           ),
           tabs: [
-            Tab(text: '插画'),
-            Tab(text: '漫画'),
-            Tab(text: '小说'),
-            Tab(text: '用户'),
+            TabWidget(text: '插画'),
+            TabWidget(text: '漫画'),
+            TabWidget(text: '小说'),
+            TabWidget(text: '用户'),
           ],
         ),
         child: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             DataContent<Illust>(
-              sourceList: () => RecommendedIllustListSource(IllustType.illust),
+              sourceList: RecommendedIllustListSource(IllustType.illust),
               extendedListDelegate:
                   const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
               itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
             ),
             DataContent<Illust>(
-              sourceList: () => RecommendedIllustListSource(IllustType.manga),
+              sourceList: RecommendedIllustListSource(IllustType.manga),
               extendedListDelegate:
-              const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+                  const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
               itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
             ),
             DataContent<Novel>(
-              sourceList: () => RecommendedNovelListSource(),
+              sourceList: RecommendedNovelListSource(),
               itemBuilder: (BuildContext context, Novel item, int index) => NovelPreviewer(novel: item),
             ),
             DataContent<UserPreview>(
-              sourceList: () => RecommendedUserListSource(),
+              sourceList: RecommendedUserListSource(),
               itemBuilder: (BuildContext context, UserPreview item, int index) => Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: UserPreviewer(userPreview: item),

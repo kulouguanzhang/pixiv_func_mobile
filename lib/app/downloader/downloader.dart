@@ -5,10 +5,12 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
-import 'download_manager_controller.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/download_task.dart';
+import 'package:pixiv_func_mobile/pages/illust/controller.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
+
+import 'download_manager_controller.dart';
 
 class Downloader {
   static int _idCount = 0;
@@ -36,6 +38,9 @@ class Downloader {
       if (null == saveResult) {
         PlatformApi.toast('图片已经存在');
         return;
+      }
+      if (Get.isRegistered<IllustController>(tag: 'IllustPage-${message.id}')) {
+        Get.find<IllustController>(tag: 'IllustPage-${message.id}').downloadComplete(message.index, saveResult);
       }
       if (saveResult) {
         PlatformApi.toast('保存成功');
@@ -68,6 +73,7 @@ class Downloader {
     if (null != props.illust) {
       final task = DownloadTask.create(
         id: props.id,
+        index: props.index,
         illust: props.illust!,
         originalUrl: props.originalUrl,
         url: props.url,
@@ -83,7 +89,7 @@ class Downloader {
         },
       ).then((result) async {
         task.state = DownloadState.complete;
-        props.hostSendPort.send(_DownloadComplete(result.data!, props.filename));
+        props.hostSendPort.send(_DownloadComplete(result.data!, props.filename, props.id, props.index));
         props.hostSendPort.send(task);
       }).catchError((e, s) async {
         task.state = DownloadState.failed;
@@ -96,7 +102,7 @@ class Downloader {
         props.url,
       )
           .then((result) async {
-        props.hostSendPort.send(_DownloadComplete(result.data!, props.filename));
+        props.hostSendPort.send(_DownloadComplete(result.data!, props.filename, props.id, props.index));
       }).catchError((e, s) async {
         props.hostSendPort.send(_DownloadError());
       });
@@ -107,6 +113,7 @@ class Downloader {
     Illust? illust,
     required String url,
     int? id,
+    required int index,
   }) async {
     final filename = url.substring(url.lastIndexOf('/') + 1);
     final imageUrl = Utils.replaceImageSource(url);
@@ -132,6 +139,7 @@ class Downloader {
         originalUrl: url,
         url: imageUrl,
         filename: filename,
+        index: index,
       ),
       debugName: 'IsolateDebug',
     );
@@ -139,12 +147,13 @@ class Downloader {
 }
 
 class _DownloadStartProps {
-  SendPort hostSendPort;
-  int id;
-  Illust? illust;
-  String originalUrl;
-  String url;
-  String filename;
+  final SendPort hostSendPort;
+  final int id;
+  final Illust? illust;
+  final String originalUrl;
+  final String url;
+  final String filename;
+  final int index;
 
   _DownloadStartProps({
     required this.hostSendPort,
@@ -153,14 +162,17 @@ class _DownloadStartProps {
     required this.originalUrl,
     required this.url,
     required this.filename,
+    required this.index,
   });
 }
 
 class _DownloadComplete {
   final Uint8List imageBytes;
   final String filename;
+  final int id;
+  final int index;
 
-  _DownloadComplete(this.imageBytes, this.filename);
+  _DownloadComplete(this.imageBytes, this.filename, this.id, this.index);
 }
 
 class _DownloadError {}

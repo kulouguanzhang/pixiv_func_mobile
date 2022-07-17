@@ -84,7 +84,7 @@ class HistoryService extends GetxService {
   }
 
   Future<int> count() async {
-    final result = await _database.rawQuery('SELECT COUNT(id) FROM local_browsing_history');
+    final result = await _database.rawQuery('SELECT COUNT(id) FROM $_tableName');
     return Sqflite.firstIntValue(result) as int;
   }
 

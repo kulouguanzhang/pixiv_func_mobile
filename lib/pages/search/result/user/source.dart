@@ -1,4 +1,4 @@
-import 'package:dio/src/cancel_token.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/user_preview.dart';
 import 'package:pixiv_dart_api/vo/user_page_result.dart';
@@ -27,4 +27,7 @@ class SearchUserResultListSource extends DataSourceBase<UserPreview> {
       return result.userPreviews;
     });
   }
+
+  @override
+  String tag() => '$runtimeType-$keyword';
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/user_preview.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
+import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 class UserPreviewer extends StatelessWidget {
@@ -25,11 +27,8 @@ class UserPreviewer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
-                  // onTap: () => Get.to(UserPage(id: userPreview.user.id)),
-                  child: Hero(
-                    tag: 'UserHero:${userPreview.user.id}',
-                    child: AvatarFromUrl(userPreview.user.profileImageUrls.medium,radius: 48),
-                  ),
+                  onTap: () => Get.to(UserPage(id: userPreview.user.id)),
+                  child: AvatarFromUrl(userPreview.user.profileImageUrls.medium, radius: 48),
                 ),
                 const SizedBox(width: 20),
                 Column(
@@ -38,7 +37,8 @@ class UserPreviewer extends StatelessWidget {
                     TextWidget(
                       userPreview.user.name,
                       overflow: TextOverflow.ellipsis,
-                      fontSize: 16,isBold: true,
+                      fontSize: 16,
+                      isBold: true,
                     ),
                     TextWidget(
                       userPreview.user.account,

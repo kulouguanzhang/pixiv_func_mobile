@@ -18,7 +18,7 @@ class HtmlRichText extends StatefulWidget {
   const HtmlRichText(this.htmlString, {Key? key, this.padding, this.canShowOriginal = false, this.overflow = TextOverflow.clip}) : super(key: key);
 
   @override
-  _HtmlRichTextState createState() => _HtmlRichTextState();
+  State<HtmlRichText> createState() => _HtmlRichTextState();
 }
 
 class _HtmlRichTextState extends State<HtmlRichText> {

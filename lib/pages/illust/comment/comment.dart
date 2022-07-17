@@ -5,9 +5,11 @@ import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
-import 'package:pixiv_func_mobile/pages/illust/comment/controller.dart';
+import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
+
+import 'controller.dart';
 
 class IllustCommentContent extends StatelessWidget {
   final int id;
@@ -31,7 +33,7 @@ class IllustCommentContent extends StatelessWidget {
   }
 
   Widget _buildCommentItem(CommentTree commentTree) {
-    final controller = Get.find<IllustCommentController>(tag: '$runtimeType:$id');
+    final controller = Get.find<IllustCommentController>(tag: '$runtimeType-$id');
     if (commentTree.children.isEmpty) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -43,11 +45,8 @@ class IllustCommentContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
-                  // onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
-                  child: Hero(
-                    tag: 'UserHero:${commentTree.data.user.id}',
-                    child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
-                  ),
+                  onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
+                  child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
                 ),
                 const SizedBox(width: 10),
                 Column(
@@ -110,11 +109,8 @@ class IllustCommentContent extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    // onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
-                    child: Hero(
-                      tag: 'UserHero:${commentTree.data.user.id}',
-                      child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
-                    ),
+                    onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
+                    child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
                   ),
                   const SizedBox(width: 15),
                   Column(
@@ -150,7 +146,7 @@ class IllustCommentContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controllerTag = '$runtimeType:$id';
+    final controllerTag = '$runtimeType-$id';
 
     Get.put(IllustCommentController(id), tag: controllerTag);
     return GetBuilder<IllustCommentController>(
@@ -161,7 +157,7 @@ class IllustCommentContent extends StatelessWidget {
           children: [
             Flexible(
               child: DataContent(
-                sourceList: () => controller.source,
+                sourceList: controller.source,
                 padding: EdgeInsets.zero,
                 itemBuilder: (BuildContext context, CommentTree item, int index) {
                   return _buildCommentItem(item);

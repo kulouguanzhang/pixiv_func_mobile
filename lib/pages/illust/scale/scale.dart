@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_func_mobile/app/data/settings_service.dart';
-import 'package:pixiv_func_mobile/app/downloader/downloader.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class ImageScalePage extends StatelessWidget {
@@ -37,35 +36,24 @@ class ImageScalePage extends StatelessWidget {
             children: [
               for (int i = 0; i < urls.length; ++i)
                 Card(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: ExtendedImage.network(
-                          Utils.replaceImageSource(urls[i]),
-                          headers: const {'Referer': 'https://app-api.pixiv.net'},
-                          gaplessPlayback: true,
-                          mode: ExtendedImageMode.gesture,
-                          loadStateChanged: (ExtendedImageState state) {
-                            if (state.extendedImageLoadState == LoadState.loading) {
-                              return const Center(child: CircularProgressIndicator());
-                            }
-                            return null;
-                          },
-                          initGestureConfigHandler: (ExtendedImageState state) => GestureConfig(
-                            minScale: 0.9,
-                            maxScale: 6.0,
-                            speed: 1.0,
-                            initialScale: 0.95,
-                            inPageView: true,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        splashRadius: 20,
-                        onPressed: () => Downloader.start(illust: illust, url: urls[i]),
-                        icon: const Icon(Icons.save_alt_outlined),
-                      ),
-                    ],
+                  child: ExtendedImage.network(
+                    Utils.replaceImageSource(urls[i]),
+                    headers: const {'Referer': 'https://app-api.pixiv.net'},
+                    gaplessPlayback: true,
+                    mode: ExtendedImageMode.gesture,
+                    loadStateChanged: (ExtendedImageState state) {
+                      if (state.extendedImageLoadState == LoadState.loading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      return null;
+                    },
+                    initGestureConfigHandler: (ExtendedImageState state) => GestureConfig(
+                      minScale: 0.9,
+                      maxScale: 6.0,
+                      speed: 1.0,
+                      initialScale: 0.95,
+                      inPageView: true,
+                    ),
                   ),
                 ),
             ],

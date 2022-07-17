@@ -27,4 +27,7 @@ class IllustRelatedListSource extends DataSourceBase<Illust> {
       return result.illusts;
     });
   }
+
+  @override
+  String tag() => '$runtimeType-$id';
 }

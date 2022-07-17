@@ -11,10 +11,10 @@ class IndexWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(!Get.find<SettingsService>().guideInit) {
+    if (!Get.find<SettingsService>().guideInit) {
       return const WelcomePage();
     } else {
-      if(Get.find<AccountService>().isEmpty) {
+      if (Get.find<AccountService>().isEmpty) {
         return const LoginPage();
       } else {
         return const HomePage();

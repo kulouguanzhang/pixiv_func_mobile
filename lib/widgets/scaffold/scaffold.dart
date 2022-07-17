@@ -10,7 +10,6 @@ class ScaffoldWidget extends StatelessWidget {
   final bool automaticallyImplyLeading;
   final Widget? child;
 
-
   const ScaffoldWidget({
     Key? key,
     this.title,

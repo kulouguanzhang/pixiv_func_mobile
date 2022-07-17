@@ -24,4 +24,6 @@ class RecommendedNovelListSource extends DataSourceBase<Novel> {
     });
   }
 
+  @override
+  String tag() => '$runtimeType';
 }

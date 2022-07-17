@@ -4,25 +4,32 @@ class TextWidget extends StatelessWidget {
   final String text;
   final double? fontSize;
   final Color? color;
-  final bool isBold;
   final TextOverflow? overflow;
+  final bool isBold;
+  final bool forceStrutHeight;
 
   const TextWidget(
     this.text, {
     Key? key,
     this.fontSize,
     this.color,
-    this.isBold = false,
     this.overflow,
+    this.isBold = false,
+    this.forceStrutHeight = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      strutStyle: forceStrutHeight
+          ? const StrutStyle(
+              forceStrutHeight: true,
+            )
+          : null,
       style: TextStyle(
         fontSize: fontSize,
-        color: color ?? Theme.of(context).textTheme.caption?.color,
+        color: color,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         overflow: overflow,
       ),

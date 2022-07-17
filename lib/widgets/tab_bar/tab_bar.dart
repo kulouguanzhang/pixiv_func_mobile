@@ -9,6 +9,99 @@ import 'package:flutter/rendering.dart';
 const double _kTabHeight = 46.0;
 const double _kTextAndIconTabHeight = 72.0;
 
+class TabWidget extends StatelessWidget implements PreferredSizeWidget {
+  /// Creates a material design [TabBar] tab.
+  ///
+  /// At least one of [text], [icon], and [child] must be non-null. The [text]
+  /// and [child] arguments must not be used at the same time. The
+  /// [iconMargin] is only useful when [icon] and either one of [text] or
+  /// [child] is non-null.
+  const TabWidget({
+    Key? key,
+    this.text,
+    this.icon,
+    this.height,
+    this.child,
+  })  : assert(text != null || child != null || icon != null),
+        assert(text == null || child == null),
+        super(key: key);
+
+  /// The text to display as the tab's label.
+  ///
+  /// Must not be used in combination with [child].
+  final String? text;
+
+  /// The widget to be used as the tab's label.
+  ///
+  /// Usually a [Text] widget, possibly wrapped in a [Semantics] widget.
+  ///
+  /// Must not be used in combination with [text].
+  final Widget? child;
+
+  /// An icon to display as the tab's label.
+  final Widget? icon;
+
+  /// The height of the [Tab].
+  ///
+  /// If null, the height will be calculated based on the content of the [Tab].  When `icon` is not
+  /// null along with `child` or `text`, the default height is 72.0 pixels. Without an `icon`, the
+  /// height is 46.0 pixels.
+  final double? height;
+
+  Widget _buildLabelText() {
+    return child ?? Text(text!, softWrap: false, overflow: TextOverflow.fade);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    assert(debugCheckHasMaterial(context));
+
+    final Widget label;
+    if (icon == null) {
+      label = _buildLabelText();
+    } else if (text == null && child == null) {
+      label = icon!;
+    } else {
+      label = Stack(
+        fit: StackFit.passthrough,
+        alignment: Alignment.centerRight,
+        children: <Widget>[
+          Center(
+            child: _buildLabelText(),
+          ),
+          icon!,
+        ],
+      );
+    }
+
+    return SizedBox(
+      height: height ?? _kTabHeight,
+      child: Center(
+        widthFactor: 1.0,
+        child: label,
+      ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('text', text, defaultValue: null));
+    properties.add(DiagnosticsProperty<Widget>('icon', icon, defaultValue: null));
+  }
+
+  @override
+  Size get preferredSize {
+    if (height != null) {
+      return Size.fromHeight(height!);
+    } else if ((text != null || child != null) && icon != null) {
+      return const Size.fromHeight(_kTextAndIconTabHeight);
+    } else {
+      return const Size.fromHeight(_kTabHeight);
+    }
+  }
+}
+
 class _TabStyle extends AnimatedWidget {
   const _TabStyle({
     Key? key,
@@ -892,7 +985,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
     widget.onTap?.call(index);
   }
 
-  Widget _buildStyledTab(Widget child, bool selected, Animation<double> animation) {
+  Widget _buildStyledTabWidget(Widget child, bool selected, Animation<double> animation) {
     return _TabStyle(
       animation: animation,
       selected: selected,
@@ -942,7 +1035,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
       return Center(
         heightFactor: 1.0,
         child: Padding(
-          padding: adjustedPadding ?? widget.labelPadding ?? tabBarTheme.labelPadding ?? kTabLabelPadding,
+          padding: widget.labelPadding ?? tabBarTheme.labelPadding ?? kTabLabelPadding,
           child: KeyedSubtree(
             key: _tabKeys[index],
             child: widget.tabs[index],
@@ -961,22 +1054,22 @@ class _TabBarWidgetState extends State<TabBarWidget> {
         // The user tapped on a tab, the tab controller's animation is running.
         assert(_currentIndex != previousIndex);
         final Animation<double> animation = _ChangeAnimation(_controller!);
-        wrappedTabs[_currentIndex!] = _buildStyledTab(wrappedTabs[_currentIndex!], true, animation);
-        wrappedTabs[previousIndex] = _buildStyledTab(wrappedTabs[previousIndex], false, animation);
+        wrappedTabs[_currentIndex!] = _buildStyledTabWidget(wrappedTabs[_currentIndex!], true, animation);
+        wrappedTabs[previousIndex] = _buildStyledTabWidget(wrappedTabs[previousIndex], false, animation);
       } else {
         // The user is dragging the TabBarView's PageView left or right.
         final int tabIndex = _currentIndex!;
         final Animation<double> centerAnimation = _DragAnimation(_controller!, tabIndex);
-        wrappedTabs[tabIndex] = _buildStyledTab(wrappedTabs[tabIndex], true, centerAnimation);
+        wrappedTabs[tabIndex] = _buildStyledTabWidget(wrappedTabs[tabIndex], true, centerAnimation);
         if (_currentIndex! > 0) {
           final int tabIndex = _currentIndex! - 1;
           final Animation<double> previousAnimation = ReverseAnimation(_DragAnimation(_controller!, tabIndex));
-          wrappedTabs[tabIndex] = _buildStyledTab(wrappedTabs[tabIndex], false, previousAnimation);
+          wrappedTabs[tabIndex] = _buildStyledTabWidget(wrappedTabs[tabIndex], false, previousAnimation);
         }
         if (_currentIndex! < widget.tabs.length - 1) {
           final int tabIndex = _currentIndex! + 1;
           final Animation<double> nextAnimation = ReverseAnimation(_DragAnimation(_controller!, tabIndex));
-          wrappedTabs[tabIndex] = _buildStyledTab(wrappedTabs[tabIndex], false, nextAnimation);
+          wrappedTabs[tabIndex] = _buildStyledTabWidget(wrappedTabs[tabIndex], false, nextAnimation);
         }
       }
     }
@@ -1119,7 +1212,7 @@ class RRecTabIndicator extends Decoration {
   }
 
   @override
-  _UnderlinePainter createBoxPainter([VoidCallback? onChanged]) {
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     return _UnderlinePainter(this, onChanged);
   }
 

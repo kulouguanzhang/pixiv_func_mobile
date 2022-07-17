@@ -72,10 +72,11 @@ class _CupertinoSwitchListTileState extends State<CupertinoSwitchListTile> with 
     position
       ..curve = Curves.ease
       ..reverseCurve = Curves.ease.flipped;
-    if (widget.value)
+    if (widget.value) {
       _positionController.forward();
-    else
+    } else {
       _positionController.reverse();
+    }
   }
 
   @override
@@ -85,7 +86,7 @@ class _CupertinoSwitchListTileState extends State<CupertinoSwitchListTile> with 
       onTap: widget.onTap,
       onLongPress: widget.onLongPress,
       child: Padding(
-        padding: widget.contentPadding ?? expansionTileTheme.tilePadding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: widget.contentPadding ?? expansionTileTheme.tilePadding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

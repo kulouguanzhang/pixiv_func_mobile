@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/platform/webview/controller.dart';
+
+import 'controller.dart';
 
 class PlatformWebView extends StatelessWidget {
   final void Function(Map message) onMessageHandler;
@@ -19,7 +20,7 @@ class PlatformWebView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(PlatformWebViewController(onMessageHandler,onCreated), tag: tag);
+    Get.put(PlatformWebViewController(onMessageHandler, onCreated), tag: tag);
     return GetBuilder<PlatformWebViewController>(
       tag: tag,
       assignId: true,

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 
 class LoadingMoreIndicator extends StatelessWidget {
   final IndicatorStatus status;
@@ -53,7 +51,7 @@ class LoadingMoreIndicator extends StatelessWidget {
       case IndicatorStatus.error:
         widget = InkWell(
           onTap: () => errorRefresh(),
-          child: Center(child: const Text('加载失败', style: textStyle)),
+          child: const Center(child: Text('加载失败', style: textStyle)),
         );
         break;
       case IndicatorStatus.fullScreenError:

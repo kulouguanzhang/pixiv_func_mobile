@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/pages/search/controller.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import 'controller.dart';
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -17,6 +17,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+
     Get.put(SearchController(this));
     return GetBuilder<SearchController>(
       builder: (controller) => VisibilityDetector(
@@ -40,7 +41,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                         borderSide: BorderSide.none,
                       ),
                       hintText: '搜索',
-                      prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurface),
+                      prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 3),
                       fillColor: Theme.of(context).colorScheme.surface,
                       filled: true,
@@ -51,7 +52,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => Get.back(),
-                  child: TextWidget('取消', color: Theme.of(context).colorScheme.onSurface),
+                  child: TextWidget('取消', color: Theme.of(context).colorScheme.onBackground),
                 ),
                 const SizedBox(width: 20),
                 SizedBox(
@@ -87,29 +88,85 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                   insets: EdgeInsets.only(bottom: 5),
                 ),
                 tabs: const [
-                  Tab(text: '插画&漫画'),
-                  Tab(text: '小说'),
-                  Tab(text: '用户'),
+                  TabWidget(text: '插画&漫画'),
+                  TabWidget(text: '小说'),
+                  TabWidget(text: '用户'),
                 ],
               ),
               Expanded(
                 child: TabBarView(
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: controller.tabController,
                   children: [
                     NoScrollBehaviorWidget(
                       child: ListView(
                         children: [
+                          if (controller.inputIsNotEmpty)
+                            if (controller.inputIsNumber)
+                              ListTile(
+                                onTap: () => controller.toSearchResultPage(controller.inputAsString),
+                                title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
+                                subtitle: const TextWidget('插画ID', fontSize: 12),
+                              )
+                            else
+                              ListTile(
+                                onTap: () => controller.toSearchResultPage(controller.inputAsString),
+                                title: TextWidget('搜索: ${controller.inputAsString}', fontSize: 16, isBold: true),
+                                subtitle: const TextWidget('关键字', fontSize: 14),
+                              ),
                           for (final tag in controller.autocompleteTags)
                             ListTile(
                               onTap: () => controller.toSearchResultPage(tag.name),
                               title: TextWidget(tag.name, fontSize: 16, isBold: true),
                               subtitle: null != tag.translatedName ? TextWidget(tag.translatedName!, fontSize: 12) : null,
-                            )
+                            ),
                         ],
                       ),
                     ),
-                    const SizedBox(),
-                    const SizedBox(),
+                    NoScrollBehaviorWidget(
+                      child: ListView(
+                        children: [
+                          if (controller.inputIsNotEmpty)
+                            if (controller.inputIsNumber)
+                              ListTile(
+                                onTap: () => controller.toSearchResultPage(controller.inputAsString),
+                                title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
+                                subtitle: const TextWidget('小说ID', fontSize: 12),
+                              )
+                            else
+                              ListTile(
+                                onTap: () => controller.toSearchResultPage(controller.inputAsString),
+                                title: TextWidget('搜索: ${controller.inputAsString}', fontSize: 16, isBold: true),
+                                subtitle: const TextWidget('关键字', fontSize: 14),
+                              ),
+                          for (final tag in controller.autocompleteTags)
+                            ListTile(
+                              onTap: () => controller.toSearchResultPage(tag.name),
+                              title: TextWidget(tag.name, fontSize: 16, isBold: true),
+                              subtitle: null != tag.translatedName ? TextWidget(tag.translatedName!, fontSize: 12) : null,
+                            ),
+                        ],
+                      ),
+                    ),
+                    NoScrollBehaviorWidget(
+                      child: ListView(
+                        children: [
+                          if (controller.inputIsNotEmpty)
+                            if (controller.inputIsNumber)
+                              ListTile(
+                                onTap: () => controller.toSearchResultPage(controller.inputAsString),
+                                title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
+                                subtitle: const TextWidget('用户ID', fontSize: 12),
+                              )
+                            else
+                              ListTile(
+                                onTap: () => controller.toSearchResultPage(controller.inputAsString),
+                                title: TextWidget('搜索: ${controller.inputAsString}', fontSize: 16, isBold: true),
+                                subtitle: const TextWidget('关键字', fontSize: 14),
+                              ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -117,7 +174,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
           ),
         ),
         onVisibilityChanged: (VisibilityInfo visibilityInfo) {
-          if(visibilityInfo.visibleFraction != 0.0){
+          if (visibilityInfo.visibleFraction != 0.0) {
             controller.focusNode.requestFocus();
           }
         },
