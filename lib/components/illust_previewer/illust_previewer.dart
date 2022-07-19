@@ -33,6 +33,7 @@ class IllustPreviewer extends StatelessWidget {
     required double height,
     required int pageCount,
     BorderRadius? borderRadius,
+    bool needHero = false,
   }) {
     final widget = ImageFromUrl(
       url,
@@ -43,7 +44,13 @@ class IllustPreviewer extends StatelessWidget {
         return Stack(
           fit: StackFit.expand,
           children: [
-            imageWidget,
+            if (needHero)
+              Hero(
+                tag: heroTag ?? 'IllustHero:${illust.id}',
+                child: imageWidget,
+              )
+            else
+              imageWidget,
             if (illust.isR18)
               Positioned(
                 left: 7,
@@ -113,15 +120,13 @@ class IllustPreviewer extends StatelessWidget {
           LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               final previewHeight = constraints.maxWidth / illust.width * illust.height;
-              return Hero(
-                tag: heroTag ?? 'IllustHero:${illust.id}',
-                child: _buildImage(
-                  url: Utils.getPreviewUrl(illust.imageUrls),
-                  width: constraints.maxWidth,
-                  height: previewHeight,
-                  pageCount: illust.pageCount,
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                ),
+              return _buildImage(
+                url: Utils.getPreviewUrl(illust.imageUrls),
+                width: constraints.maxWidth,
+                height: previewHeight,
+                pageCount: illust.pageCount,
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+                needHero: true,
               );
             },
           ),

@@ -8,12 +8,14 @@ class BookmarkSwitchButton extends StatelessWidget {
   final int id;
   final bool initValue;
   final bool isNovel;
+  final bool floating;
 
   const BookmarkSwitchButton({
     Key? key,
     required this.id,
     required this.initValue,
     this.isNovel = false,
+    this.floating = false,
   }) : super(key: key);
 
   // void _restrictDialog() {
@@ -84,29 +86,50 @@ class BookmarkSwitchButton extends StatelessWidget {
         }
       },
       builder: (controller) {
+        if (floating) {
+          return GestureDetector(
+            // onLongPress: () => controller.requesting || controller.isBookmarked ? null : _restrictDialog(),
+            child: FloatingActionButton(
+              backgroundColor: Get.theme.cardColor,
+              heroTag: 'IllustBookmarkButtonHero:$id',
+              onPressed: () => controller.requesting ? null : controller.changeBookmarkState(),
+              child: controller.requesting
+                  ? const CircularProgressIndicator()
+                  : controller.isBookmarked
+                      ? Icon(
+                          Icons.favorite_sharp,
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                      : Icon(
+                          Icons.favorite_outline_sharp,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+            ),
+          );
+        }
         if (controller.requesting) {
-          return const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: Center(
-                    child: CupertinoActivityIndicator(),
-                  ),
-                ),
-            );
+          return  Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: 24,
+              height: 24,
+              child: Center(
+                child: CupertinoActivityIndicator(color: Theme.of(context).colorScheme.onSurface),
+              ),
+            ),
+          );
         } else {
           return GestureDetector(
             onTap: () => controller.changeBookmarkState(),
             child: Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: controller.isBookmarked
                   ? Icon(
-                Icons.favorite_sharp,
-                color: Theme.of(context).colorScheme.primary,
-              )
+                      Icons.favorite_sharp,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
                   : const Icon(Icons.favorite_outline_sharp),
-            )
+            ),
           );
         }
       },

@@ -15,7 +15,7 @@ class Inject {
     await Get.putAsync(() => AccountService().init());
     await Get.putAsync(() => HistoryService().init());
     await Get.putAsync(() => SettingsService().init());
+    await Get.putAsync(() => AboutController().init());
     Get.lazyPut(() => DownloadManagerController());
-    Get.lazyPut(() => AboutController());
   }
 }

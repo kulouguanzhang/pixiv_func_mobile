@@ -4,6 +4,8 @@ import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/vo/trending_tag_list_result.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
+import 'package:pixiv_func_mobile/pages/illust/illust.dart';
+import 'package:pixiv_func_mobile/pages/search/result/illust/search_illust_result.dart';
 import 'package:pixiv_func_mobile/pages/search/search.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -50,13 +52,17 @@ class SearchGuidePage extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) => SizedBox(
-                  width: constraints.maxWidth,
-                  height: constraints.maxWidth,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: ImageFromUrl(item.illust.imageUrls.squareMedium),
+              GestureDetector(
+                onTap: () => Get.to(SearchIllustResultPage(keyword: item.tag)),
+                onLongPress: () => Get.to(IllustPage(illust: item.illust)),
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) => SizedBox(
+                    width: constraints.maxWidth,
+                    height: constraints.maxWidth,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: ImageFromUrl(item.illust.imageUrls.squareMedium),
+                    ),
                   ),
                 ),
               ),

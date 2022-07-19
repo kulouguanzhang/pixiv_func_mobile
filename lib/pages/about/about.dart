@@ -29,7 +29,7 @@ class AboutPage extends StatelessWidget {
         color = null;
         textColor = Get.theme.colorScheme.primary;
         borderSide = BorderSide(color: Get.theme.colorScheme.primary);
-        onPressed = controller.loadLatestReleaseInfo;
+        onPressed = controller.loadData;
       } else if (controller.hasNewVersion!) {
         text = '发现新版本 点击更新';
         color = Get.theme.colorScheme.primary;
@@ -41,7 +41,7 @@ class AboutPage extends StatelessWidget {
         color = Get.theme.colorScheme.surface;
         textColor = Colors.white;
         borderSide = BorderSide.none;
-        onPressed = controller.loadLatestReleaseInfo;
+        onPressed = controller.loadData;
       }
     } else if (PageState.loading == controller.state) {
       text = '正在检查更新...';
@@ -54,7 +54,7 @@ class AboutPage extends StatelessWidget {
       color = Get.theme.colorScheme.surface;
       textColor = Get.theme.colorScheme.primary;
       borderSide = BorderSide(color: Get.theme.colorScheme.primary);
-      onPressed = controller.loadLatestReleaseInfo;
+      onPressed = controller.loadData;
     } else {
       text = '';
       color = null;
@@ -84,23 +84,19 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<AboutController>();
     return GetBuilder<AboutController>(
-      initState: (state) {
-        controller.loadAppVersionName();
-      },
       builder: (controller) => ScaffoldWidget(
         title: '设置',
         child: Column(
           children: [
             const Divider(),
-            _buildItem(onTap: () {}, title: '联系作者'),
+            _buildItem(onTap: () => controller.action(0), title: '联系作者'),
             const Divider(),
-            _buildItem(onTap: () {}, title: '获取帮助'),
+            _buildItem(onTap: () => controller.action(1), title: '获取帮助'),
             const Divider(),
-            _buildItem(onTap: () {}, title: '当前版本:${controller.appVersion ?? '正在获取...'}'),
+            _buildItem(onTap: () =>controller.action(2), title: '当前版本:${controller.appVersion ?? '正在获取...'}'),
             const Divider(),
-            _buildItem(onTap: () {}, title: '打开标签页'),
+            _buildItem(onTap: () => controller.action(3), title: '打开标签页'),
             const Divider(),
             const Spacer(),
             _buildButton(),

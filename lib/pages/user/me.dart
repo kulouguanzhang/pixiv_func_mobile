@@ -48,7 +48,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
           ? GestureDetector(
               behavior: HitTestBehavior.opaque,
               child: const Padding(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(16),
                 child: Icon(Icons.arrow_back_ios_new),
               ),
               onTap: () => Navigator.of(context).pop(),
@@ -67,7 +67,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
       ),
       actions: [0, 1].contains(controller.tabController.index)
           ? Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(16),
               child: SizedBox(
                 height: 35,
                 width: 70,
@@ -115,7 +115,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
         behavior: HitTestBehavior.opaque,
         onTap: () => Get.to(const SettingsPage()),
         child: const Padding(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(16),
           child: Icon(Icons.settings),
         ),
       ),
@@ -197,7 +197,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
             behavior: HitTestBehavior.opaque,
             onTap: () => Get.to(const SettingsPage()),
             child: const Padding(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.all(16),
               child: Icon(Icons.settings),
             ),
           ),

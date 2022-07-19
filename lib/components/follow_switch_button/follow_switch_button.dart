@@ -40,11 +40,11 @@ class FollowSwitchButton extends StatelessWidget {
           width: 90,
           height: 40,
           child: controller.requesting
-              ? const SizedBox(
+              ?  SizedBox(
                   width: 90,
                   height: 40,
                   child: Center(
-                    child: CupertinoActivityIndicator(),
+                    child: CupertinoActivityIndicator(color: Theme.of(context).colorScheme.onSurface),
                   ),
                 )
               : controller.isFollowed

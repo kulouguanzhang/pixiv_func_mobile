@@ -63,7 +63,6 @@ class PullToRefreshHeader extends StatelessWidget {
         text = '';
       }
       child = Container(
-        color: Get.theme.cardColor,
         alignment: Alignment.bottomCenter,
         height: offset,
         width: double.infinity,

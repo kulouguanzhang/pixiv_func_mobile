@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/route/route.dart';
 
 import 'controller.dart';
 
@@ -44,10 +43,8 @@ class FrameGifWidget extends StatelessWidget with RouteAware {
       tag: controllerTag,
       assignId: true,
       didChangeDependencies: (state) {
-        routeObserver.subscribe(this, ModalRoute.of(context)!);
       },
       dispose: (state) {
-        routeObserver.unsubscribe(this);
         controller.stop();
         Get.delete<FrameGifController>(tag: controllerTag);
       },

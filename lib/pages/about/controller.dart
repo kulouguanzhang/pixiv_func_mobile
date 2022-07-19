@@ -10,9 +10,11 @@ import 'package:pixiv_func_mobile/models/release_info.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 
 class AboutController extends GetxController implements GetxService {
-  static const _projectGitHubUrl = 'https://github.com/xiao-cao-x/pixiv_func_mobile';
+  static const _authorGitHubUrl = 'https://github.com/git-xiaocao';
 
-  static const _getHelpUrl = 'https://pixiv.xiaocao.move/#/pixiv-func/mobile';
+  static const _repoName = 'pixiv_func_mobile';
+
+  static const _helpUrl = 'https://pixiv.xiaocao.moe/#/pixiv-func/mobile';
 
   PageState _state = PageState.none;
 
@@ -20,15 +22,19 @@ class AboutController extends GetxController implements GetxService {
 
   bool _first = true;
 
-  String? _appVersionName;
+  int? _latestReleaseVersionCode;
+
+  late String _appVersionName;
+
+  late int _appVersionCode;
 
   String? get appVersion => _appVersionName;
 
   ReleaseInfo? releaseInfo;
 
-  bool? get hasNewVersion => true;
+  bool? get hasNewVersion => _latestReleaseVersionCode == null ? null : _appVersionCode < _latestReleaseVersionCode!;
 
-  void loadLatestReleaseInfo() async {
+  Future<void> loadData() async {
     releaseInfo = null;
     _state = PageState.loading;
     update();
@@ -44,17 +50,7 @@ class AboutController extends GetxController implements GetxService {
         browserDownloadUrl: firstAssets['browser_download_url'] as String,
         body: json['body'] as String,
       );
-      if (releaseInfo!.tagName != appVersion) {
-        if (_first) {
-          Get.snackbar(
-            '版本信息',
-            '当前版本:$appVersion,最新版本:${releaseInfo!.tagName},点击前往查看',
-            duration: const Duration(seconds: 6),
-            onTap: (snack) => Get.to(const SizedBox()),
-          );
-          _first = false;
-        }
-      }
+      _latestReleaseVersionCode = int.parse(releaseInfo!.tagName.split('+').first);
       _state = PageState.none;
     }).catchError((e, s) {
       Log.e('获取最新发行版信息失败');
@@ -64,7 +60,7 @@ class AboutController extends GetxController implements GetxService {
     });
   }
 
-  void updateApp() async {
+  Future<void> updateApp() async {
     const installPackagesStatus = Permission.requestInstallPackages;
     if (!await installPackagesStatus.isGranted) {
       await Permission.requestInstallPackages.request();
@@ -79,15 +75,43 @@ class AboutController extends GetxController implements GetxService {
     );
   }
 
-  Future<void> loadAppVersionName() async {
-    _appVersionName = await PlatformApi.appVersionName;
-    update();
+  void action(int index) {
+    switch (index) {
+      case 0:
+        openUrlByBrowser(_authorGitHubUrl);
+        break;
+      case 1:
+        openUrlByBrowser(_helpUrl);
+        break;
+      case 2:
+        openUrlByBrowser('$_authorGitHubUrl/$_repoName/releases/$_appVersionName+$_appVersionCode');
+        break;
+      case 3:
+        openUrlByBrowser('$_authorGitHubUrl/$_repoName');
+        break;
+    }
   }
 
-  @override
-  void onInit() async {
-    await loadAppVersionName();
-    loadLatestReleaseInfo();
-    super.onInit();
+  void openUrlByBrowser(String url) {
+    PlatformApi.urlLaunch(url);
+  }
+
+  Future<AboutController> init() async {
+    _appVersionName = await PlatformApi.appVersionName;
+    _appVersionCode = await PlatformApi.appVersionCode;
+    loadData().then((_) {
+      if (true == hasNewVersion) {
+        if (_first) {
+          Get.snackbar(
+            '版本更新提示',
+            '当前版本:$appVersion,最新版本:${releaseInfo!.tagName},点击前往查看',
+            duration: const Duration(seconds: 6),
+            onTap: (snack) => Get.to(const SizedBox()),
+          );
+          _first = false;
+        }
+      }
+    });
+    return this;
   }
 }

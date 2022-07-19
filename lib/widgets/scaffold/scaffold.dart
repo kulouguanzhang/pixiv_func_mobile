@@ -11,7 +11,7 @@ class ScaffoldWidget extends StatelessWidget {
   final bool emptyAppBar;
   final bool automaticallyImplyLeading;
   final Widget? child;
-
+  final Widget? floatingActionButton;
   const ScaffoldWidget({
     Key? key,
     this.title,
@@ -21,13 +21,14 @@ class ScaffoldWidget extends StatelessWidget {
     this.emptyAppBar = false,
     this.automaticallyImplyLeading = true,
     this.child,
+    this.floatingActionButton,
   }) : super(key: key);
 
   Widget _backButton() {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: const Padding(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(16),
         child: Icon(Icons.arrow_back_ios_new),
       ),
       onTap: () => Get.back(),
@@ -82,6 +83,7 @@ class ScaffoldWidget extends StatelessWidget {
       // resizeToAvoidBottomInset: true,
       appBar: appBar,
       body: child,
+      floatingActionButton: floatingActionButton,
     );
   }
 }

@@ -34,25 +34,23 @@ class ImageScalePage extends StatelessWidget {
             onPageChanged: (int page) => data.value = page,
             children: [
               for (int i = 0; i < urls.length; ++i)
-                Card(
-                  child: ExtendedImage.network(
-                    Utils.replaceImageSource(urls[i]),
-                    headers: const {'Referer': 'https://app-api.pixiv.net'},
-                    gaplessPlayback: true,
-                    mode: ExtendedImageMode.gesture,
-                    loadStateChanged: (ExtendedImageState state) {
-                      if (state.extendedImageLoadState == LoadState.loading) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return null;
-                    },
-                    initGestureConfigHandler: (ExtendedImageState state) => GestureConfig(
-                      minScale: 0.9,
-                      maxScale: 6.0,
-                      speed: 1.0,
-                      initialScale: 0.95,
-                      inPageView: true,
-                    ),
+                ExtendedImage.network(
+                  Utils.replaceImageSource(urls[i]),
+                  headers: const {'Referer': 'https://app-api.pixiv.net'},
+                  gaplessPlayback: true,
+                  mode: ExtendedImageMode.gesture,
+                  loadStateChanged: (ExtendedImageState state) {
+                    if (state.extendedImageLoadState == LoadState.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    return null;
+                  },
+                  initGestureConfigHandler: (ExtendedImageState state) => GestureConfig(
+                    minScale: 0.9,
+                    maxScale: 6.0,
+                    speed: 1.0,
+                    initialScale: 0.95,
+                    inPageView: true,
                   ),
                 ),
             ],

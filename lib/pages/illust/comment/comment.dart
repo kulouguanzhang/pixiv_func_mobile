@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/comment.dart';
@@ -8,7 +9,6 @@ import 'package:pixiv_func_mobile/models/comment_tree.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
-import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 import 'controller.dart';
 
@@ -67,7 +67,7 @@ class IllustCommentContent extends StatelessWidget {
         trailing: () {
           if (commentTree.data.hasReplies) {
             if (commentTree.loading) {
-              return const CupertinoActivityIndicator();
+              return  CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface);
             } else {
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
@@ -82,9 +82,9 @@ class IllustCommentContent extends StatelessWidget {
       final children = [
         for (final commentTree in commentTree.children) _buildCommentItem(commentTree),
         if (commentTree.loading)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            child: Center(child: CupertinoActivityIndicator()),
+           Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Center(child: CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface)),
           )
         else if (commentTree.hasNext)
           Padding(

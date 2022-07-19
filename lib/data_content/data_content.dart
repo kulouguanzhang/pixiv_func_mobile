@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_mobile/components/loading_more_indicator/loading_more_indicator.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
-import 'package:pixiv_func_mobile/widgets/pull_to_refresh_header/pull_to_refresh_header.dart';
+import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 import 'data_source_base.dart';

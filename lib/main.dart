@@ -7,7 +7,6 @@ import 'package:pixiv_func_mobile/app/http/http.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n_translations.dart';
 import 'package:pixiv_func_mobile/app/inject/inject.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
-import 'package:pixiv_func_mobile/app/route/route.dart';
 import 'package:pixiv_func_mobile/app/theme/theme.dart';
 import 'package:pixiv_func_mobile/pages/index.dart';
 
@@ -43,6 +42,7 @@ class App extends StatelessWidget {
     final localeCodes = Get.find<SettingsService>().language.split('-');
 
     return GetMaterialApp(
+      defaultTransition: Transition.downToUp,
       translations: I18nTranslations(),
       locale: Locale(localeCodes.first, localeCodes.last),
       localizationsDelegates: const [
@@ -58,7 +58,6 @@ class App extends StatelessWidget {
       fallbackLocale: const Locale('en', 'US'),
       debugShowCheckedModeBanner: false,
       title: 'Pixiv Func',
-      navigatorObservers: [routeObserver],
       home: WillPopScope(
         onWillPop: () async {
           if (null == _lastPopTime || DateTime.now().difference(_lastPopTime!) > const Duration(seconds: 1)) {

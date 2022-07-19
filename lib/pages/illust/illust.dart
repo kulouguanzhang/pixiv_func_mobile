@@ -53,10 +53,10 @@ class IllustPage extends StatelessWidget {
                     : Colors.white24
                 : null,
             colorBlendMode: controller.downloadMode ? BlendMode.srcOver : null,
-            placeholderWidget: const SizedBox(
+            placeholderWidget:  SizedBox(
               height: 200,
               child: Center(
-                child: CupertinoActivityIndicator(),
+                child: CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface),
               ),
             ),
           ),
@@ -112,7 +112,7 @@ class IllustPage extends StatelessWidget {
                     );
                   case IllustSaveState.exist:
                     return Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Get.theme.colorScheme.background,
                         borderRadius: BorderRadius.circular(30),
@@ -289,55 +289,54 @@ class IllustPage extends StatelessWidget {
           child: ScaffoldWidget(
             titleWidget: TextWidget(illust.title, isBold: true),
             actions: [
-              BookmarkSwitchButton(id: illust.id, initValue: illust.isBookmarked),
               if (controller.downloadMode)
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => controller.downloadAll(),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.file_download_outlined),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 30,
-                      right: 0,
-                      // 忽略点击事件让点击事件穿透到下面的按钮
-                      child: IgnorePointer(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: TextWidget(
-                            () {
-                              final count = controller.illustStates.values
-                                  .where((element) => IllustSaveState.none == element || IllustSaveState.error == element)
-                                  .length;
-                              return count == illust.pageCount ? '全部' : '$count';
-                            }(),
-                            fontSize: 10,
-                            color: Colors.white,
-                          ),
+                SizedBox(
+                  width: kToolbarHeight,
+                  // alignment: Alignment.center,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => controller.downloadAll(),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(Icons.file_download_outlined),
                         ),
                       ),
-                    )
-                  ],
-                )
-              else
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: SizedBox(
-                    width: IconTheme.of(context).size,
-                    height: IconTheme.of(context).size,
+                      Positioned(
+                        bottom: 30,
+                        right: 5,
+                        // 忽略点击事件让点击事件穿透到下面的按钮
+                        child: IgnorePointer(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: TextWidget(
+                              () {
+                                final count = controller.illustStates.values
+                                    .where((element) => IllustSaveState.none == element || IllustSaveState.error == element)
+                                    .length;
+                                return count == illust.pageCount ? '全部' : '$count';
+                              }(),
+                              fontSize: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
-              const SizedBox(width: 20),
             ],
+            floatingActionButton: BookmarkSwitchButton(
+              id: illust.id,
+              initValue: illust.isBookmarked,
+              floating: true,
+            ),
             child: NoScrollBehaviorWidget(
               child: ExtendedNestedScrollView(
                 onlyOneScrollInBody: true,

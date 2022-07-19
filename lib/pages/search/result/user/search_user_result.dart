@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/user_preview.dart';
 import 'package:pixiv_func_mobile/components/user_previewer/user_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
-import 'package:pixiv_func_mobile/widgets/pull_to_refresh_header/pull_to_refresh_header.dart';
+import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
