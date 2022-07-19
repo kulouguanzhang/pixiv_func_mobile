@@ -59,6 +59,7 @@ class IllustPage extends StatelessWidget {
                 child: CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface),
               ),
             ),
+            fit: BoxFit.fitWidth,
           ),
           if (controller.downloadMode)
             Positioned(

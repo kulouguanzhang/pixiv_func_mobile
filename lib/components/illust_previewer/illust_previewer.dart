@@ -145,9 +145,9 @@ class IllustPreviewer extends StatelessWidget {
                       isBold: true,
                     ),
                     if (showUserName)
-                      Text(
+                      TextWidget(
                         illust.user.name,
-                        style: const TextStyle(fontSize: 12),
+                        fontSize: 12,
                         overflow: TextOverflow.ellipsis,
                       ),
                   ],

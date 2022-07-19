@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// 去除listview水印
-/// ScrollConfiguration behavior
-
 class NoScrollBehaviorWidget extends StatelessWidget {
   final Widget child;
 

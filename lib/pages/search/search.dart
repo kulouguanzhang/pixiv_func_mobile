@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/pages/illust/id_search/id_search.dart';
+import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
@@ -65,16 +67,13 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    // minWidth: double.infinity,
-                    child: Center(
-                      child: Row(
-                        children: const [
-                          Icon(Icons.image, color: Colors.white, size: 14),
-                          TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
-                        ],
-                      ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.image, color: Colors.white, size: 14),
+                        TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
+                      ],
                     ),
-                    onPressed: () {},
+                    onPressed: () =>controller.onSearchImage(),
                   ),
                 ),
               ],
@@ -106,7 +105,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                           if (controller.inputIsNotEmpty)
                             if (controller.inputIsNumber)
                               ListTile(
-                                onTap: () => controller.toSearchResultPage(controller.inputAsString),
+                                onTap: () => Get.to(IllustIdSearch(id: controller.inputAsNumber)),
                                 title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
                                 subtitle: const TextWidget('插画ID', fontSize: 12),
                               )
@@ -156,7 +155,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                           if (controller.inputIsNotEmpty)
                             if (controller.inputIsNumber)
                               ListTile(
-                                onTap: () => controller.toSearchResultPage(controller.inputAsString),
+                                onTap: () => Get.to(UserPage(id: controller.inputAsNumber)),
                                 title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
                                 subtitle: const TextWidget('用户ID', fontSize: 12),
                               )

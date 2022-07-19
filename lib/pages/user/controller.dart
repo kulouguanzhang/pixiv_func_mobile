@@ -7,6 +7,7 @@ import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/data/account_service.dart';
+import 'package:pixiv_func_mobile/app/state/page_state.dart';
 
 class UserController extends GetxController {
   final int id;
@@ -27,6 +28,8 @@ class UserController extends GetxController {
 
   bool get expandTypeSelector => _expandTypeSelector;
 
+  PageState state = PageState.none;
+
   void restrictOnChanged(Restrict? value) {
     if (null != value) {
       _restrict = value;
@@ -34,20 +37,20 @@ class UserController extends GetxController {
     }
   }
 
-  void refreshData() {
+  void loadData() {
     userDetailResult = null;
-
+    state = PageState.loading;
     update();
     Get.find<ApiClient>().getUserDetail(id, cancelToken: cancelToken).then((result) {
       userDetailResult = result;
+      state = PageState.complete;
     }).catchError((e) {
       if (e is DioError && HttpStatus.notFound == e.response?.statusCode) {
-        // notFound = true;
+        state = PageState.notFound;
       } else {
-        // error = true;
+        state = PageState.error;
       }
     }).whenComplete(() {
-      // loading = false;
       update();
     });
   }
@@ -74,7 +77,7 @@ class UserController extends GetxController {
 
   @override
   void onInit() {
-    refreshData();
+    loadData();
     super.onInit();
   }
 }
@@ -98,6 +101,8 @@ class MeController extends GetxController {
 
   bool get expandTypeSelector => _expandTypeSelector;
 
+  PageState state = PageState.none;
+
   void restrictOnChanged(Restrict? value) {
     if (null != value) {
       _restrict = value;
@@ -105,20 +110,17 @@ class MeController extends GetxController {
     }
   }
 
-  void refreshData() {
+  void loadData() {
     userDetailResult = null;
-
+    state = PageState.loading;
     update();
     Get.find<ApiClient>().getUserDetail(Get.find<AccountService>().currentUserId, cancelToken: cancelToken).then((result) {
       userDetailResult = result;
+      state = PageState.complete;
     }).catchError((e) {
-      if (e is DioError && HttpStatus.notFound == e.response?.statusCode) {
-        // notFound = true;
-      } else {
-        // error = true;
-      }
+      //自己不会not found
+      state = PageState.error;
     }).whenComplete(() {
-      // loading = false;
       update();
     });
   }
@@ -145,7 +147,7 @@ class MeController extends GetxController {
 
   @override
   void onInit() {
-    refreshData();
+    loadData();
     super.onInit();
   }
 }

@@ -50,7 +50,7 @@ class AboutController extends GetxController implements GetxService {
         browserDownloadUrl: firstAssets['browser_download_url'] as String,
         body: json['body'] as String,
       );
-      _latestReleaseVersionCode = int.parse(releaseInfo!.tagName.split('+').first);
+      _latestReleaseVersionCode = int.parse(releaseInfo!.tagName.split('+').last);
       _state = PageState.none;
     }).catchError((e, s) {
       Log.e('获取最新发行版信息失败');

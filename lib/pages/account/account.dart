@@ -25,7 +25,7 @@ class AccountPage extends StatelessWidget {
         return WillPopScope(
           onWillPop: () async {
             if (previousId != accountService.currentUserId) {
-              Get.find<MeController>().refreshData();
+              Get.find<MeController>().loadData();
             }
             return true;
           },
