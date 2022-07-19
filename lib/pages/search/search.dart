@@ -7,8 +7,11 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import 'controller.dart';
+
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  final String? initValue;
+
+  const SearchPage({Key? key, this.initValue}) : super(key: key);
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -17,8 +20,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-
-    Get.put(SearchController(this));
+    Get.put(SearchController(this, widget.initValue));
     return GetBuilder<SearchController>(
       builder: (controller) => VisibilityDetector(
         key: Key(runtimeType.toString()),
@@ -52,7 +54,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => Get.back(),
-                  child: TextWidget('取消', color: Theme.of(context).colorScheme.onBackground),
+                  child: TextWidget('取消', color: Theme.of(context).colorScheme.onSecondary),
                 ),
                 const SizedBox(width: 20),
                 SizedBox(

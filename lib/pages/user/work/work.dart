@@ -60,17 +60,17 @@ class _UserWorkContentState extends State<UserWorkContent> {
                   sourceList: UserIllustListSource(widget.id, IllustType.illust),
                   extendedListDelegate:
                       const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
-                  itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
+                  itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item,showUserName: false),
                 ),
                 DataContent<Illust>(
                   sourceList: UserIllustListSource(widget.id, IllustType.manga),
                   extendedListDelegate:
                       const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
-                  itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
+                  itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item,showUserName: false),
                 ),
                 DataContent<Novel>(
                   sourceList: UserNovelListSource(widget.id),
-                  itemBuilder: (BuildContext context, Novel item, int index) => NovelPreviewer(novel: item),
+                  itemBuilder: (BuildContext context, Novel item, int index) => NovelPreviewer(novel: item,showUserName: false),
                 ),
               ],
             ),

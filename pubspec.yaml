@@ -2,7 +2,7 @@ name: pixiv_func_mobile
 description: Pixiv 第三方客户端
 
 publish_to: 'none'
-version: 1.0.0+8
+version: 1.0.0-beta2+8
 
 environment:
   sdk: ">=2.17.5 <3.0.0"
@@ -31,6 +31,7 @@ dependencies:
   image_picker: ^0.8.5+3
   encrypt: ^5.0.1
   device_info_plus: ^4.0.0
+  connectivity_plus: ^2.3.5
   expandable: ^5.0.1
   visibility_detector: ^0.3.3
   path: ^1.8.1

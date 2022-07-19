@@ -1,10 +1,14 @@
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/pages/search/controller.dart';
+import 'package:pixiv_func_mobile/pages/search/search.dart';
 
 import 'source.dart';
 
 class SearchIllustResultController extends GetxController {
-  SearchIllustResultController(String keyword) : sourceList = SearchIllustResultListSource(keyword);
+  final String keyword;
+
+  SearchIllustResultController(this.keyword) : sourceList = SearchIllustResultListSource(keyword);
 
   final SearchIllustResultListSource sourceList;
 
@@ -14,6 +18,14 @@ class SearchIllustResultController extends GetxController {
   DateTime lastFilterChangeTime = DateTime.now();
 
   bool get expandedFilter => _expandedFilter;
+
+  void back() {
+    if (Get.isRegistered<SearchController>()) {
+      Get.back();
+    } else {
+      Get.off(SearchPage(initValue: keyword));
+    }
+  }
 
   void expandedFilterChangeState() {
     _expandedFilter = !_expandedFilter;

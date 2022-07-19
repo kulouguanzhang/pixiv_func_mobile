@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/data/account_service.dart';
+import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_mobile/pages/settings/settings.dart';
@@ -30,10 +31,8 @@ class MePage extends StatefulWidget {
 }
 
 class _MePageState extends State<MePage> with TickerProviderStateMixin {
-  String get controllerTag => '$runtimeType-${Get.find<AccountService>().currentUserId}';
-
   Widget _buildAppBar() {
-    final controller = Get.find<UserController>(tag: controllerTag);
+    final controller = Get.find<MeController>();
     final userDetail = controller.userDetailResult!;
     final String? backgroundImageUrl = userDetail.profile.backgroundImageUrl;
     final UserInfo user = userDetail.user;
@@ -45,6 +44,16 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
     return ExtendedSliverAppbar(
       toolbarHeight: kToolbarHeight,
       toolBarColor: Get.theme.colorScheme.background,
+      leading: (ModalRoute.of(context)?.canPop ?? false)
+          ? GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              child: const Padding(
+                padding: EdgeInsets.all(8),
+                child: Icon(Icons.arrow_back_ios_new),
+              ),
+              onTap: () => Navigator.of(context).pop(),
+            )
+          : null,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -56,54 +65,59 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
           TextWidget(user.name, fontSize: 16),
         ],
       ),
-      actions: Padding(
-        padding: const EdgeInsets.all(8),
-        child: SizedBox(
-          height: 35,
-          width: 70,
-          child: DropdownButtonWidgetHideUnderline(
-            child: DropdownButtonWidget<Restrict?>(
-              isDense: true,
-              elevation: 0,
-              isExpanded: true,
-              borderRadius: BorderRadius.circular(12),
-              items: [
-                for (final item in items.entries)
-                  DropdownMenuItemWidget<Restrict>(
-                    value: item.key,
-                    child: Container(
-                      height: 35,
-                      width: 70,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(17),
-                        border: controller.restrict == item.key ? Border.all(color: Get.theme.colorScheme.primary) : null,
-                        color: Get.theme.colorScheme.surface,
-                      ),
-                      child: Row(
-                        children: [
-                          const Spacer(),
-                          const Icon(Icons.cached_outlined),
-                          const SizedBox(width: 7),
-                          TextWidget(
-                            item.value,
-                            fontSize: 14,
+      actions: [0, 1].contains(controller.tabController.index)
+          ? Padding(
+              padding: const EdgeInsets.all(8),
+              child: SizedBox(
+                height: 35,
+                width: 70,
+                child: DropdownButtonWidgetHideUnderline(
+                  child: DropdownButtonWidget<Restrict?>(
+                    isDense: true,
+                    elevation: 0,
+                    isExpanded: true,
+                    borderRadius: BorderRadius.circular(12),
+                    items: [
+                      for (final item in items.entries)
+                        DropdownMenuItemWidget<Restrict>(
+                          value: item.key,
+                          child: Container(
+                            height: 35,
+                            width: 70,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(17),
+                              border: controller.restrict == item.key ? Border.all(color: Get.theme.colorScheme.primary) : null,
+                            ),
+                            child: Row(
+                              children: [
+                                const Spacer(),
+                                const Icon(AppIcons.toggle, size: 12),
+                                const SizedBox(width: 7),
+                                TextWidget(
+                                  item.value,
+                                  fontSize: 14,
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
                           ),
-                          const Spacer(),
-                        ],
-                      ),
-                    ),
+                        ),
+                    ],
+                    value: controller.restrict,
+                    onChanged: controller.restrictOnChanged,
                   ),
-              ],
-              value: controller.restrict,
-              onChanged: controller.restrictOnChanged,
-            ),
-          ),
+                ),
+              ),
+            )
+          : null,
+      extentActions: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => Get.to(const SettingsPage()),
+        child: const Padding(
+          padding: EdgeInsets.all(8),
+          child: Icon(Icons.settings),
         ),
-      ),
-      extentActions: IconButton(
-        onPressed: () =>Get.to(const SettingsPage()),
-        icon: const Icon(Icons.settings),
       ),
       background: Container(
         color: Get.theme.colorScheme.background,
@@ -141,12 +155,17 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
               ),
             ),
             TextWidget(user.name, fontSize: 16),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextWidget('关注:${userDetail.profile.totalFollowUsers}'),
+                const Icon(AppIcons.follow, size: 14),
+                const SizedBox(width: 5),
+                TextWidget('${userDetail.profile.totalFollowUsers}'),
                 const SizedBox(width: 10),
-                TextWidget('好P友:${userDetail.profile.totalMyPixivUsers}'),
+                const Icon(AppIcons.friend, size: 14),
+                const SizedBox(width: 5),
+                TextWidget('${userDetail.profile.totalMyPixivUsers}'),
               ],
             ),
             const SizedBox(height: 10),
@@ -169,11 +188,20 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final id = Get.find<AccountService>().currentUserId;
-    Get.put(UserController(id, this), tag: controllerTag);
-    return GetBuilder<UserController>(
-      tag: controllerTag,
+    Get.put(MeController(this));
+    return GetBuilder<MeController>(
       builder: (controller) => ScaffoldWidget(
+        emptyAppBar: controller.userDetailResult != null,
+        actions: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Get.to(const SettingsPage()),
+            child: const Padding(
+              padding: EdgeInsets.all(8),
+              child: Icon(Icons.settings),
+            ),
+          ),
+        ],
         child: controller.userDetailResult == null
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -235,22 +263,26 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                       pinned: true,
                     )
                   ],
-                  pinnedHeaderSliverHeightBuilder: () => kToolbarHeight * 2 + Get.mediaQuery.padding.top - 0.5,
+                  pinnedHeaderSliverHeightBuilder: () => kToolbarHeight * 2,
                   body: TabBarView(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: controller.tabController,
                     children: [
                       AutomaticKeepWidget(
-                        child: UserBookmarkContent(id: id, restrict: controller.restrict, expandTypeSelector: controller.expandTypeSelector),
+                        child: UserBookmarkContent(
+                          id: controller.currentUserId,
+                          restrict: controller.restrict,
+                          expandTypeSelector: controller.expandTypeSelector,
+                        ),
                       ),
                       AutomaticKeepWidget(
-                        child: UserFollowingContent(id: id, restrict: controller.restrict),
+                        child: UserFollowingContent(id: controller.currentUserId, restrict: controller.restrict),
                       ),
                       AutomaticKeepWidget(
-                        child: UserFansContent(id: id),
+                        child: UserFansContent(id: controller.currentUserId),
                       ),
                       AutomaticKeepWidget(
-                        child: UserWorkContent(id: id, expandTypeSelector: controller.expandTypeSelector),
+                        child: UserWorkContent(id: controller.currentUserId, expandTypeSelector: controller.expandTypeSelector),
                       )
                     ],
                   ),

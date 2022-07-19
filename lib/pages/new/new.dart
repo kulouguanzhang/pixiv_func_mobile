@@ -21,7 +21,6 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
     Get.put(NewController(this));
     return GetBuilder<NewController>(
       builder: (controller) => ScaffoldWidget(
-        automaticallyImplyLeading: false,
         titleWidget: TabBarWidget(
           physics: const NeverScrollableScrollPhysics(),
           onTap: controller.tabIndexOnChanged,

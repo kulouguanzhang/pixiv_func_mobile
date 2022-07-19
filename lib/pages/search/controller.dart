@@ -11,12 +11,13 @@ import 'result/user/search_user_result.dart';
 
 class SearchController extends GetxController {
   final TabController tabController;
+  final TextEditingController searchContentInput;
 
-  SearchController(TickerProvider vsync) : tabController = TabController(length: 3, vsync: vsync);
+  SearchController(TickerProvider vsync, String? initValue)
+      : tabController = TabController(length: 3, vsync: vsync),
+        searchContentInput = TextEditingController(text: initValue);
 
   final focusNode = FocusNode();
-
-  late final searchContentInput = TextEditingController();
 
   final List<Tag> autocompleteTags = [];
 

@@ -36,7 +36,7 @@ class SearchIllustResultPage extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: () => Get.back(),
+                  onTap: () => controller.back(),
                   child: TextField(
                     enabled: false,
                     controller: TextEditingController(text: keyword),
@@ -58,8 +58,8 @@ class SearchIllustResultPage extends StatelessWidget {
               const SizedBox(width: 10),
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onTap: () => Get.back(),
-                child: TextWidget('取消', color: Theme.of(context).colorScheme.onBackground),
+                onTap: () => controller.back(),
+                child: TextWidget('取消', color: Theme.of(context).colorScheme.onSecondary),
               ),
               const SizedBox(width: 25),
               GestureDetector(

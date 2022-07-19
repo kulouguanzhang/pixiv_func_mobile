@@ -12,4 +12,8 @@ class AppIcons {
   static const ranking = IconData(0xe906, fontFamily: 'iconFont', matchTextDirection: true);
   static const search = IconData(0xe907, fontFamily: 'iconFont', matchTextDirection: true);
   static const toggle = IconData(0xe908, fontFamily: 'iconFont', matchTextDirection: true);
+  static const pawoo = IconData(0xe909, fontFamily: 'iconFont', matchTextDirection: true);
+  static const twitter = IconData(0xe90a, fontFamily: 'iconFont', matchTextDirection: true);
+  static const web = IconData(0xe90b, fontFamily: 'iconFont', matchTextDirection: true);
+  static const friend = IconData(0xe90c, fontFamily: 'iconFont', matchTextDirection: true);
 }

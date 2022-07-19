@@ -27,7 +27,6 @@ class ImageScalePage extends StatelessWidget {
       (data) {
         return Scaffold(
           appBar: AppBar(
-            centerTitle: true,
             title: Text('${data.value + 1}/${urls.length}张'),
           ),
           body: ExtendedImageGesturePageView(

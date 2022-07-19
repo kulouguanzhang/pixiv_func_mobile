@@ -175,22 +175,25 @@ class IllustPage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextWidget(
                 '上传日期: ${Utils.japanDateToLocalDateString(DateTime.parse(illust.createDate))}',
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(width: 15),
+              const SizedBox(width: 5),
               const Icon(Icons.remove_red_eye_outlined, size: 12),
               const SizedBox(width: 5),
               TextWidget(
                 '${illust.totalView}',
+                forceStrutHeight: true,
               ),
-              const SizedBox(width: 15),
+              const SizedBox(width: 5),
               const Icon(Icons.favorite_border, size: 12),
               const SizedBox(width: 5),
               TextWidget(
-                '${illust.totalView}',
+                '${illust.totalBookmarks}',
+                forceStrutHeight: true,
               ),
             ],
           ),
@@ -214,8 +217,9 @@ class IllustPage extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   child: Row(
                     children: [
+                      const SizedBox(width: 15),
                       TextWidget(
-                        '详情',
+                        '介绍',
                         color: controller.showCaption ? Get.theme.colorScheme.primary : null,
                       ),
                       const SizedBox(width: 5),
@@ -236,7 +240,7 @@ class IllustPage extends StatelessWidget {
             expanded: Container(
               padding: const EdgeInsets.only(bottom: 20),
               alignment: Alignment.topLeft,
-              child: HtmlRichText(controller.illust.caption),
+              child: HtmlRichText(controller.illust.caption, canShowOriginal: true),
             ),
             theme: const ExpandableThemeData(
               hasIcon: false,
@@ -256,7 +260,8 @@ class IllustPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: Get.theme.colorScheme.surface,
                     ),
-                    child: TextWidget('#${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}', fontSize: 14,forceStrutHeight: true),
+                    child: TextWidget('#${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}',
+                        fontSize: 14, forceStrutHeight: true),
                   ),
                 ),
             ],
@@ -283,18 +288,19 @@ class IllustPage extends StatelessWidget {
           },
           child: ScaffoldWidget(
             titleWidget: TextWidget(illust.title, isBold: true),
-            centerTitle: true,
             actions: [
               BookmarkSwitchButton(id: illust.id, initValue: illust.isBookmarked),
               if (controller.downloadMode)
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    IconButton(
-                      splashRadius: 20,
-                      onPressed: () => controller.downloadAll(),
-                      icon: const Icon(Icons.file_download_outlined),
-                      padding: EdgeInsets.zero,
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () => controller.downloadAll(),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.file_download_outlined),
+                      ),
                     ),
                     Positioned(
                       bottom: 30,
@@ -324,7 +330,7 @@ class IllustPage extends StatelessWidget {
                 )
               else
                 Padding(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(8),
                   child: SizedBox(
                     width: IconTheme.of(context).size,
                     height: IconTheme.of(context).size,

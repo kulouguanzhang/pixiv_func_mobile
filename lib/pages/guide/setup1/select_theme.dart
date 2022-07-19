@@ -25,23 +25,23 @@ class GuideSelectThemePage extends StatelessWidget {
               CupertinoSwitchListTile(
                 contentPadding: const EdgeInsets.symmetric(vertical: 6),
                 onTap: () {
-                  data.value = 1;
-                  Get.find<SettingsService>().theme = 1;
+                  data.value = 0;
+                  Get.find<SettingsService>().theme = 0;
                   Get.changeThemeMode(ThemeMode.dark);
                 },
                 title: const TextWidget('黑暗', fontSize: 18, isBold: true),
-                value: 1 == data.value,
+                value: 0 == data.value,
               ),
               const Divider(),
               CupertinoSwitchListTile(
                 contentPadding: const EdgeInsets.symmetric(vertical: 6),
                 onTap: () {
-                  data.value = 2;
-                  Get.find<SettingsService>().theme = 2;
+                  data.value = 1;
+                  Get.find<SettingsService>().theme = 1;
                   Get.changeThemeMode(ThemeMode.light);
                 },
                 title: const TextWidget('明亮', fontSize: 18, isBold: true),
-                value: 2 == data.value,
+                value: 1 == data.value,
               ),
               const Divider(),
               CupertinoSwitchListTile(
@@ -68,7 +68,7 @@ class GuideSelectThemePage extends StatelessWidget {
                 ),
                 onPressed: () {
                   Get.find<SettingsService>().guideInit = true;
-                  Get.to(const LoginPage());
+                  Get.to(const LoginPage(isFirst: true));
                 },
               ),
               const Spacer(flex: 1),

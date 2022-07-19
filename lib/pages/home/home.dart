@@ -36,9 +36,10 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () => controller.index = 0,
                   child: Padding(
-                    padding: const EdgeInsets.all(2),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: Icon(
                       AppIcons.home,
                       color: controller.index == 0 ? Theme.of(context).colorScheme.primary : null,
@@ -47,9 +48,10 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () => controller.index = 1,
                   child: Padding(
-                    padding: const EdgeInsets.all(2),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: Icon(
                       AppIcons.ranking,
                       color: controller.index == 1 ? Theme.of(context).colorScheme.primary : null,
@@ -58,9 +60,10 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () => controller.index = 2,
                   child: Padding(
-                    padding: const EdgeInsets.all(2),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: Icon(
                       AppIcons.n,
                       color: controller.index == 2 ? Theme.of(context).colorScheme.primary : null,
@@ -69,9 +72,10 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () => controller.index = 3,
                   child: Padding(
-                    padding: const EdgeInsets.all(2),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: Icon(
                       AppIcons.search,
                       color: controller.index == 3 ? Theme.of(context).colorScheme.primary : null,

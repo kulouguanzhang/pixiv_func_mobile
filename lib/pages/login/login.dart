@@ -7,20 +7,23 @@ import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final bool isFirst;
+
+  const LoginPage({Key? key, this.isFirst = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Get.put(LoginController());
     return GetBuilder<LoginController>(
       builder: (controller) => ScaffoldWidget(
-        emptyAppBar: false,
+        emptyAppBar: isFirst,
+        titleWidget: const TextWidget('注册 或 登录', fontSize: 24, isBold: true),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
           child: Column(
             children: [
               const Spacer(flex: 1),
-              const TextWidget('注册 或 登录', fontSize: 24, isBold: true),
+              if (isFirst) const TextWidget('注册 或 登录', fontSize: 24, isBold: true),
               const Spacer(flex: 2),
               SizedBox(
                 height: Get.height * 0.4,
@@ -51,7 +54,7 @@ class LoginPage extends StatelessWidget {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Pixiv官方页面无法注册或登陆时，建议开启本地反向代理，稍后您可以在设置中进行相应变更。',
+                              text: 'Pixiv官方页面无法注册或登陆时,建议开启本地反向代理',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Theme.of(context).colorScheme.onBackground,

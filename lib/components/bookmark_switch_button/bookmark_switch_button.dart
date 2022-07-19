@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -83,21 +84,31 @@ class BookmarkSwitchButton extends StatelessWidget {
         }
       },
       builder: (controller) {
-        return controller.requesting
-            ? const RefreshProgressIndicator()
-            : GestureDetector(
-                // onLongPress: controller.isBookmarked ? null : () => _restrictDialog(),
-                child: IconButton(
-                  splashRadius: 20,
-                  onPressed: () => controller.changeBookmarkState(),
-                  icon: controller.isBookmarked
-                      ? Icon(
-                          Icons.favorite_sharp,
-                          color: Theme.of(context).colorScheme.primary,
-                        )
-                      : const Icon(Icons.favorite_outline_sharp),
+        if (controller.requesting) {
+          return const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: Center(
+                    child: CupertinoActivityIndicator(),
+                  ),
                 ),
-              );
+            );
+        } else {
+          return GestureDetector(
+            onTap: () => controller.changeBookmarkState(),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: controller.isBookmarked
+                  ? Icon(
+                Icons.favorite_sharp,
+                color: Theme.of(context).colorScheme.primary,
+              )
+                  : const Icon(Icons.favorite_outline_sharp),
+            )
+          );
+        }
       },
     );
   }

@@ -16,7 +16,7 @@ class UserFollowingListSource extends DataSourceBase<UserPreview> {
 
   @override
   Future<List<UserPreview>> init(CancelToken cancelToken) {
-    return api.getFollowingUserPage(id, cancelToken: cancelToken).then((result) {
+    return api.getFollowingUserPage(id, restrict: restrict, cancelToken: cancelToken).then((result) {
       nextUrl = result.nextUrl;
       return result.userPreviews;
     });

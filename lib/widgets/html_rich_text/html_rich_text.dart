@@ -48,9 +48,9 @@ class _HtmlRichTextState extends State<HtmlRichText> {
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
-                  if (!await Get.find<PlatformApi>().urlLaunch('twitter://user?screen_name=$twitterUsername')) {
+                  if (!await PlatformApi.urlLaunch('twitter://user?screen_name=$twitterUsername')) {
                     Log.d('没有Twitter APK');
-                    await Get.find<PlatformApi>().urlLaunch(href);
+                    await PlatformApi.urlLaunch(href);
                   }
                 },
             );
@@ -77,7 +77,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
             style: isStrong ? _aTagStrongStyle : _aTagStyle,
             recognizer: TapGestureRecognizer()
               ..onTap = () async {
-                await Get.find<PlatformApi>().urlLaunch(href);
+                await PlatformApi.urlLaunch(href);
               },
           );
 
@@ -95,9 +95,9 @@ class _HtmlRichTextState extends State<HtmlRichText> {
               style: _knownStrongLinkStyle,
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
-                  if (!await Get.find<PlatformApi>().urlLaunch('twitter://user?screen_name=$twitterUsername')) {
+                  if (!await PlatformApi.urlLaunch('twitter://user?screen_name=$twitterUsername')) {
                     Log.d('没有Twitter APK');
-                    await Get.find<PlatformApi>().urlLaunch('https://mobile.twitter.com/$twitterUsername');
+                    await PlatformApi.urlLaunch('https://mobile.twitter.com/$twitterUsername');
                   }
                 },
             );

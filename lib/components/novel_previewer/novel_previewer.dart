@@ -9,8 +9,9 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 class NovelPreviewer extends StatelessWidget {
   final Novel novel;
+  final bool showUserName;
 
-  const NovelPreviewer({Key? key, required this.novel}) : super(key: key);
+  const NovelPreviewer({Key? key, required this.novel, this.showUserName = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class NovelPreviewer extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TextWidget(novel.title, fontSize: 16, isBold: true, overflow: TextOverflow.ellipsis),
-                                TextWidget(novel.user.name, fontSize: 10, overflow: TextOverflow.ellipsis),
+                                if (showUserName) TextWidget(novel.user.name, fontSize: 10, overflow: TextOverflow.ellipsis),
                               ],
                             ),
                           ),

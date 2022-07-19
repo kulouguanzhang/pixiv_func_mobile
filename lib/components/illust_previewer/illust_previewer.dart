@@ -73,7 +73,7 @@ class IllustPreviewer extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: TextWidget('$pageCount', color: const Color(0xFF606163)),
+                    child: TextWidget('$pageCount', color: Colors.white),
                   ),
                 ),
               ),

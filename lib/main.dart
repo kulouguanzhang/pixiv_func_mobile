@@ -21,8 +21,8 @@ Future<void> main() async {
     -1 == theme
         ? ThemeMode.system
         : theme == 0
-            ? ThemeMode.light
-            : ThemeMode.dark,
+            ? ThemeMode.dark
+            : ThemeMode.light,
   );
   runApp(const App());
 

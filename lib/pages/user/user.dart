@@ -3,9 +3,11 @@ import 'package:extended_sliver/extended_sliver.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
+import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/pages/user/about/about.dart';
 import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -50,7 +52,6 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
           TextWidget(user.name, fontSize: 16),
         ],
       ),
-
       background: Container(
         color: Get.theme.colorScheme.background,
         child: Column(
@@ -90,12 +91,18 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
               ),
             ),
             TextWidget(user.name, fontSize: 16),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextWidget('关注:${userDetail.profile.totalFollowUsers}'),
+                const Icon(AppIcons.follow, size: 14),
+                const SizedBox(width: 5),
+                TextWidget('${userDetail.profile.totalFollowUsers}'),
                 const SizedBox(width: 10),
-                TextWidget('好P友:${userDetail.profile.totalMyPixivUsers}'),
+                const Icon(AppIcons.friend, size: 14),
+                const SizedBox(width: 5),
+                TextWidget('${userDetail.profile.totalMyPixivUsers}'),
               ],
             ),
             const SizedBox(height: 10),
@@ -116,6 +123,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
     return GetBuilder<UserController>(
       tag: controllerTag,
       builder: (controller) => ScaffoldWidget(
+        emptyAppBar: controller.userDetailResult != null,
         child: controller.userDetailResult == null
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -178,7 +186,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                       floating: true,
                     )
                   ],
-                  // pinnedHeaderSliverHeightBuilder: () => kToolbarHeight * 2.5,
+                  pinnedHeaderSliverHeightBuilder: () => kToolbarHeight * 2,
                   body: TabBarView(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: controller.tabController,
@@ -192,7 +200,9 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                       AutomaticKeepWidget(
                         child: UserFollowingContent(id: widget.id, restrict: controller.restrict),
                       ),
-                      SizedBox(),
+                      AutomaticKeepWidget(
+                        child: UserAboutContent(userDetail: controller.userDetailResult!),
+                      ),
                     ],
                   ),
                 ),

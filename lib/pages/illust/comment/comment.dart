@@ -6,6 +6,7 @@ import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dar
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
+import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
@@ -34,56 +35,56 @@ class IllustCommentContent extends StatelessWidget {
 
   Widget _buildCommentItem(CommentTree commentTree) {
     final controller = Get.find<IllustCommentController>(tag: '$runtimeType-$id');
+    final Widget widget;
     if (commentTree.children.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+      widget = ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
+              child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
-                  child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(commentTree.data.user.name, fontSize: 12, isBold: true),
-                    TextWidget(commentTree.data.date, fontSize: 10),
-                  ],
-                ),
-                const Spacer(),
-                if (Get.find<AccountService>().currentUserId == commentTree.data.user.id)
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(Icons.delete),
-                    onPressed: () => controller.onCommentDelete(commentTree),
-                  ),
-                if (commentTree.loading) const CupertinoActivityIndicator(),
+                TextWidget(commentTree.data.user.name, fontSize: 12, isBold: true),
+                TextWidget(Utils.japanDateToLocalDateString(DateTime.parse(commentTree.data.date)), fontSize: 10),
               ],
             ),
-          ),
-          subtitle: _buildCommentContent(commentTree.data),
-          trailing: commentTree.data.hasReplies
-              ? IconButton(
-                  padding: EdgeInsets.zero,
-                  icon: Icon(Icons.more_vert_outlined, color: Get.theme.colorScheme.primary),
-                  onPressed: () => controller.loadFirstReplies(commentTree),
-                )
-              : null,
+            const Spacer(),
+            if (Get.find<AccountService>().currentUserId == commentTree.data.user.id)
+              IconButton(
+                padding: EdgeInsets.zero,
+                icon: const Icon(Icons.delete),
+                onPressed: () => controller.onCommentDelete(commentTree),
+              ),
+          ],
         ),
+        subtitle: _buildCommentContent(commentTree.data),
+        trailing: () {
+          if (commentTree.data.hasReplies) {
+            if (commentTree.loading) {
+              return const CupertinoActivityIndicator();
+            } else {
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                child: Icon(Icons.more_vert_outlined, color: Get.theme.colorScheme.primary, size: 24),
+                onTap: () => controller.loadFirstReplies(commentTree),
+              );
+            }
+          }
+        }(),
       );
     } else {
       final children = [
         for (final commentTree in commentTree.children) _buildCommentItem(commentTree),
         if (commentTree.loading)
           const Padding(
-            padding: EdgeInsets.symmetric(vertical: 30),
-            child: Center(child: CircularProgressIndicator()),
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Center(child: CupertinoActivityIndicator()),
           )
         else if (commentTree.hasNext)
           Padding(
@@ -101,47 +102,33 @@ class IllustCommentContent extends StatelessWidget {
           ),
       ];
 
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ExpansionTile(
-          title: Column(
-            children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
-                    child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
-                  ),
-                  const SizedBox(width: 15),
-                  Column(
-                    children: [
-                      TextWidget(commentTree.data.user.name, fontSize: 12, isBold: true),
-                      TextWidget(commentTree.data.date, fontSize: 10),
-                    ],
-                  ),
-                  const Spacer(),
-                  if (Get.find<AccountService>().currentUserId == commentTree.data.user.id)
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(Icons.delete),
-                      onPressed: () => controller.onCommentDelete(commentTree),
-                    ),
-                  if (commentTree.loading) const CupertinoActivityIndicator(),
-                  if (commentTree.data.hasReplies)
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: Icon(Icons.more_vert_outlined, color: Get.theme.colorScheme.primary),
-                      onPressed: () => controller.onCommentDelete(commentTree),
-                    ),
-                ],
-              ),
-              _buildCommentContent(commentTree.data),
-            ],
-          ),
-          children: children,
+      widget = ExpansionTile(
+        tilePadding: const EdgeInsets.symmetric(horizontal: 20),
+        childrenPadding: const EdgeInsets.only(left: 20),
+        initiallyExpanded: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
+              child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextWidget(commentTree.data.user.name, fontSize: 12, isBold: true),
+                TextWidget(Utils.japanDateToLocalDateString(DateTime.parse(commentTree.data.date)), fontSize: 10),
+              ],
+            ),
+            const Spacer(),
+          ],
         ),
+        subtitle: _buildCommentContent(commentTree.data),
+        children: children,
       );
     }
+    return widget;
   }
 
   @override

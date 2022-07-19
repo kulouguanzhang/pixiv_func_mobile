@@ -2,8 +2,9 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
+import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
-import 'package:pixiv_func_mobile/widgets/sliding_segmented_control/sliding_segmented_control.dart';
+import 'package:pixiv_func_mobile/widgets/select_group/select_group.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 import 'controller.dart';
@@ -121,7 +122,7 @@ class SearchFilterEditorWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       const Spacer(),
-                      const Icon(Icons.cached_outlined),
+                      const Icon(AppIcons.toggle, size: 12),
                       const SizedBox(width: 7),
                       TextWidget(
                         item.value,
@@ -223,37 +224,34 @@ class SearchFilterEditorWidget extends StatelessWidget {
                   final Widget widget;
                   switch (controller.editFilterIndex) {
                     case 0:
-                      widget = SlidingSegmentedControl(
-                        children: const <SearchSort, Widget>{
-                          SearchSort.dateDesc: TextWidget('时间降序'),
-                          SearchSort.dateAsc: TextWidget('时间升序'),
-                          SearchSort.popularDesc: TextWidget('热度降序'),
+                      widget = SelectGroup<SearchSort>(
+                        items: const {
+                          '时间降序': SearchSort.dateDesc,
+                          '时间升序': SearchSort.dateAsc,
+                          '热度降序': SearchSort.popularDesc,
                         },
-                        groupValue: controller.sort,
-                        onValueChanged: controller.searchSortOnChanged,
+                        value: controller.sort,
+                        onChanged: controller.searchSortOnChanged,
                       );
                       break;
                     case 1:
-                      widget = SlidingSegmentedControl(
-                        children: const <SearchTarget, Widget>{
-                          SearchTarget.partialMatchForTags: Text('标签(部分匹配)'),
-                          SearchTarget.exactMatchForTags: Text('标签(完全匹配)'),
-                          SearchTarget.titleAndCaption: Text('标题&简介'),
+                      widget = SelectGroup<SearchTarget>(
+                        items: const {
+                          '标签(部分匹配)': SearchTarget.partialMatchForTags,
+                          '标签(完全匹配)': SearchTarget.exactMatchForTags,
+                          '标题&简介': SearchTarget.titleAndCaption,
                         },
-                        groupValue: controller.target,
-                        onValueChanged: controller.searchTargetOnChanged,
+                        value: controller.target,
+                        onChanged: controller.searchTargetOnChanged,
                       );
                       break;
                     case 2:
-                      widget = SizedBox(
-                        height: 35,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _buildDateRangeTypeEdit(),
-                            if (controller.dateRangeType == 6) _buildDateRangeEdit(),
-                          ],
-                        ),
+                      widget = Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _buildDateRangeTypeEdit(),
+                          if (controller.dateRangeType == 6) _buildDateRangeEdit(),
+                        ],
                       );
                       break;
                     case 3:
@@ -282,7 +280,11 @@ class SearchFilterEditorWidget extends StatelessWidget {
                   }
                   return Padding(
                     padding: const EdgeInsets.only(top: 12),
-                    child: widget,
+                    child: Container(
+                      height: 35,
+                      alignment: Alignment.center,
+                      child: widget,
+                    ),
                   );
                 }(),
               ),

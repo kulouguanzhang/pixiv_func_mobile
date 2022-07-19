@@ -55,7 +55,7 @@ class SearchNovelResultPage extends StatelessWidget {
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () => Get.back(),
-                child: TextWidget('取消', color: Theme.of(context).colorScheme.onBackground),
+                child: TextWidget('取消', color: Theme.of(context).colorScheme.onSecondary),
               ),
               const SizedBox(width: 25),
               GestureDetector(

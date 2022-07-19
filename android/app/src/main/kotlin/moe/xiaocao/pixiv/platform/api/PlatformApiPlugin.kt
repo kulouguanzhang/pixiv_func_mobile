@@ -1,10 +1,14 @@
 package moe.xiaocao.pixiv.platform.api
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import kotlin.concurrent.thread
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import moe.xiaocao.pixiv.util.newThreadFunc
@@ -12,7 +16,6 @@ import moe.xiaocao.pixiv.util.newThreadFunc
 
 class PlatformApiPlugin(context: Context) : FlutterPlugin,
     MethodChannel.MethodCallHandler {
-
     private val api = PlatformApi(context)
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -24,6 +27,7 @@ class PlatformApiPlugin(context: Context) : FlutterPlugin,
         }
 
     }
+
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
 
@@ -73,8 +77,11 @@ class PlatformApiPlugin(context: Context) : FlutterPlugin,
             PlatformApi.Method.GET_BUILD_VERSION.value -> {
                 result.success(api.getBuildVersion())
             }
-            PlatformApi.Method.GET_APP_VERSION.value -> {
-                result.success(api.getAppVersion())
+            PlatformApi.Method.GET_APP_VERSION_NAME.value -> {
+                result.success(api.getAppVersionName())
+            }
+            PlatformApi.Method.GET_APP_VERSION_CODE.value -> {
+                result.success(api.getAppVersionCode())
             }
             PlatformApi.Method.URL_LAUNCH.value -> {
                 result.success(api.urlLaunch(call.argument<String>("url")!!))
@@ -93,5 +100,6 @@ class PlatformApiPlugin(context: Context) : FlutterPlugin,
         }
 
     }
+
 
 }

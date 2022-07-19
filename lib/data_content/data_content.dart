@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_mobile/components/loading_more_indicator/loading_more_indicator.dart';
+import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
+import 'package:pixiv_func_mobile/widgets/pull_to_refresh_header/pull_to_refresh_header.dart';
+import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 import 'data_source_base.dart';
 
 class DataContent<T> extends StatefulWidget {
   final DataSourceBase<T> sourceList;
-  final bool isCustomScrollView;
   final EdgeInsetsGeometry padding;
   final SliverGridDelegate? gridDelegate;
   final ExtendedListDelegate? extendedListDelegate;
   final Widget Function(BuildContext context, T item, int index) itemBuilder;
+  final bool pullToRefresh;
 
   const DataContent({
     Key? key,
     required this.sourceList,
-    this.isCustomScrollView = false,
-    required this.itemBuilder,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10),
     this.gridDelegate,
     this.extendedListDelegate,
-    this.padding = const EdgeInsets.symmetric(horizontal: 10),
+    required this.itemBuilder,
+    this.pullToRefresh = true,
   }) : super(key: key);
 
   @override
@@ -39,24 +42,35 @@ class _DataContentState<T> extends State<DataContent<T>> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isCustomScrollView) {
-      return LoadingMoreSliverList(
-        SliverListConfig(
-          padding: widget.padding,
-          extendedListDelegate: widget.extendedListDelegate,
-          gridDelegate: widget.gridDelegate,
-          sourceList: sourceList,
-          itemBuilder: widget.itemBuilder,
-          indicatorBuilder: (BuildContext context, IndicatorStatus status) => LoadingMoreIndicator(
-            status: status,
-            errorRefresh: () async => await sourceList.errorRefresh(),
-            isSliver: true,
-            fullScreenErrorCanRetry: true,
+    if(widget.pullToRefresh){
+      return PullToRefreshNotification(
+        onRefresh: () async => await sourceList.refresh(true),
+        maxDragOffset: 100,
+        child: NoScrollBehaviorWidget(
+          child: LoadingMoreCustomScrollView(
+            slivers: [
+              PullToRefreshContainer((info) => PullToRefreshHeader(info: info)),
+              LoadingMoreSliverList(
+                SliverListConfig(
+                  padding: widget.padding,
+                  extendedListDelegate: widget.extendedListDelegate,
+                  gridDelegate: widget.gridDelegate,
+                  sourceList: sourceList,
+                  itemBuilder: widget.itemBuilder,
+                  indicatorBuilder: (BuildContext context, IndicatorStatus status) => LoadingMoreIndicator(
+                    status: status,
+                    errorRefresh: () async => await sourceList.errorRefresh(),
+                    isSliver: true,
+                    fullScreenErrorCanRetry: true,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
-    } else {
-      return LoadingMoreList(
+    }else {
+     return LoadingMoreList(
         ListConfig(
           padding: widget.padding,
           showGlowLeading: false,
@@ -67,10 +81,11 @@ class _DataContentState<T> extends State<DataContent<T>> {
           extendedListDelegate: widget.extendedListDelegate,
           gridDelegate: widget.gridDelegate,
           itemCountBuilder: (int count) => sourceList.length,
-          indicatorBuilder: (BuildContext context, IndicatorStatus status) => LoadingMoreIndicator(
-            status: status,
-            errorRefresh: () async => await sourceList.errorRefresh(),
-          ),
+          indicatorBuilder: (BuildContext context, IndicatorStatus status) =>
+              LoadingMoreIndicator(
+                status: status,
+                errorRefresh: () async => await sourceList.errorRefresh(),
+              ),
         ),
       );
     }

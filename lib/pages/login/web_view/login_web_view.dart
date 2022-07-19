@@ -156,7 +156,6 @@ class LoginWebViewPage extends StatelessWidget {
           IconButton(onPressed: () => controller.webViewController.reload(), icon: const Icon(Icons.refresh)),
         ],
         title: controller.title,
-        centerTitle: true,
         child: PlatformWebView(
           tag: 'PlatformWebView:LoginWebViewPage',
           onMessageHandler: controller.onMessageHandler,

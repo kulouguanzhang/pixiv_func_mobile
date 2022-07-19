@@ -1,12 +1,15 @@
 package moe.xiaocao.pixiv.platform.api
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.waynejo.androidndkgif.GifEncoder
 import moe.xiaocao.pixiv.update.DownloadManagerUtil
 import moe.xiaocao.pixiv.util.forEachEntry
@@ -17,6 +20,7 @@ import java.io.File
 import java.util.zip.ZipInputStream
 
 class PlatformApi(private val context: Context) {
+
     val pluginName = "xiaocao/platform/api"
 
     fun saveImage(imageBytes: ByteArray, filename: String): Boolean? {
@@ -88,11 +92,27 @@ class PlatformApi(private val context: Context) {
         return Build.VERSION.SDK_INT
     }
 
-    fun getAppVersion(): String {
+    fun getAppVersionName(): String {
         return context.packageManager.getPackageInfo(
             context.packageName,
             0
         ).versionName
+    }
+
+    fun getAppVersionCode(): Int {
+        return context.packageManager.getPackageInfo(
+            context.packageName,
+            0
+        ).versionCode
+    }
+
+    fun urlLaunch(url: String): Boolean {
+        return try {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun updateApp(url: String, versionTag: String): Boolean {
@@ -107,14 +127,6 @@ class PlatformApi(private val context: Context) {
         }
     }
 
-    fun urlLaunch(url: String): Boolean {
-        return try {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
 
     enum class Method(val value: String) {
         SAVE_IMAGE("saveImage"),
@@ -123,7 +135,8 @@ class PlatformApi(private val context: Context) {
         IMAGE_IS_EXIST("imageIsExist"),
         TOAST("toast"),
         GET_BUILD_VERSION("getBuildVersion"),
-        GET_APP_VERSION("getAppVersion"),
+        GET_APP_VERSION_NAME("getAppVersionName"),
+        GET_APP_VERSION_CODE("getAppVersionCode"),
         URL_LAUNCH("urlLaunch"),
         UPDATE_APP("updateApp"),
     }

@@ -31,23 +31,24 @@ class UserPreviewer extends StatelessWidget {
                   child: AvatarFromUrl(userPreview.user.profileImageUrls.medium, radius: 48),
                 ),
                 const SizedBox(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                      userPreview.user.name,
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 16,
-                      isBold: true,
-                    ),
-                    TextWidget(
-                      userPreview.user.account,
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 12,
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextWidget(
+                        userPreview.user.name,
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 16,
+                        isBold: true,
+                      ),
+                      TextWidget(
+                        userPreview.user.account,
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 12,
+                      ),
+                    ],
+                  ),
                 ),
-                const Spacer(),
                 FollowSwitchButton(
                   id: userPreview.user.id,
                   initValue: userPreview.user.isFollowed!,

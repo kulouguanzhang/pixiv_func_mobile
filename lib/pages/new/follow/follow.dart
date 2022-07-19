@@ -5,6 +5,7 @@ import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_dart_api/model/novel.dart';
+import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_mobile/components/lazy_indexed_stack/lazy_indexed_stack.dart';
 import 'package:pixiv_func_mobile/components/novel_previewer/novel_previewer.dart';
@@ -84,7 +85,7 @@ class _FollowNewContentState extends State<FollowNewContent> {
                                 child: Row(
                                   children: [
                                     const Spacer(),
-                                    const Icon(Icons.cached_outlined),
+                                    const Icon(AppIcons.toggle, size: 12),
                                     const SizedBox(width: 7),
                                     TextWidget(
                                       item.value,

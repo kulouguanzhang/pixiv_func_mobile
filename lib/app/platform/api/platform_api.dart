@@ -75,19 +75,24 @@ class PlatformApi {
     return result as int;
   }
 
-  static Future<String> get appVersion async {
-    final result = await _channel.invokeMethod(_Method.getAppVersion);
+  static Future<String> get appVersionName async {
+    final result = await _channel.invokeMethod(_Method.getAppVersionName);
     return result as String;
   }
 
-  Future<bool> urlLaunch(String url) async {
+  static Future<int> get appVersionCode async {
+    final result = await _channel.invokeMethod(_Method.getAppVersionCode);
+    return result as int;
+  }
+
+  static Future<bool> urlLaunch(String url) async {
     final result = await _channel.invokeMethod(_Method.urlLaunch, {
       'url': url,
     });
     return result as bool;
   }
 
-  Future<bool> updateApp(String url, String versionTag) async {
+  static Future<bool> updateApp(String url, String versionTag) async {
     final result = await _channel.invokeMethod(
       _Method.updateApp,
       {
@@ -106,7 +111,8 @@ class _Method {
   static const imageIsExist = 'imageIsExist';
   static const toast = 'toast';
   static const getBuildVersion = 'getBuildVersion';
-  static const getAppVersion = 'getAppVersion';
+  static const getAppVersionName = 'getAppVersionName';
+  static const getAppVersionCode = 'getAppVersionCode';
   static const urlLaunch = 'urlLaunch';
   static const updateApp = 'updateApp';
 }
