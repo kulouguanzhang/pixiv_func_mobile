@@ -17,6 +17,7 @@ import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/sliver_headerr/sliver_tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'bookmark/bookmark.dart';
 import 'controller.dart';
@@ -155,7 +156,25 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            TextWidget(user.name, fontSize: 16),
+            Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: TextWidget(user.name, fontSize: 16),
+                ),
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    Share.share('[Pixiv Func]\n${user.name}\n用户ID:${user.id}\nhttps://www.pixiv.net/users/${user.id}');
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Icon(Icons.share_outlined, size: 16),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

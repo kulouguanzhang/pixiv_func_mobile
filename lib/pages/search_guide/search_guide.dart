@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/vo/trending_tag_list_result.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
 import 'package:pixiv_func_mobile/pages/search/result/illust/search_illust_result.dart';
+import 'package:pixiv_func_mobile/pages/search/result/image/search_image_result.dart';
 import 'package:pixiv_func_mobile/pages/search/search.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -21,27 +23,63 @@ class SearchGuidePage extends StatelessWidget {
       titleWidget: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => Get.to(const SearchPage()),
-        child: Container(
-          height: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(17),
-            color: Theme.of(context).colorScheme.surface,
-          ),
-          child: TextField(
-            enabled: false,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                gapPadding: 0,
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none,
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(17),
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+                child: TextField(
+                  enabled: false,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      gapPadding: 0,
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: '搜索关键字或ID',
+                    prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 3),
+                    fillColor: Theme.of(context).colorScheme.surface,
+                    filled: true,
+                  ),
+                ),
               ),
-              hintText: '搜索关键字或ID',
-              prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 3),
-              fillColor: Theme.of(context).colorScheme.surface,
-              filled: true,
             ),
-          ),
+            const SizedBox(width: 20),
+            SizedBox(
+              height: 40,
+              child: MaterialButton(
+                elevation: 0,
+                color: const Color(0xFFFF6289),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: const [
+                    Icon(Icons.image, color: Colors.white, size: 14),
+                    TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
+                  ],
+                ),
+                onPressed: () async {
+                  ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
+                    if (null != picker) {
+                      picker.readAsBytes();
+                      Get.to(
+                        SearchImageResultPage(
+                          imageBytes: await picker.readAsBytes(),
+                          filename: picker.name,
+                        ),
+                      );
+                    }
+                  });
+                },
+              ),
+            ),
+          ],
         ),
       ),
       child: DataContent(

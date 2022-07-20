@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
@@ -20,6 +21,7 @@ import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/sliver_headerr/sliver_tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'comment/comment.dart';
 import 'controller.dart';
@@ -290,15 +292,21 @@ class IllustPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  TextWidget('插画ID: ${illust.id}'),
-                  const SizedBox(width: 5),
-                  const Icon(
-                    Icons.share_outlined,
-                    size: 12,
-                  ),
-                ],
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Share.share('[Pixiv Func]\n${illust.title}\n插画ID:${illust.id}\nhttps://www.pixiv.net/artworks/${illust.id}');
+                },
+                child: Row(
+                  children: [
+                    TextWidget('插画ID: ${illust.id}'),
+                    const SizedBox(width: 5),
+                    const Icon(
+                      Icons.share_outlined,
+                      size: 12,
+                    ),
+                  ],
+                ),
               ),
               if (controller.illust.caption.isNotEmpty)
                 GestureDetector(
@@ -336,8 +344,6 @@ class IllustPage extends StatelessWidget {
             ),
           ),
           Wrap(
-            runSpacing: 8,
-            spacing: 8,
             children: [
               for (final tag in illust.tags)
                 GestureDetector(
@@ -352,25 +358,29 @@ class IllustPage extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   child: Stack(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 9),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Get.theme.colorScheme.surface,
-                        ),
-                        child: TextWidget(
-                          '#${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}',
-                          fontSize: 14,
-                          forceStrutHeight: true,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 9),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Get.theme.colorScheme.surface,
+                          ),
+                          child: TextWidget(
+                            '#${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}',
+                            fontSize: 14,
+                            forceStrutHeight: true,
+                          ),
                         ),
                       ),
                       if (controller.blockMode)
                         Positioned(
-                          top: -2,
-                          right: -2,
+                          top: 0,
+                          right: 0,
                           child: Icon(
-                            controller.blockTagService.isBlocked(tag) ? Icons.close : Icons.check,
+                            AppIcons.blocked,
                             size: 15,
+                            color: controller.blockTagService.isBlocked(tag) ? Get.theme.colorScheme.primary : null,
                           ),
                         )
                     ],
@@ -442,13 +452,13 @@ class IllustPage extends StatelessWidget {
                     ],
                   ),
                 ),
+              BookmarkSwitchButton(
+                id: illust.id,
+                title: illust.title,
+                initValue: illust.isBookmarked,
+                isButton: false,
+              ),
             ],
-            floatingActionButton: BookmarkSwitchButton(
-              id: illust.id,
-              title: illust.title,
-              initValue: illust.isBookmarked,
-              floating: true,
-            ),
             child: NoScrollBehaviorWidget(
               child: ExtendedNestedScrollView(
                 onlyOneScrollInBody: true,

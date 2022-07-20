@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pixiv_func_mobile/pages/illust/id_search/id_search.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
@@ -9,6 +10,7 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import 'controller.dart';
+import 'result/image/search_image_result.dart';
 
 class SearchPage extends StatefulWidget {
   final String? initValue;
@@ -44,7 +46,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide.none,
                       ),
-                      hintText: '搜索',
+                      hintText: '搜索关键字或ID',
                       prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 3),
                       fillColor: Theme.of(context).colorScheme.surface,
@@ -73,7 +75,19 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                         TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
                       ],
                     ),
-                    onPressed: () => controller.onSearchImage(),
+                    onPressed: () {
+                      ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
+                        if (null != picker) {
+                          picker.readAsBytes();
+                          Get.to(
+                            SearchImageResultPage(
+                              imageBytes: await picker.readAsBytes(),
+                              filename: picker.name,
+                            ),
+                          );
+                        }
+                      });
+                    },
                   ),
                 ),
               ],

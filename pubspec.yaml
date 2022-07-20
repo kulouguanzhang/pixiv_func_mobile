@@ -36,6 +36,7 @@ dependencies:
   visibility_detector: ^0.3.3
   path: ^1.8.1
   uni_links2: ^0.6.0+2
+  share_plus: ^4.0.10
   pixiv_dart_api: ^2.0.5
 dev_dependencies:
   flutter_lints: ^2.0.1

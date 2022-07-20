@@ -13,7 +13,7 @@ class BookmarkSwitchButton extends StatelessWidget {
   final String title;
   final bool initValue;
   final bool isNovel;
-  final bool floating;
+  final bool isButton;
 
   const BookmarkSwitchButton({
     Key? key,
@@ -21,7 +21,7 @@ class BookmarkSwitchButton extends StatelessWidget {
     required this.title,
     required this.initValue,
     this.isNovel = false,
-    this.floating = false,
+    this.isButton = true,
   }) : super(key: key);
 
   void _restrictDialog() {
@@ -174,27 +174,6 @@ class BookmarkSwitchButton extends StatelessWidget {
         }
       },
       builder: (controller) {
-        if (floating) {
-          return GestureDetector(
-            onLongPress: () => controller.requesting || controller.isBookmarked ? null : _restrictDialog(),
-            child: FloatingActionButton(
-              backgroundColor: Get.theme.cardColor,
-              heroTag: 'IllustBookmarkButtonHero:$id',
-              onPressed: () => controller.requesting ? null : controller.changeBookmarkState(),
-              child: controller.requesting
-                  ? const CircularProgressIndicator()
-                  : controller.isBookmarked
-                      ? Icon(
-                          Icons.favorite_sharp,
-                          color: Theme.of(context).colorScheme.primary,
-                        )
-                      : Icon(
-                          Icons.favorite_outline_sharp,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-            ),
-          );
-        }
         if (controller.requesting) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -207,20 +186,40 @@ class BookmarkSwitchButton extends StatelessWidget {
             ),
           );
         } else {
-          return GestureDetector(
-            onLongPress: () => controller.requesting || controller.isBookmarked ? null : _restrictDialog(),
-            child: IconButton(
-              splashRadius: 20,
-              iconSize: 24,
-              onPressed: () => controller.changeBookmarkState(),
-              icon: controller.isBookmarked
-                  ? Icon(
-                      Icons.favorite_sharp,
-                      color: Theme.of(context).colorScheme.primary,
+          if (isButton) {
+            return GestureDetector(
+              onLongPress: () => controller.requesting || controller.isBookmarked ? null : _restrictDialog(),
+              child: IconButton(
+                splashRadius: 20,
+                iconSize: 24,
+                onPressed: () => controller.changeBookmarkState(),
+                icon: controller.isBookmarked
+                    ? Icon(
+                        Icons.favorite_sharp,
+                        color: Theme.of(context).colorScheme.primary,
+                      )
+                    : const Icon(Icons.favorite_outline_sharp),
+              ),
+            );
+          } else {
+            return GestureDetector(
+              onLongPress: () => controller.requesting || controller.isBookmarked ? null : _restrictDialog(),
+              onTap: () => controller.changeBookmarkState(),
+              child: controller.isBookmarked
+                  ? Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Icon(
+                        Icons.favorite_sharp,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 24,
+                      ),
                     )
-                  : const Icon(Icons.favorite_outline_sharp),
-            ),
-          );
+                  : const Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Icon(Icons.favorite_outline_sharp, size: 24),
+                    ),
+            );
+          }
         }
       },
     );

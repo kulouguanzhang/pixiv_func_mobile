@@ -77,11 +77,13 @@ class ScaffoldWidget extends StatelessWidget {
       appBar: appBar,
       body: child,
       floatingActionButton: floatingActionButton,
-      floatingActionButtonLocation: _CustomFloatingActionButtonLocation(
-        location: FloatingActionButtonLocation.endDocked,
-        offsetX: 0,
-        offsetY: -Get.height * 0.1,
-      ),
+      floatingActionButtonLocation: floatingActionButton != null
+          ? _CustomFloatingActionButtonLocation(
+              location: FloatingActionButtonLocation.endDocked,
+              offsetX: 0,
+              offsetY: -Get.height * 0.1,
+            )
+          : null,
     );
   }
 }

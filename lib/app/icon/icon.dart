@@ -16,4 +16,5 @@ class AppIcons {
   static const twitter = IconData(0xe90a, fontFamily: 'iconFont', matchTextDirection: true);
   static const web = IconData(0xe90b, fontFamily: 'iconFont', matchTextDirection: true);
   static const friend = IconData(0xe90c, fontFamily: 'iconFont', matchTextDirection: true);
+  static const blocked = IconData(0xe90d, fontFamily: 'iconFont', matchTextDirection: true);
 }

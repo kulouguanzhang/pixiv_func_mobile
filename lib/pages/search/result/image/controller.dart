@@ -99,8 +99,8 @@ class SearchImageResultController extends GetxController {
       }
       state = PageState.complete;
     }).catchError((e, s) {
-      if (e is DioError && DioErrorType.cancel == e.type) {
-        return;
+      if (e is DioError && e.response?.statusCode == HttpStatus.tooManyRequests) {
+        PlatformApi.toast('当前IP超过了saucenao未注册用户每日50次上限');
       }
       Log.e('搜索图片失败', e);
       state = PageState.error;
