@@ -8,7 +8,6 @@ import 'controller.dart';
 class UgoiraViewer extends StatelessWidget with RouteAware {
   final int id;
   final String previewUrl;
-  final String? heroTag;
 
   @override
   void didPopNext() {}
@@ -17,7 +16,6 @@ class UgoiraViewer extends StatelessWidget with RouteAware {
     Key? key,
     required this.id,
     required this.previewUrl,
-    this.heroTag,
   }) : super(key: key);
 
   @override
@@ -27,30 +25,26 @@ class UgoiraViewer extends StatelessWidget with RouteAware {
 
     return GetBuilder<UgoiraViewerController>(
       tag: controllerTag,
-      assignId: true,
       builder: (UgoiraViewerController controller) {
         final state = controller.state;
-        return Card(
-          child: state.init
-              ? GestureDetector(
-                  onLongPress: () => controller.save(),
-                  child: FrameGifWidget(
-                    id: id,
-                    previewUrl: previewUrl,
-                    images: state.images,
-                    delays: state.delays,
-                    size: state.size,
-                  ),
-                )
-              : GestureDetector(
-                  onTap: () => controller.play(),
-                  onLongPress: () => controller.save(),
-                  child: Hero(
-                    tag: heroTag ?? 'IllustHero:$id',
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        ImageFromUrl(
+        return state.init
+            ? FrameGifWidget(
+                id: id,
+                previewUrl: previewUrl,
+                images: state.images,
+                delays: state.delays,
+                size: state.size,
+              )
+            : GestureDetector(
+                onTap: () => controller.play(),
+                child: Hero(
+                  tag: 'IllustHero:$id',
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: ImageFromUrl(
                           previewUrl,
                           color: Get.isDarkMode ? Colors.black45 : Colors.white24,
                           colorBlendMode: BlendMode.srcOver,
@@ -60,13 +54,14 @@ class UgoiraViewer extends StatelessWidget with RouteAware {
                               child: CircularProgressIndicator(),
                             ),
                           ),
+                          fit: BoxFit.fitWidth,
                         ),
-                        state.loading ? const CircularProgressIndicator() : const Icon(Icons.play_circle_outline_outlined, size: 70),
-                      ],
-                    ),
+                      ),
+                      state.loading ? const CircularProgressIndicator() : const Icon(Icons.play_circle_outline_outlined, size: 70),
+                    ],
                   ),
                 ),
-        );
+              );
       },
     );
   }

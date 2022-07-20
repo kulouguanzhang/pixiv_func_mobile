@@ -67,7 +67,7 @@ class IllustCommentContent extends StatelessWidget {
         trailing: () {
           if (commentTree.data.hasReplies) {
             if (commentTree.loading) {
-              return  CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface);
+              return CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface);
             } else {
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
@@ -82,7 +82,7 @@ class IllustCommentContent extends StatelessWidget {
       final children = [
         for (final commentTree in commentTree.children) _buildCommentItem(commentTree),
         if (commentTree.loading)
-           Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Center(child: CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface)),
           )
@@ -138,7 +138,6 @@ class IllustCommentContent extends StatelessWidget {
     Get.put(IllustCommentController(id), tag: controllerTag);
     return GetBuilder<IllustCommentController>(
       tag: controllerTag,
-      assignId: true,
       builder: (IllustCommentController controller) {
         return Column(
           children: [

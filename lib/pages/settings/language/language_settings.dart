@@ -27,6 +27,7 @@ class LanguageSettingsPage extends StatelessWidget {
               Get.find<SettingsService>().language = value;
             }
           }
+
           return Column(
             children: [
               for (final item in items)

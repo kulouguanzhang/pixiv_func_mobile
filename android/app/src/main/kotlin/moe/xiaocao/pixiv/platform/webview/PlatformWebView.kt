@@ -123,8 +123,8 @@ class PlatformWebView(
                             try {
                                 messageChannel.send(
                                     mapOf(
-                                        "type" to "code",
-                                        "data" to uri.getQueryParameter("code")
+                                        "type" to "account",
+                                        "data" to uri.toString()
                                     )
                                 )
 
@@ -193,7 +193,7 @@ class PlatformWebView(
                 webView.loadUrl(call.argument<String>("url")!!, headers)
             }
             PlatformWebViewPlugin.methodEvaluateJavascript -> {
-                webView.evaluateJavascript(call.argument<String>("script")!!){
+                webView.evaluateJavascript(call.argument<String>("script")!!) {
                     result.success(it)
                 }
             }

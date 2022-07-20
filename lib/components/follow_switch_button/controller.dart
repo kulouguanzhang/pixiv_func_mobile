@@ -8,6 +8,10 @@ class FollowSwitchButtonController extends GetxController {
 
   FollowSwitchButtonController(this.id, {required bool initValue}) : _isFollowed = initValue;
 
+  Restrict _restrict = Restrict.public;
+
+  Restrict get restrict => _restrict;
+
   bool _isFollowed;
 
   bool _requesting = false;
@@ -15,6 +19,13 @@ class FollowSwitchButtonController extends GetxController {
   bool get isFollowed => _isFollowed;
 
   bool get requesting => _requesting;
+
+  void restrictOnChanged(Restrict? value) {
+    if (value != null) {
+      _restrict = value;
+      update();
+    }
+  }
 
   void changeFollowState({bool isChange = false, Restrict restrict = Restrict.public}) {
     _requesting = true;

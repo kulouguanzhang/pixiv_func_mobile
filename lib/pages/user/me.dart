@@ -203,7 +203,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
             ),
           ),
         ],
-        child:(){
+        child: () {
           if (PageState.loading == controller.state) {
             return Container(
               alignment: Alignment.center,
@@ -218,61 +218,61 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                 child: const TextWidget('加载失败,点击重试', fontSize: 16),
               ),
             );
-          } else{
-            return  NoScrollBehaviorWidget(
+          } else {
+            return NoScrollBehaviorWidget(
               child: ExtendedNestedScrollView(
                 headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
                   _buildAppBar(),
                   SliverPersistentHeader(
                     delegate: SliverHeader(
                         child: PreferredSize(
-                          preferredSize: const Size.fromHeight(kToolbarHeight),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                height: 0.5,
-                                color: const Color(0xFF373737),
+                      preferredSize: const Size.fromHeight(kToolbarHeight),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 0.5,
+                            color: const Color(0xFF373737),
+                          ),
+                          TabBarWidget(
+                            physics: const NeverScrollableScrollPhysics(),
+                            onTap: controller.tabIndexOnChanged,
+                            controller: controller.tabController,
+                            indicatorMinWidth: 15,
+                            labelColor: Theme.of(context).colorScheme.primary,
+                            unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+                            indicator: const RRecTabIndicator(
+                              radius: 4,
+                              insets: EdgeInsets.only(bottom: 5),
+                            ),
+                            tabs: [
+                              TabWidget(
+                                text: '收藏',
+                                icon: controller.tabController.index == 0
+                                    ? controller.expandTypeSelector
+                                        ? const Icon(Icons.keyboard_arrow_up, size: 12)
+                                        : const Icon(Icons.keyboard_arrow_down, size: 12)
+                                    : null,
                               ),
-                              TabBarWidget(
-                                physics: const NeverScrollableScrollPhysics(),
-                                onTap: controller.tabIndexOnChanged,
-                                controller: controller.tabController,
-                                indicatorMinWidth: 15,
-                                labelColor: Theme.of(context).colorScheme.primary,
-                                unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
-                                indicator: const RRecTabIndicator(
-                                  radius: 4,
-                                  insets: EdgeInsets.only(bottom: 5),
-                                ),
-                                tabs: [
-                                  TabWidget(
-                                    text: '收藏',
-                                    icon: controller.tabController.index == 0
-                                        ? controller.expandTypeSelector
+                              const TabWidget(
+                                text: '关注',
+                              ),
+                              const TabWidget(
+                                text: '粉丝',
+                              ),
+                              TabWidget(
+                                text: '作品',
+                                icon: controller.tabController.index == 3
+                                    ? controller.expandTypeSelector
                                         ? const Icon(Icons.keyboard_arrow_up, size: 12)
                                         : const Icon(Icons.keyboard_arrow_down, size: 12)
-                                        : null,
-                                  ),
-                                  const TabWidget(
-                                    text: '关注',
-                                  ),
-                                  const TabWidget(
-                                    text: '粉丝',
-                                  ),
-                                  TabWidget(
-                                    text: '作品',
-                                    icon: controller.tabController.index == 3
-                                        ? controller.expandTypeSelector
-                                        ? const Icon(Icons.keyboard_arrow_up, size: 12)
-                                        : const Icon(Icons.keyboard_arrow_down, size: 12)
-                                        : null,
-                                  ),
-                                ],
+                                    : null,
                               ),
                             ],
                           ),
-                        )),
+                        ],
+                      ),
+                    )),
                     pinned: true,
                   )
                 ],
@@ -302,7 +302,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
               ),
             );
           }
-        }() ,
+        }(),
       ),
     );
   }

@@ -29,7 +29,7 @@ class SearchImageResultPage extends StatelessWidget {
         child: const SizedBox(
           height: 180,
           child: Center(
-            child: TextWidget('加载失败,点击重试',fontSize: 16),
+            child: TextWidget('加载失败,点击重试', fontSize: 16),
           ),
         ),
       );

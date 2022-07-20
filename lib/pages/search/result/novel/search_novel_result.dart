@@ -22,7 +22,6 @@ class SearchNovelResultPage extends StatelessWidget {
     Get.put(SearchNovelResultController(keyword), tag: controllerTag);
     return GetBuilder<SearchNovelResultController>(
       tag: controllerTag,
-      assignId: true,
       builder: (controller) => ScaffoldWidget(
         automaticallyImplyLeading: false,
         titleWidget: SizedBox(

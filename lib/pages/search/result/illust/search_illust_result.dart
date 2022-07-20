@@ -26,7 +26,6 @@ class SearchIllustResultPage extends StatelessWidget {
     Get.put(SearchFilterEditorController(controller.onFilterChanged), tag: 'SearchFilterEditorWidget-$keyword');
     return GetBuilder<SearchIllustResultController>(
       tag: controllerTag,
-      assignId: true,
       builder: (controller) => ScaffoldWidget(
         automaticallyImplyLeading: false,
         titleWidget: SizedBox(
@@ -36,7 +35,7 @@ class SearchIllustResultPage extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: () => controller.back(),
+                  onTap: () => controller.back(edit: true),
                   child: TextField(
                     enabled: false,
                     controller: TextEditingController(text: keyword),

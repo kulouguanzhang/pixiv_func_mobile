@@ -73,7 +73,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                         TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
                       ],
                     ),
-                    onPressed: () =>controller.onSearchImage(),
+                    onPressed: () => controller.onSearchImage(),
                   ),
                 ),
               ],
@@ -105,7 +105,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                           if (controller.inputIsNotEmpty)
                             if (controller.inputIsNumber)
                               ListTile(
-                                onTap: () => Get.to(IllustIdSearch(id: controller.inputAsNumber)),
+                                onTap: () => Get.to(IllustIdSearchPage(id: controller.inputAsNumber)),
                                 title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
                                 subtitle: const TextWidget('插画ID', fontSize: 12),
                               )

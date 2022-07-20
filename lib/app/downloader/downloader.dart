@@ -41,6 +41,8 @@ class Downloader {
       }
       if (Get.isRegistered<IllustController>(tag: 'IllustPage-${message.id}')) {
         Get.find<IllustController>(tag: 'IllustPage-${message.id}').downloadComplete(message.index, saveResult);
+      } else {
+        PlatformApi.toast('没有IllustId为:${message.id}的控制器');
       }
       if (saveResult) {
         PlatformApi.toast('保存成功');

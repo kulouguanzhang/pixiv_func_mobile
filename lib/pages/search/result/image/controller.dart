@@ -88,8 +88,6 @@ class SearchImageResultController extends GetxController {
       resultList.clear();
       resultList.addAll(tempList);
 
-
-
       for (final result in resultList) {
         list.add(SearchImageItem(result));
       }

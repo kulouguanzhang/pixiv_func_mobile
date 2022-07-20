@@ -94,7 +94,7 @@ class AboutPage extends StatelessWidget {
             const Divider(),
             _buildItem(onTap: () => controller.action(1), title: '获取帮助'),
             const Divider(),
-            _buildItem(onTap: () =>controller.action(2), title: '当前版本:${controller.appVersion ?? '正在获取...'}'),
+            _buildItem(onTap: () => controller.action(2), title: '当前版本:${controller.appVersion ?? '正在获取...'}'),
             const Divider(),
             _buildItem(onTap: () => controller.action(3), title: '打开标签页'),
             const Divider(),

@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_mobile/pages/illust/controller.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 
@@ -93,7 +94,8 @@ class UgoiraViewerController extends GetxController {
       state.images.add(await _loadImage(imageBytes));
       if (!init) {
         init = true;
-        final previewWidth = state.images.first.width > Get.mediaQuery.size.width ? Get.mediaQuery.size.width : state.images.first.width.toDouble();
+        final previewWidth = Get.mediaQuery.size.width;
+
         final previewHeight = previewWidth / state.images.first.width * state.images.first.height.toDouble();
         state.size = ui.Size(previewWidth, previewHeight.toDouble());
       }
@@ -129,12 +131,15 @@ class UgoiraViewerController extends GetxController {
         state.loading = false;
         update();
         PlatformApi.toast('开始合成图片 共${state.imageFiles.length}帧');
-        final result = await PlatformApi.saveGifImage(id, state.imageFiles, state.delays);
-
-        if (null == result) {
+        final saveResult = await PlatformApi.saveGifImage(id, state.imageFiles, state.delays);
+        if (null == saveResult) {
           PlatformApi.toast('图片已存在');
+          return;
+        }
+        if (Get.isRegistered<IllustController>(tag: 'IllustPage-$id')) {
+          Get.find<IllustController>(tag: 'IllustPage-$id').downloadComplete(0, saveResult);
         } else {
-          if (result) {
+          if (saveResult) {
             PlatformApi.toast('保存成功');
           } else {
             PlatformApi.toast('保存失败');

@@ -63,6 +63,7 @@ class NovelPreviewer extends StatelessWidget {
                           ),
                           BookmarkSwitchButton(
                             id: novel.id,
+                            title: novel.title,
                             initValue: novel.isBookmarked,
                             isNovel: true,
                           ),

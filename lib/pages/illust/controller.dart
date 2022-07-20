@@ -5,8 +5,10 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_dart_api/model/tag.dart';
 import 'package:pixiv_dart_api/vo/comment_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/data/block_tag_service.dart';
 import 'package:pixiv_func_mobile/app/data/history_service.dart';
 import 'package:pixiv_func_mobile/app/data/settings_service.dart';
 import 'package:pixiv_func_mobile/app/downloader/downloader.dart';
@@ -15,6 +17,7 @@ import 'package:pixiv_func_mobile/models/comment_tree.dart';
 import 'package:pixiv_func_mobile/models/illust_save_state.dart';
 import 'package:pixiv_func_mobile/pages/illust/comment/source.dart';
 import 'package:pixiv_func_mobile/pages/illust/related/source.dart';
+import 'package:pixiv_func_mobile/pages/illust/ugoira_viewer/controller.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 
 class IllustController extends GetxController {
@@ -63,12 +66,34 @@ class IllustController extends GetxController {
 
   bool get downloadMode => _downloadMode;
 
+  bool _shieldMode = false;
+
+  bool get blockMode => _shieldMode;
+
+  final Map<int, IllustSaveState> illustStates = {};
+
+  final BlockTagService blockTagService = Get.find();
+
   void downloadModeChangeState() {
     _downloadMode = !_downloadMode;
     update();
   }
 
-  final Map<int, IllustSaveState> illustStates = {};
+  void blockModeChangeState() {
+    _shieldMode = !_shieldMode;
+    update();
+  }
+
+  void blockTagChangeState(Tag tag) {
+    if (blockTagService.isBlocked(tag)) {
+      blockTagService.remove(tag);
+      PlatformApi.toast('解除屏蔽:${tag.name}');
+    } else {
+      blockTagService.add(tag);
+      PlatformApi.toast('屏蔽标签:${tag.name}');
+    }
+    update();
+  }
 
   void loadFirstReplies(CommentTree commentTree) {
     commentTree.loading = true;
@@ -151,18 +176,28 @@ class IllustController extends GetxController {
   }
 
   void initIllustStates() async {
-    final urls = <String>[];
-    if (illust.pageCount > 1) {
-      urls.addAll(illust.metaPages.map((e) => e.imageUrls.original!));
+    if (illust.isUgoira) {
+      illustStates[0] = await PlatformApi.imageIsExist('${illust.id}.gif') ? IllustSaveState.exist : IllustSaveState.none;
     } else {
-      urls.add(illust.metaSinglePage.originalImageUrl!);
-    }
-    for (int i = 0; i < urls.length; ++i) {
-      final url = urls[i];
-      final filename = url.substring(url.lastIndexOf('/') + 1);
+      final urls = <String>[];
+      if (illust.pageCount > 1) {
+        urls.addAll(illust.metaPages.map((e) => e.imageUrls.original!));
+      } else {
+        urls.add(illust.metaSinglePage.originalImageUrl!);
+      }
+      for (int i = 0; i < urls.length; ++i) {
+        final url = urls[i];
+        final filename = url.substring(url.lastIndexOf('/') + 1);
 
-      illustStates[i] = await PlatformApi.imageIsExist(filename) ? IllustSaveState.exist : IllustSaveState.none;
+        illustStates[i] = await PlatformApi.imageIsExist(filename) ? IllustSaveState.exist : IllustSaveState.none;
+      }
     }
+  }
+
+  void downloadGif() {
+    Get.find<UgoiraViewerController>(tag: 'UgoiraViewer-${illust.id}').save();
+    illustStates[0] = IllustSaveState.downloading;
+    update();
   }
 
   void download(int index) {

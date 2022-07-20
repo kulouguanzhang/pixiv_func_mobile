@@ -16,7 +16,6 @@ class LoginWebViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(LoginWebViewController(create));
     return GetBuilder<LoginWebViewController>(
-      assignId: true,
       builder: (controller) => ScaffoldWidget(
         actions: [
           if (controller.isLoginPage)
@@ -36,7 +35,7 @@ class LoginWebViewPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Row(
                               children: const [
-                                TextWidget('剪切板', fontSize: 18, color: Color(0xFF383838), isBold: true),
+                                TextWidget('剪贴板', fontSize: 18, color: Color(0xFF383838), isBold: true),
                               ],
                             ),
                           ),

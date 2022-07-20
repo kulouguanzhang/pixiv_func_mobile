@@ -12,6 +12,7 @@ class ScaffoldWidget extends StatelessWidget {
   final bool automaticallyImplyLeading;
   final Widget? child;
   final Widget? floatingActionButton;
+
   const ScaffoldWidget({
     Key? key,
     this.title,
@@ -42,9 +43,7 @@ class ScaffoldWidget extends StatelessWidget {
       appBar = AppBar(
         elevation: 0,
         toolbarHeight: 0,
-        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false)
-            ? _backButton()
-            : null,
+        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false) ? _backButton() : null,
         automaticallyImplyLeading: false,
       );
     } else if (null != titleWidget) {
@@ -52,9 +51,7 @@ class ScaffoldWidget extends StatelessWidget {
         elevation: 0,
         title: titleWidget,
         centerTitle: centerTitle,
-        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false)
-            ? _backButton()
-            : null,
+        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false) ? _backButton() : null,
         actions: actions,
         automaticallyImplyLeading: false,
       );
@@ -63,18 +60,14 @@ class ScaffoldWidget extends StatelessWidget {
         elevation: 0,
         title: TextWidget(title!),
         centerTitle: centerTitle,
-        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false)
-            ? _backButton()
-            : null,
+        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false) ? _backButton() : null,
         actions: actions,
         automaticallyImplyLeading: false,
       );
     } else {
       appBar = AppBar(
         elevation: 0,
-        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false)
-            ? _backButton()
-            : null,
+        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false) ? _backButton() : null,
         actions: actions,
         automaticallyImplyLeading: false,
       );
@@ -84,6 +77,29 @@ class ScaffoldWidget extends StatelessWidget {
       appBar: appBar,
       body: child,
       floatingActionButton: floatingActionButton,
+      floatingActionButtonLocation: _CustomFloatingActionButtonLocation(
+        location: FloatingActionButtonLocation.endDocked,
+        offsetX: 0,
+        offsetY: -Get.height * 0.1,
+      ),
     );
+  }
+}
+
+class _CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
+  FloatingActionButtonLocation location;
+  double offsetX;
+  double offsetY;
+
+  _CustomFloatingActionButtonLocation({
+    required this.location,
+    required this.offsetX,
+    required this.offsetY,
+  });
+
+  @override
+  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
+    Offset offset = location.getOffset(scaffoldGeometry);
+    return Offset(offset.dx + offsetX, offset.dy + offsetY);
   }
 }

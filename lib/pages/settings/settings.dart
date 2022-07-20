@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/pages/about/about.dart';
 import 'package:pixiv_func_mobile/pages/account/account.dart';
+import 'package:pixiv_func_mobile/pages/block_tag/block_tag.dart';
 import 'package:pixiv_func_mobile/pages/download_manager/download_manager.dart';
 import 'package:pixiv_func_mobile/pages/history/history.dart';
 import 'package:pixiv_func_mobile/pages/settings/image_source/image_source_settings.dart';
@@ -19,7 +20,7 @@ class SettingsPage extends StatelessWidget {
   Widget _buildItem({required VoidCallback onTap, required String title}) {
     return ListTile(
       onTap: onTap,
-      title: TextWidget(title, fontSize: 16,isBold: true),
+      title: TextWidget(title, fontSize: 16, isBold: true),
       trailing: const Icon(Icons.arrow_forward_ios),
     );
   }
@@ -43,13 +44,13 @@ class SettingsPage extends StatelessWidget {
             _buildItem(onTap: () => Get.to(const PreviewQualitySettingsPage()), title: '预览质量'),
             _buildItem(onTap: () => Get.to(const ScaleQualitySettingsPage()), title: '缩放质量'),
             const Divider(),
-            _buildItem(onTap: () {}, title: '标签管理'),
+            _buildItem(onTap: () => Get.to(const BlockTagPage()), title: '屏蔽标签管理'),
             const Divider(),
             _buildItem(onTap: () => Get.to(const DownloadManagerPage()), title: '下载任务'),
             const Divider(),
             _buildItem(onTap: () => Get.to(const HistoryPage()), title: '浏览记录'),
             const Divider(),
-            _buildItem(onTap: () =>Get.to(const AboutPage()), title: '关于'),
+            _buildItem(onTap: () => Get.to(const AboutPage()), title: '关于'),
             const Divider(),
           ],
         ),

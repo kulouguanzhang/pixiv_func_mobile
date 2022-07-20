@@ -28,6 +28,7 @@ class ImageSourceSettingsPage extends StatelessWidget {
               Get.find<SettingsService>().imageSource = value;
             }
           }
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

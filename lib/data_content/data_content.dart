@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_mobile/components/loading_more_indicator/loading_more_indicator.dart';
-import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
+import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 import 'data_source_base.dart';
@@ -42,7 +42,7 @@ class _DataContentState<T> extends State<DataContent<T>> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.pullToRefresh){
+    if (widget.pullToRefresh) {
       return PullToRefreshNotification(
         onRefresh: () async => await sourceList.refresh(true),
         maxDragOffset: 100,
@@ -69,8 +69,8 @@ class _DataContentState<T> extends State<DataContent<T>> {
           ),
         ),
       );
-    }else {
-     return LoadingMoreList(
+    } else {
+      return LoadingMoreList(
         ListConfig(
           padding: widget.padding,
           showGlowLeading: false,
@@ -81,11 +81,10 @@ class _DataContentState<T> extends State<DataContent<T>> {
           extendedListDelegate: widget.extendedListDelegate,
           gridDelegate: widget.gridDelegate,
           itemCountBuilder: (int count) => sourceList.length,
-          indicatorBuilder: (BuildContext context, IndicatorStatus status) =>
-              LoadingMoreIndicator(
-                status: status,
-                errorRefresh: () async => await sourceList.errorRefresh(),
-              ),
+          indicatorBuilder: (BuildContext context, IndicatorStatus status) => LoadingMoreIndicator(
+            status: status,
+            errorRefresh: () async => await sourceList.errorRefresh(),
+          ),
         ),
       );
     }

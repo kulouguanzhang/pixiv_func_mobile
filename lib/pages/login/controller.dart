@@ -43,7 +43,7 @@ class LoginController extends GetxController {
       Get.offAll(const HomePage());
       PlatformApi.toast('登录成功');
     } catch (e) {
-      PlatformApi.toast('剪切板数据不是有效的账号数据');
+      PlatformApi.toast('剪贴板数据不是有效的账号数据');
     }
   }
 }

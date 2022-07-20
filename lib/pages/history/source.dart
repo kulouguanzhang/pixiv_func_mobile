@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_func_mobile/app/data/history_service.dart';
-
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/data_content/data_source_base.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';

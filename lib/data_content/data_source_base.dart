@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
+import 'package:pixiv_func_mobile/app/data/block_tag_service.dart';
 
 abstract class DataSourceBase<T> extends LoadingMoreBase<T> {
+  final BlockTagService blockTagService = Get.find();
   bool initData = false;
   String? nextUrl;
 
@@ -21,11 +24,11 @@ abstract class DataSourceBase<T> extends LoadingMoreBase<T> {
   Future<bool> loadData([bool isLoadMoreAction = false]) async {
     try {
       if (!initData) {
-        addAll(await init(_cancelToken));
+        addAll(blockTagService.noBlockedList(await init(_cancelToken)));
         initData = true;
       } else {
         if (hasMore) {
-          addAll(await next(_cancelToken));
+          addAll(blockTagService.noBlockedList(await next(_cancelToken)));
         }
       }
       return true;

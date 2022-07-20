@@ -109,6 +109,8 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
             const SizedBox(height: 10),
             FollowSwitchButton(
               id: user.id,
+              userName: user.name,
+              userAccount: user.account,
               initValue: user.isFollowed,
             ),
             const SizedBox(height: 10),

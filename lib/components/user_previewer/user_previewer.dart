@@ -51,6 +51,8 @@ class UserPreviewer extends StatelessWidget {
                 ),
                 FollowSwitchButton(
                   id: userPreview.user.id,
+                  userName: userPreview.user.name,
+                  userAccount: userPreview.user.account,
                   initValue: userPreview.user.isFollowed!,
                 ),
               ],

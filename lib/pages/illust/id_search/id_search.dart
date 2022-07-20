@@ -7,16 +7,15 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 import 'controller.dart';
 
-class IllustIdSearch extends StatelessWidget {
+class IllustIdSearchPage extends StatelessWidget {
   final int id;
 
-  const IllustIdSearch({Key? key, required this.id}) : super(key: key);
+  const IllustIdSearchPage({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Get.put(IllustIdSearchController(id));
     return GetBuilder<IllustIdSearchController>(
-      assignId: true,
       builder: (controller) {
         if (PageState.loading == controller.state) {
           return ScaffoldWidget(

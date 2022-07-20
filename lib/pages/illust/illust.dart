@@ -53,7 +53,7 @@ class IllustPage extends StatelessWidget {
                     : Colors.white24
                 : null,
             colorBlendMode: controller.downloadMode ? BlendMode.srcOver : null,
-            placeholderWidget:  SizedBox(
+            placeholderWidget: SizedBox(
               height: 200,
               child: Center(
                 child: CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface),
@@ -135,6 +135,92 @@ class IllustPage extends StatelessWidget {
     return 0 == index ? Hero(tag: 'IllustHero:$id', child: widget) : widget;
   }
 
+  Widget _buildUgoiraViewer({
+    required int id,
+    required String previewUrl,
+  }) {
+    final controller = Get.find<IllustController>(tag: controllerTag);
+    return GestureDetector(
+      onLongPress: () => controller.downloadModeChangeState(),
+      child: Stack(
+        children: [
+          UgoiraViewer(
+            id: id,
+            previewUrl: previewUrl,
+          ),
+          if (controller.downloadMode)
+            Positioned(
+              top: 20,
+              right: 20,
+              child: () {
+                switch (controller.illustStates[0]) {
+                  case IllustSaveState.none:
+                    return GestureDetector(
+                      onTap: () => controller.downloadGif(),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Get.theme.colorScheme.background,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Icon(
+                          Icons.file_download_outlined,
+                          size: 30,
+                        ),
+                      ),
+                    );
+                  case IllustSaveState.downloading:
+                    return Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Get.theme.colorScheme.background,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      alignment: Alignment.center,
+                      child: const SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  case IllustSaveState.error:
+                    return GestureDetector(
+                      onTap: () => controller.downloadGif(),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Get.theme.colorScheme.background,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Icon(
+                          Icons.file_download_outlined,
+                          size: 30,
+                        ),
+                      ),
+                    );
+                  case IllustSaveState.exist:
+                    return Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Get.theme.colorScheme.background,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Icon(
+                        Icons.check,
+                        color: Get.theme.colorScheme.primary,
+                        size: 30,
+                      ),
+                    );
+                  default:
+                    return const SizedBox();
+                }
+              }(),
+            ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildImageDetail() {
     final controller = Get.find<IllustController>(tag: controllerTag);
     return Padding(
@@ -170,6 +256,8 @@ class IllustPage extends StatelessWidget {
               ),
               FollowSwitchButton(
                 id: illust.user.id,
+                userName: illust.user.name,
+                userAccount: illust.user.account,
                 initValue: illust.user.isFollowed!,
               ),
             ],
@@ -253,16 +341,39 @@ class IllustPage extends StatelessWidget {
             children: [
               for (final tag in illust.tags)
                 GestureDetector(
-                  onTap: () => Get.to(SearchIllustResultPage(keyword: tag.name)),
+                  onTap: () {
+                    if (controller.blockMode) {
+                      controller.blockTagChangeState(tag);
+                    } else {
+                      Get.to(SearchIllustResultPage(keyword: tag.name));
+                    }
+                  },
+                  onLongPress: () => controller.blockModeChangeState(),
                   behavior: HitTestBehavior.opaque,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 9),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Get.theme.colorScheme.surface,
-                    ),
-                    child: TextWidget('#${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}',
-                        fontSize: 14, forceStrutHeight: true),
+                  child: Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 9),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Get.theme.colorScheme.surface,
+                        ),
+                        child: TextWidget(
+                          '#${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}',
+                          fontSize: 14,
+                          forceStrutHeight: true,
+                        ),
+                      ),
+                      if (controller.blockMode)
+                        Positioned(
+                          top: -2,
+                          right: -2,
+                          child: Icon(
+                            controller.blockTagService.isBlocked(tag) ? Icons.close : Icons.check,
+                            size: 15,
+                          ),
+                        )
+                    ],
                   ),
                 ),
             ],
@@ -277,7 +388,6 @@ class IllustPage extends StatelessWidget {
     Get.put(IllustController(illust), tag: controllerTag);
     return GetBuilder<IllustController>(
       tag: controllerTag,
-      assignId: true,
       builder: (controller) => DefaultTabController(
         length: 2,
         child: GestureDetector(
@@ -335,6 +445,7 @@ class IllustPage extends StatelessWidget {
             ],
             floatingActionButton: BookmarkSwitchButton(
               id: illust.id,
+              title: illust.title,
               initValue: illust.isBookmarked,
               floating: true,
             ),
@@ -344,7 +455,7 @@ class IllustPage extends StatelessWidget {
                 headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
                   if (illust.isUgoira)
                     SliverToBoxAdapter(
-                      child: UgoiraViewer(
+                      child: _buildUgoiraViewer(
                         id: illust.id,
                         previewUrl: Utils.getPreviewUrl(illust.imageUrls),
                       ),

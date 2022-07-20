@@ -146,7 +146,6 @@ class SearchFilterEditorWidget extends StatelessWidget {
     Get.put(SearchFilterEditorController(onFilterChanged), tag: controllerTag);
     return GetBuilder<SearchFilterEditorController>(
       tag: controllerTag,
-      assignId: true,
       builder: (controller) => ExpandablePanel(
         controller: expandableController,
         collapsed: const SizedBox(),

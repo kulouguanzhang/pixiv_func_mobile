@@ -41,9 +41,7 @@ class FrameGifWidget extends StatelessWidget with RouteAware {
     final controller = Get.put(FrameGifController(images, delays), tag: controllerTag);
     return GetBuilder<FrameGifController>(
       tag: controllerTag,
-      assignId: true,
-      didChangeDependencies: (state) {
-      },
+      didChangeDependencies: (state) {},
       dispose: (state) {
         controller.stop();
         Get.delete<FrameGifController>(tag: controllerTag);
@@ -55,24 +53,27 @@ class FrameGifWidget extends StatelessWidget with RouteAware {
             tag: heroTag ?? 'IllustHero:$id',
             child: GestureDetector(
               onTap: () => controller.pauseStateChange(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CustomPaint(
-                    size: size,
-                    painter: _GifPainter(
-                      controller.images,
-                      delays: controller.delays,
-                      indexValueNotifier: controller.indexValueNotifier,
-                      pauseValueNotifier: controller.pauseValueNotifier,
+              child: SizedBox(
+                width: double.infinity,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CustomPaint(
                       size: size,
+                      painter: _GifPainter(
+                        controller.images,
+                        delays: controller.delays,
+                        indexValueNotifier: controller.indexValueNotifier,
+                        pauseValueNotifier: controller.pauseValueNotifier,
+                        size: size,
+                      ),
                     ),
-                  ),
-                  Visibility(
-                    visible: controller.isPause,
-                    child: const Icon(Icons.play_circle_outline_outlined, size: 70),
-                  )
-                ],
+                    Visibility(
+                      visible: controller.isPause,
+                      child: const Icon(Icons.play_circle_outline_outlined, size: 70),
+                    )
+                  ],
+                ),
               ),
             ),
           );

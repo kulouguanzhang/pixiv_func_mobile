@@ -23,7 +23,6 @@ class PlatformWebView extends StatelessWidget {
     Get.put(PlatformWebViewController(onMessageHandler, onCreated), tag: tag);
     return GetBuilder<PlatformWebViewController>(
       tag: tag,
-      assignId: true,
       builder: (controller) => WillPopScope(
           child: Column(
             children: [

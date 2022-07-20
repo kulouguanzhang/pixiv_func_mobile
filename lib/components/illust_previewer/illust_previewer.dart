@@ -64,10 +64,16 @@ class IllustPreviewer extends StatelessWidget {
                 ),
               ),
             if (illust.isUgoira)
-              const Positioned(
+              Positioned(
                 left: 7,
                 bottom: 7,
-                child: Icon(Icons.gif_box_outlined, color: Color(0xFF606163)),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: const Color(0x99343838),
+                  ),
+                  child: Icon(Icons.gif_box_outlined, color: Colors.white, size: 30),
+                ),
               ),
             if (pageCount > 1)
               Positioned(
@@ -76,7 +82,7 @@ class IllustPreviewer extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(7.5),
-                    color: const Color(0x40383838),
+                    color: const Color(0x99343838),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -155,6 +161,7 @@ class IllustPreviewer extends StatelessWidget {
               ),
               BookmarkSwitchButton(
                 id: illust.id,
+                title: illust.title,
                 initValue: illust.isBookmarked,
               ),
             ],
