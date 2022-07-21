@@ -326,9 +326,11 @@ packages:
   extended_sliver:
     dependency: "direct main"
     description:
-      name: extended_sliver
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "9897259c1a654ac8e6fc85f336d08b6f09da3739"
+      url: "https://github.com/git-xiaocao/extended_sliver.git"
+    source: git
     version: "2.1.3"
   ffi:
     dependency: transitive
