@@ -8,6 +8,7 @@ import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/download_task.dart';
 import 'package:pixiv_func_mobile/pages/illust/controller.dart';
+import 'package:pixiv_func_mobile/utils/log.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 
 import 'download_manager_controller.dart';
@@ -42,7 +43,7 @@ class Downloader {
       if (Get.isRegistered<IllustController>(tag: 'IllustPage-${message.id}')) {
         Get.find<IllustController>(tag: 'IllustPage-${message.id}').downloadComplete(message.index, saveResult);
       } else {
-        PlatformApi.toast('没有IllustId为:${message.id}的控制器');
+        Log.i('没有IllustId为:${message.id}的控制器');
       }
       if (saveResult) {
         PlatformApi.toast('保存成功');
