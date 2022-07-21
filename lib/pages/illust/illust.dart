@@ -359,7 +359,7 @@ class IllustPage extends StatelessWidget {
                   child: Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 9),
                           decoration: BoxDecoration(

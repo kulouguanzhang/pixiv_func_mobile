@@ -2,7 +2,7 @@ name: pixiv_func_mobile
 description: Pixiv 第三方客户端
 
 publish_to: 'none'
-version: 1.0.0-beta8+14
+version: 1.0.0-beta9+14
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
@@ -38,6 +38,9 @@ dependencies:
   path: ^1.8.1
   uni_links2: ^0.6.0+2
   share_plus: ^4.0.10
+  path_provider: ^2.0.11
+  app_installer: ^1.1.0
+  flutter_local_notifications: ^9.7.0
   pixiv_dart_api: ^2.0.5
 dev_dependencies:
   flutter_lints: ^2.0.1

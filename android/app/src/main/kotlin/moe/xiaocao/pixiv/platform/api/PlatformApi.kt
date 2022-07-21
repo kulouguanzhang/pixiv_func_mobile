@@ -1,17 +1,12 @@
 package moe.xiaocao.pixiv.platform.api
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
-import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import com.waynejo.androidndkgif.GifEncoder
-import moe.xiaocao.pixiv.update.DownloadManagerUtil
 import moe.xiaocao.pixiv.util.forEachEntry
 import moe.xiaocao.pixiv.util.imageIsExist
 import moe.xiaocao.pixiv.util.saveImage
@@ -115,17 +110,6 @@ class PlatformApi(private val context: Context) {
         }
     }
 
-    fun updateApp(url: String, versionTag: String): Boolean {
-        return DownloadManagerUtil(context).run {
-            checkDownloadManagerEnable().also {
-                if (it) {
-                    download(url, versionTag)
-                } else {
-                    Log.i("PlatformApi", "下载管理器被禁用")
-                }
-            }
-        }
-    }
 
 
     enum class Method(val value: String) {
@@ -138,6 +122,5 @@ class PlatformApi(private val context: Context) {
         GET_APP_VERSION_NAME("getAppVersionName"),
         GET_APP_VERSION_CODE("getAppVersionCode"),
         URL_LAUNCH("urlLaunch"),
-        UPDATE_APP("updateApp"),
     }
 }

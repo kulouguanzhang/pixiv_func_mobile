@@ -91,6 +91,4 @@ class SearchController extends GetxController {
       Log.e('关键字自动补全失败', e);
     });
   }
-
-
 }

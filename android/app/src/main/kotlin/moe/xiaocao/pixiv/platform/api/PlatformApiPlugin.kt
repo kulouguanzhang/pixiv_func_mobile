@@ -86,14 +86,6 @@ class PlatformApiPlugin(context: Context) : FlutterPlugin,
             PlatformApi.Method.URL_LAUNCH.value -> {
                 result.success(api.urlLaunch(call.argument<String>("url")!!))
             }
-            PlatformApi.Method.UPDATE_APP.value -> {
-                result.success(
-                    api.updateApp(
-                        call.argument<String>("url")!!,
-                        call.argument<String>("versionTag")!!,
-                    )
-                )
-            }
             else -> {
                 result.notImplemented()
             }

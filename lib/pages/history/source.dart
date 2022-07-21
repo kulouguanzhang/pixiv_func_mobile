@@ -54,7 +54,7 @@ class HistoryListSource extends DataSourceBase<Illust> {
   }
 
   @override
-  Future<List<Illust>> next(CancelToken cancelToken) async{
+  Future<List<Illust>> next(CancelToken cancelToken) async {
     final result = await historyService.query(offset, _limit);
     offset += result.length;
     return result;

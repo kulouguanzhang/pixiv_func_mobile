@@ -91,17 +91,6 @@ class PlatformApi {
     });
     return result as bool;
   }
-
-  static Future<bool> updateApp(String url, String versionTag) async {
-    final result = await _channel.invokeMethod(
-      _Method.updateApp,
-      {
-        'url': url,
-        'versionTag': versionTag,
-      },
-    );
-    return result as bool;
-  }
 }
 
 class _Method {
@@ -114,5 +103,4 @@ class _Method {
   static const getAppVersionName = 'getAppVersionName';
   static const getAppVersionCode = 'getAppVersionCode';
   static const urlLaunch = 'urlLaunch';
-  static const updateApp = 'updateApp';
 }

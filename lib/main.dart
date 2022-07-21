@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -8,12 +9,14 @@ import 'package:pixiv_func_mobile/app/i18n/i18n_translations.dart';
 import 'package:pixiv_func_mobile/app/inject/inject.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/theme/theme.dart';
+import 'package:pixiv_func_mobile/app/updater/updater.dart';
 import 'package:pixiv_func_mobile/pages/index.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Inject.init();
+  await Updater.init();
   HttpConfig.refreshHttpClient();
   final theme = Get.find<SettingsService>().theme;
   Get.changeThemeMode(

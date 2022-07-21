@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
+import 'package:pixiv_func_mobile/app/updater/updater.dart';
 import 'package:pixiv_func_mobile/models/release_info.dart';
+import 'package:pixiv_func_mobile/pages/about/about.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 
 class AboutController extends GetxController implements GetxService {
@@ -40,7 +40,11 @@ class AboutController extends GetxController implements GetxService {
     update();
     await Dio().get<String>("https://api.github.com/repos/git-xiaocao/pixiv_func_mobile/releases/latest").then((result) {
       final Map<String, dynamic> json = jsonDecode(result.data!);
-
+      if (null == json['assets']) {
+        PlatformApi.toast('有新版本,但是小草忘记上传文件');
+        _state = PageState.error;
+        return;
+      }
       final firstAssets = (json['assets'] as List<dynamic>).first;
 
       releaseInfo = ReleaseInfo(
@@ -60,19 +64,8 @@ class AboutController extends GetxController implements GetxService {
     });
   }
 
-  Future<void> updateApp() async {
-    const installPackagesStatus = Permission.requestInstallPackages;
-    if (!await installPackagesStatus.isGranted) {
-      await Permission.requestInstallPackages.request();
-      if (!await installPackagesStatus.isGranted) {
-        PlatformApi.toast('请给权限');
-        return;
-      }
-    }
-    PlatformApi.updateApp(
-      'https://ghproxy.com/${releaseInfo!.browserDownloadUrl}',
-      releaseInfo!.tagName,
-    );
+  Future<void> updateApp() {
+    return Updater.startUpdate('https://ghproxy.com/${releaseInfo!.browserDownloadUrl}', _appVersionName);
   }
 
   void action(int index) {
@@ -104,9 +97,9 @@ class AboutController extends GetxController implements GetxService {
         if (_first) {
           Get.snackbar(
             '版本更新提示',
-            '当前版本:$appVersion,最新版本:${releaseInfo!.tagName},点击前往查看',
+            '当前版本:$appVersion,最新版本:$_appVersionName,点击前往查看',
             duration: const Duration(seconds: 6),
-            onTap: (snack) => Get.to(const SizedBox()),
+            onTap: (snack) => Get.to(const AboutPage()),
           );
           _first = false;
         }
