@@ -129,6 +129,8 @@ class UserAboutContent extends StatelessWidget {
         _buildValueItem(user.name), _buildNameValueItem('ID', user.id.toString()), _buildNameValueItem('账号', user.account),
         //profile
         if (profile.birth.isNotEmpty) _buildNameValueItem('出生', profile.birth),
+        if (profile.gender.isNotEmpty) _buildNameValueItem('性别', profile.gender == 'male' ? '男' : '女'),
+        if (profile.region.isNotEmpty) _buildNameValueItem('地区', profile.region),
         if (profile.job.isNotEmpty) _buildNameValueItem('工作', profile.job),
 
         //workspace

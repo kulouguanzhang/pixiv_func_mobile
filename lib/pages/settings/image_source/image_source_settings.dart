@@ -14,7 +14,7 @@ class ImageSourceSettingsPage extends StatelessWidget {
     final TextEditingController customImageSourceInput = TextEditingController();
 
     const List<MapEntry<String, String>> items = [
-      MapEntry('IP(210.140.92.146)', '210.140.92.146'),
+      MapEntry('IP(210.140.92.183)', '210.140.92.183'),
       MapEntry('Original(i.pximg.net)', 'i.pximg.net'),
       MapEntry('MirroImage(i.pixiv.re)', 'i.pixiv.re'),
     ];
