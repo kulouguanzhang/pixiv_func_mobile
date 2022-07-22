@@ -102,7 +102,9 @@ class PlatformWebView(
 
             override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
                 request?.let {
+                    it.requestHeaders["User-Agent"] = "Mozilla/5.0  AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Safari/537.36"
                     it.requestHeaders["Accept-Language"] = "zh-CN"
+                    it.requestHeaders["X-Requested-With"] = "com.microsoft.windows.userapp"
                 }
                 return super.shouldInterceptRequest(view, request)
             }

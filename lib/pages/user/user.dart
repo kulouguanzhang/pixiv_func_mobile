@@ -166,7 +166,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
               alignment: Alignment.center,
               child: TextWidget('用户ID${widget.id}不存在', fontSize: 16),
             );
-          } else {
+          } else if (PageState.complete == controller.state) {
             return NoScrollBehaviorWidget(
               child: ExtendedNestedScrollView(
                 headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [

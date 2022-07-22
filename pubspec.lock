@@ -346,6 +346,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.1"
+  fijkplayer:
+    dependency: "direct main"
+    description:
+      name: fijkplayer
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.10.1"
   file:
     dependency: transitive
     description:
@@ -717,7 +724,14 @@ packages:
       name: pixiv_dart_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.5"
+    version: "2.1.0"
+  pixiv_live_proxy_server:
+    dependency: "direct main"
+    description:
+      name: pixiv_live_proxy_server
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.2"
   platform:
     dependency: transitive
     description:
