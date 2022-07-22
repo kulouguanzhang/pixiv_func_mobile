@@ -72,7 +72,7 @@ class IllustPreviewer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     color: const Color(0x99343838),
                   ),
-                  child: Icon(Icons.gif_box_outlined, color: Colors.white, size: 30),
+                  child: const Icon(Icons.gif_box_outlined, color: Colors.white, size: 30),
                 ),
               ),
             if (pageCount > 1)
