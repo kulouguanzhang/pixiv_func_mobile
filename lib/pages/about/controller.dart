@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
@@ -45,14 +46,19 @@ class AboutController extends GetxController implements GetxService {
         _state = PageState.error;
         return;
       }
-      final firstAssets = (json['assets'] as List<dynamic>).first;
+      final assets = (json['assets'] as List<dynamic>);
 
       releaseInfo = ReleaseInfo(
         htmlUrl: json['html_url'],
         tagName: json['tag_name'],
-        updateAt: DateTime.parse(firstAssets['updated_at'] as String),
-        browserDownloadUrl: firstAssets['browser_download_url'] as String,
         body: json['body'] as String,
+        assets: [
+          for (final asset in assets)
+            ReleaseAsset(
+              updatedAt: asset['updated_at'],
+              browserDownloadUrl: asset['browser_download_url'],
+            ),
+        ],
       );
       _latestReleaseVersionCode = int.parse(releaseInfo!.tagName.split('+').last);
       _state = PageState.none;
@@ -64,8 +70,12 @@ class AboutController extends GetxController implements GetxService {
     });
   }
 
-  Future<void> updateApp() {
-    return Updater.startUpdate('https://ghproxy.com/${releaseInfo!.browserDownloadUrl}', _appVersionName);
+  Future<void> updateApp() async {
+    final androidInfo = await DeviceInfoPlugin().androidInfo;
+    final assets = releaseInfo!.assets;
+    final abi = androidInfo.supportedAbis.first!;
+    final asset = assets.firstWhere((asset) => asset.updatedAt.contains(abi));
+    return Updater.startUpdate('https://ghproxy.com/${asset.browserDownloadUrl}', _appVersionName);
   }
 
   void action(int index) {
