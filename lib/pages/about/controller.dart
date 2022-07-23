@@ -51,6 +51,7 @@ class AboutController extends GetxController implements GetxService {
       releaseInfo = ReleaseInfo(
         htmlUrl: json['html_url'],
         tagName: json['tag_name'],
+        name: json['name'],
         body: json['body'] as String,
         assets: [
           for (final asset in assets)
@@ -107,7 +108,7 @@ class AboutController extends GetxController implements GetxService {
         if (_first) {
           Get.snackbar(
             '版本更新提示',
-            '当前版本:$appVersion,最新版本:$_appVersionName,点击前往查看',
+            '当前版本:$appVersion,最新版本:${releaseInfo!.name},点击前往查看',
             duration: const Duration(seconds: 6),
             onTap: (snack) => Get.to(const AboutPage()),
           );
