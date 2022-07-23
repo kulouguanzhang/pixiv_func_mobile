@@ -75,7 +75,7 @@ class AboutController extends GetxController implements GetxService {
     final androidInfo = await DeviceInfoPlugin().androidInfo;
     final assets = releaseInfo!.assets;
     final abi = androidInfo.supportedAbis.first!;
-    final asset = assets.firstWhere((asset) => asset.updatedAt.contains(abi));
+    final asset = assets.firstWhere((asset) => asset.browserDownloadUrl.contains(abi));
     return Updater.startUpdate('https://ghproxy.com/${asset.browserDownloadUrl}', _appVersionName);
   }
 
