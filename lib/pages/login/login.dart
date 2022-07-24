@@ -61,13 +61,6 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                              text: '开启后将走WebView，否则走默认浏览器。',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                            ),
-                            TextSpan(
                               text: '获取更多帮助 >>',
                               style: TextStyle(
                                 fontSize: 14,
