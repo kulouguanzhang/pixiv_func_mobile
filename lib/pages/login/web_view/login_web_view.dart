@@ -17,6 +17,7 @@ class LoginWebViewPage extends StatelessWidget {
     Get.put(LoginWebViewController(create));
     return GetBuilder<LoginWebViewController>(
       builder: (controller) => ScaffoldWidget(
+        onBackPressed: () async => await controller.webViewController.canGoBack() ? controller.webViewController.goBack() : Get.back(),
         actions: [
           if (controller.isLoginPage)
             GestureDetector(

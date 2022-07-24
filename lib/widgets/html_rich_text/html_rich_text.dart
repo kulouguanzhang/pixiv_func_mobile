@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as html show parseFragment;
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
+import 'package:pixiv_func_mobile/pages/illust/id_search/id_search.dart';
+import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -60,7 +62,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
             return TextSpan(
               text: '插画ID:$illustId',
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
-              // recognizer: TapGestureRecognizer()..onTap = () => Get.to(IllustIdSearch(id: illustId)),
+              recognizer: TapGestureRecognizer()..onTap = () => Get.to(IllustIdSearchPage(id: illustId)),
             );
           }
           if (Utils.urlIsUser(href)) {
@@ -68,7 +70,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
             return TextSpan(
               text: '用户ID:$userId',
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
-              // recognizer: TapGestureRecognizer()..onTap = () => Get.to(UserPage(id: userId)),
+              recognizer: TapGestureRecognizer()..onTap = () => Get.to(UserPage(id: userId)),
             );
           }
 

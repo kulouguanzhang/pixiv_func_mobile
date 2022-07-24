@@ -22,8 +22,7 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
     return GetBuilder<NewController>(
       builder: (controller) => ScaffoldWidget(
         titleWidget: TabBarWidget(
-          physics: const NeverScrollableScrollPhysics(),
-          onTap: controller.tabIndexOnChanged,
+          onTap: controller.tabOnTap,
           controller: controller.tabController,
           indicatorMinWidth: 15,
           labelColor: Theme.of(context).colorScheme.primary,
@@ -60,7 +59,6 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
           ],
         ),
         child: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
           controller: controller.tabController,
           children: [
             AutomaticKeepWidget(

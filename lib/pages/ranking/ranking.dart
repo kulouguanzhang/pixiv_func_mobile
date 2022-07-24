@@ -39,7 +39,6 @@ class RankingPage extends StatelessWidget {
           ],
         ),
         child: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
           children: [
             for (int i = 0; i < RankingMode.values.length; ++i)
               DataContent<Illust>(

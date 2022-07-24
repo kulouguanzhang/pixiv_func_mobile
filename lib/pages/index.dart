@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/data/account_service.dart';
@@ -20,7 +18,6 @@ class IndexWidget extends StatefulWidget {
 class _IndexWidgetState extends State<IndexWidget> {
   bool _linkChecked = false;
 
-  late final StreamSubscription _subscription;
 
   @override
   void initState() {
@@ -30,20 +27,10 @@ class _IndexWidgetState extends State<IndexWidget> {
       }
       setState(() => _linkChecked = true);
     });
-    _subscription = linkStream.listen((url) async {
-      if (null != url) {
-        await UrlScheme.handler(url);
-      }
-    });
 
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

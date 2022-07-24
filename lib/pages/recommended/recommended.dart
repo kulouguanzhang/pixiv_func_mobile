@@ -41,7 +41,6 @@ class RecommendedPage extends StatelessWidget {
           ],
         ),
         child: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
           children: [
             DataContent<Illust>(
               sourceList: RecommendedIllustListSource(IllustType.illust),

@@ -11,11 +11,19 @@ class NewController extends GetxController {
 
   int _previousTabIndex = 0;
 
-  void tabIndexOnChanged(int index) {
-    if (index == _previousTabIndex) {
+  void tabOnTap(int index) {
+    if (!tabController.indexIsChanging && index == _previousTabIndex) {
       _expandTypeSelector = !_expandTypeSelector;
+      update();
     }
-    _previousTabIndex = index;
-    update();
+  }
+
+  @override
+  void onInit() {
+    tabController.addListener(() {
+      _previousTabIndex = tabController.index;
+      update();
+    });
+    super.onInit();
   }
 }

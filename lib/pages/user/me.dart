@@ -254,8 +254,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                             color: const Color(0xFF373737),
                           ),
                           TabBarWidget(
-                            physics: const NeverScrollableScrollPhysics(),
-                            onTap: controller.tabIndexOnChanged,
+                            onTap: controller.tabOnTap,
                             controller: controller.tabController,
                             indicatorMinWidth: 15,
                             labelColor: Theme.of(context).colorScheme.primary,
@@ -297,7 +296,6 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                 ],
                 pinnedHeaderSliverHeightBuilder: () => kToolbarHeight * 2,
                 body: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
                   controller: controller.tabController,
                   children: [
                     AutomaticKeepWidget(

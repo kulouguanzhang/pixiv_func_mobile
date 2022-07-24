@@ -176,7 +176,7 @@ class BookmarkSwitchButton extends StatelessWidget {
       builder: (controller) {
         if (controller.requesting) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(12),
             child: SizedBox(
               width: 24,
               height: 24,
