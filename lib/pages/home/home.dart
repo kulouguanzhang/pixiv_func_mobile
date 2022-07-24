@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
-import 'package:pixiv_func_mobile/components/lazy_indexed_stack/lazy_indexed_stack.dart';
 import 'package:pixiv_func_mobile/pages/new/new.dart';
 import 'package:pixiv_func_mobile/pages/ranking/ranking.dart';
 import 'package:pixiv_func_mobile/pages/recommended/recommended.dart';
 import 'package:pixiv_func_mobile/pages/search_guide/search_guide.dart';
 import 'package:pixiv_func_mobile/pages/user/me.dart';
+import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
 
 import 'controller.dart';
 
@@ -25,13 +25,14 @@ class HomePage extends StatelessWidget {
     ];
     return GetBuilder<HomeController>(
       builder: (controller) => Scaffold(
-        body: LazyIndexedStack(
-          index: controller.index,
+        body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: controller.pageController,
           children: const [
-            RecommendedPage(),
-            RankingPage(),
-            NewPage(),
-            SearchGuidePage(),
+            AutomaticKeepWidget(child: RecommendedPage()),
+            AutomaticKeepWidget(child: RankingPage()),
+            AutomaticKeepWidget(child: NewPage()),
+            AutomaticKeepWidget(child: SearchGuidePage()),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

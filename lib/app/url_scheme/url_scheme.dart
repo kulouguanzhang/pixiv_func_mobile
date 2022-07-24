@@ -10,7 +10,6 @@ import 'package:pixiv_func_mobile/utils/log.dart';
 
 class UrlScheme {
   static Future<void> handler(String url) async {
-    PlatformApi.toast('从$url启动');
     final uri = Uri.parse(url);
     if ('account' == uri.host) {
       _login(uri);
@@ -42,6 +41,27 @@ class UrlScheme {
             return;
           }
           Get.to(UserPage(id: id));
+        } else if (uri.queryParameters['illust_id'] != null) {
+          final idString = uri.queryParameters['illust_id'] as String;
+          final id = int.tryParse(idString);
+          if (id == null) {
+            PlatformApi.toast('无效的id:$idString');
+            return;
+          }
+          Get.to(IllustIdSearchPage(id: id));
+        } else if (uri.queryParameters['id'] != null) {
+          if (uri.path.contains('novel')) {
+            PlatformApi.toast('小说暂未支持');
+          } else {
+            final idString = uri.queryParameters['id'] as String;
+
+            final id = int.tryParse(idString);
+            if (id == null) {
+              PlatformApi.toast('无效的id:$idString');
+              return;
+            }
+            Get.to(UserPage(id: id));
+          }
         } else {
           PlatformApi.toast('不支持的path:${uri.path}');
         }
@@ -80,7 +100,6 @@ class UrlScheme {
         final firstAccount = accountService.isEmpty;
 
         accountService.add(result);
-        Get.back();
         settingsService.guideInit = true;
 
         if (firstAccount) {

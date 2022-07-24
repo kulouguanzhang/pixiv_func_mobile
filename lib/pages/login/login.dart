@@ -54,10 +54,17 @@ class LoginPage extends StatelessWidget {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Pixiv官方页面无法注册或登陆时,建议开启本地反向代理',
+                              text: 'Pixiv官方页面无法注册或登陆时，建议开启本地反向代理。',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Theme.of(context).colorScheme.onBackground,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '开启后将走WebView，否则走默认浏览器。',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
                             ),
                             TextSpan(
@@ -109,12 +116,7 @@ class LoginPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(vertical: 20),
                                 child: TextWidget('注册', fontSize: 18, color: Color(0xFFFF6289), isBold: true),
                               ),
-                              onPressed: () => Get.to(
-                                LoginWebViewPage(
-                                  useLocalReverseProxy: controller.useLocalReverseProxy,
-                                  create: true,
-                                ),
-                              ),
+                              onPressed: () => Get.to(LoginWebViewPage(useLocalReverseProxy: controller.useLocalReverseProxy, create: true)),
                             ),
                           ),
                           const SizedBox(width: 20),
@@ -130,12 +132,7 @@ class LoginPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(vertical: 20),
                                 child: TextWidget('登录', fontSize: 18, color: Colors.white, isBold: true),
                               ),
-                              onPressed: () => Get.to(
-                                LoginWebViewPage(
-                                  useLocalReverseProxy: controller.useLocalReverseProxy,
-                                  create: false,
-                                ),
-                              ),
+                              onPressed: () => Get.to(LoginWebViewPage(useLocalReverseProxy: controller.useLocalReverseProxy, create: false)),
                             ),
                           ),
                         ],

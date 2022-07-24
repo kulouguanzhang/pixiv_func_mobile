@@ -49,6 +49,7 @@ class IllustPage extends StatelessWidget {
         children: [
           ImageFromUrl(
             previewUrl,
+            width: double.infinity,
             color: controller.downloadMode
                 ? Get.isDarkMode
                     ? Colors.black45
@@ -57,6 +58,7 @@ class IllustPage extends StatelessWidget {
             colorBlendMode: controller.downloadMode ? BlendMode.srcOver : null,
             placeholderWidget: SizedBox(
               height: 200,
+              width: double.infinity,
               child: Center(
                 child: CupertinoActivityIndicator(color: Get.theme.colorScheme.onSurface),
               ),
@@ -421,7 +423,7 @@ class IllustPage extends StatelessWidget {
                         behavior: HitTestBehavior.opaque,
                         onTap: () => controller.downloadAll(),
                         child: const Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8),
                           child: Icon(Icons.file_download_outlined),
                         ),
                       ),
@@ -452,11 +454,14 @@ class IllustPage extends StatelessWidget {
                     ],
                   ),
                 ),
-              BookmarkSwitchButton(
-                id: illust.id,
-                title: illust.title,
-                initValue: illust.isBookmarked,
-                isButton: false,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: BookmarkSwitchButton(
+                  id: illust.id,
+                  title: illust.title,
+                  initValue: illust.isBookmarked,
+                  isButton: false,
+                ),
               ),
             ],
             child: NoScrollBehaviorWidget(
@@ -528,7 +533,6 @@ class IllustPage extends StatelessWidget {
                 ],
                 pinnedHeaderSliverHeightBuilder: () => kToolbarHeight,
                 body: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     DataContent(
                       sourceList: controller.illustRelatedSource,

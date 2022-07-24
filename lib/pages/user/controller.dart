@@ -55,12 +55,11 @@ class UserController extends GetxController {
     });
   }
 
-  void tabIndexOnChanged(int index) {
-    if (index == _previousTabIndex) {
+  void tabOnTap(int index) {
+    if (!tabController.indexIsChanging && index == _previousTabIndex) {
       _expandTypeSelector = !_expandTypeSelector;
+      update();
     }
-    _previousTabIndex = index;
-    update();
   }
 
   @override
@@ -77,6 +76,10 @@ class UserController extends GetxController {
 
   @override
   void onInit() {
+    tabController.addListener(() {
+      _previousTabIndex = tabController.index;
+      update();
+    });
     loadData();
     super.onInit();
   }
@@ -125,12 +128,11 @@ class MeController extends GetxController {
     });
   }
 
-  void tabIndexOnChanged(int index) {
-    if (index == _previousTabIndex) {
+  void tabOnTap(int index) {
+    if (!tabController.indexIsChanging && index == _previousTabIndex) {
       _expandTypeSelector = !_expandTypeSelector;
+      update();
     }
-    _previousTabIndex = index;
-    update();
   }
 
   @override
@@ -147,6 +149,10 @@ class MeController extends GetxController {
 
   @override
   void onInit() {
+    tabController.addListener(() {
+      _previousTabIndex = tabController.index;
+      update();
+    });
     loadData();
     super.onInit();
   }

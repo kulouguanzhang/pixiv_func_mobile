@@ -12,6 +12,7 @@ class ScaffoldWidget extends StatelessWidget {
   final bool automaticallyImplyLeading;
   final Widget? child;
   final Widget? floatingActionButton;
+  final VoidCallback? onBackPressed;
 
   const ScaffoldWidget({
     Key? key,
@@ -23,16 +24,17 @@ class ScaffoldWidget extends StatelessWidget {
     this.automaticallyImplyLeading = true,
     this.child,
     this.floatingActionButton,
+    this.onBackPressed,
   }) : super(key: key);
 
   Widget _backButton() {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
+      onTap: onBackPressed ?? () => Get.back(),
       child: const Padding(
         padding: EdgeInsets.all(16),
         child: Icon(Icons.arrow_back_ios_new),
       ),
-      onTap: () => Get.back(),
     );
   }
 

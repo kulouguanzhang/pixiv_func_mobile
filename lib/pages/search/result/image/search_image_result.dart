@@ -98,7 +98,7 @@ class SearchImageResultPage extends StatelessWidget {
                   const TextWidget('Unknown', fontSize: 14, overflow: TextOverflow.ellipsis, isBold: true),
                 //收藏按钮的高度
                 const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  padding: EdgeInsets.symmetric(vertical: 8),
                   child: SizedBox(height: 24),
                 ),
               ],
@@ -111,7 +111,7 @@ class SearchImageResultPage extends StatelessWidget {
                       behavior: HitTestBehavior.opaque,
                       onTap: () => controller.openUrl(item.url),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: ExtendedImage.network('https://saucenao.com/${item.imageUrl}', width: 24, height: 24),
                       ),
                     ),

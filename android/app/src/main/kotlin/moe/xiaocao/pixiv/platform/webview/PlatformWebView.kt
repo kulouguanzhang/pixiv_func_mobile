@@ -86,10 +86,11 @@ class PlatformWebView(
         webView.settings.apply {
             javaScriptEnabled = true
             javaScriptCanOpenWindowsAutomatically = true
+            //Google授权和Facebook授权不允许WebView登录
+            userAgentString = "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Safari/537.36"
         }
 
         webView.webViewClient = object : WebViewClient() {
-
 
             @SuppressLint("WebViewClientOnReceivedSslError")
             override fun onReceivedSslError(
@@ -99,16 +100,6 @@ class PlatformWebView(
             ) {
                 handler?.proceed()
             }
-
-            override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
-                request?.let {
-                    it.requestHeaders["User-Agent"] = "Mozilla/5.0  AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Safari/537.36"
-                    it.requestHeaders["Accept-Language"] = "zh-CN"
-                    it.requestHeaders["X-Requested-With"] = "com.microsoft.windows.userapp"
-                }
-                return super.shouldInterceptRequest(view, request)
-            }
-
 
             override fun shouldOverrideUrlLoading(
                 view: WebView?,

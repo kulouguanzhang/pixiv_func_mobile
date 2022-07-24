@@ -1290,7 +1290,7 @@ class _DropdownButtonWidgetState<T> extends State<DropdownButtonWidget<T>> with 
     );
 
     if (!DropdownButtonWidgetHideUnderline.at(context)) {
-      final double bottom = (widget.isDense || widget.itemHeight == null) ? 0.0 : 8.0;
+      final double bottom = (widget.isDense || widget.itemHeight == null) ? 0.0 : 8;
       result = Stack(
         children: <Widget>[
           result,
