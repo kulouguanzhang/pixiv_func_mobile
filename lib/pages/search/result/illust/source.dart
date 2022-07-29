@@ -16,7 +16,6 @@ class SearchIllustResultListSource extends DataSourceBase<Illust> {
 
   @override
   Future<List<Illust>> init(CancelToken cancelToken) {
-    if (Get.isRegistered(tag: 'SearchFilterEditorWidget-$word')) {}
     final SearchFilter filter = Get.find<SearchFilterEditorController>(tag: 'SearchFilterEditorWidget-$word').filter;
     return api
         .getSearchIllustPage(

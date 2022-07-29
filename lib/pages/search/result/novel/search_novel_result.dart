@@ -4,6 +4,7 @@ import 'package:pixiv_dart_api/model/novel.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/novel_previewer/novel_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
+import 'package:pixiv_func_mobile/pages/search/filter_editor/controller.dart';
 import 'package:pixiv_func_mobile/pages/search/filter_editor/search_filter_editor.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -19,7 +20,8 @@ class SearchNovelResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SearchNovelResultController(keyword), tag: controllerTag);
+    final controller = Get.put(SearchNovelResultController(keyword), tag: controllerTag);
+    Get.put(SearchFilterEditorController(controller.onFilterChanged), tag: 'SearchFilterEditorWidget-$keyword');
     return GetBuilder<SearchNovelResultController>(
       tag: controllerTag,
       builder: (controller) => ScaffoldWidget(

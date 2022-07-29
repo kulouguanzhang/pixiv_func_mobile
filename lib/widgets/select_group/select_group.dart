@@ -21,7 +21,7 @@ class SelectGroup<T> extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.circular(17),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextWidget(item.key, fontSize: 16, color: Colors.white, isBold: true),
               ),
             )
@@ -32,7 +32,7 @@ class SelectGroup<T> extends StatelessWidget {
                 behavior: HitTestBehavior.opaque,
                 onTap: () => onChanged(item.value),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: TextWidget(item.key, fontSize: 16, isBold: true),
                 ),
               ),

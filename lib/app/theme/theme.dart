@@ -73,7 +73,7 @@ class AppTheme {
       onPrimary: Colors.white,
       onSecondary: Color(0x40383838),
       onSurface: Color(0xFF383838),
-      onBackground: Color(0xFFE9E9EA),
+      onBackground: Color(0x40383838),
       onError: Colors.white,
       brightness: Brightness.dark,
     ),

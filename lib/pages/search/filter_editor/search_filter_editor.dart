@@ -143,7 +143,8 @@ class SearchFilterEditorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SearchFilterEditorController(onFilterChanged), tag: controllerTag);
+
+
     return GetBuilder<SearchFilterEditorController>(
       tag: controllerTag,
       builder: (controller) => ExpandablePanel(
@@ -236,8 +237,8 @@ class SearchFilterEditorWidget extends StatelessWidget {
                     case 1:
                       widget = SelectGroup<SearchTarget>(
                         items: const {
-                          '标签(部分匹配)': SearchTarget.partialMatchForTags,
-                          '标签(完全匹配)': SearchTarget.exactMatchForTags,
+                          '标签(部分)': SearchTarget.partialMatchForTags,
+                          '标签(完全)': SearchTarget.exactMatchForTags,
                           '标题&简介': SearchTarget.titleAndCaption,
                         },
                         value: controller.target,
