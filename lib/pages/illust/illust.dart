@@ -117,7 +117,7 @@ class IllustPage extends StatelessWidget {
                     );
                   case IllustSaveState.exist:
                     return Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Get.theme.colorScheme.background,
                         borderRadius: BorderRadius.circular(30),

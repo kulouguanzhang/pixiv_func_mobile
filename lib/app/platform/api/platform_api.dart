@@ -9,7 +9,7 @@ class PlatformApi {
 
   static const _channel = MethodChannel(_pluginName);
 
-  static Future<bool?> saveImage(Uint8List imageBytes, String filename) async {
+  static Future<bool> saveImage(Uint8List imageBytes, String filename) async {
     try {
       final result = await _channel.invokeMethod(
         _Method.saveImage,
@@ -20,11 +20,11 @@ class PlatformApi {
       );
       return result;
     } on PlatformException {
-      return null;
+      return false;
     }
   }
 
-  static Future<bool?> saveGifImage(int id, List<Uint8List> images, List<int> delays) async {
+  static Future<bool> saveGifImage(int id, List<Uint8List> images, List<int> delays) async {
     try {
       final result = await _channel.invokeMethod(
         _Method.saveGifImage,
@@ -36,7 +36,7 @@ class PlatformApi {
       );
       return result;
     } on PlatformException {
-      return null;
+      return false;
     }
   }
 
