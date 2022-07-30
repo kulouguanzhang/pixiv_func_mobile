@@ -33,15 +33,15 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
           ),
           tabs: [
             TabWidget(
-              text: '所有人',
+              text: '关注者',
               icon: controller.tabController.index == 0
                   ? controller.expandTypeSelector
-                      ? const Icon(Icons.keyboard_arrow_up, size: 12)
-                      : const Icon(Icons.keyboard_arrow_down, size: 12)
+                  ? const Icon(Icons.keyboard_arrow_up, size: 12)
+                  : const Icon(Icons.keyboard_arrow_down, size: 12)
                   : null,
             ),
             TabWidget(
-              text: '关注者',
+              text: '所有人',
               icon: controller.tabController.index == 1
                   ? controller.expandTypeSelector
                       ? const Icon(Icons.keyboard_arrow_up, size: 12)
@@ -62,10 +62,10 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
           controller: controller.tabController,
           children: [
             AutomaticKeepWidget(
-              child: EveryoneNewContent(expandTypeSelector: controller.expandTypeSelector),
+              child: FollowNewContent(expandTypeSelector: controller.expandTypeSelector),
             ),
             AutomaticKeepWidget(
-              child: FollowNewContent(expandTypeSelector: controller.expandTypeSelector),
+              child: EveryoneNewContent(expandTypeSelector: controller.expandTypeSelector),
             ),
             const SizedBox(),
           ],

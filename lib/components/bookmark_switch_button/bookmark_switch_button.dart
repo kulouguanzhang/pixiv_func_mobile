@@ -71,6 +71,7 @@ class BookmarkSwitchButton extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(17),
                                       border: controller.restrict == item.key ? Border.all(color: Get.theme.colorScheme.primary) : null,
+                                      color: Get.theme.colorScheme.surface,
                                     ),
                                     child: Row(
                                       children: [
@@ -176,7 +177,7 @@ class BookmarkSwitchButton extends StatelessWidget {
       builder: (controller) {
         if (controller.requesting) {
           return Padding(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(isButton ? 12 : 8),
             child: SizedBox(
               width: 24,
               height: 24,
@@ -190,7 +191,7 @@ class BookmarkSwitchButton extends StatelessWidget {
             return GestureDetector(
               onLongPress: () => controller.requesting || controller.isBookmarked ? null : _restrictDialog(),
               child: IconButton(
-                splashRadius: 20,
+                splashRadius: 24,
                 iconSize: 24,
                 onPressed: () => controller.changeBookmarkState(),
                 icon: controller.isBookmarked

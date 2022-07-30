@@ -5,7 +5,7 @@ import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/data/block_tag_service.dart';
 import 'package:pixiv_func_mobile/app/data/history_service.dart';
 import 'package:pixiv_func_mobile/app/data/settings_service.dart';
-import 'package:pixiv_func_mobile/app/downloader/download_manager_controller.dart';
+import 'package:pixiv_func_mobile/app/downloader/downloader.dart';
 import 'package:pixiv_func_mobile/pages/about/controller.dart';
 
 class Inject {
@@ -18,6 +18,6 @@ class Inject {
     await Get.putAsync(() => BlockTagService().init());
     await Get.putAsync(() => AboutController().init());
 
-    Get.lazyPut(() => DownloadManagerController());
+    Get.lazyPut(() => Downloader());
   }
 }

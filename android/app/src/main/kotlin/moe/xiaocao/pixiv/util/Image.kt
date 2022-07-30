@@ -11,12 +11,7 @@ import android.webkit.MimeTypeMap
 import java.io.File
 
 
-fun Context.saveImage(imageBytes: ByteArray, filename: String): Boolean? {
-
-    //图片已经存在
-    if (imageIsExist(filename)) {
-        return null
-    }
+fun Context.saveImage(imageBytes: ByteArray, filename: String): Boolean {
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
 

@@ -1,14 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/downloader/download_manager_controller.dart';
 import 'package:pixiv_func_mobile/app/downloader/downloader.dart';
 import 'package:pixiv_func_mobile/models/download_task.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
-class DownloadManagerPage extends StatelessWidget {
-  const DownloadManagerPage({Key? key}) : super(key: key);
+class DownloaderPage extends StatelessWidget {
+  const DownloaderPage({Key? key}) : super(key: key);
 
   Widget _buildItem(BuildContext context, DownloadTask task) {
     final Widget trailing;
@@ -18,12 +18,17 @@ class DownloadManagerPage extends StatelessWidget {
         trailing = Container();
         break;
       case DownloadState.downloading:
-        trailing = const RefreshProgressIndicator();
+        trailing = const CupertinoActivityIndicator();
         break;
       case DownloadState.failed:
         trailing = IconButton(
           splashRadius: 20,
-          onPressed: () => Downloader.start(illust: task.illust, url: task.originalUrl, id: task.id, index: task.index),
+          onPressed: () => Get.find<Downloader>().start(
+            illust: task.illust,
+            url: task.originalUrl,
+            index: task.index,
+            onComplete: null,
+          ),
           icon: const Icon(Icons.refresh_outlined),
         );
         break;
@@ -49,7 +54,7 @@ class DownloadManagerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWidget(
       title: '下载任务',
-      child: GetBuilder<DownloadManagerController>(
+      child: GetBuilder<Downloader>(
         builder: (controller) {
           return ListView(
             children: [for (final task in controller.tasks) _buildItem(context, task)],

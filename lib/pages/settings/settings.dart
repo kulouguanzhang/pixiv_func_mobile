@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/pages/about/about.dart';
 import 'package:pixiv_func_mobile/pages/account/account.dart';
 import 'package:pixiv_func_mobile/pages/block_tag/block_tag.dart';
-import 'package:pixiv_func_mobile/pages/download_manager/download_manager.dart';
+import 'package:pixiv_func_mobile/pages/downloader/downloader.dart';
 import 'package:pixiv_func_mobile/pages/history/history.dart';
 import 'package:pixiv_func_mobile/pages/settings/image_source/image_source_settings.dart';
 import 'package:pixiv_func_mobile/pages/settings/language/language_settings.dart';
@@ -46,7 +46,7 @@ class SettingsPage extends StatelessWidget {
             const Divider(),
             _buildItem(onTap: () => Get.to(const BlockTagPage()), title: '屏蔽标签管理'),
             const Divider(),
-            _buildItem(onTap: () => Get.to(const DownloadManagerPage()), title: '下载任务'),
+            _buildItem(onTap: () => Get.to(const DownloaderPage()), title: '下载任务'),
             const Divider(),
             _buildItem(onTap: () => Get.to(const HistoryPage()), title: '浏览记录'),
             const Divider(),

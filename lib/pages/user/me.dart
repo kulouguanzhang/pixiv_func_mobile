@@ -90,6 +90,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(17),
                               border: controller.restrict == item.key ? Border.all(color: Get.theme.colorScheme.primary) : null,
+                              color: Get.theme.colorScheme.surface,
                             ),
                             child: Row(
                               children: [

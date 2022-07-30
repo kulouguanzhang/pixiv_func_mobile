@@ -209,11 +209,11 @@ class IllustController extends GetxController {
     }
     illustStates[index] = IllustSaveState.downloading;
     update();
-    Downloader.start(
+    Get.find<Downloader>().start(
       illust: illust,
       url: url,
-      id: illust.id,
       index: index,
+      onComplete: downloadComplete,
     );
   }
 
