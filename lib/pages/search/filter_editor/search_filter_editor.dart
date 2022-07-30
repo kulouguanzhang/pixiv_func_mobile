@@ -17,7 +17,7 @@ class SearchFilterEditorWidget extends StatelessWidget {
   const SearchFilterEditorWidget({Key? key, required this.keyword, required this.onFilterChanged, required this.expandableController})
       : super(key: key);
 
-  String get controllerTag => '$runtimeType-$keyword';
+  String get controllerTag => 'SearchFilterEditor-$keyword';
 
   void _openStartDatePicker() {
     final controller = Get.find<SearchFilterEditorController>(tag: controllerTag);
@@ -143,8 +143,6 @@ class SearchFilterEditorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return GetBuilder<SearchFilterEditorController>(
       tag: controllerTag,
       builder: (controller) => ExpandablePanel(

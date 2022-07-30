@@ -2,10 +2,11 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import 'controller.dart';
 
-class FrameGifWidget extends StatelessWidget with RouteAware {
+class FrameGifWidget extends StatelessWidget {
   final int id;
   final String previewUrl;
   final List<ui.Image> images;
@@ -23,56 +24,49 @@ class FrameGifWidget extends StatelessWidget with RouteAware {
     required this.size,
   }) : super(key: key);
 
-  @override
-  void didPushNext() {
-    Get.find<FrameGifController>(tag: '$runtimeType-$id').stop();
-    super.didPushNext();
-  }
-
-  @override
-  void didPopNext() {
-    Get.find<FrameGifController>(tag: '$runtimeType-$id').start();
-    super.didPopNext();
-  }
+  String get controllerTag => '$runtimeType-$id';
 
   @override
   Widget build(BuildContext context) {
-    final controllerTag = '$runtimeType-$id';
-    final controller = Get.put(FrameGifController(images, delays), tag: controllerTag);
+    Get.put(FrameGifController(images, delays), tag: controllerTag);
     return GetBuilder<FrameGifController>(
       tag: controllerTag,
-      didChangeDependencies: (state) {},
-      dispose: (state) {
-        controller.stop();
-        Get.delete<FrameGifController>(tag: controllerTag);
-      },
-      initState: (state) => controller.start(),
       builder: (controller) {
         if (controller.playing) {
-          return Hero(
-            tag: heroTag ?? 'IllustHero:$id',
-            child: GestureDetector(
-              onTap: () => controller.pauseStateChange(),
-              child: SizedBox(
-                width: double.infinity,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CustomPaint(
-                      size: size,
-                      painter: _GifPainter(
-                        controller.images,
-                        delays: controller.delays,
-                        indexValueNotifier: controller.indexValueNotifier,
-                        pauseValueNotifier: controller.pauseValueNotifier,
+          return VisibilityDetector(
+            key: Key('GIF-$id'),
+            onVisibilityChanged: (VisibilityInfo info) {
+              if (info.visibleFraction != 0.0) {
+                controller.start();
+              } else {
+                controller.stop();
+              }
+            },
+            child: Hero(
+              tag: heroTag ?? 'IllustHero:$id',
+              child: GestureDetector(
+                onTap: () => controller.pauseStateChange(),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CustomPaint(
                         size: size,
+                        painter: _GifPainter(
+                          controller.images,
+                          delays: controller.delays,
+                          indexValueNotifier: controller.indexValueNotifier,
+                          pauseValueNotifier: controller.pauseValueNotifier,
+                          size: size,
+                        ),
                       ),
-                    ),
-                    Visibility(
-                      visible: controller.isPause,
-                      child: const Icon(Icons.play_circle_outline_outlined, size: 70),
-                    )
-                  ],
+                      Visibility(
+                        visible: controller.isPause,
+                        child: const Icon(Icons.play_circle_outline_outlined, size: 70),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -86,6 +80,8 @@ class FrameGifWidget extends StatelessWidget with RouteAware {
       },
     );
   }
+
+
 }
 
 class _GifPainter extends CustomPainter {

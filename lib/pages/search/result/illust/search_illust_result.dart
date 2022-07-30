@@ -22,10 +22,15 @@ class SearchIllustResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SearchIllustResultController(keyword), tag: controllerTag);
-    //防止从插画标签点进来的时候没有这个控制器
-    Get.put(SearchFilterEditorController(controller.onFilterChanged), tag: 'SearchFilterEditorWidget-$keyword');
+
     return GetBuilder<SearchIllustResultController>(
       tag: controllerTag,
+      initState: (state) {
+        Get.put(SearchFilterEditorController(controller.onFilterChanged), tag: 'SearchFilterEditor-$keyword');
+      },
+      dispose: (state) {
+        Get.delete<SearchFilterEditorController>(tag: 'SearchFilterEditor-$keyword');
+      },
       builder: (controller) => ScaffoldWidget(
         automaticallyImplyLeading: false,
         titleWidget: SizedBox(

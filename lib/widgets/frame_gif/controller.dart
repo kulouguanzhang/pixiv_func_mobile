@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class FrameGifController extends GetxController {
+class FrameGifController extends GetxController with WidgetsBindingObserver {
   final List<ui.Image> images;
   final List<int> delays;
 
@@ -16,7 +17,9 @@ class FrameGifController extends GetxController {
   final ValueNotifier<int> indexValueNotifier = ValueNotifier<int>(0);
   final ValueNotifier<bool> pauseValueNotifier = ValueNotifier<bool>(false);
 
-  bool playing = false;
+  bool isActivity = true;
+
+  bool playing = true;
 
   bool get isPause => pauseValueNotifier.value;
 
@@ -45,10 +48,24 @@ class FrameGifController extends GetxController {
             indexValueNotifier.value++;
           }
         }
-        if (playing) {
+        if (playing && isActivity) {
           _updateRender();
         }
       },
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    isActivity = state == AppLifecycleState.resumed;
+    super.didChangeAppLifecycleState(state);
+  }
+
+
+  @override
+  void onClose() {
+    pauseValueNotifier.value = true;
+    playing = false;
+    super.onClose();
   }
 }
