@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
-import 'package:pixiv_func_mobile/widgets/frame_gif/frame_gif.dart';
+import 'package:pixiv_func_mobile/components/frame_gif/frame_gif.dart';
 
 import 'controller.dart';
 

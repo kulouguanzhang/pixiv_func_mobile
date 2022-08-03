@@ -1,49 +1,199 @@
-import 'package:fijkplayer/fijkplayer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/pages/live/controller.dart';
+import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
+import 'package:video_player/video_player.dart';
 
 class LivePage extends StatelessWidget {
   final String id;
   final String name;
-  const LivePage({Key? key, required this.id,required this.name}) : super(key: key);
+
+  const LivePage({Key? key, required this.id, required this.name}) : super(key: key);
 
   String get controllerTag => '$runtimeType-$id';
+
+  Widget _buildPlayerWidget(double heightRatio) {
+    final controller = Get.find<LiveController>(tag: controllerTag);
+    final items = {
+      0: controller.list[0].resolution.toString(),
+      1: controller.list[1].resolution.toString(),
+    };
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onDoubleTap: () => controller.togglePlay(),
+          onTap: () => controller.toggleMenu(),
+          child: SizedBox(
+            width: constraints.maxWidth,
+            height: constraints.maxWidth * 9 / 16,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                () {
+                  final child = VideoPlayer(controller.vp!);
+                  if (!controller.isPlaying || controller.isBuffering) {
+                    return ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Get.isDarkMode ? Colors.black45 : Colors.white24,
+                        BlendMode.srcOver,
+                      ),
+                      child: child,
+                    );
+                  } else {
+                    return child;
+                  }
+                }(),
+                if (!controller.initialized)
+                  const TextWidget('正在初始化', fontSize: 16)
+                else if (controller.isFirstLoading)
+                  const CircularProgressIndicator()
+                else if (!controller.isPlaying)
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Icon(Icons.play_arrow, size: 100, color: Colors.white),
+                  )
+                else if (controller.isBuffering)
+                  const CupertinoActivityIndicator(),
+                if (controller.hideMenuCountCountdown > 0)
+                  Positioned(
+                    top: 20,
+                    right: 20,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: SizedBox(
+                        height: 35,
+                        width: 110,
+                        child: DropdownButtonWidgetHideUnderline(
+                          child: DropdownButtonWidget<int>(
+                            isDense: true,
+                            elevation: 0,
+                            isExpanded: true,
+                            borderRadius: BorderRadius.circular(12),
+                            items: [
+                              for (final item in items.entries)
+                                DropdownMenuItemWidget<int>(
+                                  value: item.key,
+                                  child: Container(
+                                    height: 35,
+                                    width: 110,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(17),
+                                      border: controller.currentPlay == item.key
+                                          ? Border.all(
+                                              color: Get.theme.colorScheme.primary.withOpacity(0.5),
+                                            )
+                                          : null,
+                                      color: Get.theme.colorScheme.surface.withOpacity(0.5),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        const Spacer(),
+                                        const Icon(AppIcons.toggle, size: 12),
+                                        const SizedBox(width: 7),
+                                        TextWidget(
+                                          item.value,
+                                          fontSize: 14,
+                                        ),
+                                        const Spacer(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                            ],
+                            value: controller.currentPlay,
+                            onChanged: controller.currentPlayOnChange,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                if (controller.hideMenuCountCountdown > 0)
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      color: Colors.black.withOpacity(0.5),
+                      width: constraints.maxWidth,
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 20),
+                          TextWidget('播放时长: ${controller.formatPlayTime}', color: Colors.white),
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.fullscreen),
+                            onPressed: () => controller.toggleFullScreen(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     Get.put(LiveController(id), tag: controllerTag);
     return GetBuilder<LiveController>(
       tag: controllerTag,
-      builder: (controller) => ScaffoldWidget(
-        title: name,
+      builder: (controller) => WillPopScope(
         child: () {
-          if (PageState.loading == controller.state) {
-            return Container(
-              alignment: Alignment.center,
-              child: const CircularProgressIndicator(),
+          if (!controller.isFullScreen) {
+            return ScaffoldWidget(
+              title: name,
+              child: () {
+                if (PageState.loading == controller.state) {
+                  return Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator(),
+                  );
+                } else if (PageState.error == controller.state) {
+                  return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => controller.loadData(),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: const TextWidget('加载失败,点击重试', fontSize: 16),
+                    ),
+                  );
+                } else if (PageState.notFound == controller.state) {
+                  return Container(
+                    alignment: Alignment.center,
+                    child: const TextWidget('直播已结束'),
+                  );
+                } else if (PageState.complete == controller.state) {
+                  return _buildPlayerWidget(9 / 16);
+                }
+              }(),
             );
-          } else if (PageState.error == controller.state) {
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => controller.loadData(),
-              child: Container(
-                alignment: Alignment.center,
-                child: const TextWidget('加载失败,点击重试', fontSize: 16),
-              ),
+          } else {
+            return ScaffoldWidget(
+              emptyAppBar: true,
+              child: _buildPlayerWidget(1),
             );
-          } else if (PageState.notFound == controller.state) {
-            return Container(
-              alignment: Alignment.center,
-              child: const TextWidget('直播已结束'),
-            );
-          } else if (PageState.complete == controller.state) {
-            return FijkView(player: controller.ijkPlayer!, color: Colors.transparent);
           }
         }(),
+        onWillPop: () async {
+          if (controller.isFullScreen) {
+            controller.toggleFullScreen();
+            return false;
+          } else {
+            return true;
+          }
+        },
       ),
     );
   }
