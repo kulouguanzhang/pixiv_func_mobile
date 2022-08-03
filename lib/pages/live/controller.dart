@@ -94,16 +94,18 @@ class LiveController extends GetxController {
     update();
   }
 
-  void toggleFullScreen() {
+  void toggleFullScreen() async {
     _isFullScreen = !_isFullScreen;
     if (_isFullScreen) {
-      OrientationPlugin.setPreferredOrientations([
+      await OrientationPlugin.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
       ]);
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     } else {
-      OrientationPlugin.setPreferredOrientations([
+      await OrientationPlugin.setPreferredOrientations([
         DeviceOrientation.portraitUp,
       ]);
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     }
     update();
   }
@@ -195,12 +197,24 @@ class LiveController extends GetxController {
   @override
   void onInit() {
     loadData();
+    SystemChrome.setSystemUIChangeCallback((systemOverlaysAreVisible) async {
+      if (!systemOverlaysAreVisible) {
+        if(_isFullScreen){
+          Future.delayed(const Duration(seconds: 2), ()async {
+            if(_isFullScreen){
+              await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+            }
+          });
+        }
+      }
+    });
     Wakelock.enable();
     super.onInit();
   }
 
   @override
   void onClose() {
+    SystemChrome.setSystemUIChangeCallback(null);
     cancelToken.cancel();
     vp?.dispose();
     _playerStateTimer?.cancel();
