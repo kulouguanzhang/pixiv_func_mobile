@@ -75,11 +75,11 @@ class Downloader extends GetxController implements GetxService {
 
     final taskIndex = Get.find<Downloader>().tasks.indexWhere((task) => filename == task.filename);
     if (-1 != taskIndex && DownloadState.failed != Get.find<Downloader>().tasks[taskIndex].state) {
-      PlatformApi.toast('下载任务已经存在');
+      PlatformApi.toast('插画ID${illust.id}[${index + 1}]下载任务已经存在');
       return;
     }
 
-    PlatformApi.toast('下载开始');
+    PlatformApi.toast('插画ID${illust.id}[${index + 1}]下载开始');
     compute(
       _task,
       _DownloadStartProps(
@@ -96,13 +96,13 @@ class Downloader extends GetxController implements GetxService {
 
         onComplete?.call(index, saveResult);
         if (saveResult) {
-          PlatformApi.toast('保存成功');
+          PlatformApi.toast('插画ID${illust.id}[${index + 1}]保存超过');
         } else {
-          PlatformApi.toast('保存失败');
+          PlatformApi.toast('插画ID${illust.id}[${index + 1}]保存失败');
         }
         onComplete?.call(index, true);
       } else if (result is _DownloadError) {
-        PlatformApi.toast('下载失败');
+        PlatformApi.toast('插画ID${illust.id}[${index + 1}]下载失败');
         onComplete?.call(index, false);
       }
     });

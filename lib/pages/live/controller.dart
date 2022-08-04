@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:orientation/orientation.dart';
 import 'package:pixiv_dart_api/vo/live_detail_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/models/m3u8.dart';
 import 'package:pixiv_func_mobile/utils/custom_timer.dart';
@@ -36,9 +37,8 @@ class LiveController extends GetxController {
   PixivLiveProxyServer? _proxyServer;
 
   CustomTimer? _playerStateTimer;
-  Duration _playTime = Duration.zero;
 
-  Duration get playTime => _playTime;
+  Rx<Duration> playTime = Rx(Duration.zero);
 
   bool _isFullScreen = false;
 
@@ -100,7 +100,7 @@ class LiveController extends GetxController {
       await OrientationPlugin.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
       ]);
-      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+      await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     } else {
       await OrientationPlugin.setPreferredOrientations([
         DeviceOrientation.portraitUp,
@@ -158,7 +158,30 @@ class LiveController extends GetxController {
     _isFirstPlay = true;
     update();
     vp = VideoPlayerController.contentUri(list[currentPlay].uri);
-    return vp!.initialize().whenComplete(() {
+    return vp!.initialize().whenComplete(() async {
+      vp!.addListener(() async {
+        if (null != vp) {
+          if (vp!.value.hasError) {
+            PlatformApi.toast('发生错误:${vp!.value.errorDescription}');
+            vp!.dispose();
+            vp == null;
+            _startPlay();
+            return;
+          }
+          bool needUpdate = false;
+          if (_isPlaying != vp!.value.isPlaying) {
+            _isPlaying = vp!.value.isPlaying;
+            needUpdate = true;
+          }
+          if (_isBuffering != vp!.value.isBuffering) {
+            _isBuffering = vp!.value.isBuffering;
+            needUpdate = true;
+          }
+          if (needUpdate) {
+            update();
+          }
+        }
+      });
       return vp!.play().whenComplete(() {
         _isPlaying = true;
         _isFirstPlay = false;
@@ -169,52 +192,31 @@ class LiveController extends GetxController {
 
   Future<void> _playStateRefresher() async {
     if (null != vp) {
-      if (vp!.value.hasError) {
-        print('发生错误:${vp!.value.errorDescription}');
-        await _startPlay();
-        return;
-      }
-      _isPlaying = vp!.value.isPlaying;
-      _isBuffering = vp!.value.isBuffering;
-
       //正在播放且不在缓冲
-      if (isPlaying && !isBuffering) {
-        _playTime = _playTime + const Duration(seconds: 1);
+      if (vp!.value.isPlaying && !vp!.value.isBuffering) {
+        playTime.value += const Duration(seconds: 1);
       }
-
-      update();
     }
   }
 
   //格式化 播放时长
-  String get formatPlayTime {
-    final hour = playTime.inHours;
-    final minute = playTime.inMinutes - hour * 60;
-    final second = playTime.inSeconds - hour * 60 * 60 - minute * 60;
+  String formatPlayTime(Duration duration) {
+    final hour = duration.inHours;
+    final minute = duration.inMinutes - hour * 60;
+    final second = duration.inSeconds - hour * 60 * 60 - minute * 60;
     return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')}';
   }
 
   @override
   void onInit() {
     loadData();
-    SystemChrome.setSystemUIChangeCallback((systemOverlaysAreVisible) async {
-      if (!systemOverlaysAreVisible) {
-        if(_isFullScreen){
-          Future.delayed(const Duration(seconds: 2), ()async {
-            if(_isFullScreen){
-              await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-            }
-          });
-        }
-      }
-    });
+
     Wakelock.enable();
     super.onInit();
   }
 
   @override
   void onClose() {
-    SystemChrome.setSystemUIChangeCallback(null);
     cancelToken.cancel();
     vp?.dispose();
     _playerStateTimer?.cancel();

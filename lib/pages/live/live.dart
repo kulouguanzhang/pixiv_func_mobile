@@ -65,8 +65,8 @@ class LivePage extends StatelessWidget {
                   const CupertinoActivityIndicator(),
                 if (controller.hideMenuCountCountdown > 0)
                   Positioned(
-                    top: 20,
-                    right: 20,
+                    top: 10,
+                    right: 10,
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       child: SizedBox(
@@ -126,12 +126,16 @@ class LivePage extends StatelessWidget {
                       child: Row(
                         children: [
                           const SizedBox(width: 20),
-                          TextWidget('播放时长: ${controller.formatPlayTime}', color: Colors.white),
+                          ObxValue<Rx<Duration>>(
+                            (data) => TextWidget('播放时长: ${controller.formatPlayTime(data.value)}', color: Colors.white),
+                            controller.playTime,
+                          ),
                           const Spacer(),
                           IconButton(
                             icon: const Icon(Icons.fullscreen),
                             onPressed: () => controller.toggleFullScreen(),
                           ),
+                          const SizedBox(width: 20),
                         ],
                       ),
                     ),
