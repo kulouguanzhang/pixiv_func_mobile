@@ -96,7 +96,7 @@ class Downloader extends GetxController implements GetxService {
 
         onComplete?.call(index, saveResult);
         if (saveResult) {
-          PlatformApi.toast('插画ID${illust.id}[${index + 1}]保存超过');
+          PlatformApi.toast('插画ID${illust.id}[${index + 1}]保存成功');
         } else {
           PlatformApi.toast('插画ID${illust.id}[${index + 1}]保存失败');
         }
