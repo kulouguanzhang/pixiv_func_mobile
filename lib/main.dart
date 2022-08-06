@@ -44,7 +44,7 @@ class App extends StatelessWidget {
     final localeCodes = Get.find<SettingsService>().language.split('-');
 
     return GetMaterialApp(
-      defaultTransition: Transition.downToUp,
+      defaultTransition: Transition.leftToRight,
       translations: I18nTranslations(),
       locale: Locale(localeCodes.first, localeCodes.last),
       localizationsDelegates: const [

@@ -46,8 +46,6 @@ class NovelController extends GetxController {
     return NovelJSData.fromJson(json!);
   }
 
-  String? text;
-
   void loadData() async {
     state = PageState.loading;
     update();

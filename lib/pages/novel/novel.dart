@@ -44,7 +44,7 @@ class NovelPage extends StatelessWidget {
                   child: TextWidget('小说ID${novel.id}不存在', fontSize: 16),
                 );
               }else{
-                return NovelViewer(text: controller.text!, id: novel.id);
+                return NovelViewer(text: controller.novelJSData!.text, id: novel.id);
               }
             }(),
           ),

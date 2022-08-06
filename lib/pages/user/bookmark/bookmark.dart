@@ -27,18 +27,21 @@ class UserBookmarkContent extends StatefulWidget {
 }
 
 class _UserBookmarkContentState extends State<UserBookmarkContent> {
+  String get controllerTag => '$runtimeType-${widget.id}';
+
   @override
   void didUpdateWidget(covariant UserBookmarkContent oldWidget) {
     if (widget.expandTypeSelector != oldWidget.expandTypeSelector) {
-      Get.find<UserBookmarkController>().expandableController.expanded = widget.expandTypeSelector;
+      Get.find<UserBookmarkController>(tag: controllerTag).expandableController.expanded = widget.expandTypeSelector;
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    Get.put(UserBookmarkController());
+    Get.put(UserBookmarkController(), tag: controllerTag);
     return GetBuilder<UserBookmarkController>(
+      tag: controllerTag,
       builder: (controller) => Column(
         children: [
           ExpandablePanel(

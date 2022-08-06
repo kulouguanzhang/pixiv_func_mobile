@@ -6,7 +6,7 @@ import 'package:pixiv_func_mobile/pages/new/new.dart';
 import 'package:pixiv_func_mobile/pages/ranking/ranking.dart';
 import 'package:pixiv_func_mobile/pages/recommended/recommended.dart';
 import 'package:pixiv_func_mobile/pages/search_guide/search_guide.dart';
-import 'package:pixiv_func_mobile/pages/user/me.dart';
+import 'package:pixiv_func_mobile/pages/settings/settings.dart';
 
 import 'controller.dart';
 
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
       AppIcons.ranking,
       AppIcons.n,
       AppIcons.search,
-      AppIcons.me,
+      Icons.settings,
     ];
     return GetBuilder<HomeController>(
       builder: (controller) => Scaffold(
@@ -32,9 +32,9 @@ class HomePage extends StatelessWidget {
             RankingPage(),
             NewPage(),
             SearchGuidePage(),
+            SettingsPage(),
           ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).colorScheme.background,
           shape: const CircularNotchedRectangle(),
@@ -47,11 +47,7 @@ class HomePage extends StatelessWidget {
                     child: GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-                        if (i != navigationItems.length - 1) {
-                          controller.index = i;
-                        } else {
-                          Get.to(const MePage());
-                        }
+                        controller.index = i;
                       },
                       child: Padding(
                         // alignment: Alignment.center,

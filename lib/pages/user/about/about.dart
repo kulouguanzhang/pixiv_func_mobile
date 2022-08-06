@@ -5,6 +5,7 @@ import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/html_rich_text/html_rich_text.dart';
+import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 class UserAboutContent extends StatelessWidget {
@@ -123,46 +124,48 @@ class UserAboutContent extends StatelessWidget {
     final profile = userDetail.profile;
     final workspace = userDetail.workspace;
 
-    return ListView(
-      children: [
-        //user
-        _buildValueItem(user.name), _buildNameValueItem('ID', user.id.toString()), _buildNameValueItem('账号', user.account),
-        //profile
-        if (profile.birth.isNotEmpty) _buildNameValueItem('出生', profile.birth),
-        if (profile.gender.isNotEmpty) _buildNameValueItem('性别', profile.gender == 'male' ? '男' : '女'),
-        if (profile.region.isNotEmpty) _buildNameValueItem('地区', profile.region),
-        if (profile.job.isNotEmpty) _buildNameValueItem('工作', profile.job),
+    return NoScrollBehaviorWidget(
+      child: ListView(
+        children: [
+          //user
+          _buildValueItem(user.name), _buildNameValueItem('ID', user.id.toString()), _buildNameValueItem('账号', user.account),
+          //profile
+          if (profile.birth.isNotEmpty) _buildNameValueItem('出生', profile.birth),
+          if (profile.gender.isNotEmpty) _buildNameValueItem('性别', profile.gender == 'male' ? '男' : '女'),
+          if (profile.region.isNotEmpty) _buildNameValueItem('地区', profile.region),
+          if (profile.job.isNotEmpty) _buildNameValueItem('工作', profile.job),
 
-        //workspace
-        if (workspace.pc.isNotEmpty) _buildNameValueItem('电脑', workspace.pc),
-        if (workspace.monitor.isNotEmpty) _buildNameValueItem('显示器', workspace.monitor),
-        if (workspace.tool.isNotEmpty) _buildNameValueItem('软件', workspace.tool),
-        if (workspace.scanner.isNotEmpty) _buildNameValueItem('扫描仪', workspace.scanner),
-        if (workspace.tablet.isNotEmpty) _buildNameValueItem('数位板', workspace.tablet),
-        if (workspace.mouse.isNotEmpty) _buildNameValueItem('鼠标', workspace.mouse),
-        if (workspace.printer.isNotEmpty) _buildNameValueItem('打印机', workspace.printer),
-        if (workspace.desktop.isNotEmpty) _buildNameValueItem('桌子上的东西', workspace.desktop),
-        if (workspace.music.isNotEmpty) _buildNameValueItem('画图时听的音乐', workspace.music),
-        if (workspace.desk.isNotEmpty) _buildNameValueItem('桌子', workspace.desk),
-        if (workspace.chair.isNotEmpty) _buildNameValueItem('椅子', workspace.chair),
-        if (workspace.comment.isNotEmpty) _buildNameValueItem('留言', workspace.comment),
+          //workspace
+          if (workspace.pc.isNotEmpty) _buildNameValueItem('电脑', workspace.pc),
+          if (workspace.monitor.isNotEmpty) _buildNameValueItem('显示器', workspace.monitor),
+          if (workspace.tool.isNotEmpty) _buildNameValueItem('软件', workspace.tool),
+          if (workspace.scanner.isNotEmpty) _buildNameValueItem('扫描仪', workspace.scanner),
+          if (workspace.tablet.isNotEmpty) _buildNameValueItem('数位板', workspace.tablet),
+          if (workspace.mouse.isNotEmpty) _buildNameValueItem('鼠标', workspace.mouse),
+          if (workspace.printer.isNotEmpty) _buildNameValueItem('打印机', workspace.printer),
+          if (workspace.desktop.isNotEmpty) _buildNameValueItem('桌子上的东西', workspace.desktop),
+          if (workspace.music.isNotEmpty) _buildNameValueItem('画图时听的音乐', workspace.music),
+          if (workspace.desk.isNotEmpty) _buildNameValueItem('桌子', workspace.desk),
+          if (workspace.chair.isNotEmpty) _buildNameValueItem('椅子', workspace.chair),
+          if (workspace.comment.isNotEmpty) _buildNameValueItem('留言', workspace.comment),
 
-        //web
-        if (null != profile.webpage) _buildWebUrlItem('个人网页', profile.webpage!, AppIcons.web),
-        if (null != profile.twitterUrl) _buildWebUrlItem('twitter', profile.twitterUrl!, AppIcons.twitter),
-        if (null != profile.pawooUrl) _buildWebUrlItem('pawoo', profile.pawooUrl!, AppIcons.pawoo),
-        if (null != user.comment)
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075, vertical: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TextWidget('简介', fontSize: 14, isBold: true),
-                HtmlRichText(user.comment!, canShowOriginal: true),
-              ],
-            ),
-          )
-      ],
+          //web
+          if (null != profile.webpage) _buildWebUrlItem('个人网页', profile.webpage!, AppIcons.web),
+          if (null != profile.twitterUrl) _buildWebUrlItem('twitter', profile.twitterUrl!, AppIcons.twitter),
+          if (null != profile.pawooUrl) _buildWebUrlItem('pawoo', profile.pawooUrl!, AppIcons.pawoo),
+          if (null != user.comment)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TextWidget('简介', fontSize: 14, isBold: true),
+                  HtmlRichText(user.comment!, canShowOriginal: true),
+                ],
+              ),
+            )
+        ],
+      ),
     );
   }
 }

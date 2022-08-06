@@ -9,7 +9,6 @@ import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
-import 'package:pixiv_func_mobile/pages/settings/settings.dart';
 import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
@@ -116,7 +115,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
           : null,
       extentActions: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () => Get.to(const SettingsPage()),
+        // onTap: () => Get.to(const SettingsPage()),
         child: const Padding(
           padding: EdgeInsets.all(16),
           child: Icon(Icons.settings),
@@ -216,7 +215,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
         actions: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () => Get.to(const SettingsPage()),
+            // onTap: () => Get.to(const SettingsPage()),
             child: const Padding(
               padding: EdgeInsets.all(16),
               child: Icon(Icons.settings),
@@ -296,6 +295,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                   )
                 ],
                 pinnedHeaderSliverHeightBuilder: () => kToolbarHeight * 2,
+                onlyOneScrollInBody: true,
                 body: TabBarView(
                   controller: controller.tabController,
                   children: [

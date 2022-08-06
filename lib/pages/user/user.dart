@@ -225,6 +225,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                   )
                 ],
                 pinnedHeaderSliverHeightBuilder: () => kToolbarHeight * 2,
+                onlyOneScrollInBody: true,
                 body: TabBarView(
                   controller: controller.tabController,
                   children: [
