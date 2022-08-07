@@ -132,10 +132,7 @@ class UgoiraViewerController extends GetxController {
         update();
         PlatformApi.toast('开始合成图片 共${state.imageFiles.length}帧');
         final saveResult = await PlatformApi.saveGifImage(id, state.imageFiles, state.delays);
-        if (null == saveResult) {
-          PlatformApi.toast('图片已存在');
-          return;
-        }
+
         if (Get.isRegistered<IllustController>(tag: 'IllustPage-$id')) {
           Get.find<IllustController>(tag: 'IllustPage-$id').downloadComplete(0, saveResult);
         } else {

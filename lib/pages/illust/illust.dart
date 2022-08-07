@@ -33,7 +33,7 @@ class IllustPage extends StatelessWidget {
 
   const IllustPage({required this.illust, Key? key}) : super(key: key);
 
-  String get controllerTag => '$runtimeType-${illust.id}';
+  String get controllerTag => 'Illust-${illust.id}';
 
   Widget _buildImageItem({
     required int id,

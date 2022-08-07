@@ -19,7 +19,7 @@ class FrameGifController extends GetxController with WidgetsBindingObserver {
 
   bool isActivity = true;
 
-  bool playing = true;
+  bool playing = false;
 
   bool get isPause => pauseValueNotifier.value;
 
@@ -30,11 +30,15 @@ class FrameGifController extends GetxController with WidgetsBindingObserver {
 
   Future<void> start() async {
     playing = true;
+    update();
     Future.sync(_updateRender);
   }
 
+
+
   void stop() {
     playing = false;
+    update();
   }
 
   void _updateRender() {

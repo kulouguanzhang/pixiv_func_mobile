@@ -32,56 +32,50 @@ class FrameGifWidget extends StatelessWidget {
     return GetBuilder<FrameGifController>(
       tag: controllerTag,
       builder: (controller) {
-        if (controller.playing) {
-          return VisibilityDetector(
-            key: Key('GIF-$id'),
-            onVisibilityChanged: (VisibilityInfo info) {
-              if (info.visibleFraction != 0.0) {
-                controller.start();
-              } else {
+        return VisibilityDetector(
+          key: Key('GIF-$id'),
+          onVisibilityChanged: (VisibilityInfo info) {
+            bool hide = info.visibleFraction == 0.0;
+            if (!hide != controller.playing) {
+              if (hide) {
                 controller.stop();
+              } else {
+                controller.start();
               }
-            },
-            child: Hero(
-              tag: heroTag ?? 'IllustHero:$id',
-              child: GestureDetector(
-                onTap: () => controller.pauseStateChange(),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CustomPaint(
+            }
+          },
+          child: Hero(
+            tag: heroTag ?? 'IllustHero:$id',
+            child: GestureDetector(
+              onTap: () => controller.pauseStateChange(),
+              child: SizedBox(
+                width: double.infinity,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CustomPaint(
+                      size: size,
+                      painter: _GifPainter(
+                        controller.images,
+                        delays: controller.delays,
+                        indexValueNotifier: controller.indexValueNotifier,
+                        pauseValueNotifier: controller.pauseValueNotifier,
                         size: size,
-                        painter: _GifPainter(
-                          controller.images,
-                          delays: controller.delays,
-                          indexValueNotifier: controller.indexValueNotifier,
-                          pauseValueNotifier: controller.pauseValueNotifier,
-                          size: size,
-                        ),
                       ),
-                      Visibility(
-                        visible: controller.isPause,
-                        child: const Icon(Icons.play_circle_outline_outlined, size: 70),
-                      )
-                    ],
-                  ),
+                    ),
+                    Visibility(
+                      visible: controller.isPause,
+                      child: const Icon(Icons.play_circle_outline_outlined, size: 70),
+                    )
+                  ],
                 ),
               ),
             ),
-          );
-        } else {
-          return SizedBox(
-            height: size.height,
-            width: size.width,
-          );
-        }
+          ),
+        );
       },
     );
   }
-
-
 }
 
 class _GifPainter extends CustomPainter {
