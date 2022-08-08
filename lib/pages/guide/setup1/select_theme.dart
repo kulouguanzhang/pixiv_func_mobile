@@ -68,7 +68,7 @@ class GuideSelectThemePage extends StatelessWidget {
                 ),
                 onPressed: () {
                   Get.find<SettingsService>().guideInit = true;
-                  Get.to(const LoginPage(isFirst: true));
+                  Get.to(() => const LoginPage(isFirst: true));
                 },
               ),
               const Spacer(flex: 1),

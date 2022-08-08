@@ -44,13 +44,13 @@ class SearchController extends GetxController {
     focusNode.unfocus();
     switch (tabController.index) {
       case 0:
-        Get.to(SearchIllustResultPage(keyword: value));
+        Get.to(() => SearchIllustResultPage(keyword: value));
         break;
       case 1:
-        Get.to(SearchNovelResultPage(keyword: value));
+        Get.to(() => SearchNovelResultPage(keyword: value));
         break;
       case 2:
-        Get.to(SearchUserResultPage(keyword: value));
+        Get.to(() => SearchUserResultPage(keyword: value));
         break;
     }
   }

@@ -27,7 +27,7 @@ class UserPreviewer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () => Get.to(UserPage(id: userPreview.user.id)),
+                  onTap: () => Get.to(() => UserPage(id: userPreview.user.id)),
                   child: AvatarFromUrl(userPreview.user.profileImageUrls.medium, radius: 48),
                 ),
                 const SizedBox(width: 20),

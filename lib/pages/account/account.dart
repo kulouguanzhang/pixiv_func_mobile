@@ -25,7 +25,7 @@ class AccountPage extends StatelessWidget {
           actions: [
             const SizedBox(height: 5),
             IconButton(
-              onPressed: () => Get.to(const LoginPage()),
+              onPressed: () => Get.to(() => const LoginPage()),
               icon: const Icon(Icons.add),
             ),
             const SizedBox(height: 5),

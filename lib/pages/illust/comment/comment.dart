@@ -43,7 +43,7 @@ class IllustCommentContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
+              onTap: () => Get.to(() => UserPage(id: commentTree.data.user.id)),
               child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
             ),
             const SizedBox(width: 10),
@@ -110,7 +110,7 @@ class IllustCommentContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () => Get.to(UserPage(id: commentTree.data.user.id)),
+              onTap: () => Get.to(() => UserPage(id: commentTree.data.user.id)),
               child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
             ),
             const SizedBox(width: 10),

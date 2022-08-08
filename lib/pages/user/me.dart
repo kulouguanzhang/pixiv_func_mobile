@@ -115,7 +115,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
           : null,
       extentActions: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        // onTap: () => Get.to(const SettingsPage()),
+        // onTap: () => Get.to(() => const SettingsPage()),
         child: const Padding(
           padding: EdgeInsets.all(16),
           child: Icon(Icons.settings),
@@ -215,7 +215,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
         actions: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            // onTap: () => Get.to(const SettingsPage()),
+            // onTap: () => Get.to(() => const SettingsPage()),
             child: const Padding(
               padding: EdgeInsets.all(16),
               child: Icon(Icons.settings),

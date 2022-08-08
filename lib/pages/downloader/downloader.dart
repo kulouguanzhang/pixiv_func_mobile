@@ -39,7 +39,7 @@ class DownloaderPage extends StatelessWidget {
 
     return Card(
       child: ListTile(
-        onTap: () => Get.to(IllustPage(illust: task.illust)),
+        onTap: () => Get.to(() => IllustPage(illust: task.illust)),
         title: TextWidget(task.illust.title, overflow: TextOverflow.ellipsis),
         subtitle: DownloadState.failed != task.state ? LinearProgressIndicator(value: task.progress) : const TextWidget('下载失败'),
         trailing: SizedBox(

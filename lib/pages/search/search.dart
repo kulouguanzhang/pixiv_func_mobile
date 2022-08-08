@@ -81,11 +81,11 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                       ],
                     ),
                     onPressed: () {
-                      ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
+                      ImagePicker().pickImage(source: ImageSource.gallery).then((picker) {
                         if (null != picker) {
                           picker.readAsBytes();
                           Get.to(
-                            SearchImageResultPage(
+                            () async => SearchImageResultPage(
                               imageBytes: await picker.readAsBytes(),
                               filename: picker.name,
                             ),
@@ -123,7 +123,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                           if (controller.inputIsNotEmpty)
                             if (controller.inputIsNumber)
                               ListTile(
-                                onTap: () => Get.to(IllustIdSearchPage(id: controller.inputAsNumber)),
+                                onTap: () => Get.to(() => IllustIdSearchPage(id: controller.inputAsNumber)),
                                 title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
                                 subtitle: const TextWidget('插画ID', fontSize: 12),
                               )
@@ -173,7 +173,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                           if (controller.inputIsNotEmpty)
                             if (controller.inputIsNumber)
                               ListTile(
-                                onTap: () => Get.to(UserPage(id: controller.inputAsNumber)),
+                                onTap: () => Get.to(() => UserPage(id: controller.inputAsNumber)),
                                 title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
                                 subtitle: const TextWidget('用户ID', fontSize: 12),
                               )

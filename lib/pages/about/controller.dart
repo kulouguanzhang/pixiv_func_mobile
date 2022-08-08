@@ -110,7 +110,7 @@ class AboutController extends GetxController implements GetxService {
             '版本更新提示',
             '当前版本:$appVersion,最新版本:${releaseInfo!.name},点击前往查看',
             duration: const Duration(seconds: 6),
-            onTap: (snack) => Get.to(const AboutPage()),
+            onTap: (snack) => Get.to(() => const AboutPage()),
           );
           _first = false;
         }

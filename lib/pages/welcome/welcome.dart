@@ -31,7 +31,7 @@ class WelcomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: TextWidget('开始', fontSize: 18, color: Colors.white, isBold: true),
               ),
-              onPressed: () => Get.to(const GuideSelectLanguagePage()),
+              onPressed: () => Get.to(() => const GuideSelectLanguagePage()),
             ),
             const Spacer(flex: 1),
           ],

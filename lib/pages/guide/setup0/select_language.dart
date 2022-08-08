@@ -55,7 +55,7 @@ class GuideSelectLanguagePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: TextWidget('下一步', fontSize: 18, color: Colors.white, isBold: true),
                 ),
-                onPressed: () => Get.to(const GuideSelectThemePage()),
+                onPressed: () => Get.to(() => const GuideSelectThemePage()),
               ),
               const Spacer(flex: 1),
               const TextWidget('稍后您可以在设置中进行相应变更', fontSize: 14),

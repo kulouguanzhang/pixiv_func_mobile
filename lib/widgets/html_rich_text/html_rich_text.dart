@@ -62,7 +62,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
             return TextSpan(
               text: '插画ID:$illustId',
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
-              recognizer: TapGestureRecognizer()..onTap = () => Get.to(IllustIdSearchPage(id: illustId)),
+              recognizer: TapGestureRecognizer()..onTap = () => Get.to(() => IllustIdSearchPage(id: illustId)),
             );
           }
           if (Utils.urlIsUser(href)) {
@@ -70,7 +70,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
             return TextSpan(
               text: '用户ID:$userId',
               style: isStrong ? _knownStrongLinkStyle : _knownLinkStyle,
-              recognizer: TapGestureRecognizer()..onTap = () => Get.to(UserPage(id: userId)),
+              recognizer: TapGestureRecognizer()..onTap = () => Get.to(() => UserPage(id: userId)),
             );
           }
 

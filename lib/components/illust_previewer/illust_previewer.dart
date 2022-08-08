@@ -96,7 +96,7 @@ class IllustPreviewer extends StatelessWidget {
     );
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => Get.to(IllustPage(illust: illust), routeName: 'IllustPage:${illust.id}', preventDuplicates: false),
+      onTap: () => Get.to(() => IllustPage(illust: illust), routeName: 'IllustPage:${illust.id}', preventDuplicates: false),
       child: borderRadius != null
           ? ClipRRect(
               borderRadius: borderRadius,

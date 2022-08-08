@@ -22,7 +22,7 @@ class SearchGuidePage extends StatelessWidget {
     return ScaffoldWidget(
       titleWidget: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () => Get.to(const SearchPage()),
+        onTap: () => Get.to(() => const SearchPage()),
         child: Row(
           children: [
             Expanded(
@@ -64,11 +64,11 @@ class SearchGuidePage extends StatelessWidget {
                     TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
                   ],
                 ),
-                onPressed: () async {
+                onPressed: ()  {
                   ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
                     if (null != picker) {
                       picker.readAsBytes();
-                      Get.to(
+                      Get.to(()async =>
                         SearchImageResultPage(
                           imageBytes: await picker.readAsBytes(),
                           filename: picker.name,
@@ -91,8 +91,8 @@ class SearchGuidePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () => Get.to(SearchIllustResultPage(keyword: item.tag)),
-                onLongPress: () => Get.to(IllustPage(illust: item.illust)),
+                onTap: () => Get.to(() => SearchIllustResultPage(keyword: item.tag)),
+                onLongPress: () => Get.to(() => IllustPage(illust: item.illust)),
                 child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) => SizedBox(
                     width: constraints.maxWidth,

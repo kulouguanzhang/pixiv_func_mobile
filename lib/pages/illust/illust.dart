@@ -43,7 +43,7 @@ class IllustPage extends StatelessWidget {
   }) {
     final controller = Get.find<IllustController>(tag: controllerTag);
     final widget = GestureDetector(
-      onTap: () => Get.to(ImageScalePage(illust: illust, initialPage: index)),
+      onTap: () => Get.to(() => ImageScalePage(illust: illust, initialPage: index)),
       onLongPress: () => controller.downloadModeChangeState(),
       child: Stack(
         children: [
@@ -236,7 +236,7 @@ class IllustPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () => Get.to(UserPage(id: illust.user.id)),
+                onTap: () => Get.to(() => UserPage(id: illust.user.id)),
                 child: AvatarFromUrl(illust.user.profileImageUrls.medium, radius: 48),
               ),
               const SizedBox(width: 20),
@@ -301,6 +301,8 @@ class IllustPage extends StatelessWidget {
                 },
                 child: Row(
                   children: [
+                    TextWidget('宽:${illust.width}px 高:${illust.height}px'),
+                    const SizedBox(width: 5),
                     TextWidget('插画ID: ${illust.id}'),
                     const SizedBox(width: 5),
                     const Icon(
@@ -353,7 +355,7 @@ class IllustPage extends StatelessWidget {
                     if (controller.blockMode) {
                       controller.blockTagChangeState(tag);
                     } else {
-                      Get.to(SearchIllustResultPage(keyword: tag.name));
+                      Get.to(() => SearchIllustResultPage(keyword: tag.name));
                     }
                   },
                   onLongPress: () => controller.blockModeChangeState(),

@@ -76,7 +76,7 @@ class LivePreviewer extends StatelessWidget {
               );
             }
             return GestureDetector(
-              onTap: () => Get.to(LivePage(id: live.id, name: live.name)),
+              onTap: () => Get.to(() => LivePage(id: live.id, name: live.name)),
               child: widget,
             );
           },

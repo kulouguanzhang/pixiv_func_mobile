@@ -25,22 +25,25 @@ class UrlScheme {
     }
     if ('http' == uri.scheme || 'https' == uri.scheme) {
       if (uri.host.contains('pixiv.net')) {
-        if ('artworks' == uri.pathSegments.first) {
+        //  en/artworks/$id
+        if (uri.pathSegments.contains('artworks')) {
           final idString = uri.pathSegments.last;
           final id = int.tryParse(idString);
           if (id == null) {
             PlatformApi.toast('无效的id:$idString');
             return;
           }
-          Get.to(IllustIdSearchPage(id: id));
-        } else if ('users' == uri.pathSegments.first) {
+          Get.to(() => IllustIdSearchPage(id: id));
+        }
+        //  en/users/$id
+        else if (uri.pathSegments.contains('users')) {
           final idString = uri.pathSegments.last;
           final id = int.tryParse(idString);
           if (id == null) {
             PlatformApi.toast('无效的id:$idString');
             return;
           }
-          Get.to(UserPage(id: id));
+          Get.to(() => UserPage(id: id));
         } else if (uri.queryParameters['illust_id'] != null) {
           final idString = uri.queryParameters['illust_id'] as String;
           final id = int.tryParse(idString);
@@ -48,7 +51,7 @@ class UrlScheme {
             PlatformApi.toast('无效的id:$idString');
             return;
           }
-          Get.to(IllustIdSearchPage(id: id));
+          Get.to(() => IllustIdSearchPage(id: id));
         } else if (uri.queryParameters['id'] != null) {
           if (uri.path.contains('novel')) {
             PlatformApi.toast('小说暂未支持');
@@ -60,7 +63,7 @@ class UrlScheme {
               PlatformApi.toast('无效的id:$idString');
               return;
             }
-            Get.to(UserPage(id: id));
+            Get.to(() => UserPage(id: id));
           }
         } else {
           PlatformApi.toast('不支持的path:${uri.path}');
@@ -74,7 +77,7 @@ class UrlScheme {
           PlatformApi.toast('无效的id:$idString');
           return;
         }
-        Get.to(IllustIdSearchPage(id: id));
+        Get.to(() => IllustIdSearchPage(id: id));
       } else if ('users' == uri.host) {
         final idString = uri.pathSegments.last;
         final id = int.tryParse(idString);
@@ -82,7 +85,7 @@ class UrlScheme {
           PlatformApi.toast('无效的id:$idString');
           return;
         }
-        Get.to(UserPage(id: id));
+        Get.to(() => UserPage(id: id));
       }
     }
   }
