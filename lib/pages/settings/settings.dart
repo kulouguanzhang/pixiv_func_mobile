@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
-import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/pages/about/about.dart';
 import 'package:pixiv_func_mobile/pages/account/account.dart';
 import 'package:pixiv_func_mobile/pages/block_tag/block_tag.dart';
@@ -59,7 +59,7 @@ class SettingsPage extends StatelessWidget {
                             padding: const EdgeInsets.fromLTRB(10, 10, 20, 10),
                             child: SizedBox(
                               height: 85,
-                              child: AvatarFromUrl(
+                              child: PixivAvatarWidget(
                                 localUser.profileImageUrls.px170x170,
                                 radius: 85,
                               ),

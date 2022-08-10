@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/models/search_image_item.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -61,7 +61,7 @@ class SearchImageResultPage extends StatelessWidget {
                 builder: (BuildContext context, BoxConstraints constraints) {
                   return ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    child: ImageFromUrl(
+                    child: PixivImageWidget(
                       item.result.imageUrl,
                       width: constraints.maxWidth,
                       fit: BoxFit.fitWidth,
@@ -96,7 +96,7 @@ class SearchImageResultPage extends StatelessWidget {
                   )
                 else
                   const TextWidget('Unknown', fontSize: 14, overflow: TextOverflow.ellipsis, isBold: true),
-                //收藏按钮的高度
+                //收藏按钮
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: SizedBox(height: 24),

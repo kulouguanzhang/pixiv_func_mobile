@@ -5,12 +5,12 @@ import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
-import 'package:pixiv_func_mobile/pages/search/filter_editor/controller.dart';
-import 'package:pixiv_func_mobile/pages/search/filter_editor/search_filter_editor.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 import 'controller.dart';
+import 'filter_editor/controller.dart';
+import 'filter_editor/search_illust_filter_editor.dart';
 
 class SearchIllustResultPage extends StatelessWidget {
   final String keyword;
@@ -26,10 +26,10 @@ class SearchIllustResultPage extends StatelessWidget {
     return GetBuilder<SearchIllustResultController>(
       tag: controllerTag,
       initState: (state) {
-        Get.put(SearchFilterEditorController(controller.onFilterChanged), tag: 'SearchFilterEditor-$keyword');
+        Get.put(SearchIllustFilterEditorController(controller.onFilterChanged), tag: 'SearchIllustFilterEditor-$keyword');
       },
       dispose: (state) {
-        Get.delete<SearchFilterEditorController>(tag: 'SearchFilterEditor-$keyword');
+        Get.delete<SearchIllustFilterEditorController>(tag: 'SearchIllustFilterEditor-$keyword');
       },
       builder: (controller) => ScaffoldWidget(
         automaticallyImplyLeading: false,
@@ -77,7 +77,7 @@ class SearchIllustResultPage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SearchFilterEditorWidget(
+            SearchIllustFilterEditorWidget(
               keyword: keyword,
               onFilterChanged: controller.onFilterChanged,
               expandableController: controller.filterPanelController,

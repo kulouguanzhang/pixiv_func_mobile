@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
-import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/pages/login/login.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
@@ -48,7 +48,7 @@ class AccountPage extends StatelessWidget {
                       account.user.id == Get.find<AccountService>().current?.user.id ? TextStyle(color: Get.theme.colorScheme.primary) : null,
                     ),
                     subtitle: Text('${account.user.account}(${account.user.id})'),
-                    leading: AvatarFromUrl(account.user.profileImageUrls.px50x50, radius: 50),
+                    leading: PixivAvatarWidget(account.user.profileImageUrls.px50x50, radius: 50),
                     trailing: IconButton(
                       splashRadius: 40,
                       onPressed: () {

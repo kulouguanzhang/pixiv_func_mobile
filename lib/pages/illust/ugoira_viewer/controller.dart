@@ -4,10 +4,10 @@ import 'dart:ui' as ui;
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/data/settings_service.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/pages/illust/controller.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
-import 'package:pixiv_func_mobile/utils/utils.dart';
 
 import 'state.dart';
 
@@ -66,9 +66,7 @@ class UgoiraViewerController extends GetxController {
       PlatformApi.toast('开始下载动图压缩包');
       try {
         state.gifZipResponse = await _httpClient.get<Uint8List>(
-          Utils.replaceImageSource(
-            state.ugoiraMetadata!.ugoiraMetadata.zipUrls.medium,
-          ),
+          Get.find<SettingsService>().toCurrentImageSource(state.ugoiraMetadata!.ugoiraMetadata.zipUrls.medium),
         );
       } catch (e) {
         Log.e('下载动图压缩包失败', e);

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/model/image_urls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsService extends GetxService {
@@ -25,6 +26,14 @@ class SettingsService extends GetxService {
 
   set imageSource(String value) {
     _sharedPreferences.setString('image_source', value);
+  }
+
+  String toCurrentImageSource(String url, [String host = 'i.pximg.net']) {
+    return url.replaceFirst(host, imageSource);
+  }
+
+  String getPreviewUrl(ImageUrls imageUrls) {
+    return previewQuality ? imageUrls.large : imageUrls.medium;
   }
 
   bool get previewQuality => _sharedPreferences.getBool('preview_quality') ?? true;

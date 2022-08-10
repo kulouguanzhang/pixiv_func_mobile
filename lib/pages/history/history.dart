@@ -103,7 +103,7 @@ class HistoryPage extends StatelessWidget {
             builder: (bool? snapshot, void Function(bool?) updater) {
               return CupertinoSwitchListTile(
                 contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
-                onTap: () => updater,
+                onTap: () => updater(!(snapshot??false)),
                 title: const TextWidget('浏览记录', fontSize: 18, isBold: true),
                 value: snapshot!,
               );

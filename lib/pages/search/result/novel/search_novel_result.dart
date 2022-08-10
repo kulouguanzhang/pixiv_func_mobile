@@ -4,12 +4,12 @@ import 'package:pixiv_dart_api/model/novel.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/novel_previewer/novel_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
-import 'package:pixiv_func_mobile/pages/search/filter_editor/controller.dart';
-import 'package:pixiv_func_mobile/pages/search/filter_editor/search_filter_editor.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 import 'controller.dart';
+import 'filter_editor/controller.dart';
+import 'filter_editor/search_illust_filter_editor.dart';
 
 class SearchNovelResultPage extends StatelessWidget {
   final String keyword;
@@ -24,10 +24,10 @@ class SearchNovelResultPage extends StatelessWidget {
     return GetBuilder<SearchNovelResultController>(
       tag: controllerTag,
       initState: (state) {
-        Get.put(SearchFilterEditorController(controller.onFilterChanged), tag: 'SearchFilterEditor-$keyword');
+        Get.put(SearchNovelFilterEditorController(controller.onFilterChanged), tag: 'SearchNovelFilterEditor-$keyword');
       },
       dispose: (state) {
-        Get.delete<SearchFilterEditorController>(tag: 'SearchFilterEditor-$keyword');
+        Get.delete<SearchNovelFilterEditorController>(tag: 'SearchNovelFilterEditor-$keyword');
       },
       builder: (controller) => ScaffoldWidget(
         automaticallyImplyLeading: false,
@@ -75,7 +75,7 @@ class SearchNovelResultPage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SearchFilterEditorWidget(
+            SearchNovelFilterEditorWidget(
               keyword: keyword,
               onFilterChanged: controller.onFilterChanged,
               expandableController: controller.filterPanelController,

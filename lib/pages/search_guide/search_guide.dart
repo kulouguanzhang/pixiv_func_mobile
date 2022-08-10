@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/vo/trending_tag_list_result.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
 import 'package:pixiv_func_mobile/pages/search/result/illust/search_illust_result.dart';
@@ -99,7 +99,7 @@ class SearchGuidePage extends StatelessWidget {
                     height: constraints.maxWidth,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: ImageFromUrl(item.illust.imageUrls.squareMedium),
+                      child: PixivImageWidget(item.illust.imageUrls.squareMedium),
                     ),
                   ),
                 ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/novel.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/pages/novel/novel.dart';
 import 'package:pixiv_func_mobile/widgets/html_rich_text/html_rich_text.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -43,7 +43,7 @@ class NovelPreviewer extends StatelessWidget {
                     height: Get.height * 0.3,
                     child: Container(
                       color: Colors.white,
-                      child: ImageFromUrl(novel.imageUrls.medium, fit: BoxFit.fill),
+                      child: PixivImageWidget(novel.imageUrls.medium, fit: BoxFit.fill),
                     ),
                   ),
                   const SizedBox(width: 12),

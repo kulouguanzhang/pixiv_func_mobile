@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/comment.dart';
 import 'package:pixiv_func_mobile/app/data/account_service.dart';
-import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
@@ -44,7 +44,7 @@ class IllustCommentContent extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () => Get.to(() => UserPage(id: commentTree.data.user.id)),
-              child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
+              child: PixivAvatarWidget(commentTree.data.user.profileImageUrls.medium, radius: 32),
             ),
             const SizedBox(width: 10),
             Column(
@@ -111,7 +111,7 @@ class IllustCommentContent extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () => Get.to(() => UserPage(id: commentTree.data.user.id)),
-              child: AvatarFromUrl(commentTree.data.user.profileImageUrls.medium, radius: 32),
+              child: PixivAvatarWidget(commentTree.data.user.profileImageUrls.medium, radius: 32),
             ),
             const SizedBox(width: 10),
             Column(

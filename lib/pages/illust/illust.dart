@@ -4,12 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_func_mobile/app/data/settings_service.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
-import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/models/illust_save_state.dart';
 import 'package:pixiv_func_mobile/pages/search/result/illust/search_illust_result.dart';
@@ -47,7 +48,7 @@ class IllustPage extends StatelessWidget {
       onLongPress: () => controller.downloadModeChangeState(),
       child: Stack(
         children: [
-          ImageFromUrl(
+          PixivImageWidget(
             previewUrl,
             width: double.infinity,
             color: controller.downloadMode
@@ -237,7 +238,7 @@ class IllustPage extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () => Get.to(() => UserPage(id: illust.user.id)),
-                child: AvatarFromUrl(illust.user.profileImageUrls.medium, radius: 48),
+                child: PixivAvatarWidget(illust.user.profileImageUrls.medium, radius: 48),
               ),
               const SizedBox(width: 20),
               Expanded(
@@ -301,7 +302,7 @@ class IllustPage extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    TextWidget('宽:${illust.width}px 高:${illust.height}px'),
+                    TextWidget('分辨率:${illust.width}x${illust.height}'),
                     const SizedBox(width: 5),
                     TextWidget('插画ID: ${illust.id}'),
                     const SizedBox(width: 5),
@@ -402,6 +403,7 @@ class IllustPage extends StatelessWidget {
     Get.put(IllustController(illust), tag: controllerTag);
     return GetBuilder<IllustController>(
       tag: controllerTag,
+      assignId: true,
       builder: (controller) => DefaultTabController(
         length: 2,
         child: GestureDetector(
@@ -474,7 +476,7 @@ class IllustPage extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: _buildUgoiraViewer(
                         id: illust.id,
-                        previewUrl: Utils.getPreviewUrl(illust.imageUrls),
+                        previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
                       ),
                     )
                   else if (1 == illust.pageCount)
@@ -482,7 +484,7 @@ class IllustPage extends StatelessWidget {
                       child: _buildImageItem(
                         id: illust.id,
                         title: illust.title,
-                        previewUrl: Utils.getPreviewUrl(illust.imageUrls),
+                        previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
                         index: 0,
                       ),
                     )
@@ -494,7 +496,7 @@ class IllustPage extends StatelessWidget {
                             _buildImageItem(
                               id: illust.id,
                               title: illust.title,
-                              previewUrl: Utils.getPreviewUrl(illust.metaPages[index].imageUrls),
+                              previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.metaPages[index].imageUrls),
                               index: index,
                             ),
                         ],

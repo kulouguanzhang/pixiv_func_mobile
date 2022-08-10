@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static final darkTheme = ThemeData.dark().copyWith(
+    primaryColor:const Color(0xFFFF6289),
     scaffoldBackgroundColor: const Color(0xFF181818),
+    bottomAppBarColor: const Color(0xff181818),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Color(0xff181818),
       selectedItemColor: Color(0xFFFF6289),
@@ -43,8 +45,13 @@ class AppTheme {
   );
 
   static final lightTheme = ThemeData.light().copyWith(
+    primaryColor:Color(0xFFFF6289),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     bottomAppBarColor: const Color(0xFFFFFFFF),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Color(0xFFFFFFFF),
+      selectedItemColor: Color(0xFFFF6289),
+    ),
     cardColor: const Color(0xFFFFFFFF),
     tabBarTheme: const TabBarTheme(
       labelColor: Color(0xFFFF6289),

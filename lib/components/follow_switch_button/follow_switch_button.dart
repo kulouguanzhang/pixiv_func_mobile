@@ -22,8 +22,10 @@ class FollowSwitchButton extends StatelessWidget {
     required this.initValue,
   }) : super(key: key);
 
+  String get controllerTag => '$runtimeType-$id';
+
   void _restrictDialog() {
-    final controller = Get.find<FollowSwitchButtonController>(tag: '$runtimeType-$id');
+    final controller = Get.find<FollowSwitchButtonController>(tag: controllerTag);
     final items = {
       Restrict.public: '公开',
       Restrict.private: '悄悄',
@@ -159,7 +161,6 @@ class FollowSwitchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controllerTag = '$runtimeType-$id';
 
     final bool isRootController = !Get.isRegistered<FollowSwitchButtonController>(tag: controllerTag);
     if (isRootController) {

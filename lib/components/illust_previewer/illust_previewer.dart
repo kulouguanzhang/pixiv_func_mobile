@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_func_mobile/app/data/settings_service.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
-import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 class IllustPreviewer extends StatelessWidget {
@@ -35,7 +36,7 @@ class IllustPreviewer extends StatelessWidget {
     BorderRadius? borderRadius,
     bool needHero = false,
   }) {
-    final widget = ImageFromUrl(
+    final widget = PixivImageWidget(
       url,
       width: width,
       height: height,
@@ -96,7 +97,13 @@ class IllustPreviewer extends StatelessWidget {
     );
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => Get.to(() => IllustPage(illust: illust), routeName: 'IllustPage:${illust.id}', preventDuplicates: false),
+      onTap: () {
+        if (illust.restrict == 0) {
+          Get.to(() => IllustPage(illust: illust), routeName: 'IllustPage-${illust.id}', preventDuplicates: false);
+        } else {
+          PlatformApi.toast('已被设置为私密');
+        }
+      },
       child: borderRadius != null
           ? ClipRRect(
               borderRadius: borderRadius,
@@ -127,7 +134,7 @@ class IllustPreviewer extends StatelessWidget {
             builder: (BuildContext context, BoxConstraints constraints) {
               final previewHeight = constraints.maxWidth / illust.width * illust.height;
               return _buildImage(
-                url: Utils.getPreviewUrl(illust.imageUrls),
+                url:Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
                 width: constraints.maxWidth,
                 height: previewHeight,
                 pageCount: illust.pageCount,

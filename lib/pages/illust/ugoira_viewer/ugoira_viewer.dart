@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
 import 'package:pixiv_func_mobile/components/frame_gif/frame_gif.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 
 import 'controller.dart';
 
@@ -44,7 +44,7 @@ class UgoiraViewer extends StatelessWidget with RouteAware {
                     children: [
                       SizedBox(
                         width: double.infinity,
-                        child: ImageFromUrl(
+                        child: PixivImageWidget(
                           previewUrl,
                           color: Get.isDarkMode ? Colors.black45 : Colors.white24,
                           colorBlendMode: BlendMode.srcOver,

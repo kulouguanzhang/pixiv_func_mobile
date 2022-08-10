@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_func_mobile/app/data/settings_service.dart';
-import 'package:pixiv_func_mobile/utils/utils.dart';
+import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 
 class ImageScalePage extends StatelessWidget {
   final Illust illust;
@@ -25,17 +25,15 @@ class ImageScalePage extends StatelessWidget {
     }
     return ObxValue<RxInt>(
       (data) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('${data.value + 1}/${urls.length}张'),
-          ),
-          body: ExtendedImageGesturePageView(
+        return ScaffoldWidget(
+          title: '${data.value + 1}/${urls.length}张',
+          child: ExtendedImageGesturePageView(
             controller: ExtendedPageController(initialPage: initialPage),
             onPageChanged: (int page) => data.value = page,
             children: [
               for (int i = 0; i < urls.length; ++i)
                 ExtendedImage.network(
-                  Utils.replaceImageSource(urls[i]),
+                  Get.find<SettingsService>().toCurrentImageSource(urls[i]),
                   headers: const {'Referer': 'https://app-api.pixiv.net'},
                   gaplessPlayback: true,
                   mode: ExtendedImageMode.gesture,

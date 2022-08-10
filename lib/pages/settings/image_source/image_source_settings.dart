@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/data/settings_service.dart';
-import 'package:pixiv_func_mobile/widgets/cupertino_switch_list_tile/cupertino_switch_list_tile.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -33,11 +32,11 @@ class ImageSourceSettingsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (final item in items)
-                CupertinoSwitchListTile(
+                ListTile(
                   contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                   onTap: () => updater(item.value),
-                  title: TextWidget(item.key, fontSize: 18, isBold: true),
-                  value: data.value == item.value,
+                  title: TextWidget(item.key, fontSize : 18, isBold: true),
+                  trailing: data.value == item.value ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary, size: 20) : null,
                 ),
               InkWell(
                 onTap: () => updater(customImageSourceInput.text),
@@ -49,7 +48,6 @@ class ImageSourceSettingsPage extends StatelessWidget {
                         flex: 4,
                         child: TextField(
                           controller: customImageSourceInput,
-                          style: const TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             constraints: const BoxConstraints(maxHeight: 40),
                             hintText: '使用自定义图片源源',

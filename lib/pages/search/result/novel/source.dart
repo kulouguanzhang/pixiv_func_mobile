@@ -5,7 +5,8 @@ import 'package:pixiv_dart_api/vo/novel_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/data_content/data_source_base.dart';
 import 'package:pixiv_func_mobile/models/search_filter.dart';
-import 'package:pixiv_func_mobile/pages/search/filter_editor/controller.dart';
+
+import 'filter_editor/controller.dart';
 
 class SearchNovelResultListSource extends DataSourceBase<Novel> {
   final String word;
@@ -16,7 +17,7 @@ class SearchNovelResultListSource extends DataSourceBase<Novel> {
 
   @override
   Future<List<Novel>> init(CancelToken cancelToken) {
-    final SearchFilter filter = Get.find<SearchFilterEditorController>(tag: 'SearchFilterEditor-$word').filter;
+    final SearchNovelFilter filter = Get.find<SearchNovelFilterEditorController>(tag: 'SearchNovelFilterEditor-$word').filter;
     return api
         .getSearchNovelPage(
       word,

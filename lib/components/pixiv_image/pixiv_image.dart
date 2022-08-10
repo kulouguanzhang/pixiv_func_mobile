@@ -1,8 +1,9 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:pixiv_func_mobile/utils/utils.dart';
+import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/data/settings_service.dart';
 
-class ImageFromUrl extends StatelessWidget {
+class PixivImageWidget extends StatelessWidget {
   final String url;
 
   final Color? color;
@@ -19,7 +20,9 @@ class ImageFromUrl extends StatelessWidget {
 
   final Widget? placeholderWidget;
 
-  const ImageFromUrl(
+  final String? host;
+
+  const PixivImageWidget(
     this.url, {
     Key? key,
     this.color,
@@ -29,14 +32,17 @@ class ImageFromUrl extends StatelessWidget {
     this.fit,
     this.imageBuilder,
     this.placeholderWidget,
+    this.host,
   }) : super(key: key);
+
+  static const _defaultHost = 'i.pximg.net';
 
   @override
   Widget build(BuildContext context) {
     //转义 不然 '/' 被当成路径会报错
     final cacheUrlPath = Uri.parse(url).path.replaceAll('/', '%2F');
     return ExtendedImage.network(
-      Utils.replaceImageSource(url),
+      Get.find<SettingsService>().toCurrentImageSource(url, host ?? _defaultHost),
       headers: const {'Referer': 'https://app-api.pixiv.net/'},
       cacheKey: cacheUrlPath,
       printError: false,

@@ -32,6 +32,7 @@ class TextWidget extends StatelessWidget {
         color: color,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         overflow: overflow,
+        decoration: TextDecoration.none,
       ),
     );
   }

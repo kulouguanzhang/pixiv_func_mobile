@@ -1,21 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_dart_api/model/live.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
+import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
+import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/pages/live/controller.dart';
+import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:video_player/video_player.dart';
 
 class LivePage extends StatelessWidget {
-  final String id;
-  final String name;
+  final Live live;
 
-  const LivePage({Key? key, required this.id, required this.name}) : super(key: key);
+  const LivePage({Key? key, required this.live,}) : super(key: key);
 
-  String get controllerTag => '$runtimeType-$id';
+  String get controllerTag => '$runtimeType-${live.id}';
 
   Widget _buildPlayerWidget(double heightRatio) {
     final controller = Get.find<LiveController>(tag: controllerTag);
@@ -150,14 +153,14 @@ class LivePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(LiveController(id), tag: controllerTag);
+    Get.put(LiveController(live.id), tag: controllerTag);
     return GetBuilder<LiveController>(
       tag: controllerTag,
       builder: (controller) => WillPopScope(
         child: () {
           if (!controller.isFullScreen) {
             return ScaffoldWidget(
-              title: name,
+              title: live.name,
               child: () {
                 if (PageState.loading == controller.state) {
                   return Container(
@@ -179,7 +182,51 @@ class LivePage extends StatelessWidget {
                     child: const TextWidget('直播已结束'),
                   );
                 } else if (PageState.complete == controller.state) {
-                  return _buildPlayerWidget(9 / 16);
+                  final liveUser = controller.liveDetail!.data.owner.user;
+                  return Column(
+                    children: [
+                      _buildPlayerWidget(9 / 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () => Get.to(() => UserPage(id: liveUser.id)),
+                              child: PixivAvatarWidget(
+                                live.owner.user.profileImageUrls.medium,
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    liveUser.name,
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 16,
+                                    isBold: true,
+                                  ),
+                                  TextWidget(
+                                    liveUser.uniqueName,
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 12,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FollowSwitchButton(
+                              id: liveUser.id,
+                              userName: liveUser.name,
+                              userAccount: liveUser.uniqueName,
+                              initValue: liveUser.followed,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
                 }
               }(),
             );

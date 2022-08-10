@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/live.dart';
-import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/pages/live/live.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -34,7 +34,7 @@ class LivePreviewer extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    child: ImageFromUrl(live.thumbnailImageUrl!, width: double.infinity, height: previewHeight, fit: BoxFit.fitWidth),
+                    child: PixivImageWidget(live.thumbnailImageUrl!, width: double.infinity, height: previewHeight, fit: BoxFit.fitWidth),
                   ),
                   Positioned(
                     right: 5,
@@ -48,12 +48,12 @@ class LivePreviewer extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.supervisor_account, color: Colors.white, size: 16),
-                          SizedBox(width: 5),
+                          const Icon(Icons.supervisor_account, color: Colors.white, size: 16),
+                          const SizedBox(width: 5),
                           TextWidget(live.memberCount.toString(), fontSize: 12, color: Colors.white),
-                          SizedBox(width: 5),
-                          Icon(Icons.remove_red_eye_outlined, color: Colors.white, size: 16),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
+                          const Icon(Icons.remove_red_eye_outlined, color: Colors.white, size: 16),
+                          const SizedBox(width: 5),
                           TextWidget(live.totalAudienceCount.toString(), fontSize: 12, color: Colors.white),
                         ],
                       ),
@@ -67,7 +67,7 @@ class LivePreviewer extends StatelessWidget {
                         for (final item in live.performers)
                           Padding(
                             padding: const EdgeInsets.only(right: 8),
-                            child: AvatarFromUrl(item.user.profileImageUrls.medium, radius: 30),
+                            child: PixivAvatarWidget(item.user.profileImageUrls.medium, radius: 30),
                           ),
                       ],
                     ),
@@ -76,7 +76,7 @@ class LivePreviewer extends StatelessWidget {
               );
             }
             return GestureDetector(
-              onTap: () => Get.to(() => LivePage(id: live.id, name: live.name)),
+              onTap: () => Get.to(() => LivePage(live: live,)),
               child: widget,
             );
           },
@@ -106,7 +106,7 @@ class LivePreviewer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(width: 10),
-            AvatarFromUrl(live.owner.user.profileImageUrls.medium, radius: 30),
+            PixivAvatarWidget(live.owner.user.profileImageUrls.medium, radius: 30),
             const SizedBox(width: 10),
             Expanded(
               child: Column(

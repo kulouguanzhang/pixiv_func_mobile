@@ -9,18 +9,18 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 import 'controller.dart';
 
-class SearchFilterEditorWidget extends StatelessWidget {
+class SearchIllustFilterEditorWidget extends StatelessWidget {
   final String keyword;
   final VoidCallback onFilterChanged;
   final ExpandableController expandableController;
 
-  const SearchFilterEditorWidget({Key? key, required this.keyword, required this.onFilterChanged, required this.expandableController})
+  const SearchIllustFilterEditorWidget({Key? key, required this.keyword, required this.onFilterChanged, required this.expandableController})
       : super(key: key);
 
-  String get controllerTag => 'SearchFilterEditor-$keyword';
+  String get controllerTag => 'SearchIllustFilterEditor-$keyword';
 
   void _openStartDatePicker() {
-    final controller = Get.find<SearchFilterEditorController>(tag: controllerTag);
+    final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     showDatePicker(
       context: Get.context!,
       initialDate: controller.dateRange.start,
@@ -44,7 +44,7 @@ class SearchFilterEditorWidget extends StatelessWidget {
   }
 
   void _openEndDatePicker() {
-    final controller = Get.find<SearchFilterEditorController>(tag: controllerTag);
+    final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     showDatePicker(
       context: Get.context!,
       initialDate: controller.dateRange.end,
@@ -67,7 +67,7 @@ class SearchFilterEditorWidget extends StatelessWidget {
   }
 
   Widget _buildDateRangeEdit() {
-    final controller = Get.find<SearchFilterEditorController>(tag: controllerTag);
+    final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -87,7 +87,7 @@ class SearchFilterEditorWidget extends StatelessWidget {
   }
 
   Widget _buildDateRangeTypeEdit() {
-    final controller = Get.find<SearchFilterEditorController>(tag: controllerTag);
+    final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     final items = {
       0: '无限制',
       1: '一天内',
@@ -143,7 +143,7 @@ class SearchFilterEditorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SearchFilterEditorController>(
+    return GetBuilder<SearchIllustFilterEditorController>(
       tag: controllerTag,
       builder: (controller) => ExpandablePanel(
         controller: expandableController,
@@ -233,14 +233,14 @@ class SearchFilterEditorWidget extends StatelessWidget {
                       );
                       break;
                     case 1:
-                      widget = SelectGroup<SearchTarget>(
+                      widget = SelectGroup<SearchIllustTarget>(
                         items: const {
-                          '标签(部分)': SearchTarget.partialMatchForTags,
-                          '标签(完全)': SearchTarget.exactMatchForTags,
-                          '标题&简介': SearchTarget.titleAndCaption,
+                          '标签(部分)': SearchIllustTarget.partialMatchForTags,
+                          '标签(完全)': SearchIllustTarget.exactMatchForTags,
+                          '标题&简介': SearchIllustTarget.titleAndCaption,
                         },
                         value: controller.target,
-                        onChanged: controller.searchTargetOnChanged,
+                        onChanged: controller.SearchIllustTargetOnChanged,
                       );
                       break;
                     case 2:

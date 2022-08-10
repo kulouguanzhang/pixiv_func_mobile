@@ -22,6 +22,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.0"
+  archive:
+    dependency: transitive
+    description:
+      name: archive
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.3.1"
   args:
     dependency: transitive
     description:
@@ -412,6 +419,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_pickers:
+    dependency: "direct main"
+    description:
+      name: flutter_pickers
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.9"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -487,6 +501,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.1"
+  image:
+    dependency: "direct main"
+    description:
+      name: image
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.2.0"
   image_picker:
     dependency: "direct main"
     description:
@@ -735,9 +756,9 @@ packages:
   pixiv_dart_api:
     dependency: "direct main"
     description:
-      name: pixiv_dart_api
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "../pixiv_dart_api"
+      relative: true
+    source: path
     version: "2.1.4"
   pixiv_live_proxy_server:
     dependency: "direct main"

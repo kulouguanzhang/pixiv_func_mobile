@@ -6,14 +6,14 @@ import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/search_filter.dart';
 
-class SearchFilterEditorController extends GetxController {
+class SearchNovelFilterEditorController extends GetxController {
   final VoidCallback onFilterChanged;
 
-  SearchFilterEditorController(this.onFilterChanged);
+  SearchNovelFilterEditorController(this.onFilterChanged);
 
   final editFilterPanelController = ExpandableController();
 
-  final SearchFilter filter = SearchFilter.create();
+  final SearchNovelFilter filter = SearchNovelFilter.create();
 
   final filterItems = <int, bool?>{};
 
@@ -33,7 +33,7 @@ class SearchFilterEditorController extends GetxController {
     update();
   }
 
-  SearchTarget get target => filter.target;
+  SearchNovelTarget get target => filter.target;
 
   SearchSort get sort => filter.sort;
 
@@ -77,7 +77,7 @@ class SearchFilterEditorController extends GetxController {
     }
   }
 
-  void searchTargetOnChanged(SearchTarget? value) {
+  void searchNovelTargetOnChanged(SearchNovelTarget? value) {
     if (null != value) {
       filter.target = value;
       update();

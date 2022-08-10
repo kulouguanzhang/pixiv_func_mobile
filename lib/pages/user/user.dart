@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
-import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/pages/user/about/about.dart';
 import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
@@ -46,7 +46,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AvatarFromUrl(
+          PixivAvatarWidget(
             user.profileImageUrls.medium,
             radius: 24,
           ),
@@ -68,7 +68,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                     Container(
                       height: Get.height * 0.3,
                       color: Theme.of(Get.context!).colorScheme.surface,
-                      child: ImageFromUrl(
+                      child: PixivImageWidget(
                         backgroundImageUrl,
                         height: Get.height * 0.3,
                         width: double.infinity,
@@ -84,7 +84,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                     ),
                   Positioned(
                     top: Get.height * 0.3 - 50,
-                    child: AvatarFromUrl(
+                    child: PixivAvatarWidget(
                       user.profileImageUrls.medium,
                       radius: 100,
                     ),

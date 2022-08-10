@@ -7,8 +7,9 @@ import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
-import 'package:pixiv_func_mobile/components/avatar_from_url/avatar_from_url.dart';
-import 'package:pixiv_func_mobile/components/image_from_url/image_from_url.dart';
+import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
+import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
+import 'package:pixiv_func_mobile/pages/user/me_settings/profile/profile.dart';
 import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
@@ -58,7 +59,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AvatarFromUrl(
+          PixivAvatarWidget(
             user.profileImageUrls.medium,
             radius: 24,
           ),
@@ -115,7 +116,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
           : null,
       extentActions: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        // onTap: () => Get.to(() => const SettingsPage()),
+        onTap: () => Get.to(() => MeProfileSettingsPage(currentDetail: userDetail)),
         child: const Padding(
           padding: EdgeInsets.all(16),
           child: Icon(Icons.settings),
@@ -134,7 +135,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                     Container(
                       height: 200,
                       color: Theme.of(Get.context!).colorScheme.surface,
-                      child: ImageFromUrl(
+                      child: PixivImageWidget(
                         backgroundImageUrl,
                         fit: BoxFit.contain,
                       ),
@@ -148,7 +149,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                     ),
                   Positioned(
                     top: 150,
-                    child: AvatarFromUrl(
+                    child: PixivAvatarWidget(
                       user.profileImageUrls.medium,
                       radius: 100,
                     ),
@@ -212,16 +213,6 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
     return GetBuilder<MeController>(
       builder: (controller) => ScaffoldWidget(
         emptyAppBar: controller.userDetailResult != null,
-        actions: [
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            // onTap: () => Get.to(() => const SettingsPage()),
-            child: const Padding(
-              padding: EdgeInsets.all(16),
-              child: Icon(Icons.settings),
-            ),
-          ),
-        ],
         child: () {
           if (PageState.loading == controller.state) {
             return Container(
