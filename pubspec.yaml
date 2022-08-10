@@ -44,14 +44,13 @@ dependencies:
   pixiv_live_proxy_server: ^0.0.2
   extended_text: ^9.1.1
   video_player: ^2.4.5
-  flutter_pickers: ^2.1.9
 #  唤醒锁
   wakelock: ^0.6.2
 #  设备方向
   orientation: ^1.3.0
   image: ^3.2.0
   pixiv_dart_api:
-    path: ../pixiv_dart_api
+    git: https://github.com/git-xiaocao/pixiv_dart_api.git
 
 dev_dependencies:
   flutter_lints: ^2.0.1
