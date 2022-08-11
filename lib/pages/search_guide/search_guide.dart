@@ -64,12 +64,12 @@ class SearchGuidePage extends StatelessWidget {
                     TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
                   ],
                 ),
-                onPressed: ()  {
+                onPressed: () {
                   ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
                     if (null != picker) {
                       picker.readAsBytes();
-                      Get.to(()async =>
-                        SearchImageResultPage(
+                      Get.to(
+                        () async => SearchImageResultPage(
                           imageBytes: await picker.readAsBytes(),
                           filename: picker.name,
                         ),

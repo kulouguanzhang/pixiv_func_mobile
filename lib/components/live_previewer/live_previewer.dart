@@ -42,7 +42,7 @@ class LivePreviewer extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        color:Colors.black.withOpacity(0.5),
+                        color: Colors.black.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Row(
@@ -76,7 +76,9 @@ class LivePreviewer extends StatelessWidget {
               );
             }
             return GestureDetector(
-              onTap: () => Get.to(() => LivePage(live: live,)),
+              onTap: () => Get.to(() => LivePage(
+                    live: live,
+                  )),
               child: widget,
             );
           },

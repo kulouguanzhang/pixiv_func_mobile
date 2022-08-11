@@ -68,7 +68,7 @@ class RecommendedPage extends StatelessWidget {
             DataContent<Live>(
               sourceList: RecommendedLiveListSource(),
               extendedListDelegate:
-              const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+                  const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
               itemBuilder: (BuildContext context, Live item, int index) => Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: LivePreviewer(live: item),

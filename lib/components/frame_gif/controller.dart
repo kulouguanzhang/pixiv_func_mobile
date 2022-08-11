@@ -34,8 +34,6 @@ class FrameGifController extends GetxController with WidgetsBindingObserver {
     Future.sync(_updateRender);
   }
 
-
-
   void stop() {
     playing = false;
     update();
@@ -64,7 +62,6 @@ class FrameGifController extends GetxController with WidgetsBindingObserver {
     isActivity = state == AppLifecycleState.resumed;
     super.didChangeAppLifecycleState(state);
   }
-
 
   @override
   void onClose() {

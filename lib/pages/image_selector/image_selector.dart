@@ -86,7 +86,6 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
             ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
-   
           children: [
             Expanded(
               child: _buildActionButton(

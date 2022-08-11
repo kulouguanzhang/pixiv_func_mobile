@@ -15,10 +15,10 @@ import 'package:pixiv_func_mobile/pages/user/controller.dart';
 class MeProfileSettingsController extends GetxController {
   MeProfileSettingsController(UserDetailResult currentDetail)
       : profileImageUrl = currentDetail.user.profileImageUrls.medium,
-        userNameController = TextEditingController(text: currentDetail.user.name),
-        webpageController = TextEditingController(text: currentDetail.profile.webpage),
-        twitterController = TextEditingController(text: currentDetail.profile.twitterAccount),
-        commentController = TextEditingController(text: currentDetail.user.comment),
+        userNameInput = TextEditingController(text: currentDetail.user.name),
+        webpageInput = TextEditingController(text: currentDetail.profile.webpage),
+        twitterInput = TextEditingController(text: currentDetail.profile.twitterAccount),
+        commentInput = TextEditingController(text: currentDetail.user.comment),
         gender = Gender.values.firstWhereOrNull(((item) => item.toPixivStringParameter() == currentDetail.profile.gender)) ?? Gender.unknown,
         addressId = currentDetail.profile.addressId,
         countryCode = currentDetail.profile.countryCode,
@@ -31,10 +31,10 @@ class MeProfileSettingsController extends GetxController {
         jobPublicity = Publicity.values.singleWhere((item) => item.toPixivStringParameter() == currentDetail.profilePublicity.job);
 
   String? profileImageUrl;
-  final TextEditingController userNameController;
-  final TextEditingController webpageController;
-  final TextEditingController twitterController;
-  final TextEditingController commentController;
+  final TextEditingController userNameInput;
+  final TextEditingController webpageInput;
+  final TextEditingController twitterInput;
+  final TextEditingController commentInput;
   Gender gender;
   int addressId;
   String countryCode;
@@ -159,15 +159,15 @@ class MeProfileSettingsController extends GetxController {
         .postProfileEdit(
       deleteProfileImage: null == profileImageUrl,
       profileImage: newProfileImage,
-      userName: userNameController.text,
-      webpage: webpageController.text,
-      twitter: twitterController.text,
+      userName: userNameInput.text,
+      webpage: webpageInput.text,
+      twitter: twitterInput.text,
       gender: gender,
       addressId: addressId,
       countryCode: countryCode,
       birthday: '${birthday.year}-${birthday.month}-${birthday.day}',
       jobId: jobId,
-      comment: commentController.text,
+      comment: commentInput.text,
       genderPublicity: genderPublicity,
       addressPublicity: addressPublicity,
       birthYearPublicity: birthYearPublicity,
@@ -183,10 +183,12 @@ class MeProfileSettingsController extends GetxController {
   }
 
   void selectProfileImage() {
-    Get.to(ImageSelectorPage(ratio:1,onChanged: (bytes){
-      newProfileImage = bytes;
-      update();
-    }));
+    Get.to(ImageSelectorPage(
+        ratio: 1,
+        onChanged: (bytes) {
+          newProfileImage = bytes;
+          update();
+        }));
   }
 
   void deleteProfileImage() {

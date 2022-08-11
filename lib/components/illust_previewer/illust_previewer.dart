@@ -134,7 +134,7 @@ class IllustPreviewer extends StatelessWidget {
             builder: (BuildContext context, BoxConstraints constraints) {
               final previewHeight = constraints.maxWidth / illust.width * illust.height;
               return _buildImage(
-                url:Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
+                url: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
                 width: constraints.maxWidth,
                 height: previewHeight,
                 pageCount: illust.pageCount,

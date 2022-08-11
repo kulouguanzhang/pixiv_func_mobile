@@ -16,10 +16,10 @@ class SinglePicker<V> extends StatelessWidget {
   Widget build(BuildContext context) {
     V currentValue = items.values.toList().singleWhere((item) => item == initialValue);
     return Container(
-     decoration: BoxDecoration(
-       color: Theme.of(context).colorScheme.background,
-       borderRadius: const BorderRadius.only(topLeft: Radius.circular(24),topRight: Radius.circular(24)),
-     ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18),
         child: Column(
@@ -67,7 +67,7 @@ class SinglePicker<V> extends StatelessWidget {
                         side: BorderSide.none,
                       ),
                       minWidth: double.infinity,
-                      child:  Padding(
+                      child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 20),
                         child: TextWidget('取消', fontSize: 18, color: Theme.of(context).colorScheme.onBackground, isBold: true),
                       ),

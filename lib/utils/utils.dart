@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class Utils {
+  Utils._();
 
   ///日本时间转中国时间
   static String japanDateToLocalDateString(DateTime dateTime) {
@@ -11,6 +12,7 @@ class Utils {
   static Future<void> copyToClipboard(String data) async {
     await Clipboard.setData(ClipboardData(text: data));
   }
+
   ///字符串是否是 twitter/用户名
   static bool textIsTwitterUser(String text) {
     return RegExp(r'([Tt]witter/)(\w{1,15})\b').hasMatch(text);

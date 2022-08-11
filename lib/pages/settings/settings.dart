@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/pages/about/about.dart';
 import 'package:pixiv_func_mobile/pages/account/account.dart';
@@ -17,6 +17,7 @@ import 'package:pixiv_func_mobile/pages/settings/preview_quality/preview_quality
 import 'package:pixiv_func_mobile/pages/settings/scale_quality/sacle_quality_settings.dart';
 import 'package:pixiv_func_mobile/pages/settings/theme/theme_settings.dart';
 import 'package:pixiv_func_mobile/pages/user/me.dart';
+import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -41,16 +42,16 @@ class SettingsPage extends StatelessWidget {
           children: [
             GestureDetector(
               onLongPress: () async {
-                await Clipboard.setData(
-                  ClipboardData(
-                    text: Encrypt.encode(jsonEncode(Get.find<AccountService>().current)),
-                  ),
-                );
+                Utils.copyToClipboard(Encrypt.encode(jsonEncode(Get.find<AccountService>().current)));
+                PlatformApi.toast('已复制到剪贴板');
               },
               child: InkWell(
                 onTap: () => Get.to(() => const MePage()),
                 child: Obx(
                   () {
+                    if (Get.find<AccountService>().isEmpty) {
+                      return const SizedBox();
+                    }
                     final localUser = Get.find<AccountService>().accounts()[Get.find<AccountService>().currentIndex.value].user;
                     return Card(
                       child: Row(
@@ -88,7 +89,7 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const Divider(),
-            _buildItem(onTap: () => Get.to(() => const AccountPage()), title: '账号设置'),
+            _buildItem(onTap: () => Get.to(() => const AccountPage()), title: '账号管理'),
             const Divider(),
             _buildItem(onTap: () => Get.to(() => const ThemeSettingsPage()), title: '主题'),
             _buildItem(onTap: () => Get.to(() => const LanguageSettingsPage()), title: '语言'),

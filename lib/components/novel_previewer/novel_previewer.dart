@@ -31,7 +31,7 @@ class NovelPreviewer extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: ()=>Get.to(() => NovelPage(novel: novel)),
+        onTap: () => Get.to(() => NovelPage(novel: novel)),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             return SizedBox(

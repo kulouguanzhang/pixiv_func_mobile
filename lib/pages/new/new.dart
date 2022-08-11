@@ -36,8 +36,8 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
               text: '关注者',
               icon: controller.tabController.index == 0
                   ? controller.expandTypeSelector
-                  ? const Icon(Icons.keyboard_arrow_up, size: 12)
-                  : const Icon(Icons.keyboard_arrow_down, size: 12)
+                      ? const Icon(Icons.keyboard_arrow_up, size: 12)
+                      : const Icon(Icons.keyboard_arrow_down, size: 12)
                   : null,
             ),
             TabWidget(

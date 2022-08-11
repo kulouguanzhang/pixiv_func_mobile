@@ -419,13 +419,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_pickers:
-    dependency: "direct main"
-    description:
-      name: flutter_pickers
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.9"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -756,10 +749,12 @@ packages:
   pixiv_dart_api:
     dependency: "direct main"
     description:
-      path: "../pixiv_dart_api"
-      relative: true
-    source: path
-    version: "2.1.4"
+      path: "."
+      ref: HEAD
+      resolved-ref: e079c30b545ddb76dd459cfb2e0f112dd9801217
+      url: "https://github.com/git-xiaocao/pixiv_dart_api.git"
+    source: git
+    version: "2.2.0"
   pixiv_live_proxy_server:
     dependency: "direct main"
     description:

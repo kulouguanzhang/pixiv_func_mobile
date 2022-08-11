@@ -35,7 +35,7 @@ class ImageSourceSettingsPage extends StatelessWidget {
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                   onTap: () => updater(item.value),
-                  title: TextWidget(item.key, fontSize : 18, isBold: true),
+                  title: TextWidget(item.key, fontSize: 18, isBold: true),
                   trailing: data.value == item.value ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary, size: 20) : null,
                 ),
               InkWell(

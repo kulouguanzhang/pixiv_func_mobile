@@ -20,13 +20,13 @@ class SearchIllustFilter {
 
   ///因为Dart直接传对线是引用类型 所以需要创建一个副本 用于编辑
   factory SearchIllustFilter.copy(SearchIllustFilter filter) => SearchIllustFilter(
-    target: filter.target,
-    sort: filter.sort,
-    enableDateRange: filter.enableDateRange,
-    dateRange: filter.dateRange,
-    bookmarkTotal: filter.bookmarkTotal,
-    dateRangeType: filter.dateRangeType,
-  );
+        target: filter.target,
+        sort: filter.sort,
+        enableDateRange: filter.enableDateRange,
+        dateRange: filter.dateRange,
+        bookmarkTotal: filter.bookmarkTotal,
+        dateRangeType: filter.dateRangeType,
+      );
 
   factory SearchIllustFilter.create({
     SearchIllustTarget target = SearchIllustTarget.partialMatchForTags,
@@ -54,14 +54,14 @@ class SearchIllustFilter {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is SearchIllustFilter &&
-              runtimeType == other.runtimeType &&
-              target == other.target &&
-              sort == other.sort &&
-              enableDateRange == other.enableDateRange &&
-              dateRange == other.dateRange &&
-              bookmarkTotal == other.bookmarkTotal &&
-              dateRangeType == other.dateRangeType;
+      other is SearchIllustFilter &&
+          runtimeType == other.runtimeType &&
+          target == other.target &&
+          sort == other.sort &&
+          enableDateRange == other.enableDateRange &&
+          dateRange == other.dateRange &&
+          bookmarkTotal == other.bookmarkTotal &&
+          dateRangeType == other.dateRangeType;
 
   @override
   int get hashCode =>
@@ -87,13 +87,13 @@ class SearchNovelFilter {
 
   ///因为Dart直接传对线是引用类型 所以需要创建一个副本 用于编辑
   factory SearchNovelFilter.copy(SearchNovelFilter filter) => SearchNovelFilter(
-    target: filter.target,
-    sort: filter.sort,
-    enableDateRange: filter.enableDateRange,
-    dateRange: filter.dateRange,
-    bookmarkTotal: filter.bookmarkTotal,
-    dateRangeType: filter.dateRangeType,
-  );
+        target: filter.target,
+        sort: filter.sort,
+        enableDateRange: filter.enableDateRange,
+        dateRange: filter.dateRange,
+        bookmarkTotal: filter.bookmarkTotal,
+        dateRangeType: filter.dateRangeType,
+      );
 
   factory SearchNovelFilter.create({
     SearchNovelTarget target = SearchNovelTarget.partialMatchForTags,
@@ -121,14 +121,14 @@ class SearchNovelFilter {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is SearchIllustFilter &&
-              runtimeType == other.runtimeType &&
-              target == other.target &&
-              sort == other.sort &&
-              enableDateRange == other.enableDateRange &&
-              dateRange == other.dateRange &&
-              bookmarkTotal == other.bookmarkTotal &&
-              dateRangeType == other.dateRangeType;
+      other is SearchIllustFilter &&
+          runtimeType == other.runtimeType &&
+          target == other.target &&
+          sort == other.sort &&
+          enableDateRange == other.enableDateRange &&
+          dateRange == other.dateRange &&
+          bookmarkTotal == other.bookmarkTotal &&
+          dateRangeType == other.dateRangeType;
 
   @override
   int get hashCode =>

@@ -6,15 +6,13 @@ import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/data_content/data_source_base.dart';
 
 class RecommendedLiveListSource extends DataSourceBase<Live> {
-
-
   RecommendedLiveListSource();
 
   final api = Get.find<ApiClient>();
 
   @override
   Future<List<Live>> init(CancelToken cancelToken) {
-    return api.getLivePage( cancelToken: cancelToken).then((result) {
+    return api.getLivePage(cancelToken: cancelToken).then((result) {
       nextUrl = result.nextUrl;
       return result.lives;
     });

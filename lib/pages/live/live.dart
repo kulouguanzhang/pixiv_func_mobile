@@ -16,7 +16,10 @@ import 'package:video_player/video_player.dart';
 class LivePage extends StatelessWidget {
   final Live live;
 
-  const LivePage({Key? key, required this.live,}) : super(key: key);
+  const LivePage({
+    Key? key,
+    required this.live,
+  }) : super(key: key);
 
   String get controllerTag => '$runtimeType-${live.id}';
 

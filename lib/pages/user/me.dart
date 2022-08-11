@@ -9,7 +9,7 @@ import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
-import 'package:pixiv_func_mobile/pages/user/me_settings/profile/profile.dart';
+import 'package:pixiv_func_mobile/pages/user/me_settings/me_settings.dart';
 import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
@@ -116,7 +116,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
           : null,
       extentActions: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () => Get.to(() => MeProfileSettingsPage(currentDetail: userDetail)),
+        onTap: () => Get.to(() => const MeSettingsPage()),
         child: const Padding(
           padding: EdgeInsets.all(16),
           child: Icon(Icons.settings),

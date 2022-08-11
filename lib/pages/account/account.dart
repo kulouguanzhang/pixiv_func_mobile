@@ -21,7 +21,7 @@ class AccountPage extends StatelessWidget {
     return Obx(
       () {
         return ScaffoldWidget(
-          title: '账号设置',
+          title: '账号管理',
           actions: [
             const SizedBox(height: 5),
             IconButton(
@@ -44,8 +44,7 @@ class AccountPage extends StatelessWidget {
                     },
                     title: Text(
                       '${account.user.name}(${account.user.mailAddress})',
-                      style:
-                      account.user.id == Get.find<AccountService>().current?.user.id ? TextStyle(color: Get.theme.colorScheme.primary) : null,
+                      style: account.user.id == Get.find<AccountService>().current?.user.id ? TextStyle(color: Get.theme.colorScheme.primary) : null,
                     ),
                     subtitle: Text('${account.user.account}(${account.user.id})'),
                     leading: PixivAvatarWidget(account.user.profileImageUrls.px50x50, radius: 50),

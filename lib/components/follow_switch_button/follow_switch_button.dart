@@ -161,7 +161,6 @@ class FollowSwitchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final bool isRootController = !Get.isRegistered<FollowSwitchButtonController>(tag: controllerTag);
     if (isRootController) {
       Get.put(FollowSwitchButtonController(id, initValue: initValue), tag: controllerTag);

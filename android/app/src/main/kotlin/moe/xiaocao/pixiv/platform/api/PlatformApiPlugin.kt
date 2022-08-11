@@ -1,14 +1,7 @@
 package moe.xiaocao.pixiv.platform.api
 
-import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import kotlin.concurrent.thread
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.embedding.engine.plugins.activity.ActivityAware
-import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import moe.xiaocao.pixiv.util.newThreadFunc
