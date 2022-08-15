@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/vo/user_account_result.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/account.dart';
@@ -39,8 +38,8 @@ class LoginController extends GetxController {
       }
       final clipboardDataString = Encrypt.decode(text);
       final json = jsonDecode(clipboardDataString);
-      final userAccount = UserAccountResult.fromJson(json);
-      Get.find<AccountService>().add(Account(null, userAccount));
+      final account = Account.fromJson(json);
+      Get.find<AccountService>().add(account);
       Get.offAll(const HomePage());
       PlatformApi.toast('登录成功');
     } catch (e) {
