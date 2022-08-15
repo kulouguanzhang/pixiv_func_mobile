@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/pages/login/login.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -43,11 +43,13 @@ class AccountPage extends StatelessWidget {
                       PlatformApi.toast('已复制到剪贴板');
                     },
                     title: Text(
-                      '${account.user.name}(${account.user.mailAddress})',
-                      style: account.user.id == Get.find<AccountService>().current?.user.id ? TextStyle(color: Get.theme.colorScheme.primary) : null,
+                      '${account.localUser.name}(${account.localUser.mailAddress})',
+                      style: account.localUser.id == Get.find<AccountService>().current?.localUser.id
+                          ? TextStyle(color: Get.theme.colorScheme.primary)
+                          : null,
                     ),
-                    subtitle: Text('${account.user.account}(${account.user.id})'),
-                    leading: PixivAvatarWidget(account.user.profileImageUrls.px50x50, radius: 50),
+                    subtitle: Text('${account.localUser.account}(${account.localUser.id})'),
+                    leading: PixivAvatarWidget(account.localUser.profileImageUrls.px50x50, radius: 50),
                     trailing: IconButton(
                       splashRadius: 40,
                       onPressed: () {
@@ -73,8 +75,8 @@ class AccountPage extends StatelessWidget {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        TextWidget(account.user.name, fontSize: 16),
-                                        TextWidget(account.user.mailAddress, fontSize: 12),
+                                        TextWidget(account.localUser.name, fontSize: 16),
+                                        TextWidget(account.localUser.mailAddress, fontSize: 12),
                                       ],
                                     ),
                                   ),

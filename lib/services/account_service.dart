@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/user_account_result.dart';
+import 'package:pixiv_func_mobile/models/account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountService extends GetxService {
   static const _dataKeyName = "accounts";
   static const _dataIndexKeyName = "account_index";
 
-  final Rx<List<UserAccountResult>> accounts = Rx([]);
+  final Rx<List<Account>> accounts = Rx([]);
 
   late final SharedPreferences _sharedPreferences;
 
@@ -22,7 +23,7 @@ class AccountService extends GetxService {
         tempAccounts.map(
           (jsonString) {
             final json = jsonDecode(jsonString);
-            return UserAccountResult.fromJson(json);
+            return Account.fromJson(json);
           },
         ),
       );
@@ -38,13 +39,14 @@ class AccountService extends GetxService {
 
   void select(int index) async {
     currentIndex.value = index;
+    // Get.find<ChatListController>().refreshTimer();
     _sharedPreferences.setInt(_dataIndexKeyName, index);
   }
 
   ///添加账号
-  void add(UserAccountResult account) {
+  void add(Account account) {
     //如果已经存在就更新
-    if (accounts().any((element) => element.user.id == account.user.id)) {
+    if (accounts().any((element) => element.userId == account.userId)) {
       update(account);
     } else {
       accounts.update((val) {
@@ -60,11 +62,11 @@ class AccountService extends GetxService {
   }
 
   ///更新账号
-  void update(UserAccountResult account) {
+  void update(Account account) {
     accounts.update((val) {
       if (null != val) {
         for (int i = 0; i < val.length; i++) {
-          if (account.user.id == val[i].user.id) {
+          if (account.userId == val[i].userId) {
             val[i] = account;
             save();
             break;
@@ -74,8 +76,22 @@ class AccountService extends GetxService {
     });
   }
 
+  void updateUserAccount(UserAccountResult userAccount) {
+    accounts.update((val) {
+      if (null != val) {
+        for (int i = 0; i < val.length; i++) {
+          if (userAccount.user.id == val[i].userAccount.user.id) {
+            val[i] = Account(val[i].cookie, userAccount);
+            save();
+            break;
+          }
+        }
+      }
+    });
+  }
+
   ///移除账号
-  void remove(UserAccountResult account) {
+  void remove(Account account) {
     accounts.update((val) {
       val?.remove(account);
     });
@@ -90,14 +106,14 @@ class AccountService extends GetxService {
     save();
   }
 
-  UserAccountResult? get current {
+  Account? get current {
     if (-1 == currentIndex.value) {
       return null;
     }
     return accounts()[currentIndex.value];
   }
 
-  int get currentUserId => int.parse(current!.user.id);
+  int get currentUserId => current!.userId;
 
   bool get isEmpty => accounts().isEmpty;
 

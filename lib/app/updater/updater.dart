@@ -7,19 +7,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pixiv_func_mobile/app/notification.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 
 class Updater {
-  static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
   static final ReceivePort _hostReceivePort = ReceivePort()..listen(_hostReceive);
-
-  static Future<void> init() async {
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('ic_launcher_foreground');
-    await flutterLocalNotificationsPlugin.initialize(
-      const InitializationSettings(android: initializationSettingsAndroid),
-    );
-  }
 
   static Future<void> startUpdate(String url, String versionName) async {
     const storageStatus = Permission.storage;

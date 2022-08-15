@@ -749,11 +749,9 @@ packages:
   pixiv_dart_api:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e079c30b545ddb76dd459cfb2e0f112dd9801217
-      url: "https://github.com/git-xiaocao/pixiv_dart_api.git"
-    source: git
+      path: "../pixiv_dart_api"
+      relative: true
+    source: path
     version: "2.2.0"
   pixiv_live_proxy_server:
     dependency: "direct main"
@@ -1215,6 +1213,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.0"
+  webview_cookie_manager:
+    dependency: "direct main"
+    description:
+      name: webview_cookie_manager
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.6"
   win32:
     dependency: transitive
     description:

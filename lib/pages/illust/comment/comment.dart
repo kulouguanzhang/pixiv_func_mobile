@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/comment.dart';
-import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 

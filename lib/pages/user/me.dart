@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
-import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/pages/user/me_settings/me_settings.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
 import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
@@ -122,6 +122,27 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
           child: Icon(Icons.settings),
         ),
       ),
+      // extentActions: Row(
+      //   mainAxisSize: MainAxisSize.min,
+      //   children: [
+      //     GestureDetector(
+      //       behavior: HitTestBehavior.opaque,
+      //       onTap: () => Get.to(() => const ChatListPage()),
+      //       child: const Padding(
+      //         padding: EdgeInsets.all(16),
+      //         child: Icon(Icons.chat),
+      //       ),
+      //     ),
+      //     GestureDetector(
+      //       behavior: HitTestBehavior.opaque,
+      //       onTap: () => Get.to(() => const MeSettingsPage()),
+      //       child: const Padding(
+      //         padding: EdgeInsets.all(16),
+      //         child: Icon(Icons.settings),
+      //       ),
+      //     ),
+      //   ],
+      // ),
       background: Container(
         color: Get.theme.colorScheme.background,
         child: Column(
@@ -197,7 +218,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: TextWidget(Get.find<AccountService>().current!.user.mailAddress),
+                child: TextWidget(Get.find<AccountService>().current!.mailAddress),
               ),
             ),
             const SizedBox(height: 10),

@@ -4,9 +4,9 @@ import 'dart:ui' as ui;
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/data/settings_service.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/pages/illust/controller.dart';
+import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 
 import 'state.dart';

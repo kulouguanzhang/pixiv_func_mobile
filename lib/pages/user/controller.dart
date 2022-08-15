@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
 
 class UserController extends GetxController {
   final int id;

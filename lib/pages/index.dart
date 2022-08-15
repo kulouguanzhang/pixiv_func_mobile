@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/data/account_service.dart';
-import 'package:pixiv_func_mobile/app/data/settings_service.dart';
 import 'package:pixiv_func_mobile/app/url_scheme/url_scheme.dart';
 import 'package:pixiv_func_mobile/pages/home/home.dart';
 import 'package:pixiv_func_mobile/pages/login/login.dart';
 import 'package:pixiv_func_mobile/pages/welcome/welcome.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
+import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:uni_links2/uni_links.dart' as uni_links;
 
 class IndexWidget extends StatefulWidget {

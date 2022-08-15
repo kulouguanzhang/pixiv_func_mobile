@@ -7,6 +7,7 @@ class TextWidget extends StatelessWidget {
   final TextOverflow? overflow;
   final bool isBold;
   final bool forceStrutHeight;
+  final int? maxLines;
 
   const TextWidget(
     this.text, {
@@ -16,6 +17,7 @@ class TextWidget extends StatelessWidget {
     this.overflow,
     this.isBold = false,
     this.forceStrutHeight = false,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -27,6 +29,7 @@ class TextWidget extends StatelessWidget {
               forceStrutHeight: true,
             )
           : null,
+      maxLines: maxLines,
       style: TextStyle(
         fontSize: fontSize,
         color: color,

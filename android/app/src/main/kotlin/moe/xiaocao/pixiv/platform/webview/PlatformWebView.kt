@@ -117,7 +117,8 @@ class PlatformWebView(
                                 messageChannel.send(
                                     mapOf(
                                         "type" to "account",
-                                        "data" to uri.toString()
+                                        "data" to uri.toString(),
+                                        "cookie" to CookieManager.getInstance().getCookie("https://pixiv.net"),
                                     )
                                 )
 

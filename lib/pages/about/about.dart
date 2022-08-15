@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
-import 'package:pixiv_func_mobile/pages/about/controller.dart';
+import 'package:pixiv_func_mobile/global_controllers/about_controller.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 

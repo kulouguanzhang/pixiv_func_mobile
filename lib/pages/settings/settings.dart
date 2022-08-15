@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
@@ -17,6 +16,7 @@ import 'package:pixiv_func_mobile/pages/settings/preview_quality/preview_quality
 import 'package:pixiv_func_mobile/pages/settings/scale_quality/sacle_quality_settings.dart';
 import 'package:pixiv_func_mobile/pages/settings/theme/theme_settings.dart';
 import 'package:pixiv_func_mobile/pages/user/me.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -52,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                     if (Get.find<AccountService>().isEmpty) {
                       return const SizedBox();
                     }
-                    final localUser = Get.find<AccountService>().accounts()[Get.find<AccountService>().currentIndex.value].user;
+                    final localUser = Get.find<AccountService>().accounts()[Get.find<AccountService>().currentIndex.value].localUser;
                     return Card(
                       child: Row(
                         children: [

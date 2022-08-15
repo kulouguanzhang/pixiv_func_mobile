@@ -240,7 +240,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                           '标题&简介': SearchIllustTarget.titleAndCaption,
                         },
                         value: controller.target,
-                        onChanged: controller.SearchIllustTargetOnChanged,
+                        onChanged: controller.searchIllustTargetOnChanged,
                       );
                       break;
                     case 2:

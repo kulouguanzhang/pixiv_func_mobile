@@ -2,9 +2,9 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
-import 'package:pixiv_func_mobile/app/data/account_service.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/search_filter.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
 
 class SearchNovelFilterEditorController extends GetxController {
   final VoidCallback onFilterChanged;
@@ -87,7 +87,7 @@ class SearchNovelFilterEditorController extends GetxController {
 
   void searchSortOnChanged(SearchSort? value) {
     if (null != value) {
-      if (SearchSort.popularDesc == value && !Get.find<AccountService>().current!.user.isPremium) {
+      if (SearchSort.popularDesc == value && !Get.find<AccountService>().current!.isPremium) {
         PlatformApi.toast('你不是Pixiv高级会员,所以该选项与时间降序行为一致');
       }
       filter.sort = value;

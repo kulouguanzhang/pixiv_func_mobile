@@ -8,9 +8,6 @@ import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_dart_api/model/tag.dart';
 import 'package:pixiv_dart_api/vo/comment_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
-import 'package:pixiv_func_mobile/app/data/block_tag_service.dart';
-import 'package:pixiv_func_mobile/app/data/history_service.dart';
-import 'package:pixiv_func_mobile/app/data/settings_service.dart';
 import 'package:pixiv_func_mobile/app/downloader/downloader.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
@@ -18,6 +15,9 @@ import 'package:pixiv_func_mobile/models/illust_save_state.dart';
 import 'package:pixiv_func_mobile/pages/illust/comment/source.dart';
 import 'package:pixiv_func_mobile/pages/illust/related/source.dart';
 import 'package:pixiv_func_mobile/pages/illust/ugoira_viewer/controller.dart';
+import 'package:pixiv_func_mobile/services/block_tag_service.dart';
+import 'package:pixiv_func_mobile/services/history_service.dart';
+import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 
 class IllustController extends GetxController {

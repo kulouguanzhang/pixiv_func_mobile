@@ -5,8 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/api/auth_client.dart';
+import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/platform/webview/controller.dart';
-import 'package:pixiv_func_mobile/app/url_scheme/url_scheme.dart';
+import 'package:pixiv_func_mobile/models/account.dart';
+import 'package:pixiv_func_mobile/pages/home/home.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
+import 'package:pixiv_func_mobile/services/settings_service.dart';
+import 'package:pixiv_func_mobile/utils/log.dart';
 
 class LoginWebViewController extends GetxController {
   final bool create;
@@ -74,7 +79,28 @@ class LoginWebViewController extends GetxController {
         }
         break;
       case 'account':
-        UrlScheme.handler(message['data']);
+        final uri = Uri.parse(message['data'] as String);
+        final SettingsService settingsService = Get.find();
+        final AccountService accountService = Get.find();
+        final AuthClient authClient = Get.find();
+        authClient.initAccountAuthToken(uri.queryParameters['code'] as String).then((result) {
+          Log.i(result);
+
+          PlatformApi.toast('登录成功');
+
+          final firstAccount = accountService.isEmpty;
+
+          accountService.add(Account(message['cookie'] as String, result));
+          settingsService.guideInit = true;
+
+          if (firstAccount) {
+            Get.offAll(const HomePage());
+          } else {
+            Get.back();
+          }
+        }).catchError((e) {
+          Log.e('登录失败', e);
+        });
         break;
     }
   }

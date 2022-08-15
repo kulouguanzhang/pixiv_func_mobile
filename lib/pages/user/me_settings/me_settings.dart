@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/pages/user/controller.dart';
 import 'package:pixiv_func_mobile/pages/user/me_settings/profile/profile.dart';
+import 'package:pixiv_func_mobile/pages/user/me_settings/web/web.dart';
 import 'package:pixiv_func_mobile/pages/user/me_settings/workspace/workspace.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -30,6 +31,10 @@ class MeSettingsPage extends StatelessWidget {
           _buildItem(
             onTap: () => Get.to(() => MeWorkspaceSettingsPage(workspace: Get.find<MeController>().userDetailResult!.workspace)),
             title: '工作环境',
+          ),
+          _buildItem(
+            onTap: () => Get.to(() => MeWebSettingsPage(currentDetail: Get.find<MeController>().userDetailResult!)),
+            title: 'Web设置',
           ),
         ],
       ),

@@ -17,7 +17,7 @@ class NovelViewerController extends GetxController {
 
   final List<NovelData> list = [];
 
-  double get progress => list[pageIndex].endIndex / textLines.length;
+  double get progress => (list[pageIndex].endIndex / textLines.length) * 100;
 
   @override
   void onInit() {
@@ -31,19 +31,21 @@ class NovelViewerController extends GetxController {
     update();
   }
 
+  bool get hasNext => list[pageIndex].endIndex < textLines.length - 1;
+
+  bool get hasPrevious => pageIndex > 0;
+
   void nextPage() {
     if (list.last.endIndex < textLines.length - 1) {
-      ++pageIndex;
       list.add(_forward(list.last.endIndex));
-      update();
     }
+    pageIndex++;
+    update();
   }
 
   void previousPage() {
-    if (pageIndex > 0) {
-      --pageIndex;
-      update();
-    }
+    --pageIndex;
+    update();
   }
 
   void _preload() {

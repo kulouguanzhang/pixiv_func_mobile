@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_func_mobile/app/data/settings_service.dart';
+import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -13,7 +13,7 @@ class ImageSourceSettingsPage extends StatelessWidget {
     final TextEditingController customImageSourceInput = TextEditingController();
 
     const List<MapEntry<String, String>> items = [
-      MapEntry('IP(210.140.92.183)', '210.140.92.183'),
+      MapEntry('IP(210.140.92.148)', '210.140.92.148'),
       MapEntry('Original(i.pximg.net)', 'i.pximg.net'),
       MapEntry('MirroImage(i.pixiv.re)', 'i.pixiv.re'),
     ];
