@@ -5,11 +5,12 @@ import 'package:flutter/material.dart' hide Image;
 import 'package:get/get.dart';
 import 'package:image/image.dart' hide BlendMode;
 import 'package:image_picker/image_picker.dart';
+import 'package:pixiv_func_mobile/models/image_info.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 class ImageSelectorPage extends StatefulWidget {
   final double? ratio;
-  final ValueChanged<Uint8List> onChanged;
+  final ValueChanged<PickedImageInfo> onChanged;
 
   const ImageSelectorPage({Key? key, this.ratio, required this.onChanged}) : super(key: key);
 
@@ -19,6 +20,7 @@ class ImageSelectorPage extends StatefulWidget {
 
 class _ImageSelectorPageState extends State<ImageSelectorPage> {
   Uint8List? _imageBytes;
+  String? _filename;
 
   final editorKey = GlobalKey<ExtendedImageEditorState>();
 
@@ -34,6 +36,7 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
         final bytes = await file.readAsBytes();
         setState(() {
           _imageBytes = bytes;
+          _filename = file.name;
         });
       }
     });
@@ -105,7 +108,7 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
                     cropRect.height.toInt(),
                   );
 
-                  widget.onChanged(Uint8List.fromList(encodePng(image)));
+                  widget.onChanged(PickedImageInfo(Uint8List.fromList(encodePng(image)), _filename!));
                   Get.back();
                 },
                 iconData: Icons.check,
@@ -134,3 +137,4 @@ class CustomEditorCropLayerPainter extends EditorCropLayerPainter {
     canvas.drawArc(painter.cropRect.deflate(paint.strokeWidth * 0.5), 0, 360, false, paint);
   }
 }
+

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +7,9 @@ import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
+import 'package:pixiv_func_mobile/models/image_info.dart';
 import 'package:pixiv_func_mobile/pages/image_selector/image_selector.dart';
+
 import 'package:pixiv_func_mobile/pages/user/controller.dart';
 
 class MeProfileSettingsController extends GetxController {
@@ -52,7 +52,7 @@ class MeProfileSettingsController extends GetxController {
 
   PageState state = PageState.none;
 
-  Uint8List? newProfileImage;
+  PickedImageInfo? newProfileImage;
 
   void loadData() {
     presetsResult = null;
@@ -158,7 +158,8 @@ class MeProfileSettingsController extends GetxController {
     Get.find<ApiClient>()
         .postProfileEdit(
       deleteProfileImage: null == profileImageUrl,
-      profileImage: newProfileImage,
+      profileImageBytes: newProfileImage!.bytes,
+      profileImageFilename: newProfileImage!.filename,
       userName: userNameInput.text,
       webpage: webpageInput.text,
       twitter: twitterInput.text,
@@ -183,12 +184,15 @@ class MeProfileSettingsController extends GetxController {
   }
 
   void selectProfileImage() {
-    Get.to(ImageSelectorPage(
+    Get.to(
+      ImageSelectorPage(
         ratio: 1,
-        onChanged: (bytes) {
-          newProfileImage = bytes;
+        onChanged: (imageInfo) {
+          newProfileImage = imageInfo;
           update();
-        }));
+        },
+      ),
+    );
   }
 
   void deleteProfileImage() {

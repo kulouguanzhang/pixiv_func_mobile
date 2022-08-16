@@ -93,7 +93,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(60),
                                         child: ExtendedImage.memory(
-                                          controller.newProfileImage!,
+                                          controller.newProfileImage!.bytes,
                                           fit: BoxFit.cover,
                                           width: 60,
                                           height: 60,
@@ -123,7 +123,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                                 return ClipRRect(
                                   borderRadius: BorderRadius.circular(180),
                                   child: ExtendedImage.memory(
-                                    controller.newProfileImage!,
+                                    controller.newProfileImage!.bytes,
                                     fit: BoxFit.cover,
                                     width: 180,
                                     height: 180,

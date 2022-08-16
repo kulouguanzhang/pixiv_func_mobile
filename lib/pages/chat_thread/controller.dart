@@ -141,11 +141,11 @@ class ChatThreadController extends GetxController {
   void onImageMessageSend() {
     Get.to(
       () => ImageSelectorPage(
-        onChanged: (bytes) async {
+        onChanged: (imageInfo) async {
           _webApiClient
               .postMessageContent(
             threadId: threadId,
-            imageBytes: bytes,
+            imageBytes: imageInfo.bytes,
           )
               .then(
             (result) {
