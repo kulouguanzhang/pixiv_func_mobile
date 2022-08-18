@@ -28,7 +28,7 @@ class IllustPreviewer extends StatelessWidget {
     this.borderRadius,
   }) : super(key: key);
 
-  Widget _buildImage({
+  Widget buildImage({
     required String url,
     required double width,
     required double height,
@@ -118,7 +118,7 @@ class IllustPreviewer extends StatelessWidget {
     if (square) {
       return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          return _buildImage(
+          return buildImage(
             url: illust.imageUrls.squareMedium,
             width: constraints.maxWidth,
             height: constraints.maxWidth,
@@ -133,7 +133,7 @@ class IllustPreviewer extends StatelessWidget {
           LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               final previewHeight = constraints.maxWidth / illust.width * illust.height;
-              return _buildImage(
+              return buildImage(
                 url: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
                 width: constraints.maxWidth,
                 height: previewHeight,

@@ -23,7 +23,7 @@ class LivePage extends StatelessWidget {
 
   String get controllerTag => '$runtimeType-${live.id}';
 
-  Widget _buildPlayerWidget(double heightRatio) {
+  Widget buildPlayerWidget(double heightRatio) {
     final controller = Get.find<LiveController>(tag: controllerTag);
     final items = {
       0: controller.list[0].resolution.toString(),
@@ -188,7 +188,7 @@ class LivePage extends StatelessWidget {
                   final liveUser = controller.liveDetail!.data.owner.user;
                   return Column(
                     children: [
-                      _buildPlayerWidget(9 / 16),
+                      buildPlayerWidget(9 / 16),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                         child: Row(
@@ -236,7 +236,7 @@ class LivePage extends StatelessWidget {
           } else {
             return ScaffoldWidget(
               emptyAppBar: true,
-              child: _buildPlayerWidget(1),
+              child: buildPlayerWidget(1),
             );
           }
         }(),

@@ -33,7 +33,7 @@ class MePage extends StatefulWidget {
 }
 
 class _MePageState extends State<MePage> with TickerProviderStateMixin {
-  Widget _buildAppBar() {
+  Widget buildAppBar() {
     final controller = Get.find<MeController>();
     final userDetail = controller.userDetailResult!;
     final String? backgroundImageUrl = userDetail.profile.backgroundImageUrl;
@@ -253,7 +253,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
             return NoScrollBehaviorWidget(
               child: ExtendedNestedScrollView(
                 headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
-                  _buildAppBar(),
+                  buildAppBar(),
                   SliverPersistentHeader(
                     delegate: SliverHeader(
                         child: PreferredSize(

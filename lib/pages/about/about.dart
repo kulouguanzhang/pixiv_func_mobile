@@ -8,7 +8,7 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
 
-  Widget _buildItem({required VoidCallback onTap, required String title}) {
+  Widget buildItem({required VoidCallback onTap, required String title}) {
     return ListTile(
       onTap: onTap,
       title: TextWidget(title, fontSize: 16, isBold: true),
@@ -16,7 +16,7 @@ class AboutPage extends StatelessWidget {
     );
   }
 
-  Widget _buildButton() {
+  Widget buildButton() {
     final controller = Get.find<AboutController>();
     final String text;
     final Color? color;
@@ -90,16 +90,16 @@ class AboutPage extends StatelessWidget {
         child: Column(
           children: [
             const Divider(),
-            _buildItem(onTap: () => controller.action(0), title: '联系作者'),
+            buildItem(onTap: () => controller.action(0), title: '联系作者'),
             const Divider(),
-            _buildItem(onTap: () => controller.action(1), title: '获取帮助'),
+            buildItem(onTap: () => controller.action(1), title: '获取帮助'),
             const Divider(),
-            _buildItem(onTap: () => controller.action(2), title: '当前版本:${controller.appVersion ?? '正在获取...'}'),
+            buildItem(onTap: () => controller.action(2), title: '当前版本:${controller.appVersion ?? '正在获取...'}'),
             const Divider(),
-            _buildItem(onTap: () => controller.action(3), title: '打开标签页'),
+            buildItem(onTap: () => controller.action(3), title: '打开标签页'),
             const Divider(),
             const Spacer(),
-            _buildButton(),
+            buildButton(),
             SizedBox(height: Get.height * 0.05),
           ],
         ),

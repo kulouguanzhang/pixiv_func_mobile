@@ -25,7 +25,7 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
-  Widget _buildItem({required VoidCallback onTap, required String title}) {
+  Widget buildItem({required VoidCallback onTap, required String title}) {
     return ListTile(
       onTap: onTap,
       title: TextWidget(title, fontSize: 16, isBold: true),
@@ -36,7 +36,6 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWidget(
-      title: '设置',
       child: NoScrollBehaviorWidget(
         child: ListView(
           children: [
@@ -89,22 +88,22 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const Divider(),
-            _buildItem(onTap: () => Get.to(() => const AccountPage()), title: '账号管理'),
+            buildItem(onTap: () => Get.to(() => const AccountPage()), title: '账号管理'),
             const Divider(),
-            _buildItem(onTap: () => Get.to(() => const ThemeSettingsPage()), title: '主题'),
-            _buildItem(onTap: () => Get.to(() => const LanguageSettingsPage()), title: '语言'),
+            buildItem(onTap: () => Get.to(() => const ThemeSettingsPage()), title: '主题'),
+            buildItem(onTap: () => Get.to(() => const LanguageSettingsPage()), title: '语言'),
             const Divider(),
-            _buildItem(onTap: () => Get.to(() => const ImageSourceSettingsPage()), title: '图片源'),
-            _buildItem(onTap: () => Get.to(() => const PreviewQualitySettingsPage()), title: '预览质量'),
-            _buildItem(onTap: () => Get.to(() => const ScaleQualitySettingsPage()), title: '缩放质量'),
+            buildItem(onTap: () => Get.to(() => const ImageSourceSettingsPage()), title: '图片源'),
+            buildItem(onTap: () => Get.to(() => const PreviewQualitySettingsPage()), title: '预览质量'),
+            buildItem(onTap: () => Get.to(() => const ScaleQualitySettingsPage()), title: '缩放质量'),
             const Divider(),
-            _buildItem(onTap: () => Get.to(() => const BlockTagPage()), title: '屏蔽标签管理'),
+            buildItem(onTap: () => Get.to(() => const BlockTagPage()), title: '屏蔽标签管理'),
             const Divider(),
-            _buildItem(onTap: () => Get.to(() => const DownloaderPage()), title: '下载任务'),
+            buildItem(onTap: () => Get.to(() => const DownloaderPage()), title: '下载任务'),
             const Divider(),
-            _buildItem(onTap: () => Get.to(() => const HistoryPage()), title: '浏览记录'),
+            buildItem(onTap: () => Get.to(() => const HistoryPage()), title: '浏览记录'),
             const Divider(),
-            _buildItem(onTap: () => Get.to(() => const AboutPage()), title: '关于'),
+            buildItem(onTap: () => Get.to(() => const AboutPage()), title: '关于'),
             const Divider(),
           ],
         ),

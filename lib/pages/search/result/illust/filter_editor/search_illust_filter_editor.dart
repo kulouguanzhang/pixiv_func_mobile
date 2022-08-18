@@ -66,7 +66,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
     });
   }
 
-  Widget _buildDateRangeEdit() {
+  Widget buildDateRangeEdit() {
     final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +86,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildDateRangeTypeEdit() {
+  Widget buildDateRangeTypeEdit() {
     final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     final items = {
       0: '无限制',
@@ -247,8 +247,8 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                       widget = Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildDateRangeTypeEdit(),
-                          if (controller.dateRangeType == 6) _buildDateRangeEdit(),
+                          buildDateRangeTypeEdit(),
+                          if (controller.dateRangeType == 6) buildDateRangeEdit(),
                         ],
                       );
                       break;

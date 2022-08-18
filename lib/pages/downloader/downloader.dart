@@ -10,7 +10,7 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 class DownloaderPage extends StatelessWidget {
   const DownloaderPage({Key? key}) : super(key: key);
 
-  Widget _buildItem(BuildContext context, DownloadTask task) {
+  Widget buildItem(BuildContext context, DownloadTask task) {
     final Widget trailing;
 
     switch (task.state) {
@@ -57,7 +57,7 @@ class DownloaderPage extends StatelessWidget {
       child: GetBuilder<Downloader>(
         builder: (controller) {
           return ListView(
-            children: [for (final task in controller.tasks) _buildItem(context, task)],
+            children: [for (final task in controller.tasks) buildItem(context, task)],
           );
         },
       ),

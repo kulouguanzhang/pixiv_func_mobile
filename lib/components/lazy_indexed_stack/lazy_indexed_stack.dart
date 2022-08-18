@@ -66,7 +66,7 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
     return result == true;
   }
 
-  List<Widget> _buildChildren(BuildContext context) {
+  List<Widget> buildChildren(BuildContext context) {
     final List<Widget> list = <Widget>[];
     for (int i = 0; i < widget.children.length; i++) {
       if (_hasInit(i)) {
@@ -86,7 +86,7 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
       alignment: widget.alignment,
       sizing: widget.sizing,
       textDirection: widget.textDirection,
-      children: _buildChildren(context),
+      children: buildChildren(context),
     );
   }
 }

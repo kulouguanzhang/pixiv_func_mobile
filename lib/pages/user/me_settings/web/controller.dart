@@ -26,7 +26,7 @@ class MeWebSettingsController extends GetxController {
   }
 
   Future<void> initPostKey() async {
-    _webApiClient.getPostKey().then((value) {
+    await _webApiClient.getPostKey().then((value) {
       _postKey = value;
     });
   }
@@ -34,7 +34,7 @@ class MeWebSettingsController extends GetxController {
   void restrictOnChange(int? value) async {
     if (null != value) {
       if (value != 0) {
-        final birthday = DateTime.parse(currentDetail.profile.birth);
+        final birthday = currentDetail.profile.birth.isNotEmpty ? DateTime.parse(currentDetail.profile.birth) : DateTime.now();
         //小于18岁
         if (birthday.isAfter(DateTime.now().subtract(const Duration(days: 18 * 365)))) {
           PlatformApi.toast('请将个人资料的年龄设置为大于18岁');

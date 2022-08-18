@@ -36,7 +36,7 @@ class IllustPage extends StatelessWidget {
 
   String get controllerTag => 'Illust-${illust.id}';
 
-  Widget _buildImageItem({
+  Widget buildImageItem({
     required int id,
     required String title,
     required String previewUrl,
@@ -140,7 +140,7 @@ class IllustPage extends StatelessWidget {
     return 0 == index ? Hero(tag: 'IllustHero:$id', child: widget) : widget;
   }
 
-  Widget _buildUgoiraViewer({
+  Widget buildUgoiraViewer({
     required int id,
     required String previewUrl,
   }) {
@@ -226,7 +226,7 @@ class IllustPage extends StatelessWidget {
     );
   }
 
-  Widget _buildImageDetail() {
+  Widget buildImageDetail() {
     final controller = Get.find<IllustController>(tag: controllerTag);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
@@ -263,7 +263,7 @@ class IllustPage extends StatelessWidget {
                 id: illust.user.id,
                 userName: illust.user.name,
                 userAccount: illust.user.account,
-                initValue: illust.user.isFollowed!,
+                initValue: illust.user.isFollowed ?? false,
               ),
             ],
           ),
@@ -342,7 +342,7 @@ class IllustPage extends StatelessWidget {
             expanded: Container(
               padding: const EdgeInsets.only(bottom: 20),
               alignment: Alignment.topLeft,
-              child: HtmlRichText(controller.illust.caption, canShowOriginal: true),
+              child: HtmlRichText(controller.illust.caption),
             ),
             theme: const ExpandableThemeData(
               hasIcon: false,
@@ -470,18 +470,19 @@ class IllustPage extends StatelessWidget {
             ],
             child: NoScrollBehaviorWidget(
               child: ExtendedNestedScrollView(
+                controller: controller.scrollController,
                 onlyOneScrollInBody: true,
                 headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
                   if (illust.isUgoira)
                     SliverToBoxAdapter(
-                      child: _buildUgoiraViewer(
+                      child: buildUgoiraViewer(
                         id: illust.id,
                         previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
                       ),
                     )
                   else if (1 == illust.pageCount)
                     SliverToBoxAdapter(
-                      child: _buildImageItem(
+                      child: buildImageItem(
                         id: illust.id,
                         title: illust.title,
                         previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
@@ -493,7 +494,7 @@ class IllustPage extends StatelessWidget {
                       delegate: SliverChildListDelegate(
                         [
                           for (var index = 0; index < illust.metaPages.length; ++index)
-                            _buildImageItem(
+                            buildImageItem(
                               id: illust.id,
                               title: illust.title,
                               previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.metaPages[index].imageUrls),
@@ -503,7 +504,7 @@ class IllustPage extends StatelessWidget {
                       ),
                     ),
                   SliverToBoxAdapter(
-                    child: _buildImageDetail(),
+                    child: buildImageDetail(),
                   ),
                   SliverPersistentHeader(
                     delegate: SliverHeader(
@@ -516,13 +517,19 @@ class IllustPage extends StatelessWidget {
                               height: 0.5,
                               color: const Color(0xFF373737),
                             ),
-                            const TabBarWidget(
+                            TabBarWidget(
                               indicatorMinWidth: 15,
-                              indicator: RRecTabIndicator(
+                              onTap: (index) {
+                                FocusScopeNode currentFocus = FocusScope.of(context);
+                                if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                }
+                              },
+                              indicator: const RRecTabIndicator(
                                 radius: 4,
                                 insets: EdgeInsets.only(bottom: 5),
                               ),
-                              tabs: [
+                              tabs: const [
                                 TabWidget(text: '推荐'),
                                 TabWidget(text: '评论'),
                               ],
@@ -537,6 +544,7 @@ class IllustPage extends StatelessWidget {
                 ],
                 pinnedHeaderSliverHeightBuilder: () => kToolbarHeight,
                 body: TabBarView(
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     DataContent(
                       sourceList: controller.illustRelatedSource,

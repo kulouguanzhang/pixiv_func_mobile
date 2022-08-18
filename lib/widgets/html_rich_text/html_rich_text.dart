@@ -8,16 +8,14 @@ import 'package:pixiv_func_mobile/pages/illust/id_search/id_search.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
 import 'package:pixiv_func_mobile/utils/utils.dart';
-import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 //必须是StatefulWidget才能响应点击事件
 class HtmlRichText extends StatefulWidget {
   final String htmlString;
   final EdgeInsetsGeometry? padding;
-  final bool canShowOriginal;
   final TextOverflow overflow;
 
-  const HtmlRichText(this.htmlString, {Key? key, this.padding, this.canShowOriginal = false, this.overflow = TextOverflow.clip}) : super(key: key);
+  const HtmlRichText(this.htmlString, {Key? key, this.padding, this.overflow = TextOverflow.clip}) : super(key: key);
 
   @override
   State<HtmlRichText> createState() => _HtmlRichTextState();
@@ -25,14 +23,12 @@ class HtmlRichText extends StatefulWidget {
 
 class _HtmlRichTextState extends State<HtmlRichText> {
   static const _aTagStyle = TextStyle(color: Colors.blue);
-  static const _aTagStrongStyle = TextStyle(color: Colors.blue, fontSize: 22);
-  static const _strongTagStyle = TextStyle(fontSize: 22);
-  static const _knownStrongLinkStyle = TextStyle(fontSize: 22, color: Colors.pinkAccent);
+  static const _aTagStrongStyle = TextStyle(color: Colors.blue, fontWeight: FontWeight.bold);
+  static const _strongTagStyle = TextStyle(fontWeight: FontWeight.bold);
+  static const _knownStrongLinkStyle = TextStyle(color: Colors.pinkAccent, fontWeight: FontWeight.bold);
   static const _knownLinkStyle = TextStyle(color: Colors.pinkAccent);
 
-  bool _showOriginal = false;
-
-  TextSpan _buildNode(html.Node node, {bool isStrong = false}) {
+  TextSpan buildNode(html.Node node, {bool isStrong = false}) {
     if (node.nodeType == html.Node.TEXT_NODE) {
       return TextSpan(text: node.text);
     } else if (node.nodeType == html.Node.ELEMENT_NODE) {
@@ -85,7 +81,7 @@ class _HtmlRichTextState extends State<HtmlRichText> {
 
         case '<html strong>':
           if (node.hasChildNodes()) {
-            return _buildNode(node.firstChild!, isStrong: true);
+            return buildNode(node.firstChild!, isStrong: true);
           }
 
           final text = node.text!;
@@ -112,14 +108,14 @@ class _HtmlRichTextState extends State<HtmlRichText> {
         case '<html span>':
           if (node.hasChildNodes()) {
             //忽略span标签的所有属性 (颜色 字体大小等)
-            return _buildNode(node.firstChild!, isStrong: true);
+            return buildNode(node.firstChild!, isStrong: true);
           }
 
           return const TextSpan(text: '');
         case '<html i>':
           if (node.hasChildNodes()) {
             //忽略i标签的所有属性 (斜体)
-            return _buildNode(node.firstChild!, isStrong: true);
+            return buildNode(node.firstChild!, isStrong: true);
           }
 
           return const TextSpan(text: '');
@@ -133,40 +129,12 @@ class _HtmlRichTextState extends State<HtmlRichText> {
   Widget build(BuildContext context) {
     final htmlDocument = html.parseFragment(widget.htmlString, generateSpans: true);
 
-    if (widget.canShowOriginal) {
-      final Widget child;
-      if (_showOriginal) {
-        child = TextWidget(
-          widget.htmlString,
-          overflow: widget.overflow,
-        );
-      } else {
-        child = RichText(
-          overflow: widget.overflow,
-          text: TextSpan(
-            style: TextStyle(color: Get.textTheme.bodyText2?.color),
-            children: [for (final node in htmlDocument.nodes) _buildNode(node)],
-          ),
-        );
-      }
-      return InkWell(
-        onLongPress: () => setState(() {
-          _showOriginal = !_showOriginal;
-        }),
-        child: Container(
-          padding: widget.padding,
-          alignment: Alignment.topLeft,
-          child: child,
-        ),
-      );
-    } else {
-      return RichText(
-        overflow: widget.overflow,
-        text: TextSpan(
-          style: TextStyle(color: Get.textTheme.bodyText2?.color),
-          children: [for (final node in htmlDocument.nodes) _buildNode(node)],
-        ),
-      );
-    }
+    return RichText(
+      overflow: widget.overflow,
+      text: TextSpan(
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        children: [for (final node in htmlDocument.nodes) buildNode(node)],
+      ),
+    );
   }
 }

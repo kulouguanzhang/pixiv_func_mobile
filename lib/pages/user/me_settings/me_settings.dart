@@ -10,7 +10,7 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 class MeSettingsPage extends StatelessWidget {
   const MeSettingsPage({Key? key}) : super(key: key);
 
-  Widget _buildItem({required VoidCallback onTap, required String title}) {
+  Widget buildItem({required VoidCallback onTap, required String title}) {
     return ListTile(
       onTap: onTap,
       title: TextWidget(title, fontSize: 16, isBold: true),
@@ -24,15 +24,15 @@ class MeSettingsPage extends StatelessWidget {
       title: '账号设置',
       child: Column(
         children: [
-          _buildItem(
+          buildItem(
             onTap: () => Get.to(() => MeProfileSettingsPage(currentDetail: Get.find<MeController>().userDetailResult!)),
             title: '个人资料',
           ),
-          _buildItem(
+          buildItem(
             onTap: () => Get.to(() => MeWorkspaceSettingsPage(workspace: Get.find<MeController>().userDetailResult!.workspace)),
             title: '工作环境',
           ),
-          _buildItem(
+          buildItem(
             onTap: () => Get.to(() => MeWebSettingsPage(currentDetail: Get.find<MeController>().userDetailResult!)),
             title: 'Web设置',
           ),

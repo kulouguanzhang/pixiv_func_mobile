@@ -10,11 +10,17 @@ class SinglePicker<V> extends StatelessWidget {
   final V initialValue;
   final ValueChanged<V> onChanged;
 
-  const SinglePicker({Key? key, required this.title, required this.items, required this.initialValue, required this.onChanged}) : super(key: key);
+  const SinglePicker({
+    Key? key,
+    required this.title,
+    required this.items,
+    required this.initialValue,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    V currentValue = items.values.toList().singleWhere((item) => item == initialValue);
+    V currentValue = items.values.toList().firstWhereOrNull((item) => item == initialValue) ?? items.values.first;
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,

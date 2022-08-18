@@ -42,7 +42,7 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
     });
   }
 
-  Widget _buildActionButton({required VoidCallback onTap, required IconData iconData, required String text}) {
+  Widget buildActionButton({required VoidCallback onTap, required IconData iconData, required String text}) {
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -91,7 +91,7 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
         child: Row(
           children: [
             Expanded(
-              child: _buildActionButton(
+              child: buildActionButton(
                 onTap: () async {
                   final state = editorKey.currentState;
                   final Rect? cropRect = state?.getCropRect();
@@ -115,9 +115,9 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
                 text: '确定',
               ),
             ),
-            Expanded(child: _buildActionButton(onTap: () => editorKey.currentState?.reset(), iconData: Icons.refresh, text: '重置')),
-            Expanded(child: _buildActionButton(onTap: () => selectImage(), iconData: Icons.cached, text: '重选')),
-            Expanded(child: _buildActionButton(onTap: () => Get.back(), iconData: Icons.close, text: '取消')),
+            Expanded(child: buildActionButton(onTap: () => editorKey.currentState?.reset(), iconData: Icons.refresh, text: '重置')),
+            Expanded(child: buildActionButton(onTap: () => selectImage(), iconData: Icons.cached, text: '重选')),
+            Expanded(child: buildActionButton(onTap: () => Get.back(), iconData: Icons.close, text: '取消')),
           ],
         ),
       ),
@@ -137,4 +137,3 @@ class CustomEditorCropLayerPainter extends EditorCropLayerPainter {
     canvas.drawArc(painter.cropRect.deflate(paint.strokeWidth * 0.5), 0, 360, false, paint);
   }
 }
-

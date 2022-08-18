@@ -47,12 +47,12 @@ class LoginWebViewController extends GetxController {
   }
 
   void initUrl() {
-    String baseUrl = 'https://app-api.pixiv.net/web/v1/';
     if (create) {
-      baseUrl += 'provisional-accounts/create';
-    } else {
-      baseUrl += 'login';
+      //直接去注册 注册完再登录免得再去设置邮箱
+      webViewController.loadUrl('https://accounts.pixiv.net/signup');
+      return;
     }
+    String baseUrl = 'https://app-api.pixiv.net/web/v1/login';
     baseUrl += '?code_challenge=';
     baseUrl += Get.find<AuthClient>().codeChallenge;
     baseUrl += '&code_challenge_method=S256&client=pixiv-android';

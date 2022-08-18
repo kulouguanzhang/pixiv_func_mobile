@@ -26,7 +26,7 @@ class ChatListPage extends StatelessWidget {
     }
   }
 
-  Widget _buildItem(MessageThread thread) {
+  Widget buildItem(MessageThread thread) {
     return InkWell(
       onTap: () => Get.to(
         () => ChatThreadPage(
@@ -90,7 +90,7 @@ class ChatListPage extends StatelessWidget {
         child: NoScrollBehaviorWidget(
           child: ListView(
             children: [
-              for (final item in controller.list) _buildItem(item),
+              for (final item in controller.list) buildItem(item),
             ],
           ),
         ),

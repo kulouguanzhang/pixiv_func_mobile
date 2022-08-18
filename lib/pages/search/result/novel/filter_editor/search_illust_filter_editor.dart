@@ -66,7 +66,7 @@ class SearchNovelFilterEditorWidget extends StatelessWidget {
     });
   }
 
-  Widget _buildDateRangeEdit() {
+  Widget buildDateRangeEdit() {
     final controller = Get.find<SearchNovelFilterEditorController>(tag: controllerTag);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +86,7 @@ class SearchNovelFilterEditorWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildDateRangeTypeEdit() {
+  Widget buildDateRangeTypeEdit() {
     final controller = Get.find<SearchNovelFilterEditorController>(tag: controllerTag);
     final items = {
       0: '无限制',
@@ -248,8 +248,8 @@ class SearchNovelFilterEditorWidget extends StatelessWidget {
                       widget = Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildDateRangeTypeEdit(),
-                          if (controller.dateRangeType == 6) _buildDateRangeEdit(),
+                          buildDateRangeTypeEdit(),
+                          if (controller.dateRangeType == 6) buildDateRangeEdit(),
                         ],
                       );
                       break;

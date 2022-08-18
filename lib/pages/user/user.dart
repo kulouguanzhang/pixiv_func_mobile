@@ -34,7 +34,7 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
   String get controllerTag => '$runtimeType-${widget.id}';
 
-  Widget _buildAppBar() {
+  Widget buildAppBar() {
     final controller = Get.find<UserController>(tag: controllerTag);
     final userDetail = controller.userDetailResult!;
     final String? backgroundImageUrl = userDetail.profile.backgroundImageUrl;
@@ -170,7 +170,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
             return NoScrollBehaviorWidget(
               child: ExtendedNestedScrollView(
                 headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
-                  _buildAppBar(),
+                  buildAppBar(),
                   SliverPersistentHeader(
                     delegate: SliverHeader(
                         child: PreferredSize(

@@ -9,7 +9,6 @@ import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/models/image_info.dart';
 import 'package:pixiv_func_mobile/pages/image_selector/image_selector.dart';
-
 import 'package:pixiv_func_mobile/pages/user/controller.dart';
 
 class MeProfileSettingsController extends GetxController {
@@ -22,7 +21,7 @@ class MeProfileSettingsController extends GetxController {
         gender = Gender.values.firstWhereOrNull(((item) => item.toPixivStringParameter() == currentDetail.profile.gender)) ?? Gender.unknown,
         addressId = currentDetail.profile.addressId,
         countryCode = currentDetail.profile.countryCode,
-        birthday = DateTime.parse(currentDetail.profile.birth),
+        birthday = currentDetail.profile.birth.isNotEmpty ? DateTime.parse(currentDetail.profile.birth) : DateTime.now(),
         jobId = currentDetail.profile.jobId,
         genderPublicity = Publicity.values.singleWhere((item) => item.toPixivStringParameter() == currentDetail.profilePublicity.gender),
         addressPublicity = Publicity.values.singleWhere((item) => item.toPixivStringParameter() == currentDetail.profilePublicity.region),
@@ -76,13 +75,13 @@ class MeProfileSettingsController extends GetxController {
 
   String get birthMonthDay => '${birthday.month}-${birthday.day}';
 
-  String get jobName => presetsResult!.profilePresets.jobs.firstWhere((item) => item.id == jobId).name;
+  String get jobName => presetsResult!.profilePresets.jobs.firstWhereOrNull((item) => item.id == jobId)?.name ?? '';
 
   String get countryName => presetsResult!.profilePresets.countries.firstWhere((item) => item.code == countryCode).name;
 
-  String get addressName => presetsResult!.profilePresets.addresses.firstWhere((item) => item.id == addressId).name;
+  String get addressName => presetsResult!.profilePresets.addresses.firstWhereOrNull((item) => item.id == addressId)?.name ?? '';
 
-  bool get addressIsGlobal => presetsResult!.profilePresets.addresses.firstWhere((item) => item.id == addressId).isGlobal;
+  bool get addressIsGlobal => presetsResult!.profilePresets.addresses.firstWhereOrNull((item) => item.id == addressId)?.isGlobal ?? false;
 
   String get genderName {
     switch (gender) {
@@ -126,6 +125,7 @@ class MeProfileSettingsController extends GetxController {
 
   void birthdayOnChanged(DateTime value) {
     birthday = value;
+    update();
   }
 
   void birthYearPublicityOnChanged(Publicity? value) {
@@ -158,8 +158,8 @@ class MeProfileSettingsController extends GetxController {
     Get.find<ApiClient>()
         .postProfileEdit(
       deleteProfileImage: null == profileImageUrl,
-      profileImageBytes: newProfileImage!.bytes,
-      profileImageFilename: newProfileImage!.filename,
+      profileImageBytes: newProfileImage?.bytes,
+      profileImageFilename: newProfileImage?.filename,
       userName: userNameInput.text,
       webpage: webpageInput.text,
       twitter: twitterInput.text,

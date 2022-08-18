@@ -20,7 +20,7 @@ class SearchImageResultPage extends StatelessWidget {
 
   const SearchImageResultPage({Key? key, required this.imageBytes, required this.filename}) : super(key: key);
 
-  Widget _buildItem(BuildContext context, SearchImageItem item) {
+  Widget buildItem(BuildContext context, SearchImageItem item) {
     final controller = Get.find<SearchImageResultController>();
     if (item.loadFailed) {
       return GestureDetector(
@@ -151,7 +151,7 @@ class SearchImageResultPage extends StatelessWidget {
               child: NoScrollBehaviorWidget(
                 child: WaterfallFlow.builder(
                   gridDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
-                  itemBuilder: (BuildContext context, int index) => _buildItem(context, controller.list[index]),
+                  itemBuilder: (BuildContext context, int index) => buildItem(context, controller.list[index]),
                   itemCount: controller.list.length,
                 ),
               ),

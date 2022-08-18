@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pixiv_func_mobile/app/http/http.dart';
+import 'package:pixiv_func_mobile/app/http.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n_translations.dart';
 import 'package:pixiv_func_mobile/app/inject/inject.dart';
 import 'package:pixiv_func_mobile/app/notification.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/theme/theme.dart';
+import 'package:pixiv_func_mobile/global_controllers/about_controller.dart';
 import 'package:pixiv_func_mobile/pages/index.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
+
+import 'app/asset_manifest.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initFlutterLocalNotificationsPlugin();
+  await initAssetManifest();
   await Inject.init();
 
-  HttpConfig.refreshHttpClient();
+  initHttpOverrides();
   final theme = Get.find<SettingsService>().theme;
   Get.changeThemeMode(
     -1 == theme
@@ -26,7 +30,10 @@ Future<void> main() async {
             ? ThemeMode.dark
             : ThemeMode.light,
   );
+
   runApp(const App());
+
+  Get.find<AboutController>().check();
 
   const storageStatus = Permission.storage;
 

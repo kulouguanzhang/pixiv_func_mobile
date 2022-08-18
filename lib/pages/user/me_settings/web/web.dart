@@ -34,7 +34,7 @@ class MeWebSettingsPage extends StatelessWidget {
                     },
                     value: controller.restrict,
                     onChanged: controller.restrictOnChange,
-                    width: 40,
+                    width: 45,
                     height: 70,
                   ),
                 ],

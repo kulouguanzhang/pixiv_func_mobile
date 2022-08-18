@@ -103,6 +103,10 @@ class AboutController extends GetxController implements GetxService {
   Future<AboutController> init() async {
     _appVersionName = await PlatformApi.appVersionName;
     _appVersionCode = await PlatformApi.appVersionCode;
+    return this;
+  }
+
+  void check() {
     loadData().then((_) {
       if (true == hasNewVersion) {
         if (_first) {
@@ -116,6 +120,5 @@ class AboutController extends GetxController implements GetxService {
         }
       }
     });
-    return this;
   }
 }

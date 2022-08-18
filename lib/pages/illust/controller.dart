@@ -41,12 +41,6 @@ class IllustController extends GetxController {
 
   CommentTree? get repliesCommentTree => _repliesCommentTree;
 
-  double _previousOffset = 0;
-
-  bool _showInputBox = false;
-
-  bool get showInputBox => _showInputBox;
-
   final scrollController = ScrollController();
 
   set repliesCommentTree(CommentTree? value) {
@@ -245,9 +239,12 @@ class IllustController extends GetxController {
   void onInit() {
     scrollController.addListener(() {
       if (scrollController.hasClients) {
-        _showInputBox = _previousOffset < scrollController.offset;
-        update();
-        _previousOffset = scrollController.offset;
+        if (scrollController.offset != scrollController.position.maxScrollExtent) {
+          FocusScopeNode currentFocus = FocusScope.of(Get.context!);
+          if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          }
+        }
       }
     });
     initIllustStates();

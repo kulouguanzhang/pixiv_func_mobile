@@ -17,7 +17,7 @@ class ChatThreadPage extends StatelessWidget {
 
   String get controllerTag => '$runtimeType-$threadId';
 
-  Widget _buildItem(MessageThreadContent message) {
+  Widget buildItem(MessageThreadContent message) {
     final controller = Get.find<ChatThreadController>(tag: controllerTag);
     return Padding(
       padding: const EdgeInsets.fromLTRB(17, 6, 17, 6),
@@ -146,7 +146,7 @@ class ChatThreadPage extends StatelessWidget {
                 child: ListView(
                   // reverse: true,
                   children: [
-                    for (final content in controller.list) _buildItem(content),
+                    for (final content in controller.list) buildItem(content),
                   ],
                 ),
               ),

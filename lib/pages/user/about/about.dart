@@ -13,7 +13,7 @@ class UserAboutContent extends StatelessWidget {
 
   const UserAboutContent({Key? key, required this.userDetail}) : super(key: key);
 
-  Widget _buildValueItem(String value) {
+  Widget buildValueItem(String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
@@ -35,7 +35,7 @@ class UserAboutContent extends StatelessWidget {
     );
   }
 
-  Widget _buildNameValueItem(
+  Widget buildNameValueItem(
     String name,
     String value,
   ) {
@@ -66,7 +66,7 @@ class UserAboutContent extends StatelessWidget {
     );
   }
 
-  Widget _buildWebUrlItem(String name, String url, IconData iconData) {
+  Widget buildWebUrlItem(String name, String url, IconData iconData) {
     return GestureDetector(
       onLongPress: () async {
         if (url.isNotEmpty) {
@@ -128,31 +128,31 @@ class UserAboutContent extends StatelessWidget {
       child: ListView(
         children: [
           //user
-          _buildValueItem(user.name), _buildNameValueItem('ID', user.id.toString()), _buildNameValueItem('账号', user.account),
+          buildValueItem(user.name), buildNameValueItem('ID', user.id.toString()), buildNameValueItem('账号', user.account),
           //profile
-          if (profile.birth.isNotEmpty) _buildNameValueItem('出生', profile.birth),
-          if (profile.gender.isNotEmpty) _buildNameValueItem('性别', profile.gender == 'male' ? '男' : '女'),
-          if (profile.region.isNotEmpty) _buildNameValueItem('地区', profile.region),
-          if (profile.job.isNotEmpty) _buildNameValueItem('工作', profile.job),
+          if (profile.birth.isNotEmpty) buildNameValueItem('出生', profile.birth),
+          if (profile.gender.isNotEmpty) buildNameValueItem('性别', profile.gender == 'male' ? '男' : '女'),
+          if (profile.region.isNotEmpty) buildNameValueItem('地区', profile.region),
+          if (profile.job.isNotEmpty) buildNameValueItem('工作', profile.job),
 
           //workspace
-          if (workspace.pc.isNotEmpty) _buildNameValueItem('电脑', workspace.pc),
-          if (workspace.monitor.isNotEmpty) _buildNameValueItem('显示器', workspace.monitor),
-          if (workspace.tool.isNotEmpty) _buildNameValueItem('软件', workspace.tool),
-          if (workspace.scanner.isNotEmpty) _buildNameValueItem('扫描仪', workspace.scanner),
-          if (workspace.tablet.isNotEmpty) _buildNameValueItem('数位板', workspace.tablet),
-          if (workspace.mouse.isNotEmpty) _buildNameValueItem('鼠标', workspace.mouse),
-          if (workspace.printer.isNotEmpty) _buildNameValueItem('打印机', workspace.printer),
-          if (workspace.desktop.isNotEmpty) _buildNameValueItem('桌子上的东西', workspace.desktop),
-          if (workspace.music.isNotEmpty) _buildNameValueItem('画图时听的音乐', workspace.music),
-          if (workspace.desk.isNotEmpty) _buildNameValueItem('桌子', workspace.desk),
-          if (workspace.chair.isNotEmpty) _buildNameValueItem('椅子', workspace.chair),
-          if (workspace.comment.isNotEmpty) _buildNameValueItem('留言', workspace.comment),
+          if (workspace.pc.isNotEmpty) buildNameValueItem('电脑', workspace.pc),
+          if (workspace.monitor.isNotEmpty) buildNameValueItem('显示器', workspace.monitor),
+          if (workspace.tool.isNotEmpty) buildNameValueItem('软件', workspace.tool),
+          if (workspace.scanner.isNotEmpty) buildNameValueItem('扫描仪', workspace.scanner),
+          if (workspace.tablet.isNotEmpty) buildNameValueItem('数位板', workspace.tablet),
+          if (workspace.mouse.isNotEmpty) buildNameValueItem('鼠标', workspace.mouse),
+          if (workspace.printer.isNotEmpty) buildNameValueItem('打印机', workspace.printer),
+          if (workspace.desktop.isNotEmpty) buildNameValueItem('桌子上的东西', workspace.desktop),
+          if (workspace.music.isNotEmpty) buildNameValueItem('画图时听的音乐', workspace.music),
+          if (workspace.desk.isNotEmpty) buildNameValueItem('桌子', workspace.desk),
+          if (workspace.chair.isNotEmpty) buildNameValueItem('椅子', workspace.chair),
+          if (workspace.comment.isNotEmpty) buildNameValueItem('留言', workspace.comment),
 
           //web
-          if (null != profile.webpage) _buildWebUrlItem('个人网页', profile.webpage!, AppIcons.web),
-          if (null != profile.twitterUrl) _buildWebUrlItem('twitter', profile.twitterUrl!, AppIcons.twitter),
-          if (null != profile.pawooUrl) _buildWebUrlItem('pawoo', profile.pawooUrl!, AppIcons.pawoo),
+          if (null != profile.webpage) buildWebUrlItem('个人网页', profile.webpage!, AppIcons.web),
+          if (null != profile.twitterUrl) buildWebUrlItem('twitter', profile.twitterUrl!, AppIcons.twitter),
+          if (null != profile.pawooUrl) buildWebUrlItem('pawoo', profile.pawooUrl!, AppIcons.pawoo),
           if (null != user.comment)
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075, vertical: 20),
@@ -160,7 +160,7 @@ class UserAboutContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const TextWidget('简介', fontSize: 14, isBold: true),
-                  HtmlRichText(user.comment!, canShowOriginal: true),
+                  HtmlRichText(user.comment!),
                 ],
               ),
             )

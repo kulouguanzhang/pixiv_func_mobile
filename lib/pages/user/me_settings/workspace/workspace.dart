@@ -10,7 +10,7 @@ class MeWorkspaceSettingsPage extends StatelessWidget {
 
   const MeWorkspaceSettingsPage({Key? key, required this.workspace}) : super(key: key);
 
-  Widget _buildItem({required String name, required TextEditingController controller}) {
+  Widget buildItem({required String name, required TextEditingController controller}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075, vertical: 10),
       child: TextField(
@@ -49,18 +49,18 @@ class MeWorkspaceSettingsPage extends StatelessWidget {
               Flexible(
                 child: ListView(
                   children: [
-                    _buildItem(name: '电脑', controller: controller.pcInput),
-                    _buildItem(name: '显示器', controller: controller.monitorInput),
-                    _buildItem(name: '软件', controller: controller.toolInput),
-                    _buildItem(name: '扫描仪', controller: controller.scannerInput),
-                    _buildItem(name: '数位板', controller: controller.tabletInput),
-                    _buildItem(name: '鼠标', controller: controller.mouseInput),
-                    _buildItem(name: '打印机', controller: controller.printerInput),
-                    _buildItem(name: '桌面上的东西', controller: controller.desktopInput),
-                    _buildItem(name: '画图时听的音乐', controller: controller.musicInput),
-                    _buildItem(name: '桌子', controller: controller.desktopInput),
-                    _buildItem(name: '椅子', controller: controller.chairInput),
-                    _buildItem(name: '其他', controller: controller.commentInput),
+                    buildItem(name: '电脑', controller: controller.pcInput),
+                    buildItem(name: '显示器', controller: controller.monitorInput),
+                    buildItem(name: '软件', controller: controller.toolInput),
+                    buildItem(name: '扫描仪', controller: controller.scannerInput),
+                    buildItem(name: '数位板', controller: controller.tabletInput),
+                    buildItem(name: '鼠标', controller: controller.mouseInput),
+                    buildItem(name: '打印机', controller: controller.printerInput),
+                    buildItem(name: '桌面上的东西', controller: controller.desktopInput),
+                    buildItem(name: '画图时听的音乐', controller: controller.musicInput),
+                    buildItem(name: '桌子', controller: controller.desktopInput),
+                    buildItem(name: '椅子', controller: controller.chairInput),
+                    buildItem(name: '其他', controller: controller.commentInput),
                   ],
                 ),
               ),

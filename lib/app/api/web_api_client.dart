@@ -5,7 +5,7 @@ import 'package:pixiv_func_mobile/services/account_service.dart';
 class WebApiClient extends GetxService with PixivWebApi {
   Future<WebApiClient> initSuper() async {
     super.init(
-      targetIPGetter: () => '210.140.92.180',
+      targetIPGetter: () => '210.140.92.186',
       // cookieGetter: () => 'PHPSESSID=72269198_RIVzePS3y1zyfo35LBKmVrsjaa6mLq6a;',
       cookieGetter: () => Get.find<AccountService>().current?.cookie ?? '',
       cookieUpdater: (cookie) {},

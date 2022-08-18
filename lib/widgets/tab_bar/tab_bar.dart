@@ -48,7 +48,7 @@ class TabWidget extends StatelessWidget implements PreferredSizeWidget {
   /// height is 46.0 pixels.
   final double? height;
 
-  Widget _buildLabelText() {
+  Widget buildLabelText() {
     return child ?? Text(text!, softWrap: false, overflow: TextOverflow.fade);
   }
 
@@ -58,7 +58,7 @@ class TabWidget extends StatelessWidget implements PreferredSizeWidget {
 
     final Widget label;
     if (icon == null) {
-      label = _buildLabelText();
+      label = buildLabelText();
     } else if (text == null && child == null) {
       label = icon!;
     } else {
@@ -67,7 +67,7 @@ class TabWidget extends StatelessWidget implements PreferredSizeWidget {
         alignment: Alignment.centerRight,
         children: <Widget>[
           Center(
-            child: _buildLabelText(),
+            child: buildLabelText(),
           ),
           icon!,
         ],
@@ -985,7 +985,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
     widget.onTap?.call(index);
   }
 
-  Widget _buildStyledTabWidget(Widget child, bool selected, Animation<double> animation) {
+  Widget buildStyledTabWidget(Widget child, bool selected, Animation<double> animation) {
     return _TabStyle(
       animation: animation,
       selected: selected,
@@ -1054,22 +1054,22 @@ class _TabBarWidgetState extends State<TabBarWidget> {
         // The user tapped on a tab, the tab controller's animation is running.
         assert(_currentIndex != previousIndex);
         final Animation<double> animation = _ChangeAnimation(_controller!);
-        wrappedTabs[_currentIndex!] = _buildStyledTabWidget(wrappedTabs[_currentIndex!], true, animation);
-        wrappedTabs[previousIndex] = _buildStyledTabWidget(wrappedTabs[previousIndex], false, animation);
+        wrappedTabs[_currentIndex!] = buildStyledTabWidget(wrappedTabs[_currentIndex!], true, animation);
+        wrappedTabs[previousIndex] = buildStyledTabWidget(wrappedTabs[previousIndex], false, animation);
       } else {
         // The user is dragging the TabBarView's PageView left or right.
         final int tabIndex = _currentIndex!;
         final Animation<double> centerAnimation = _DragAnimation(_controller!, tabIndex);
-        wrappedTabs[tabIndex] = _buildStyledTabWidget(wrappedTabs[tabIndex], true, centerAnimation);
+        wrappedTabs[tabIndex] = buildStyledTabWidget(wrappedTabs[tabIndex], true, centerAnimation);
         if (_currentIndex! > 0) {
           final int tabIndex = _currentIndex! - 1;
           final Animation<double> previousAnimation = ReverseAnimation(_DragAnimation(_controller!, tabIndex));
-          wrappedTabs[tabIndex] = _buildStyledTabWidget(wrappedTabs[tabIndex], false, previousAnimation);
+          wrappedTabs[tabIndex] = buildStyledTabWidget(wrappedTabs[tabIndex], false, previousAnimation);
         }
         if (_currentIndex! < widget.tabs.length - 1) {
           final int tabIndex = _currentIndex! + 1;
           final Animation<double> nextAnimation = ReverseAnimation(_DragAnimation(_controller!, tabIndex));
-          wrappedTabs[tabIndex] = _buildStyledTabWidget(wrappedTabs[tabIndex], false, nextAnimation);
+          wrappedTabs[tabIndex] = buildStyledTabWidget(wrappedTabs[tabIndex], false, nextAnimation);
         }
       }
     }

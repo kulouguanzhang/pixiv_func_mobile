@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/comment_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
@@ -18,8 +17,6 @@ class IllustCommentController extends GetxController {
 
   final IllustCommentListSource source;
 
-  final TextEditingController commentInput = TextEditingController();
-
   final CancelToken cancelToken = CancelToken();
 
   CommentTree? _repliesCommentTree;
@@ -34,13 +31,6 @@ class IllustCommentController extends GetxController {
   bool get isReplies => null != _repliesCommentTree;
 
   String get commentInputLabel => isReplies ? '回复 ${repliesCommentTree!.data.user.name}' : '评论 插画';
-
-  @override
-  void dispose() {
-    source.dispose();
-    cancelToken.cancel();
-    super.dispose();
-  }
 
   void loadFirstReplies(CommentTree commentTree) {
     commentTree.loading = true;
@@ -74,11 +64,10 @@ class IllustCommentController extends GetxController {
     }
   }
 
-  void onCommentAdd() {
+  void onCommentAdd({String? text, int? stampId}) {
     final commentTree = repliesCommentTree;
-    final content = commentInput.text;
-    commentInput.clear();
-    Get.find<ApiClient>().postCommentAdd(id, comment: content, parentCommentId: commentTree?.data.id).then((result) {
+
+    Get.find<ApiClient>().postCommentAdd(id, comment: text, parentCommentId: commentTree?.data.id, stampId: stampId).then((result) {
       if (null != commentTree) {
         commentTree.children.insert(0, CommentTree(data: result.comment, parent: commentTree));
         source.setState();
@@ -114,5 +103,12 @@ class IllustCommentController extends GetxController {
       Log.e('删除评论失败', e);
       PlatformApi.toast('删除评论失败');
     });
+  }
+
+  @override
+  void onClose() {
+    source.dispose();
+    cancelToken.cancel();
+    super.onClose();
   }
 }

@@ -1,9 +1,7 @@
 import 'dart:io';
 
-class HttpConfig {
-  static void refreshHttpClient() {
-    HttpOverrides.global = _MyHttpOverrides();
-  }
+void initHttpOverrides() {
+  HttpOverrides.global = _MyHttpOverrides();
 }
 
 class _MyHttpOverrides extends HttpOverrides {

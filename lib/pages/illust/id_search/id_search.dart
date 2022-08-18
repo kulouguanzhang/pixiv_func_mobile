@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
+import 'package:pixiv_func_mobile/services/account_service.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -47,7 +48,20 @@ class IllustIdSearchPage extends StatelessWidget {
           );
         } else {
           if (null != controller.illustDetail) {
-            return IllustPage(illust: controller.illustDetail!.illust);
+            final illust = controller.illustDetail!.illust;
+            if (Get.find<AccountService>().current!.localUser.xRestrict > illust.xRestrict) {
+              return ScaffoldWidget(
+                titleWidget: TextWidget('插画ID$id', isBold: true),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: TextWidget(
+                      '插画ID$id是${illust.xRestrict == 1 ? 'R-18' : illust.xRestrict == 2 ? 'R-18G' : ''},请前往Web设置中修改年龄限制',
+                      fontSize: 16),
+                ),
+              );
+            } else {
+              return IllustPage(illust: controller.illustDetail!.illust);
+            }
           } else {
             return const SizedBox();
           }

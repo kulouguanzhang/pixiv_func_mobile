@@ -75,7 +75,7 @@ class ScaffoldWidget extends StatelessWidget {
       );
     }
     return Scaffold(
-      // resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: appBar,
       body: child,
       floatingActionButton: floatingActionButton,
