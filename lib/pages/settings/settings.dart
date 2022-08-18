@@ -36,6 +36,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWidget(
+      emptyAppBar: true,
       child: NoScrollBehaviorWidget(
         child: ListView(
           children: [
