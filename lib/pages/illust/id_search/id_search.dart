@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
 import 'package:pixiv_func_mobile/services/account_service.dart';
@@ -20,7 +21,7 @@ class IllustIdSearchPage extends StatelessWidget {
       builder: (controller) {
         if (PageState.loading == controller.state) {
           return ScaffoldWidget(
-            titleWidget: TextWidget('插画ID$id', isBold: true),
+            titleWidget: TextWidget(I18n.illustIdPageTitle.trArgs([id.toString()]), isBold: true),
             child: Container(
               alignment: Alignment.center,
               child: const CircularProgressIndicator(),
@@ -28,7 +29,7 @@ class IllustIdSearchPage extends StatelessWidget {
           );
         } else if (PageState.error == controller.state) {
           return ScaffoldWidget(
-            titleWidget: TextWidget('插画ID$id', isBold: true),
+            titleWidget: TextWidget(I18n.illustIdPageTitle.trArgs([id.toString()]), isBold: true),
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () => controller.loadData(),
@@ -40,10 +41,10 @@ class IllustIdSearchPage extends StatelessWidget {
           );
         } else if (PageState.notFound == controller.state) {
           return ScaffoldWidget(
-            titleWidget: TextWidget('插画ID$id', isBold: true),
+            titleWidget: TextWidget(I18n.illustIdPageTitle.trArgs([id.toString()]), isBold: true),
             child: Container(
               alignment: Alignment.center,
-              child: TextWidget('插画ID$id不存在', fontSize: 16),
+              child: TextWidget(I18n.illustIdNotFound.trArgs([id.toString()]), fontSize: 16),
             ),
           );
         } else {
@@ -51,12 +52,22 @@ class IllustIdSearchPage extends StatelessWidget {
             final illust = controller.illustDetail!.illust;
             if (Get.find<AccountService>().current!.localUser.xRestrict > illust.xRestrict) {
               return ScaffoldWidget(
-                titleWidget: TextWidget('插画ID$id', isBold: true),
+                titleWidget: TextWidget(I18n.illustIdPageTitle.trArgs([id.toString()]), isBold: true),
                 child: Container(
                   alignment: Alignment.center,
                   child: TextWidget(
-                      '插画ID$id是${illust.xRestrict == 1 ? 'R-18' : illust.xRestrict == 2 ? 'R-18G' : ''},请前往Web设置中修改年龄限制',
-                      fontSize: 16),
+                    I18n.illustAgeLimitHint.trArgs(
+                      [
+                        id.toString(),
+                        illust.xRestrict == 1
+                            ? 'R-18'
+                            : illust.xRestrict == 2
+                                ? 'R-18G'
+                                : ''
+                      ],
+                    ),
+                    fontSize: 16,
+                  ),
                 ),
               );
             } else {

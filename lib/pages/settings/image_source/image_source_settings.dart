@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -18,7 +19,7 @@ class ImageSourceSettingsPage extends StatelessWidget {
       MapEntry('MirroImage(i.pixiv.re)', 'i.pixiv.re'),
     ];
     return ScaffoldWidget(
-      title: '图片源',
+      title: I18n.imageSourceSettingsPageTitle.tr,
       child: ObxValue<Rx<String>>(
         (Rx<String> data) {
           void updater(String? value) {
@@ -50,7 +51,7 @@ class ImageSourceSettingsPage extends StatelessWidget {
                           controller: customImageSourceInput,
                           decoration: InputDecoration(
                             constraints: const BoxConstraints(maxHeight: 40),
-                            hintText: '使用自定义图片源源',
+                            hintText: I18n.useCustomImageSource.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(24),
                               borderSide: BorderSide.none,

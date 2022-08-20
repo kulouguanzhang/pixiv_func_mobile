@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/pages/user/controller.dart';
 
@@ -55,11 +56,11 @@ class MeWorkspaceSettingsController extends GetxController {
       workspace: workspace,
     )
         .then((_) {
-      PlatformApi.toast('更新个人资料成功');
+      PlatformApi.toast(I18n.updateWorkspaceSuccess.tr);
       Get.find<MeController>().userDetailResult!.workspace = workspace;
       Get.find<MeController>().update();
     }).catchError((e) {
-      PlatformApi.toast('更新个人资料失败');
+      PlatformApi.toast(I18n.updateWorkspaceFailed.tr);
     });
   }
 }

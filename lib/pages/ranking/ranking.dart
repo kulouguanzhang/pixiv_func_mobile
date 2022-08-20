@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -17,25 +19,25 @@ class RankingPage extends StatelessWidget {
     return DefaultTabController(
       length: RankingMode.values.length,
       child: ScaffoldWidget(
-        titleWidget: const TabBarWidget(
+        titleWidget: TabBarWidget(
           indicatorMinWidth: 15,
           isScrollable: true,
-          indicator: RRecTabIndicator(
+          indicator: const RRecTabIndicator(
             radius: 4,
             insets: EdgeInsets.only(bottom: 5),
           ),
           tabs: [
-            TabWidget(text: '每日'),
-            TabWidget(text: '每日(R-18)'),
-            TabWidget(text: '每日(男性欢迎)'),
-            TabWidget(text: '每日(男性欢迎 & R-18)'),
-            TabWidget(text: '每日(女性欢迎)'),
-            TabWidget(text: '每日(女性欢迎 & R-18)'),
-            TabWidget(text: '每周'),
-            TabWidget(text: '每周(R-18)'),
-            TabWidget(text: '每周(原创)'),
-            TabWidget(text: '每周(新人)'),
-            TabWidget(text: '每月'),
+            TabWidget(text: I18n.rankingItemDay.tr),
+            TabWidget(text: I18n.rankingItemDayR18.tr),
+            TabWidget(text: I18n.rankingItemDayMale.tr),
+            TabWidget(text: I18n.rankingItemDayMaleR18.tr),
+            TabWidget(text: I18n.rankingItemDayFemale.tr),
+            TabWidget(text: I18n.rankingItemDayFemaleR18.tr),
+            TabWidget(text: I18n.rankingItemWeek.tr),
+            TabWidget(text: I18n.rankingItemWeekR18.tr),
+            TabWidget(text: I18n.rankingItemWeekOriginal.tr),
+            TabWidget(text: I18n.rankingItemWeekRookie.tr),
+            TabWidget(text: I18n.rankingItemMonth.tr),
           ],
         ),
         child: TabBarView(

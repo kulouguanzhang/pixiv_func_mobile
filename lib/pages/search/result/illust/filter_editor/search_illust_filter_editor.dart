@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/select_group/select_group.dart';
@@ -89,13 +90,13 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
   Widget buildDateRangeTypeEdit() {
     final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     final items = {
-      0: '无限制',
-      1: '一天内',
-      2: '一周内',
-      3: '一月内',
-      4: '半年内',
-      5: '一年内',
-      6: '自定义',
+      0: I18n.searchDateLimitNo.tr,
+      1: I18n.searchDateLimitDay.tr,
+      2: I18n.searchDateLimitWeek.tr,
+      3: I18n.searchDateLimitMonth.tr,
+      4: I18n.searchDateLimitHalfYear.tr,
+      5: I18n.searchDateLimitYear.tr,
+      6: I18n.searchDateLimitCustom.tr,
     };
     return SizedBox(
       height: 35,
@@ -160,7 +161,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const TextWidget('搜索方式', fontSize: 14),
+                        TextWidget(I18n.searchTarget.tr, fontSize: 14),
                         Icon(
                           controller.editFilterIndex == 0 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                           color: controller.editFilterIndex == 0 ? Theme.of(context).colorScheme.primary : null,
@@ -175,7 +176,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const TextWidget('搜索排序', fontSize: 14),
+                        TextWidget(I18n.searchSort.tr, fontSize: 14),
                         Icon(
                           controller.editFilterIndex == 1 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                           color: controller.editFilterIndex == 1 ? Theme.of(context).colorScheme.primary : null,
@@ -190,7 +191,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const TextWidget('时间范围', fontSize: 14),
+                        TextWidget(I18n.searchDateRange.tr, fontSize: 14),
                         Icon(
                           controller.editFilterIndex == 2 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                           color: controller.editFilterIndex == 2 ? Theme.of(context).colorScheme.primary : null,
@@ -205,7 +206,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const TextWidget('收藏数量', fontSize: 14),
+                        TextWidget(I18n.searchBookmarkCount.tr, fontSize: 14),
                         Icon(
                           controller.editFilterIndex == 3 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                           color: controller.editFilterIndex == 3 ? Theme.of(context).colorScheme.primary : null,
@@ -223,10 +224,10 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                   switch (controller.editFilterIndex) {
                     case 0:
                       widget = SelectGroup<SearchSort>(
-                        items: const {
-                          '时间降序': SearchSort.dateDesc,
-                          '时间升序': SearchSort.dateAsc,
-                          '热度降序': SearchSort.popularDesc,
+                        items:  {
+                          I18n.searchSortDateDesc.tr: SearchSort.dateDesc,
+                          I18n.searchSortDateAsc.tr: SearchSort.dateAsc,
+                          I18n.searchSortPopularDesc.tr: SearchSort.popularDesc,
                         },
                         value: controller.sort,
                         onChanged: controller.searchSortOnChanged,
@@ -234,10 +235,10 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                       break;
                     case 1:
                       widget = SelectGroup<SearchIllustTarget>(
-                        items: const {
-                          '标签(部分)': SearchIllustTarget.partialMatchForTags,
-                          '标签(完全)': SearchIllustTarget.exactMatchForTags,
-                          '标题&简介': SearchIllustTarget.titleAndCaption,
+                        items:  {
+                          I18n.searchTargetPartialMatchForTags.tr: SearchIllustTarget.partialMatchForTags,
+                          I18n.searchTargetExactMatchForTags.tr: SearchIllustTarget.exactMatchForTags,
+                          I18n.searchTargetTitleAndCaption.tr: SearchIllustTarget.titleAndCaption,
                         },
                         value: controller.target,
                         onChanged: controller.searchIllustTargetOnChanged,

@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/pages/illust/controller.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
@@ -49,28 +50,28 @@ class UgoiraViewerController extends GetxController {
     state.loading = true;
     update();
     if (null == state.ugoiraMetadata) {
-      PlatformApi.toast('开始获取动图信息');
+      PlatformApi.toast(I18n.startGetUgoiraInfo.tr);
       try {
         state.ugoiraMetadata = await Get.find<ApiClient>().getUgoiraMetadata(id, cancelToken: cancelToken);
         state.delays.addAll(state.ugoiraMetadata!.ugoiraMetadata.frames.map((frame) => frame.delay));
         Log.i('获取动图信息成功');
       } catch (e) {
         Log.e('获取动图信息失败', e);
-        PlatformApi.toast('获取动图信息失败');
+        PlatformApi.toast(I18n.getUgoiraInfoFailed.tr);
         state.loading = false;
         return false;
       }
     }
 
     if (null == state.gifZipResponse) {
-      PlatformApi.toast('开始下载动图压缩包');
+      PlatformApi.toast(I18n.startDownloadUgoira.tr);
       try {
         state.gifZipResponse = await _httpClient.get<Uint8List>(
           Get.find<SettingsService>().toCurrentImageSource(state.ugoiraMetadata!.ugoiraMetadata.zipUrls.medium),
         );
       } catch (e) {
         Log.e('下载动图压缩包失败', e);
-        PlatformApi.toast('下载动图压缩包失败');
+        PlatformApi.toast(I18n.downloadUgoiraFailed.tr);
         state.loading = false;
         return false;
       }
@@ -86,7 +87,7 @@ class UgoiraViewerController extends GetxController {
   }
 
   Future<void> _generateImages() async {
-    PlatformApi.toast('开始生成图片 共${state.imageFiles.length}帧');
+    PlatformApi.toast(I18n.startGenerateImage.trArgs([state.imageFiles.length.toString()]));
     bool init = false;
     for (final imageBytes in state.imageFiles) {
       state.images.add(await _loadImage(imageBytes));
@@ -128,16 +129,16 @@ class UgoiraViewerController extends GetxController {
       if (state.loaded || !state.loaded && await loadData()) {
         state.loading = false;
         update();
-        PlatformApi.toast('开始合成图片 共${state.imageFiles.length}帧');
+        PlatformApi.toast(I18n.startCompositeImage.trArgs([state.imageFiles.length.toString()]));
         final saveResult = await PlatformApi.saveGifImage(id, state.imageFiles, state.delays);
 
         if (Get.isRegistered<IllustController>(tag: 'IllustPage-$id')) {
           Get.find<IllustController>(tag: 'IllustPage-$id').downloadComplete(0, saveResult);
         } else {
           if (saveResult) {
-            PlatformApi.toast('保存成功');
+            PlatformApi.toast(I18n.illustIdSaveSuccess.trArgs([id.toString()]));
           } else {
-            PlatformApi.toast('保存失败');
+            PlatformApi.toast(I18n.illustIdSaveFailed.trArgs([id.toString()]));
           }
         }
       }

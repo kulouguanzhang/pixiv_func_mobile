@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/comment.dart';
 import 'package:pixiv_func_mobile/app/asset_manifest.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
@@ -69,7 +70,7 @@ class IllustCommentContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(commentTree.data.user.name, fontSize: 12, isBold: true),
-                TextWidget(Utils.japanDateToLocalDateString(DateTime.parse(commentTree.data.date)), fontSize: 10),
+                TextWidget(Utils.dateFormat(DateTime.parse(commentTree.data.date)), fontSize: 10),
               ],
             ),
             const Spacer(),
@@ -136,7 +137,7 @@ class IllustCommentContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(commentTree.data.user.name, fontSize: 12, isBold: true),
-                TextWidget(Utils.japanDateToLocalDateString(DateTime.parse(commentTree.data.date)), fontSize: 10),
+                TextWidget(Utils.dateFormat(DateTime.parse(commentTree.data.date)), fontSize: 10),
               ],
             ),
             const Spacer(),
@@ -344,7 +345,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                           widget.onSend(_textEditingController.text);
                           _textEditingController.clear();
                         },
-                        child: const TextWidget('发送'),
+                        child:  TextWidget(I18n.send.tr),
                       ),
                   ],
                 ),

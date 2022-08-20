@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/webview/platform_webview.dart';
+import 'package:pixiv_func_mobile/app/theme/theme.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -35,8 +37,8 @@ class LoginWebViewPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Row(
-                              children: const [
-                                TextWidget('剪贴板', fontSize: 18, color: Color(0xFF383838), isBold: true),
+                              children: [
+                                TextWidget(I18n.clipboard.tr, fontSize: 18, color: AppTheme.lightTheme.colorScheme.onSurface, isBold: true),
                               ],
                             ),
                           ),
@@ -45,7 +47,7 @@ class LoginWebViewPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Row(
                               children: [
-                                const TextWidget('账号', fontSize: 16, color: Color(0xFF383838), isBold: true),
+                                TextWidget(I18n.account.tr, fontSize: 16, color: AppTheme.lightTheme.colorScheme.onSurface, isBold: true),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: TextField(
@@ -53,7 +55,7 @@ class LoginWebViewPage extends StatelessWidget {
                                     style: const TextStyle(color: Colors.black),
                                     decoration: InputDecoration(
                                       constraints: const BoxConstraints(maxHeight: 40),
-                                      hintText: '邮箱地址或pixiv ID',
+                                      hintText: I18n.pixivAccountHint.tr,
                                       hintStyle: const TextStyle(color: Color(0xFFBCBCBD)),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(24),
@@ -73,7 +75,7 @@ class LoginWebViewPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Row(
                               children: [
-                                const TextWidget('密码', fontSize: 16, color: Color(0xFF383838), isBold: true),
+                                TextWidget(I18n.password.tr, fontSize: 16, color: AppTheme.lightTheme.colorScheme.onSurface, isBold: true),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: TextField(
@@ -81,7 +83,7 @@ class LoginWebViewPage extends StatelessWidget {
                                     style: const TextStyle(color: Colors.black),
                                     decoration: InputDecoration(
                                       constraints: const BoxConstraints(maxHeight: 40),
-                                      hintText: '密码',
+                                      hintText: I18n.password.tr,
                                       hintStyle: const TextStyle(color: Color(0xFFBCBCBD)),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(24),
@@ -110,9 +112,9 @@ class LoginWebViewPage extends StatelessWidget {
                                       side: BorderSide.none,
                                     ),
                                     minWidth: double.infinity,
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 20),
-                                      child: TextWidget('取消', fontSize: 18, color: Colors.white, isBold: true),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 20),
+                                      child: TextWidget(I18n.cancel.tr, fontSize: 18, color: Colors.white, isBold: true),
                                     ),
                                     onPressed: () => Get.back(),
                                   ),
@@ -121,14 +123,14 @@ class LoginWebViewPage extends StatelessWidget {
                                 Expanded(
                                   child: MaterialButton(
                                     elevation: 0,
-                                    color: const Color(0xFFFF6289),
+                                    color: Theme.of(context).colorScheme.primary,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40),
                                     ),
                                     minWidth: double.infinity,
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 20),
-                                      child: TextWidget('复制', fontSize: 18, color: Colors.white, isBold: true),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 20),
+                                      child: TextWidget(I18n.copy.tr, fontSize: 18, color: Colors.white, isBold: true),
                                     ),
                                     onPressed: () {
                                       controller.copyLoginDataToWebView();
@@ -146,10 +148,10 @@ class LoginWebViewPage extends StatelessWidget {
                   ),
                 );
               },
-              child: const Center(
+              child: Center(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: TextWidget('无法输入?', color: Color(0xFFFF6289), fontSize: 14),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: TextWidget(I18n.noEntry.tr, color: Theme.of(context).colorScheme.primary, fontSize: 14),
                 ),
               ),
             ),

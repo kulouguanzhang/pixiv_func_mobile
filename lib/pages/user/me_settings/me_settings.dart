@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/pages/user/controller.dart';
 import 'package:pixiv_func_mobile/pages/user/me_settings/profile/profile.dart';
 import 'package:pixiv_func_mobile/pages/user/me_settings/web/web.dart';
@@ -21,20 +22,20 @@ class MeSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWidget(
-      title: '账号设置',
+      title: I18n.meSettingsPageTitle.tr,
       child: Column(
         children: [
           buildItem(
             onTap: () => Get.to(() => MeProfileSettingsPage(currentDetail: Get.find<MeController>().userDetailResult!)),
-            title: '个人资料',
+            title: I18n.meProfileSettingsPageTitle.tr,
           ),
           buildItem(
             onTap: () => Get.to(() => MeWorkspaceSettingsPage(workspace: Get.find<MeController>().userDetailResult!.workspace)),
-            title: '工作环境',
+            title: I18n.meWorkspaceSettingsPageTitle.tr,
           ),
           buildItem(
             onTap: () => Get.to(() => MeWebSettingsPage(currentDetail: Get.find<MeController>().userDetailResult!)),
-            title: 'Web设置',
+            title: I18n.meWebSettingsPageTitle.tr,
           ),
         ],
       ),

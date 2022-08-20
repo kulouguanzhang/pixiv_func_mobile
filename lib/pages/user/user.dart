@@ -3,6 +3,7 @@ import 'package:extended_sliver/extended_sliver.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
@@ -79,8 +80,6 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                     Container(
                       height: Get.height * 0.3,
                       color: Theme.of(Get.context!).colorScheme.surface,
-                      alignment: Alignment.center,
-                      child: const TextWidget('没有背景图片', fontSize: 16),
                     ),
                   Positioned(
                     top: Get.height * 0.3 - 50,
@@ -145,7 +144,8 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
     return GetBuilder<UserController>(
       tag: controllerTag,
       builder: (controller) => ScaffoldWidget(
-        emptyAppBar: controller.userDetailResult != null,
+        // emptyAppBar: controller.userDetailResult != null,
+        title: I18n.userIdPageTitle.trArgs([widget.id.toString()]),
         child: () {
           if (PageState.loading == controller.state) {
             return Container(
@@ -164,7 +164,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
           } else if (PageState.notFound == controller.state) {
             return Container(
               alignment: Alignment.center,
-              child: TextWidget('用户ID${widget.id}不存在', fontSize: 16),
+              child: TextWidget(I18n.userIdNotFound.trArgs([widget.id.toString()]), fontSize: 16),
             );
           } else if (PageState.complete == controller.state) {
             return NoScrollBehaviorWidget(
@@ -194,7 +194,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                             ),
                             tabs: [
                               TabWidget(
-                                text: '作品',
+                                text: I18n.work.tr,
                                 icon: controller.tabController.index == 0
                                     ? controller.expandTypeSelector
                                         ? const Icon(Icons.keyboard_arrow_up, size: 12)
@@ -202,18 +202,18 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                                     : null,
                               ),
                               TabWidget(
-                                text: '收藏',
+                                text: I18n.bookmarked.tr,
                                 icon: controller.tabController.index == 1
                                     ? controller.expandTypeSelector
                                         ? const Icon(Icons.keyboard_arrow_up, size: 12)
                                         : const Icon(Icons.keyboard_arrow_down, size: 12)
                                     : null,
                               ),
-                              const TabWidget(
-                                text: '关注',
+                               TabWidget(
+                                text: I18n.following.tr,
                               ),
-                              const TabWidget(
-                                text: '关于',
+                               TabWidget(
+                                text: I18n.about.tr,
                               ),
                             ],
                           ),

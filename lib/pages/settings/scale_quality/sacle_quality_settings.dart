@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:pixiv_func_mobile/widgets/cupertino_switch_list_tile/cupertino_switch_list_tile.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -10,12 +11,12 @@ class ScaleQualitySettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const List<MapEntry<String, bool>> items = [
-      MapEntry('大图', false),
-      MapEntry('原图', true),
+     List<MapEntry<String, bool>> items = [
+      MapEntry(I18n.largeImage.tr, false),
+      MapEntry(I18n.originalImage.tr, true),
     ];
     return ScaffoldWidget(
-      title: '缩放质量',
+      title: I18n.scaleQualitySettingsPageTitle.tr,
       child: ObxValue(
         (Rx<bool> data) {
           void updater(bool? value) {

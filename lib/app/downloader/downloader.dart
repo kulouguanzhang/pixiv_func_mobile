@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/download_task.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
@@ -75,11 +76,11 @@ class Downloader extends GetxController implements GetxService {
 
     final taskIndex = Get.find<Downloader>().tasks.indexWhere((task) => filename == task.filename);
     if (-1 != taskIndex && DownloadState.failed != Get.find<Downloader>().tasks[taskIndex].state) {
-      PlatformApi.toast('插画ID${illust.id}[${index + 1}]下载任务已经存在');
+      PlatformApi.toast(I18n.illustIdDownloadTaskExists.trArgs(['${illust.id}[${index + 1}]']));
       return;
     }
 
-    PlatformApi.toast('插画ID${illust.id}[${index + 1}]下载开始');
+    PlatformApi.toast(I18n.illustIdDownloadTaskStart.trArgs(['${illust.id}[${index + 1}]']));
     compute(
       _task,
       _DownloadStartProps(
@@ -96,13 +97,13 @@ class Downloader extends GetxController implements GetxService {
 
         onComplete?.call(index, saveResult);
         if (saveResult) {
-          PlatformApi.toast('插画ID${illust.id}[${index + 1}]保存成功');
+          PlatformApi.toast(I18n.illustIdSaveSuccess.trArgs(['${illust.id}[${index + 1}]']));
         } else {
-          PlatformApi.toast('插画ID${illust.id}[${index + 1}]保存失败');
+          PlatformApi.toast(I18n.illustIdSaveFailed.trArgs(['${illust.id}[${index + 1}]']));
         }
         onComplete?.call(index, true);
       } else if (result is _DownloadError) {
-        PlatformApi.toast('插画ID${illust.id}[${index + 1}]下载失败');
+        PlatformApi.toast(I18n.illustIdSaveFailed.trArgs(['${illust.id}[${index + 1}]']));
         onComplete?.call(index, false);
       }
     });

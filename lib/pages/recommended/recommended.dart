@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_dart_api/model/live.dart';
 import 'package:pixiv_dart_api/model/novel.dart';
 import 'package:pixiv_dart_api/model/user_preview.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_mobile/components/live_previewer/live_previewer.dart';
 import 'package:pixiv_func_mobile/components/novel_previewer/novel_previewer.dart';
@@ -26,18 +28,18 @@ class RecommendedPage extends StatelessWidget {
     return DefaultTabController(
       length: 5,
       child: ScaffoldWidget(
-        titleWidget: const TabBarWidget(
+        titleWidget: TabBarWidget(
           indicatorMinWidth: 15,
-          indicator: RRecTabIndicator(
+          indicator: const RRecTabIndicator(
             radius: 4,
             insets: EdgeInsets.only(bottom: 5),
           ),
           tabs: [
-            TabWidget(text: '插画'),
-            TabWidget(text: '漫画'),
-            TabWidget(text: '小说'),
-            TabWidget(text: '用户'),
-            TabWidget(text: '直播'),
+            TabWidget(text: I18n.illust.tr),
+            TabWidget(text: I18n.manga.tr),
+            TabWidget(text: I18n.novel.tr),
+            TabWidget(text: I18n.user.tr),
+            TabWidget(text: I18n.live.tr),
           ],
         ),
         child: TabBarView(

@@ -4,9 +4,11 @@ import 'dart:isolate';
 import 'package:app_installer/app_installer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/notification.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 
@@ -19,7 +21,7 @@ class Updater {
     if (!await storageStatus.isGranted) {
       await storageStatus.request();
       if (!await storageStatus.isGranted) {
-        PlatformApi.toast('拒绝了权限,取消更新');
+        PlatformApi.toast(I18n.permissionDenied.tr);
         return;
       }
     }
@@ -33,16 +35,16 @@ class Updater {
       AppInstaller.installApk(savePath);
       return;
     }
-    PlatformApi.toast('开始下载');
+    PlatformApi.toast(I18n.startDownload.tr);
     Isolate.spawn(_downloadTask, _UpdateProps(_hostReceivePort.sendPort, url, savePath));
   }
 
   static Future<void> _progressNotification(int progress, [bool isComplete = false]) async {
     final AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'update app',
-      'update app',
-      tag: 'update app',
-      channelDescription: 'Pixiv Func 更新',
+      'UpdateApp',
+      'UpdateApp',
+      tag: 'UpdateApp',
+      channelDescription: I18n.startDownload.tr,
       channelShowBadge: false,
       importance: Importance.max,
       priority: Priority.high,
@@ -55,7 +57,12 @@ class Updater {
     );
     final NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
     if (!isComplete) {
-      await flutterLocalNotificationsPlugin.show(44444, 'Pixiv Func更新', '下载进度:$progress%', platformChannelSpecifics);
+      await flutterLocalNotificationsPlugin.show(
+        44444,
+        I18n.updateTitle.tr,
+        I18n.downloadProgress.trArgs([progress.toString()]),
+        platformChannelSpecifics,
+      );
     } else {
       await flutterLocalNotificationsPlugin.cancel(44444, tag: 'update app');
     }

@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 class Utils {
   Utils._();
 
-  ///日本时间转中国时间
-  static String japanDateToLocalDateString(DateTime dateTime) {
+  ///格式化时间
+  static String dateFormat(DateTime dateTime) {
     return DateFormat('yyyy年MM月dd日 HH:mm:ss').format(dateTime.toLocal());
   }
 

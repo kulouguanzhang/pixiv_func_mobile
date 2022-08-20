@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
@@ -33,7 +34,7 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
           ),
           tabs: [
             TabWidget(
-              text: '关注者',
+              text: I18n.following.tr,
               icon: controller.tabController.index == 0
                   ? controller.expandTypeSelector
                       ? const Icon(Icons.keyboard_arrow_up, size: 12)
@@ -41,7 +42,7 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
                   : null,
             ),
             TabWidget(
-              text: '所有人',
+              text: I18n.everyone.tr,
               icon: controller.tabController.index == 1
                   ? controller.expandTypeSelector
                       ? const Icon(Icons.keyboard_arrow_up, size: 12)
@@ -49,7 +50,7 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
                   : null,
             ),
             TabWidget(
-              text: '好P友',
+              text: I18n.myPixiv.tr,
               icon: controller.tabController.index == 2
                   ? controller.expandTypeSelector
                       ? const Icon(Icons.keyboard_arrow_up, size: 12)

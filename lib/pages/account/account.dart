@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/pages/login/login.dart';
@@ -21,7 +22,7 @@ class AccountPage extends StatelessWidget {
     return Obx(
       () {
         return ScaffoldWidget(
-          title: '账号管理',
+          title: I18n.accountPageTitle.tr,
           actions: [
             const SizedBox(height: 5),
             IconButton(
@@ -40,7 +41,7 @@ class AccountPage extends StatelessWidget {
                     },
                     onLongPress: () {
                       Utils.copyToClipboard(Encrypt.encode(jsonEncode(account)));
-                      PlatformApi.toast('已复制到剪贴板');
+                      PlatformApi.toast(I18n.copiedToClipboardHint.tr);
                     },
                     title: Text(
                       '${account.localUser.name}(${account.localUser.mailAddress})',
@@ -65,9 +66,9 @@ class AccountPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Spacer(flex: 1),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 30),
-                                    child: TextWidget('确认退出此账号', fontSize: 18, isBold: true),
+                                   Padding(
+                                    padding:const EdgeInsets.symmetric(horizontal: 30),
+                                    child: TextWidget(I18n.confirmLogoutHint.tr, fontSize: 18, isBold: true),
                                   ),
                                   const Spacer(flex: 1),
                                   Padding(
@@ -94,9 +95,9 @@ class AccountPage extends StatelessWidget {
                                               side: BorderSide.none,
                                             ),
                                             minWidth: double.infinity,
-                                            child: const Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 20),
-                                              child: TextWidget('取消', fontSize: 18, color: Colors.white, isBold: true),
+                                            child:  Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 20),
+                                              child: TextWidget(I18n.cancel.tr, fontSize: 18, color: Colors.white, isBold: true),
                                             ),
                                             onPressed: () => Get.back(),
                                           ),
@@ -105,14 +106,14 @@ class AccountPage extends StatelessWidget {
                                         Expanded(
                                           child: MaterialButton(
                                             elevation: 0,
-                                            color: const Color(0xFFFF6289),
+                                            color: Theme.of(context).colorScheme.primary,
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(40),
                                             ),
                                             minWidth: double.infinity,
-                                            child: const Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 20),
-                                              child: TextWidget('确认', fontSize: 18, color: Colors.white, isBold: true),
+                                            child:  Padding(
+                                              padding:const EdgeInsets.symmetric(vertical: 20),
+                                              child: TextWidget(I18n.confirm.tr, fontSize: 18, color: Colors.white, isBold: true),
                                             ),
                                             onPressed: () async {
                                               final removeIndex = accountService.accounts().indexWhere((element) => element == account);

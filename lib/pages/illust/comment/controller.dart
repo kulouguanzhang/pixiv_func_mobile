@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/comment_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/comment_tree.dart';
 import 'package:pixiv_func_mobile/utils/log.dart';
@@ -30,7 +31,7 @@ class IllustCommentController extends GetxController {
 
   bool get isReplies => null != _repliesCommentTree;
 
-  String get commentInputLabel => isReplies ? '回复 ${repliesCommentTree!.data.user.name}' : '评论 插画';
+  String get commentInputLabel => isReplies ? I18n.replyComment.trArgs([repliesCommentTree!.data.user.name]) : I18n.commentIllust.tr;
 
   void loadFirstReplies(CommentTree commentTree) {
     commentTree.loading = true;
@@ -71,17 +72,17 @@ class IllustCommentController extends GetxController {
       if (null != commentTree) {
         commentTree.children.insert(0, CommentTree(data: result.comment, parent: commentTree));
         source.setState();
-        PlatformApi.toast('回复成功');
+        PlatformApi.toast(I18n.replySuccessHint.tr);
       } else {
         source.insert(0, CommentTree(data: result.comment, parent: null));
         source.setState();
-        PlatformApi.toast('评论成功');
+        PlatformApi.toast(I18n.commentSuccessHint.tr);
       }
     }).catchError((e) {
       if (e is DioError && e.response?.statusCode == HttpStatus.notFound) {
-        PlatformApi.toast('评论失败,欲回复的评论不存在');
+        PlatformApi.toast(I18n.replyFailedHint.tr);
       } else {
-        PlatformApi.toast('评论失败,请重试');
+        PlatformApi.toast(I18n.commentFailedHint.tr);
       }
       Log.e('评论异常', e);
     });
@@ -98,10 +99,10 @@ class IllustCommentController extends GetxController {
         commentTree.parent!.children.removeWhere((element) => commentTree.data.id == element.data.id);
         source.setState();
       }
-      PlatformApi.toast('删除评论成功');
+      PlatformApi.toast(I18n.deleteCommentSuccessHint.tr);
     }).catchError((e) {
       Log.e('删除评论失败', e);
-      PlatformApi.toast('删除评论失败');
+      PlatformApi.toast(I18n.deleteCommentFailedHint.tr);
     });
   }
 

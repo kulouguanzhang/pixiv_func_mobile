@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
@@ -39,8 +40,8 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
     final String? backgroundImageUrl = userDetail.profile.backgroundImageUrl;
     final UserInfo user = userDetail.user;
     final items = {
-      Restrict.public: '公开',
-      Restrict.private: '悄悄',
+      Restrict.public: I18n.restrictPublic.tr,
+      Restrict.private: I18n.restrictPrivate.tr,
     };
 
     return ExtendedSliverAppbar(
@@ -165,8 +166,6 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                     Container(
                       height: 200,
                       color: Theme.of(Get.context!).colorScheme.surface,
-                      alignment: Alignment.center,
-                      child: const TextWidget('没有背景图片', fontSize: 16),
                     ),
                   Positioned(
                     top: 150,
@@ -277,21 +276,21 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                             ),
                             tabs: [
                               TabWidget(
-                                text: '收藏',
+                                text: I18n.bookmarked.tr,
                                 icon: controller.tabController.index == 0
                                     ? controller.expandTypeSelector
                                         ? const Icon(Icons.keyboard_arrow_up, size: 12)
                                         : const Icon(Icons.keyboard_arrow_down, size: 12)
                                     : null,
                               ),
-                              const TabWidget(
-                                text: '关注',
-                              ),
-                              const TabWidget(
-                                text: '粉丝',
+                               TabWidget(
+                                text: I18n.following.tr,
                               ),
                               TabWidget(
-                                text: '作品',
+                                text: I18n.fans.tr,
+                              ),
+                              TabWidget(
+                                text: I18n.work.tr,
                                 icon: controller.tabController.index == 3
                                     ? controller.expandTypeSelector
                                         ? const Icon(Icons.keyboard_arrow_up, size: 12)

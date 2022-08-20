@@ -2,6 +2,7 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/user_preview.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/pull_to_refresh_header/pull_to_refresh_header.dart';
 import 'package:pixiv_func_mobile/components/user_previewer/user_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
@@ -39,7 +40,7 @@ class SearchUserResultPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide.none,
                     ),
-                    hintText: '搜索',
+                    hintText: I18n.search.tr,
                     prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 3),
                     fillColor: Theme.of(context).colorScheme.surface,
@@ -51,7 +52,7 @@ class SearchUserResultPage extends StatelessWidget {
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () => Get.back(),
-                child: TextWidget('取消', color: Theme.of(context).colorScheme.onSecondary),
+                child: TextWidget(I18n.cancel.tr, color: Theme.of(context).colorScheme.onSecondary),
               ),
               const SizedBox(width: 20),
             ],

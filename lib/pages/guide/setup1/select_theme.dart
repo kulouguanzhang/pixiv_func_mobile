@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/pages/login/login.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:pixiv_func_mobile/widgets/cupertino_switch_list_tile/cupertino_switch_list_tile.dart';
@@ -20,7 +21,7 @@ class GuideSelectThemePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(flex: 2),
-              const TextWidget('选择你喜欢的主题', fontSize: 24, isBold: true),
+              TextWidget(I18n.selectFavoriteTheme.tr, fontSize: 24, isBold: true),
               const Spacer(flex: 1),
               CupertinoSwitchListTile(
                 contentPadding: const EdgeInsets.symmetric(vertical: 6),
@@ -29,7 +30,7 @@ class GuideSelectThemePage extends StatelessWidget {
                   Get.find<SettingsService>().theme = 0;
                   Get.changeThemeMode(ThemeMode.dark);
                 },
-                title: const TextWidget('黑暗', fontSize: 18, isBold: true),
+                title: TextWidget(I18n.dark.tr, fontSize: 18, isBold: true),
                 value: 0 == data.value,
               ),
               const Divider(),
@@ -40,7 +41,7 @@ class GuideSelectThemePage extends StatelessWidget {
                   Get.find<SettingsService>().theme = 1;
                   Get.changeThemeMode(ThemeMode.light);
                 },
-                title: const TextWidget('明亮', fontSize: 18, isBold: true),
+                title: TextWidget(I18n.light.tr, fontSize: 18, isBold: true),
                 value: 1 == data.value,
               ),
               const Divider(),
@@ -51,20 +52,20 @@ class GuideSelectThemePage extends StatelessWidget {
                   Get.find<SettingsService>().theme = -1;
                   Get.changeThemeMode(ThemeMode.system);
                 },
-                title: const TextWidget('跟随系统', fontSize: 18, isBold: true),
+                title: TextWidget(I18n.followSystem.tr, fontSize: 18, isBold: true),
                 value: -1 == data.value,
               ),
               const Spacer(flex: 2),
               MaterialButton(
                 elevation: 0,
-                color: const Color(0xFFFF6289),
+                color: Theme.of(context).colorScheme.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40),
                 ),
                 minWidth: double.infinity,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: TextWidget('下一步', fontSize: 18, color: Colors.white, isBold: true),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: TextWidget(I18n.next.tr, fontSize: 18, color: Colors.white, isBold: true),
                 ),
                 onPressed: () {
                   Get.find<SettingsService>().guideInit = true;
@@ -72,7 +73,7 @@ class GuideSelectThemePage extends StatelessWidget {
                 },
               ),
               const Spacer(flex: 1),
-              const TextWidget('稍后您可以在设置中进行相应变更', fontSize: 14),
+              TextWidget(I18n.laterChangeInSettings.tr, fontSize: 14),
               const Spacer(flex: 1),
             ],
           ),

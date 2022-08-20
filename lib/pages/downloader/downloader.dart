@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/downloader/downloader.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/models/download_task.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -53,7 +54,7 @@ class DownloaderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWidget(
-      title: '下载任务',
+      title: I18n.downloaderPageTitle.tr,
       child: GetBuilder<Downloader>(
         builder: (controller) {
           return ListView(

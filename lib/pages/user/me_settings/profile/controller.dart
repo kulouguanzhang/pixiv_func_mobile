@@ -5,6 +5,7 @@ import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/vo/profile_presets_result.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/models/image_info.dart';
@@ -86,11 +87,11 @@ class MeProfileSettingsController extends GetxController {
   String get genderName {
     switch (gender) {
       case Gender.male:
-        return '男性';
+        return I18n.genderMale.tr;
       case Gender.female:
-        return '女性';
+        return I18n.genderFemale.tr;
       case Gender.unknown:
-        return '未选择';
+        return I18n.genderUnknown.tr;
     }
   }
 
@@ -176,10 +177,10 @@ class MeProfileSettingsController extends GetxController {
       jobPublicity: jobPublicity,
     )
         .then((_) {
-      PlatformApi.toast('更新个人资料成功');
+      PlatformApi.toast(I18n.updateProfileSuccess.tr);
       Get.find<MeController>().loadData();
     }).catchError((e) {
-      PlatformApi.toast('更新个人资料失败');
+      PlatformApi.toast(I18n.updateProfileFailed.tr);
     });
   }
 

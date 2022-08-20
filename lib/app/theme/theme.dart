@@ -45,7 +45,7 @@ class AppTheme {
   );
 
   static final lightTheme = ThemeData.light().copyWith(
-    primaryColor: Color(0xFFFF6289),
+    primaryColor: const Color(0xFFFF6289),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     bottomAppBarColor: const Color(0xFFFFFFFF),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

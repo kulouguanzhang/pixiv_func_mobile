@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/vo/trending_tag_list_result.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
@@ -40,7 +41,7 @@ class SearchGuidePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide.none,
                     ),
-                    hintText: '搜索关键字或ID',
+                    hintText: I18n.searchHint.tr,
                     prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 3),
                     fillColor: Theme.of(context).colorScheme.surface,
@@ -59,18 +60,18 @@ class SearchGuidePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
-                  children: const [
-                    Icon(Icons.image, color: Colors.white, size: 14),
-                    TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
+                  children:  [
+                    const Icon(Icons.image, color: Colors.white, size: 14),
+                    TextWidget(I18n.searchImage.tr, fontSize: 14, color: Colors.white, isBold: true),
                   ],
                 ),
                 onPressed: () {
                   ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
                     if (null != picker) {
-                      picker.readAsBytes();
+                      final bytes = await picker.readAsBytes();
                       Get.to(
-                        () async => SearchImageResultPage(
-                          imageBytes: await picker.readAsBytes(),
+                        ()  => SearchImageResultPage(
+                          imageBytes: bytes,
                           filename: picker.name,
                         ),
                       );

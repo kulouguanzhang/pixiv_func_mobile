@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/api/auth_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/platform/webview/controller.dart';
 import 'package:pixiv_func_mobile/models/account.dart';
@@ -86,7 +87,7 @@ class LoginWebViewController extends GetxController {
         authClient.initAccountAuthToken(uri.queryParameters['code'] as String).then((result) {
           Log.i(result);
 
-          PlatformApi.toast('登录成功');
+          PlatformApi.toast(I18n.loginSuccess.tr);
 
           final firstAccount = accountService.isEmpty;
 

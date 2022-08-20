@@ -74,7 +74,7 @@ class SinglePicker<V> extends StatelessWidget {
                       ),
                       minWidth: double.infinity,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         child: TextWidget('取消', fontSize: 18, color: Theme.of(context).colorScheme.onBackground, isBold: true),
                       ),
                       onPressed: () => Get.back(),
@@ -84,7 +84,7 @@ class SinglePicker<V> extends StatelessWidget {
                   Expanded(
                     child: MaterialButton(
                       elevation: 0,
-                      color: const Color(0xFFFF6289),
+                      color: Theme.of(context).colorScheme.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),

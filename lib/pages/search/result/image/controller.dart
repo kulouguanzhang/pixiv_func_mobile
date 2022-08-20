@@ -3,11 +3,13 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as html show parse;
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/models/search_image_item.dart';
@@ -100,7 +102,7 @@ class SearchImageResultController extends GetxController {
       state = PageState.complete;
     }).catchError((e, s) {
       if (e is DioError && e.response?.statusCode == HttpStatus.tooManyRequests) {
-        PlatformApi.toast('当前IP超过了saucenao未注册用户每日50次上限');
+        PlatformApi.toast(I18n.searchImageStatus429Hint.tr);
       }
       Log.e('搜索图片失败', e);
       state = PageState.error;

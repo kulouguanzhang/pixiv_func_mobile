@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -27,8 +28,8 @@ class FollowSwitchButton extends StatelessWidget {
   void _restrictDialog() {
     final controller = Get.find<FollowSwitchButtonController>(tag: controllerTag);
     final items = {
-      Restrict.public: '公开',
-      Restrict.private: '悄悄',
+      Restrict.public: I18n.restrictPublic.tr,
+      Restrict.private: I18n.restrictPrivate.tr,
     };
     Get.bottomSheet(
       Container(
@@ -46,8 +47,8 @@ class FollowSwitchButton extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
                   children: [
-                    const Expanded(
-                      child: TextWidget('关注用户', fontSize: 18, isBold: true),
+                    Expanded(
+                      child: TextWidget(I18n.followUser.tr, fontSize: 18, isBold: true),
                     ),
                     Container(
                       padding: const EdgeInsets.all(8),
@@ -122,9 +123,9 @@ class FollowSwitchButton extends StatelessWidget {
                           side: BorderSide.none,
                         ),
                         minWidth: double.infinity,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: TextWidget('取消', fontSize: 18, color: Colors.white, isBold: true),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: TextWidget(I18n.cancel.tr, fontSize: 18, color: Colors.white, isBold: true),
                         ),
                         onPressed: () => Get.back(),
                       ),
@@ -133,14 +134,14 @@ class FollowSwitchButton extends StatelessWidget {
                     Expanded(
                       child: MaterialButton(
                         elevation: 0,
-                        color: const Color(0xFFFF6289),
+                        color: Get.theme.colorScheme.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
                         minWidth: double.infinity,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: TextWidget('确认', fontSize: 18, color: Colors.white, isBold: true),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: TextWidget(I18n.confirm.tr, fontSize: 18, color: Colors.white, isBold: true),
                         ),
                         onPressed: () async {
                           controller.changeFollowState(isChange: true, restrict: Restrict.public);
@@ -196,7 +197,7 @@ class FollowSwitchButton extends StatelessWidget {
                       onPressed: () => controller.changeFollowState(),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: TextWidget('已关注', color: Theme.of(context).colorScheme.onSurface, isBold: true),
+                        child: TextWidget(I18n.followed.tr, color: Theme.of(context).colorScheme.onSurface, isBold: true),
                       ),
                     )
                   : MaterialButton(
@@ -207,8 +208,8 @@ class FollowSwitchButton extends StatelessWidget {
                       ),
                       onPressed: () => controller.changeFollowState(),
                       onLongPress: () => _restrictDialog(),
-                      child: const Center(
-                        child: TextWidget('关注', color: Colors.white, isBold: true),
+                      child: Center(
+                        child: TextWidget(I18n.follow.tr, color: Colors.white, isBold: true),
                       ),
                     ),
         );

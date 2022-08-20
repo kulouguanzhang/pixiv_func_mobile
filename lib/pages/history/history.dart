@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
@@ -18,7 +19,7 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final source = HistoryListSource();
     return ScaffoldWidget(
-      title: '浏览记录',
+      title: I18n.historyPageTitle.tr,
       actions: [
         IconButton(
           onPressed: () {
@@ -57,9 +58,9 @@ class HistoryPage extends StatelessWidget {
                                   side: BorderSide.none,
                                 ),
                                 minWidth: double.infinity,
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20),
-                                  child: TextWidget('取消', fontSize: 18, color: Colors.white, isBold: true),
+                                child:  Padding(
+                                  padding:const EdgeInsets.symmetric(vertical: 20),
+                                  child: TextWidget(I18n.cancel.tr, fontSize: 18, color: Colors.white, isBold: true),
                                 ),
                                 onPressed: () => Get.back(),
                               ),
@@ -68,14 +69,14 @@ class HistoryPage extends StatelessWidget {
                             Expanded(
                               child: MaterialButton(
                                 elevation: 0,
-                                color: const Color(0xFFFF6289),
+                                color: Theme.of(context).colorScheme.primary,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 minWidth: double.infinity,
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20),
-                                  child: TextWidget('确认', fontSize: 18, color: Colors.white, isBold: true),
+                                child:  Padding(
+                                  padding:const EdgeInsets.symmetric(vertical: 20),
+                                  child: TextWidget(I18n.confirm.tr, fontSize: 18, color: Colors.white, isBold: true),
                                 ),
                                 onPressed: () async {
                                   await source.clearItem();
@@ -104,7 +105,7 @@ class HistoryPage extends StatelessWidget {
               return CupertinoSwitchListTile(
                 contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                 onTap: () => updater(!(snapshot ?? false)),
-                title: const TextWidget('浏览记录', fontSize: 18, isBold: true),
+                title:  TextWidget(I18n.browsingHistory.tr, fontSize: 18, isBold: true),
                 value: snapshot!,
               );
             },
@@ -135,14 +136,14 @@ class HistoryPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Spacer(flex: 1),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 30),
-                              child: TextWidget('删除这条历史记录', fontSize: 18, isBold: true),
+                             Padding(
+                              padding:const EdgeInsets.symmetric(horizontal: 30),
+                              child: TextWidget(I18n.deleteThisHistory.tr, fontSize: 18, isBold: true),
                             ),
                             const Spacer(flex: 1),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 30),
-                              child: TextWidget('删除后将不可恢复', fontSize: 16),
+                             Padding(
+                              padding:const EdgeInsets.symmetric(horizontal: 30),
+                              child: TextWidget(I18n.deleteThisHistoryHint.tr, fontSize: 16),
                             ),
                             const Spacer(flex: 2),
                             Padding(
@@ -158,9 +159,9 @@ class HistoryPage extends StatelessWidget {
                                         side: BorderSide.none,
                                       ),
                                       minWidth: double.infinity,
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 20),
-                                        child: TextWidget('取消', fontSize: 18, color: Colors.white, isBold: true),
+                                      child:  Padding(
+                                        padding:const EdgeInsets.symmetric(vertical: 20),
+                                        child: TextWidget(I18n.cancel.tr, fontSize: 18, color: Colors.white, isBold: true),
                                       ),
                                       onPressed: () => Get.back(),
                                     ),
@@ -169,14 +170,14 @@ class HistoryPage extends StatelessWidget {
                                   Expanded(
                                     child: MaterialButton(
                                       elevation: 0,
-                                      color: const Color(0xFFFF6289),
+                                      color: Theme.of(context).colorScheme.primary,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(40),
                                       ),
                                       minWidth: double.infinity,
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 20),
-                                        child: TextWidget('确认', fontSize: 18, color: Colors.white, isBold: true),
+                                      child:  Padding(
+                                        padding:const EdgeInsets.symmetric(vertical: 20),
+                                        child: TextWidget(I18n.confirm.tr, fontSize: 18, color: Colors.white, isBold: true),
                                       ),
                                       onPressed: () async {
                                         await source.removeItem(item.id);

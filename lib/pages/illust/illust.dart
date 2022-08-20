@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
@@ -272,7 +273,7 @@ class IllustPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextWidget(
-                '上传日期: ${Utils.japanDateToLocalDateString(DateTime.parse(illust.createDate))}',
+                I18n.uploadDate.trArgs([Utils.dateFormat(DateTime.parse(illust.createDate))]),
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(width: 5),
@@ -298,13 +299,13 @@ class IllustPage extends StatelessWidget {
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  Share.share('[Pixiv Func]\n${illust.title}\n插画ID:${illust.id}\nhttps://www.pixiv.net/artworks/${illust.id}');
+                  Share.share('[Pixiv Func]\n${illust.title}\n${I18n.illustId.tr}:${illust.id}\nhttps://www.pixiv.net/artworks/${illust.id}');
                 },
                 child: Row(
                   children: [
-                    TextWidget('分辨率:${illust.width}x${illust.height}'),
+                    TextWidget(I18n.resolution.trArgs(['${illust.width}x${illust.height}'])),
                     const SizedBox(width: 5),
-                    TextWidget('插画ID: ${illust.id}'),
+                    TextWidget('${I18n.illustId}: ${illust.id}'),
                     const SizedBox(width: 5),
                     const Icon(
                       Icons.share_outlined,
@@ -321,7 +322,7 @@ class IllustPage extends StatelessWidget {
                     children: [
                       const SizedBox(width: 15),
                       TextWidget(
-                        '介绍',
+                        I18n.summary.tr,
                         color: controller.showCaption ? Get.theme.colorScheme.primary : null,
                       ),
                       const SizedBox(width: 5),
@@ -447,7 +448,7 @@ class IllustPage extends StatelessWidget {
                                 final count = controller.illustStates.values
                                     .where((element) => IllustSaveState.none == element || IllustSaveState.error == element)
                                     .length;
-                                return count == illust.pageCount ? '全部' : '$count';
+                                return count == illust.pageCount ? I18n.all.tr : '$count';
                               }(),
                               fontSize: 10,
                               color: Colors.white,
@@ -529,9 +530,9 @@ class IllustPage extends StatelessWidget {
                                 radius: 4,
                                 insets: EdgeInsets.only(bottom: 5),
                               ),
-                              tabs: const [
-                                TabWidget(text: '推荐'),
-                                TabWidget(text: '评论'),
+                              tabs:  [
+                                TabWidget(text: I18n.recommend.tr),
+                                TabWidget(text: I18n.comment.tr),
                               ],
                             ),
                           ],

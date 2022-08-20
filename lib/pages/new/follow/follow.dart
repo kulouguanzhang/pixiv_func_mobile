@@ -5,6 +5,7 @@ import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_dart_api/model/novel.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_mobile/components/lazy_indexed_stack/lazy_indexed_stack.dart';
@@ -39,9 +40,9 @@ class _FollowNewContentState extends State<FollowNewContent> {
   @override
   Widget build(BuildContext context) {
     final items = {
-      null: '全部',
-      Restrict.public: '公开',
-      Restrict.private: '悄悄',
+      null: I18n.all.tr,
+      Restrict.public: I18n.restrictPublic.tr,
+      Restrict.private: I18n.restrictPrivate.tr,
     };
     Get.put(FollowNewController());
     return GetBuilder<FollowNewController>(
@@ -56,7 +57,7 @@ class _FollowNewContentState extends State<FollowNewContent> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SelectGroup<WorkType>(
-                    items: const {'插画&漫画': WorkType.illust, '小说': WorkType.novel},
+                    items: {I18n.illustAndManga.tr: WorkType.illust, I18n.novel.tr: WorkType.novel},
                     value: controller.workType,
                     onChanged: controller.workTypeOnChanged,
                   ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/account.dart';
 import 'package:pixiv_func_mobile/pages/home/home.dart';
@@ -26,14 +27,14 @@ class LoginController extends GetxController {
     update();
   }
 
-  void loginFromClipboard() async {
+  void loginWithClipboard() async {
     try {
       final text = (await Clipboard.getData(Clipboard.kTextPlain))?.text;
       if (null == text) {
-        PlatformApi.toast('获取剪贴板数据失败,可能是没有剪贴板权限');
+        PlatformApi.toast(I18n.getClipboardDataFailed.tr);
         return;
       } else if (text.isEmpty) {
-        PlatformApi.toast('剪贴板数据为空');
+        PlatformApi.toast(I18n.clipboardDataEmpty.tr);
         return;
       }
       final clipboardDataString = Encrypt.decode(text);
@@ -41,9 +42,9 @@ class LoginController extends GetxController {
       final account = Account.fromJson(json);
       Get.find<AccountService>().add(account);
       Get.offAll(const HomePage());
-      PlatformApi.toast('登录成功');
+      PlatformApi.toast(I18n.loginSuccess.tr);
     } catch (e) {
-      PlatformApi.toast('剪贴板数据不是有效的账号数据');
+      PlatformApi.toast(I18n.clipboardDataInvalid.tr);
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/bookmark_switch_button/bookmark_switch_button.dart';
 import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
@@ -101,7 +102,7 @@ class IllustPreviewer extends StatelessWidget {
         if (illust.restrict == 0) {
           Get.to(() => IllustPage(illust: illust), routeName: 'IllustPage-${illust.id}', preventDuplicates: false);
         } else {
-          PlatformApi.toast('已被设置为私密');
+          PlatformApi.toast(I18n.setToPrivate.tr);
         }
       },
       child: borderRadius != null

@@ -26,7 +26,7 @@ class ImageScalePage extends StatelessWidget {
     return ObxValue<RxInt>(
       (data) {
         return ScaffoldWidget(
-          title: '${data.value + 1}/${urls.length}张',
+          title: '${data.value + 1}/${urls.length}',
           child: ExtendedImageGesturePageView(
             controller: ExtendedPageController(initialPage: initialPage),
             onPageChanged: (int page) => data.value = page,

@@ -22,7 +22,7 @@ class WelcomePage extends StatelessWidget {
             const Spacer(flex: 2),
             MaterialButton(
               elevation: 0,
-              color: const Color(0xFFFF6289),
+              color: Theme.of(context).colorScheme.primary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40),
               ),

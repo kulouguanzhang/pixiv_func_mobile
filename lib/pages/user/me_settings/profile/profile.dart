@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/components/select_button/select_button.dart';
@@ -19,9 +20,9 @@ class MeProfileSettingsPage extends StatelessWidget {
   const MeProfileSettingsPage({Key? key, required this.currentDetail}) : super(key: key);
 
   Map<String, Publicity> get publicityItems => {
-        '公开': Publicity.public,
-        '仅自己': Publicity.private,
-        '好P友': Publicity.mypixiv,
+        I18n.publicityPublic.tr: Publicity.public,
+        I18n.publicityPrivate.tr: Publicity.private,
+        I18n.publicityMyPixiv.tr: Publicity.mypixiv,
       };
 
   @override
@@ -37,7 +38,7 @@ class MeProfileSettingsPage extends StatelessWidget {
           }
         },
         child: ScaffoldWidget(
-          title: '个人资料',
+          title: I18n.meProfileSettingsPageTitle.tr,
           child: () {
             if (PageState.loading == controller.state) {
               return Container(
@@ -63,14 +64,14 @@ class MeProfileSettingsPage extends StatelessWidget {
                           CupertinoContextMenu(
                             actions: <Widget>[
                               CupertinoContextMenuAction(
-                                child: TextWidget('修改', color: Theme.of(context).colorScheme.primary),
+                                child: TextWidget(I18n.modify.tr, color: Theme.of(context).colorScheme.primary),
                                 onPressed: () {
                                   Get.back();
                                   controller.selectProfileImage();
                                 },
                               ),
                               CupertinoContextMenuAction(
-                                child: const TextWidget('删除'),
+                                child: TextWidget(I18n.delete.tr),
                                 onPressed: () {
                                   Get.back();
                                   controller.deleteProfileImage();
@@ -101,7 +102,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                                       ),
                                     const SizedBox(width: 45),
                                     TextWidget(
-                                      '头像',
+                                      I18n.avatar.tr,
                                       fontSize: 16,
                                       color: Theme.of(context).colorScheme.onSurface,
                                     ),
@@ -137,9 +138,9 @@ class MeProfileSettingsPage extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075),
                             child: Row(
                               children: [
-                                const SizedBox(
+                                SizedBox(
                                   width: 60,
-                                  child: TextWidget('昵称', fontSize: 16),
+                                  child: TextWidget(I18n.nickname.tr, fontSize: 16),
                                 ),
                                 Expanded(
                                   child: TextField(
@@ -147,7 +148,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                                     style: const TextStyle(fontSize: 14),
                                     decoration: InputDecoration(
                                       constraints: const BoxConstraints(maxHeight: 40),
-                                      hintText: '昵称',
+                                      hintText: I18n.nickname.tr,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(24),
                                         borderSide: BorderSide.none,
@@ -165,9 +166,9 @@ class MeProfileSettingsPage extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075),
                             child: Row(
                               children: [
-                                const SizedBox(
+                                SizedBox(
                                   width: 60,
-                                  child: TextWidget('主页', fontSize: 16),
+                                  child: TextWidget(I18n.homepage.tr, fontSize: 16),
                                 ),
                                 Expanded(
                                   child: TextField(
@@ -175,7 +176,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                                     style: const TextStyle(fontSize: 14),
                                     decoration: InputDecoration(
                                       constraints: const BoxConstraints(maxHeight: 40),
-                                      hintText: '主页',
+                                      hintText: I18n.homepage.tr,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(24),
                                         borderSide: BorderSide.none,
@@ -221,11 +222,11 @@ class MeProfileSettingsPage extends StatelessWidget {
                             onTap: () {
                               Get.bottomSheet(
                                 SinglePicker(
-                                  title: '性别',
-                                  items: const {
-                                    '男性': Gender.male,
-                                    '女性': Gender.female,
-                                    '未选择': Gender.unknown,
+                                  title: I18n.gender.tr,
+                                  items: {
+                                    I18n.genderMale.tr: Gender.male,
+                                    I18n.genderFemale.tr: Gender.female,
+                                    I18n.genderUnknown.tr: Gender.unknown,
                                   },
                                   initialValue: controller.gender,
                                   onChanged: controller.genderOnChanged,
@@ -236,9 +237,9 @@ class MeProfileSettingsPage extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075),
                               child: Row(
                                 children: [
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 60,
-                                    child: TextWidget('性别', fontSize: 16),
+                                    child: TextWidget(I18n.gender.tr, fontSize: 16),
                                   ),
                                   const SizedBox(width: 10),
                                   TextWidget(controller.genderName, fontSize: 14),
@@ -259,7 +260,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                             onTap: () {
                               Get.bottomSheet(
                                 SinglePicker<int>(
-                                  title: '地址',
+                                  title: I18n.address.tr,
                                   items: {}
                                     ..addEntries(controller.presetsResult!.profilePresets.addresses.map((item) => MapEntry(item.name, item.id))),
                                   initialValue: controller.addressId,
@@ -271,9 +272,9 @@ class MeProfileSettingsPage extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075),
                               child: Row(
                                 children: [
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 60,
-                                    child: TextWidget('地址', fontSize: 16),
+                                    child: TextWidget(I18n.address.tr, fontSize: 16),
                                   ),
                                   const SizedBox(width: 10),
                                   TextWidget(controller.addressName, fontSize: 14),
@@ -294,7 +295,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                               onTap: () {
                                 Get.bottomSheet(
                                   SinglePicker<String>(
-                                    title: '国家',
+                                    title: I18n.country.tr,
                                     items: {}
                                       ..addEntries(controller.presetsResult!.profilePresets.countries.map((item) => MapEntry(item.name, item.code))),
                                     initialValue: controller.countryCode,
@@ -306,9 +307,9 @@ class MeProfileSettingsPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075),
                                 child: Row(
                                   children: [
-                                    const SizedBox(
+                                    SizedBox(
                                       width: 60,
-                                      child: TextWidget('国家', fontSize: 16),
+                                      child: TextWidget(I18n.country.tr, fontSize: 16),
                                     ),
                                     const SizedBox(width: 10),
                                     Padding(
@@ -323,12 +324,12 @@ class MeProfileSettingsPage extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1900),
-                                      lastDate: DateTime.now(),
-                                      helpText: '生日')
-                                  .then((value) {
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                                helpText: I18n.birthday.tr,
+                              ).then((value) {
                                 if (null != value) {
                                   controller.birthdayOnChanged(value);
                                 }
@@ -340,9 +341,9 @@ class MeProfileSettingsPage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      const SizedBox(
+                                       SizedBox(
                                         width: 60,
-                                        child: TextWidget('生日', fontSize: 16),
+                                        child: TextWidget(I18n.birthday.tr, fontSize: 16),
                                       ),
                                       const SizedBox(width: 10),
                                       TextWidget(controller.birthYear, fontSize: 14),
@@ -379,7 +380,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                             onTap: () {
                               Get.bottomSheet(
                                 SinglePicker<int>(
-                                  title: '工作',
+                                  title: I18n.job.tr,
                                   items: {}..addEntries(controller.presetsResult!.profilePresets.jobs.map((item) => MapEntry(item.name, item.id))),
                                   initialValue: controller.jobId,
                                   onChanged: controller.jobIdOnChanged,
@@ -390,9 +391,9 @@ class MeProfileSettingsPage extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075),
                               child: Row(
                                 children: [
-                                  const SizedBox(
+                                   SizedBox(
                                     width: 60,
-                                    child: TextWidget('工作', fontSize: 16),
+                                    child: TextWidget(I18n.job.tr, fontSize: 16),
                                   ),
                                   const SizedBox(width: 10),
                                   TextWidget(controller.jobName, fontSize: 14),
@@ -414,9 +415,9 @@ class MeProfileSettingsPage extends StatelessWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(
+                                 SizedBox(
                                   width: 60,
-                                  child: TextWidget('简介', fontSize: 16),
+                                  child: TextWidget(I18n.introduction.tr, fontSize: 16),
                                 ),
                                 const SizedBox(width: 10),
                                 Expanded(
@@ -425,7 +426,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                                     maxLines: 10,
                                     style: const TextStyle(fontSize: 14),
                                     decoration: InputDecoration(
-                                      hintText: '写点什么吧',
+                                      hintText: I18n.introductionHint.tr,
                                       hintStyle: const TextStyle(fontSize: 14),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(24),
@@ -447,14 +448,14 @@ class MeProfileSettingsPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: Get.width * 0.05, right: Get.width * 0.05, bottom: 35),
                     child: MaterialButton(
                       elevation: 0,
-                      color: const Color(0xFFFF6289),
+                      color: Theme.of(context).colorScheme.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
                       minWidth: double.infinity,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 14),
-                        child: TextWidget('更新个人资料', fontSize: 18, color: Colors.white, isBold: true),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        child: TextWidget(I18n.updateProfile.tr, fontSize: 18, color: Colors.white, isBold: true),
                       ),
                       onPressed: () => controller.updateProfile(),
                     ),

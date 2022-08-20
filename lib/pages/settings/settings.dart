@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/encrypt/encrypt.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/pages/about/about.dart';
@@ -43,7 +44,7 @@ class SettingsPage extends StatelessWidget {
             GestureDetector(
               onLongPress: () async {
                 Utils.copyToClipboard(Encrypt.encode(jsonEncode(Get.find<AccountService>().current)));
-                PlatformApi.toast('已复制到剪贴板');
+                PlatformApi.toast(I18n.copiedToClipboardHint.tr);
               },
               child: InkWell(
                 onTap: () => Get.to(() => const MePage()),
@@ -89,22 +90,22 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const AccountPage()), title: '账号管理'),
+            buildItem(onTap: () => Get.to(() => const AccountPage()), title: I18n.accountPageTitle.tr),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const ThemeSettingsPage()), title: '主题'),
-            buildItem(onTap: () => Get.to(() => const LanguageSettingsPage()), title: '语言'),
+            buildItem(onTap: () => Get.to(() => const ThemeSettingsPage()), title: I18n.themeSettingsPageTitle.tr),
+            buildItem(onTap: () => Get.to(() => const LanguageSettingsPage()), title: I18n.languageSettingsPageTitle.tr),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const ImageSourceSettingsPage()), title: '图片源'),
-            buildItem(onTap: () => Get.to(() => const PreviewQualitySettingsPage()), title: '预览质量'),
-            buildItem(onTap: () => Get.to(() => const ScaleQualitySettingsPage()), title: '缩放质量'),
+            buildItem(onTap: () => Get.to(() => const ImageSourceSettingsPage()), title:I18n.imageSourceSettingsPageTitle.tr),
+            buildItem(onTap: () => Get.to(() => const PreviewQualitySettingsPage()), title: I18n.previewQualitySettingsPageTitle.tr),
+            buildItem(onTap: () => Get.to(() => const ScaleQualitySettingsPage()), title: I18n.scaleQualitySettingsPageTitle.tr),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const BlockTagPage()), title: '屏蔽标签管理'),
+            buildItem(onTap: () => Get.to(() => const BlockTagPage()), title: I18n.blockTagPageTitle.tr),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const DownloaderPage()), title: '下载任务'),
+            buildItem(onTap: () => Get.to(() => const DownloaderPage()), title: I18n.aboutPageTitle.tr),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const HistoryPage()), title: '浏览记录'),
+            buildItem(onTap: () => Get.to(() => const HistoryPage()), title: I18n.historyPageTitle.tr),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const AboutPage()), title: '关于'),
+            buildItem(onTap: () => Get.to(() => const AboutPage()), title: I18n.aboutPageTitle.tr),
             const Divider(),
           ],
         ),

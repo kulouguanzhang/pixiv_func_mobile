@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/api/auth_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/models/account.dart';
 import 'package:pixiv_func_mobile/pages/home/home.dart';
@@ -21,35 +22,37 @@ class UrlScheme {
 
   static void _content(Uri uri) {
     if (Get.find<AccountService>().isEmpty) {
-      PlatformApi.toast('请先登录');
+      PlatformApi.toast(I18n.loginRequired.tr);
       return;
     }
     if ('http' == uri.scheme || 'https' == uri.scheme) {
       if (uri.host.contains('pixiv.net')) {
-        //  en/artworks/$id
-        if (uri.pathSegments.contains('artworks')) {
-          final idString = uri.pathSegments.last;
+        final pathSegments = uri.pathSegments;
+        //  en/users/$id/artworks
+
+        if (pathSegments.contains('users') && pathSegments.indexOf('users') <= pathSegments.length - 2) {
+          int index = pathSegments.indexOf('users');
+          final idString = uri.pathSegments[index + 1];
           final id = int.tryParse(idString);
           if (id == null) {
-            PlatformApi.toast('无效的id:$idString');
-            return;
-          }
-          Get.to(() => IllustIdSearchPage(id: id));
-        }
-        //  en/users/$id
-        else if (uri.pathSegments.contains('users')) {
-          final idString = uri.pathSegments.last;
-          final id = int.tryParse(idString);
-          if (id == null) {
-            PlatformApi.toast('无效的id:$idString');
+            PlatformApi.toast(I18n.invalidId.trArgs([idString]));
             return;
           }
           Get.to(() => UserPage(id: id));
+        } else if (pathSegments.contains('artworks') && pathSegments.indexOf('artworks') <= pathSegments.length - 2) {
+          int index = pathSegments.indexOf('artworks');
+          final idString = uri.pathSegments[index + 1];
+          final id = int.tryParse(idString);
+          if (id == null) {
+            PlatformApi.toast(I18n.invalidId.trArgs([idString]));
+            return;
+          }
+          Get.to(() => IllustIdSearchPage(id: id));
         } else if (uri.queryParameters['illust_id'] != null) {
           final idString = uri.queryParameters['illust_id'] as String;
           final id = int.tryParse(idString);
           if (id == null) {
-            PlatformApi.toast('无效的id:$idString');
+            PlatformApi.toast(I18n.invalidId.trArgs([idString]));
             return;
           }
           Get.to(() => IllustIdSearchPage(id: id));
@@ -61,13 +64,13 @@ class UrlScheme {
 
             final id = int.tryParse(idString);
             if (id == null) {
-              PlatformApi.toast('无效的id:$idString');
+              PlatformApi.toast(I18n.invalidId.trArgs([idString]));
               return;
             }
             Get.to(() => UserPage(id: id));
           }
         } else {
-          PlatformApi.toast('不支持的path:${uri.path}');
+          PlatformApi.toast(I18n.invalidId.trArgs([uri.path]));
         }
       }
     } else if ("pixiv" == uri.scheme) {
@@ -75,7 +78,7 @@ class UrlScheme {
         final idString = uri.pathSegments.last;
         final id = int.tryParse(idString);
         if (id == null) {
-          PlatformApi.toast('无效的id:$idString');
+          PlatformApi.toast(I18n.invalidId.trArgs([idString]));
           return;
         }
         Get.to(() => IllustIdSearchPage(id: id));
@@ -83,7 +86,7 @@ class UrlScheme {
         final idString = uri.pathSegments.last;
         final id = int.tryParse(idString);
         if (id == null) {
-          PlatformApi.toast('无效的id:$idString');
+          PlatformApi.toast(I18n.invalidId.trArgs([idString]));
           return;
         }
         Get.to(() => UserPage(id: id));
@@ -99,7 +102,7 @@ class UrlScheme {
       authClient.initAccountAuthToken(uri.queryParameters['code'] as String).then((result) {
         Log.i(result);
 
-        PlatformApi.toast('登录成功');
+        PlatformApi.toast(I18n.loginSuccess.tr);
 
         final firstAccount = accountService.isEmpty;
 

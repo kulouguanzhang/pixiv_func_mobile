@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/pages/illust/id_search/id_search.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
@@ -51,7 +52,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide.none,
                       ),
-                      hintText: '搜索关键字或ID',
+                      hintText: I18n.searchHint.tr,
                       prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 3),
                       fillColor: Theme.of(context).colorScheme.surface,
@@ -63,7 +64,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => Get.back(),
-                  child: TextWidget('取消', color: Theme.of(context).colorScheme.onSecondary),
+                  child: TextWidget(I18n.cancel.tr, color: Theme.of(context).colorScheme.onSecondary),
                 ),
                 const SizedBox(width: 20),
                 SizedBox(
@@ -75,9 +76,9 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
-                      children: const [
-                        Icon(Icons.image, color: Colors.white, size: 14),
-                        TextWidget('搜图', fontSize: 14, color: Colors.white, isBold: true),
+                      children: [
+                        const Icon(Icons.image, color: Colors.white, size: 14),
+                        TextWidget(I18n.searchImage.tr, fontSize: 14, color: Colors.white, isBold: true),
                       ],
                     ),
                     onPressed: () {
@@ -107,10 +108,10 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                   radius: 4,
                   insets: EdgeInsets.only(bottom: 5),
                 ),
-                tabs: const [
-                  TabWidget(text: '插画&漫画'),
-                  TabWidget(text: '小说'),
-                  TabWidget(text: '用户'),
+                tabs: [
+                  TabWidget(text: I18n.illustAndManga.tr),
+                  TabWidget(text: I18n.novel.tr),
+                  TabWidget(text: I18n.user.tr),
                 ],
               ),
               Expanded(
@@ -124,14 +125,14 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                             if (controller.inputIsNumber)
                               ListTile(
                                 onTap: () => Get.to(() => IllustIdSearchPage(id: controller.inputAsNumber)),
-                                title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
-                                subtitle: const TextWidget('插画ID', fontSize: 12),
+                                title: TextWidget(I18n.searchItem.trArgs([controller.inputAsNumber.toString()]), fontSize: 16, isBold: true),
+                                subtitle: TextWidget(I18n.illustId.tr, fontSize: 12),
                               )
                             else
                               ListTile(
                                 onTap: () => controller.toSearchResultPage(controller.inputAsString),
-                                title: TextWidget('搜索: ${controller.inputAsString}', fontSize: 16, isBold: true),
-                                subtitle: const TextWidget('关键字', fontSize: 14),
+                                title: TextWidget(I18n.searchItem.trArgs([controller.inputAsString.toString()]), fontSize: 16, isBold: true),
+                                subtitle: TextWidget(I18n.keyword.tr, fontSize: 14),
                               ),
                           for (final tag in controller.autocompleteTags)
                             ListTile(
@@ -149,14 +150,14 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                             if (controller.inputIsNumber)
                               ListTile(
                                 onTap: () => controller.toSearchResultPage(controller.inputAsString),
-                                title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
-                                subtitle: const TextWidget('小说ID', fontSize: 12),
+                                title: TextWidget(I18n.searchItem.trArgs([controller.inputAsNumber.toString()]), fontSize: 16, isBold: true),
+                                subtitle: TextWidget(I18n.novelId.tr, fontSize: 12),
                               )
                             else
                               ListTile(
                                 onTap: () => controller.toSearchResultPage(controller.inputAsString),
-                                title: TextWidget('搜索: ${controller.inputAsString}', fontSize: 16, isBold: true),
-                                subtitle: const TextWidget('关键字', fontSize: 14),
+                                title: TextWidget(I18n.searchItem.trArgs([controller.inputAsString.toString()]), fontSize: 16, isBold: true),
+                                subtitle: TextWidget(I18n.keyword.tr, fontSize: 14),
                               ),
                           for (final tag in controller.autocompleteTags)
                             ListTile(
@@ -174,14 +175,14 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                             if (controller.inputIsNumber)
                               ListTile(
                                 onTap: () => Get.to(() => UserPage(id: controller.inputAsNumber)),
-                                title: TextWidget('搜索: ${controller.inputAsNumber}', fontSize: 16, isBold: true),
-                                subtitle: const TextWidget('用户ID', fontSize: 12),
+                                title: TextWidget(I18n.searchItem.trArgs([controller.inputAsNumber.toString()]), fontSize: 16, isBold: true),
+                                subtitle: TextWidget(I18n.keyword.tr, fontSize: 12),
                               )
                             else
                               ListTile(
                                 onTap: () => controller.toSearchResultPage(controller.inputAsString),
-                                title: TextWidget('搜索: ${controller.inputAsString}', fontSize: 16, isBold: true),
-                                subtitle: const TextWidget('关键字', fontSize: 14),
+                                title: TextWidget(I18n.searchItem.trArgs([controller.inputAsString.toString()]), fontSize: 16, isBold: true),
+                                subtitle: TextWidget(I18n.keyword.tr, fontSize: 14),
                               ),
                         ],
                       ),

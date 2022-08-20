@@ -38,7 +38,7 @@ class LiveController extends GetxController {
 
   CustomTimer? _playerStateTimer;
 
-  Rx<Duration> playTime = Rx(Duration.zero);
+  Rx<Duration> playDuration = Rx(Duration.zero);
 
   bool _isFullScreen = false;
 
@@ -162,7 +162,7 @@ class LiveController extends GetxController {
       vp!.addListener(() async {
         if (null != vp) {
           if (vp!.value.hasError) {
-            PlatformApi.toast('发生错误:${vp!.value.errorDescription}');
+            PlatformApi.toast('Error:${vp!.value.errorDescription}');
             vp!.dispose();
             vp == null;
             _startPlay();
@@ -194,13 +194,13 @@ class LiveController extends GetxController {
     if (null != vp) {
       //正在播放且不在缓冲
       if (vp!.value.isPlaying && !vp!.value.isBuffering) {
-        playTime.value += const Duration(seconds: 1);
+        playDuration.value += const Duration(seconds: 1);
       }
     }
   }
 
   //格式化 播放时长
-  String formatPlayTime(Duration duration) {
+  String formatPlayDuration(Duration duration) {
     final hour = duration.inHours;
     final minute = duration.inMinutes - hour * 60;
     final second = duration.inSeconds - hour * 60 * 60 - minute * 60;

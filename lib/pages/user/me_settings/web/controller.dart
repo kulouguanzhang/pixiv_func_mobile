@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
 import 'package:pixiv_func_mobile/app/api/web_api_client.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/services/account_service.dart';
 
@@ -28,6 +29,8 @@ class MeWebSettingsController extends GetxController {
   Future<void> initPostKey() async {
     await _webApiClient.getPostKey().then((value) {
       _postKey = value;
+    }).catchError((e){
+      PlatformApi.toast(I18n.initPostKeyFailed.tr);
     });
   }
 
@@ -37,7 +40,7 @@ class MeWebSettingsController extends GetxController {
         final birthday = currentDetail.profile.birth.isNotEmpty ? DateTime.parse(currentDetail.profile.birth) : DateTime.now();
         //小于18岁
         if (birthday.isAfter(DateTime.now().subtract(const Duration(days: 18 * 365)))) {
-          PlatformApi.toast('请将个人资料的年龄设置为大于18岁');
+          PlatformApi.toast(I18n.ageLimitHint.tr);
           return;
         }
       }
@@ -49,7 +52,7 @@ class MeWebSettingsController extends GetxController {
         update();
         _accountService.updateUserAccount(_accountService.current!.userAccount..user.xRestrict = value);
       }).catchError((e) {
-        PlatformApi.toast('修改失败');
+        PlatformApi.toast(I18n.webSettingFailed.tr);
       });
     }
   }

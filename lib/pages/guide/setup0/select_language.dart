@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/pages/guide/setup1/select_theme.dart';
 import 'package:pixiv_func_mobile/widgets/cupertino_switch_list_tile/cupertino_switch_list_tile.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -22,6 +23,7 @@ class GuideSelectLanguagePage extends StatelessWidget {
               const TextWidget('选择您的语言', fontSize: 24, isBold: true),
               const TextWidget('Select your language', fontSize: 24, isBold: true),
               const TextWidget('言語を選択', fontSize: 24, isBold: true),
+              const TextWidget('Выберите свой язык', fontSize: 24, isBold: true),
               const Spacer(flex: 1),
               CupertinoSwitchListTile(
                 contentPadding: const EdgeInsets.symmetric(vertical: 6),
@@ -43,6 +45,13 @@ class GuideSelectLanguagePage extends StatelessWidget {
                 title: const TextWidget('日本語', fontSize: 18, isBold: true),
                 value: const Locale('ja', 'JP') == data.value,
               ),
+              const Divider(),
+              CupertinoSwitchListTile(
+                contentPadding: const EdgeInsets.symmetric(vertical: 6),
+                onTap: () => data.value = const Locale('ru', 'RU'),
+                title: const TextWidget('Русский', fontSize: 18, isBold: true),
+                value: const Locale('ru', 'RU') == data.value,
+              ),
               const Spacer(flex: 2),
               MaterialButton(
                 elevation: 0,
@@ -51,9 +60,9 @@ class GuideSelectLanguagePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(40),
                 ),
                 minWidth: double.infinity,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: TextWidget('下一步', fontSize: 18, color: Colors.white, isBold: true),
+                child:  Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: TextWidget(I18n.next.tr, fontSize: 18, color: Colors.white, isBold: true),
                 ),
                 onPressed: () => Get.to(() => const GuideSelectThemePage()),
               ),
@@ -61,6 +70,7 @@ class GuideSelectLanguagePage extends StatelessWidget {
               const TextWidget('稍后您可以在设置中进行相应变更', fontSize: 14),
               const TextWidget('You can change the settings later', fontSize: 14),
               const TextWidget('後で設定を変更できます', fontSize: 14),
+              const TextWidget('Вы можете изменить его позже в настройках', fontSize: 14),
               const Spacer(flex: 1),
             ],
           ),

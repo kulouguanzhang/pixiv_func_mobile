@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide Image;
 import 'package:get/get.dart';
 import 'package:image/image.dart' hide BlendMode;
 import 'package:image_picker/image_picker.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/models/image_info.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -69,8 +70,8 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
           ? GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () => selectImage(),
-              child: const Center(
-                child: TextWidget('选择图片', fontSize: 30),
+              child: Center(
+                child: TextWidget(I18n.selectImage.tr, fontSize: 30),
               ),
             )
           : ExtendedImage.memory(
@@ -112,12 +113,12 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
                   Get.back();
                 },
                 iconData: Icons.check,
-                text: '确定',
+                text: I18n.confirm,
               ),
             ),
-            Expanded(child: buildActionButton(onTap: () => editorKey.currentState?.reset(), iconData: Icons.refresh, text: '重置')),
-            Expanded(child: buildActionButton(onTap: () => selectImage(), iconData: Icons.cached, text: '重选')),
-            Expanded(child: buildActionButton(onTap: () => Get.back(), iconData: Icons.close, text: '取消')),
+            Expanded(child: buildActionButton(onTap: () => editorKey.currentState?.reset(), iconData: Icons.refresh, text: I18n.reset.tr)),
+            Expanded(child: buildActionButton(onTap: () => selectImage(), iconData: Icons.cached, text: I18n.reselect.tr)),
+            Expanded(child: buildActionButton(onTap: () => Get.back(), iconData: Icons.close, text: I18n.cancel.tr)),
           ],
         ),
       ),

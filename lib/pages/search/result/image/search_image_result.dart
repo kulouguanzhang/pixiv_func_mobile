@@ -4,6 +4,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_more_list/loading_more_list.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/illust_previewer/illust_previewer.dart';
 import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
@@ -129,7 +130,7 @@ class SearchImageResultPage extends StatelessWidget {
     Get.put(SearchImageResultController(imageBytes: imageBytes, filename: filename));
     return GetBuilder<SearchImageResultController>(
       builder: (controller) => ScaffoldWidget(
-        title: '搜索图片',
+        title: I18n.searchImage.tr,
         child: () {
           if (PageState.loading == controller.state) {
             return Container(

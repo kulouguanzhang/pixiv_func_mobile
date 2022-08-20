@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/vo/user_detail_result.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/pages/user/me_settings/workspace/controller.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -43,24 +44,24 @@ class MeWorkspaceSettingsPage extends StatelessWidget {
           }
         },
         child: ScaffoldWidget(
-          title: '工作环境',
+          title: I18n.meWorkspaceSettingsPageTitle.tr,
           child: Column(
             children: [
               Flexible(
                 child: ListView(
                   children: [
-                    buildItem(name: '电脑', controller: controller.pcInput),
-                    buildItem(name: '显示器', controller: controller.monitorInput),
-                    buildItem(name: '软件', controller: controller.toolInput),
-                    buildItem(name: '扫描仪', controller: controller.scannerInput),
-                    buildItem(name: '数位板', controller: controller.tabletInput),
-                    buildItem(name: '鼠标', controller: controller.mouseInput),
-                    buildItem(name: '打印机', controller: controller.printerInput),
-                    buildItem(name: '桌面上的东西', controller: controller.desktopInput),
-                    buildItem(name: '画图时听的音乐', controller: controller.musicInput),
-                    buildItem(name: '桌子', controller: controller.desktopInput),
-                    buildItem(name: '椅子', controller: controller.chairInput),
-                    buildItem(name: '其他', controller: controller.commentInput),
+                    buildItem(name: I18n.workspacePc.tr, controller: controller.pcInput),
+                    buildItem(name: I18n.workspaceMonitor.tr, controller: controller.monitorInput),
+                    buildItem(name: I18n.workspaceTool.tr, controller: controller.toolInput),
+                    buildItem(name: I18n.workspaceScanner.tr, controller: controller.scannerInput),
+                    buildItem(name: I18n.workspaceTablet.tr, controller: controller.tabletInput),
+                    buildItem(name: I18n.workspaceMouse.tr, controller: controller.mouseInput),
+                    buildItem(name: I18n.workspacePrinter.tr, controller: controller.printerInput),
+                    buildItem(name: I18n.workspaceDesktop.tr, controller: controller.desktopInput),
+                    buildItem(name: I18n.workspaceMusic.tr, controller: controller.musicInput),
+                    buildItem(name: I18n.workspaceDesk.tr, controller: controller.deskInput),
+                    buildItem(name: I18n.workspaceChair.tr, controller: controller.chairInput),
+                    buildItem(name: I18n.workspaceOther.tr, controller: controller.commentInput),
                   ],
                 ),
               ),
@@ -68,14 +69,14 @@ class MeWorkspaceSettingsPage extends StatelessWidget {
                 padding: EdgeInsets.only(left: Get.width * 0.05, right: Get.width * 0.05, bottom: 35),
                 child: MaterialButton(
                   elevation: 0,
-                  color: const Color(0xFFFF6289),
+                  color: Theme.of(context).colorScheme.primary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
                   minWidth: double.infinity,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 14),
-                    child: TextWidget('更新工作环境', fontSize: 18, color: Colors.white, isBold: true),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    child: TextWidget(I18n.workspaceUpdate.tr, fontSize: 18, color: Colors.white, isBold: true),
                   ),
                   onPressed: () => controller.updateWorkspace(),
                 ),

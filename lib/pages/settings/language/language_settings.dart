@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:pixiv_func_mobile/widgets/cupertino_switch_list_tile/cupertino_switch_list_tile.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
@@ -14,9 +15,10 @@ class LanguageSettingsPage extends StatelessWidget {
       MapEntry('简体中文', 'zh-CN'),
       MapEntry('English', 'en-US'),
       MapEntry('日本語', 'ja-JP'),
+      MapEntry('Русский', 'ru-RU'),
     ];
     return ScaffoldWidget(
-      title: '语言',
+      title: I18n.languageSettingsPageTitle.tr,
       child: ObxValue(
         (Rx<String> data) {
           void updater(String? value) {

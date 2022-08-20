@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/live.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
@@ -133,8 +134,8 @@ class LivePage extends StatelessWidget {
                         children: [
                           const SizedBox(width: 20),
                           ObxValue<Rx<Duration>>(
-                            (data) => TextWidget('播放时长: ${controller.formatPlayTime(data.value)}', color: Colors.white),
-                            controller.playTime,
+                            (data) => TextWidget('${I18n.playDuration.tr}: ${controller.formatPlayDuration(data.value)}', color: Colors.white),
+                            controller.playDuration,
                           ),
                           const Spacer(),
                           IconButton(
@@ -182,7 +183,7 @@ class LivePage extends StatelessWidget {
                 } else if (PageState.notFound == controller.state) {
                   return Container(
                     alignment: Alignment.center,
-                    child: const TextWidget('直播已结束'),
+                    child:  TextWidget(I18n.liveEnd.tr),
                   );
                 } else if (PageState.complete == controller.state) {
                   final liveUser = controller.liveDetail!.data.owner.user;
