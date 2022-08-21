@@ -144,7 +144,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
     return GetBuilder<UserController>(
       tag: controllerTag,
       builder: (controller) => ScaffoldWidget(
-        // emptyAppBar: controller.userDetailResult != null,
+        emptyAppBar: controller.userDetailResult != null,
         title: I18n.userIdPageTitle.trArgs([widget.id.toString()]),
         child: () {
           if (PageState.loading == controller.state) {
