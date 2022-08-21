@@ -45,7 +45,7 @@ class ScaffoldWidget extends StatelessWidget {
       appBar = AppBar(
         elevation: 0,
         toolbarHeight: 0,
-        leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false) ? _backButton() : null,
+        // leading: automaticallyImplyLeading && (ModalRoute.of(context)?.canPop ?? false) ? _backButton() : null,
         automaticallyImplyLeading: false,
       );
     } else if (null != titleWidget) {
