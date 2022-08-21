@@ -101,7 +101,7 @@ class SettingsPage extends StatelessWidget {
             const Divider(),
             buildItem(onTap: () => Get.to(() => const BlockTagPage()), title: I18n.blockTagPageTitle.tr),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const DownloaderPage()), title: I18n.aboutPageTitle.tr),
+            buildItem(onTap: () => Get.to(() => const DownloaderPage()), title: I18n.downloaderPageTitle.tr),
             const Divider(),
             buildItem(onTap: () => Get.to(() => const HistoryPage()), title: I18n.historyPageTitle.tr),
             const Divider(),
