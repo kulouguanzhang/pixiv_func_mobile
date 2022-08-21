@@ -11,9 +11,9 @@ class ThemeSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     List<MapEntry<String, int>> items = [
+    List<MapEntry<String, int>> items = [
       MapEntry(I18n.dark.tr, 0),
-      MapEntry( I18n.light.tr, 1),
+      MapEntry(I18n.light.tr, 1),
       MapEntry(I18n.followSystem.tr, -1),
     ];
     return ScaffoldWidget(

@@ -40,7 +40,7 @@ class NovelPage extends StatelessWidget {
           } else if (PageState.notFound == controller.state) {
             return Container(
               alignment: Alignment.center,
-              child: TextWidget( '小说ID${novel.id}不存在', fontSize: 16),
+              child: TextWidget('小说ID${novel.id}不存在', fontSize: 16),
             );
           } else {
             return NovelViewer(text: controller.novelJSData!.text, id: novel.id);

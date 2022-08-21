@@ -51,7 +51,7 @@ class _UserBookmarkContentState extends State<UserBookmarkContent> {
             expanded: Padding(
               padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05, vertical: 9),
               child: SelectGroup<WorkType>(
-                items:  {I18n.illustAndManga.tr: WorkType.illust, I18n.novel.tr: WorkType.novel},
+                items: {I18n.illustAndManga.tr: WorkType.illust, I18n.novel.tr: WorkType.novel},
                 value: controller.workType,
                 onChanged: controller.workTypeOnChanged,
               ),

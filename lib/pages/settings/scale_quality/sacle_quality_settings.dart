@@ -11,7 +11,7 @@ class ScaleQualitySettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     List<MapEntry<String, bool>> items = [
+    List<MapEntry<String, bool>> items = [
       MapEntry(I18n.largeImage.tr, false),
       MapEntry(I18n.originalImage.tr, true),
     ];

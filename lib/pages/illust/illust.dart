@@ -530,7 +530,7 @@ class IllustPage extends StatelessWidget {
                                 radius: 4,
                                 insets: EdgeInsets.only(bottom: 5),
                               ),
-                              tabs:  [
+                              tabs: [
                                 TabWidget(text: I18n.recommend.tr),
                                 TabWidget(text: I18n.comment.tr),
                               ],

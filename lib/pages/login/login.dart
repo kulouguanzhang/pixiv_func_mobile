@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
                             onTap: () {
                               controller.help = !controller.help;
                             },
-                            child:  Icon(Icons.info_outline, color:Theme.of(context).colorScheme.primary),
+                            child: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.primary),
                           ),
                         ],
                       ),

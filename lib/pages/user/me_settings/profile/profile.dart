@@ -341,7 +341,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                       SizedBox(
+                                      SizedBox(
                                         width: 60,
                                         child: TextWidget(I18n.birthday.tr, fontSize: 16),
                                       ),
@@ -391,7 +391,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: Get.width * 0.075),
                               child: Row(
                                 children: [
-                                   SizedBox(
+                                  SizedBox(
                                     width: 60,
                                     child: TextWidget(I18n.job.tr, fontSize: 16),
                                   ),
@@ -415,7 +415,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 SizedBox(
+                                SizedBox(
                                   width: 60,
                                   child: TextWidget(I18n.introduction.tr, fontSize: 16),
                                 ),

@@ -49,7 +49,7 @@ class SearchNovelResultPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide.none,
                       ),
-                      hintText:I18n.search.tr,
+                      hintText: I18n.search.tr,
                       prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 3),
                       fillColor: Theme.of(context).colorScheme.surface,

@@ -183,7 +183,7 @@ class LivePage extends StatelessWidget {
                 } else if (PageState.notFound == controller.state) {
                   return Container(
                     alignment: Alignment.center,
-                    child:  TextWidget(I18n.liveEnd.tr),
+                    child: TextWidget(I18n.liveEnd.tr),
                   );
                 } else if (PageState.complete == controller.state) {
                   final liveUser = controller.liveDetail!.data.owner.user;

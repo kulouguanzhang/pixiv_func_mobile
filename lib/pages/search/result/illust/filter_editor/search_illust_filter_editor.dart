@@ -224,7 +224,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                   switch (controller.editFilterIndex) {
                     case 0:
                       widget = SelectGroup<SearchSort>(
-                        items:  {
+                        items: {
                           I18n.searchSortDateDesc.tr: SearchSort.dateDesc,
                           I18n.searchSortDateAsc.tr: SearchSort.dateAsc,
                           I18n.searchSortPopularDesc.tr: SearchSort.popularDesc,
@@ -235,7 +235,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                       break;
                     case 1:
                       widget = SelectGroup<SearchIllustTarget>(
-                        items:  {
+                        items: {
                           I18n.searchTargetPartialMatchForTags.tr: SearchIllustTarget.partialMatchForTags,
                           I18n.searchTargetExactMatchForTags.tr: SearchIllustTarget.exactMatchForTags,
                           I18n.searchTargetTitleAndCaption.tr: SearchIllustTarget.titleAndCaption,

@@ -46,7 +46,7 @@ class _EveryoneNewContentState extends State<EveryoneNewContent> {
             expanded: Padding(
               padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05, vertical: 9),
               child: SelectGroup<WorkType>(
-                items:  {I18n.illust.tr: WorkType.illust, I18n.manga.tr: WorkType.manga, I18n.novel.tr: WorkType.novel},
+                items: {I18n.illust.tr: WorkType.illust, I18n.manga.tr: WorkType.manga, I18n.novel.tr: WorkType.novel},
                 value: controller.workType,
                 onChanged: controller.workTypeOnChanged,
               ),

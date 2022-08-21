@@ -283,7 +283,7 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                                         : const Icon(Icons.keyboard_arrow_down, size: 12)
                                     : null,
                               ),
-                               TabWidget(
+                              TabWidget(
                                 text: I18n.following.tr,
                               ),
                               TabWidget(

@@ -209,10 +209,10 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                                         : const Icon(Icons.keyboard_arrow_down, size: 12)
                                     : null,
                               ),
-                               TabWidget(
+                              TabWidget(
                                 text: I18n.following.tr,
                               ),
-                               TabWidget(
+                              TabWidget(
                                 text: I18n.about.tr,
                               ),
                             ],

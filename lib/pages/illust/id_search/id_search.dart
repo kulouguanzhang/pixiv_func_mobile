@@ -50,7 +50,7 @@ class IllustIdSearchPage extends StatelessWidget {
         } else {
           if (null != controller.illustDetail) {
             final illust = controller.illustDetail!.illust;
-            if (Get.find<AccountService>().current!.localUser.xRestrict > illust.xRestrict) {
+            if (Get.find<AccountService>().current!.localUser.xRestrict < illust.xRestrict) {
               return ScaffoldWidget(
                 titleWidget: TextWidget(I18n.illustIdPageTitle.trArgs([id.toString()]), isBold: true),
                 child: Container(

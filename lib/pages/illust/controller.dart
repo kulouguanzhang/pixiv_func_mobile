@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:expandable/expandable.dart';
@@ -6,12 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/illust.dart';
 import 'package:pixiv_dart_api/model/tag.dart';
-import 'package:pixiv_dart_api/vo/comment_page_result.dart';
 import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/downloader/downloader.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
-import 'package:pixiv_func_mobile/models/comment_tree.dart';
 import 'package:pixiv_func_mobile/models/illust_save_state.dart';
 import 'package:pixiv_func_mobile/pages/illust/comment/source.dart';
 import 'package:pixiv_func_mobile/pages/illust/related/source.dart';
@@ -19,7 +17,6 @@ import 'package:pixiv_func_mobile/pages/illust/ugoira_viewer/controller.dart';
 import 'package:pixiv_func_mobile/services/block_tag_service.dart';
 import 'package:pixiv_func_mobile/services/history_service.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
-import 'package:pixiv_func_mobile/utils/log.dart';
 
 class IllustController extends GetxController {
   Illust illust;
@@ -35,6 +32,8 @@ class IllustController extends GetxController {
   final ExpandableController captionPanelController = ExpandableController();
 
   final CancelToken cancelToken = CancelToken();
+
+  Timer? _addToHistoryTimer;
 
   final ScrollController scrollController = ScrollController();
 
@@ -140,11 +139,12 @@ class IllustController extends GetxController {
   }
 
   @override
-  void dispose() {
+  void onClose() {
     illustRelatedSource.dispose();
     illustCommentSource.dispose();
     cancelToken.cancel();
-    super.dispose();
+    _addToHistoryTimer?.cancel();
+    super.onClose();
   }
 
   @override
@@ -160,6 +160,7 @@ class IllustController extends GetxController {
       }
     });
     initIllustStates();
+
     if (Get.find<SettingsService>().enableHistory) {
       Get.find<HistoryService>().exist(illust.id).then(
         (exist) {
@@ -169,6 +170,18 @@ class IllustController extends GetxController {
         },
       );
     }
+
+    _addToHistoryTimer = Timer.periodic(
+      const Duration(seconds: 4),
+      (timer) {
+        Get.find<ApiClient>().postBrowserHistoryAdd(illustIds: [illust.id]).whenComplete((){
+          print('add history');
+        });
+        _addToHistoryTimer?.cancel();
+        _addToHistoryTimer = null;
+      },
+    );
+
     super.onInit();
   }
 }

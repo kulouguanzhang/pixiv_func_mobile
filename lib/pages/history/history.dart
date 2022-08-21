@@ -58,8 +58,8 @@ class HistoryPage extends StatelessWidget {
                                   side: BorderSide.none,
                                 ),
                                 minWidth: double.infinity,
-                                child:  Padding(
-                                  padding:const EdgeInsets.symmetric(vertical: 20),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
                                   child: TextWidget(I18n.cancel.tr, fontSize: 18, color: Colors.white, isBold: true),
                                 ),
                                 onPressed: () => Get.back(),
@@ -74,8 +74,8 @@ class HistoryPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 minWidth: double.infinity,
-                                child:  Padding(
-                                  padding:const EdgeInsets.symmetric(vertical: 20),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
                                   child: TextWidget(I18n.confirm.tr, fontSize: 18, color: Colors.white, isBold: true),
                                 ),
                                 onPressed: () async {
@@ -105,7 +105,7 @@ class HistoryPage extends StatelessWidget {
               return CupertinoSwitchListTile(
                 contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                 onTap: () => updater(!(snapshot ?? false)),
-                title:  TextWidget(I18n.browsingHistory.tr, fontSize: 18, isBold: true),
+                title: TextWidget(I18n.browsingHistory.tr, fontSize: 18, isBold: true),
                 value: snapshot!,
               );
             },
@@ -136,13 +136,13 @@ class HistoryPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Spacer(flex: 1),
-                             Padding(
-                              padding:const EdgeInsets.symmetric(horizontal: 30),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
                               child: TextWidget(I18n.deleteThisHistory.tr, fontSize: 18, isBold: true),
                             ),
                             const Spacer(flex: 1),
-                             Padding(
-                              padding:const EdgeInsets.symmetric(horizontal: 30),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
                               child: TextWidget(I18n.deleteThisHistoryHint.tr, fontSize: 16),
                             ),
                             const Spacer(flex: 2),
@@ -159,8 +159,8 @@ class HistoryPage extends StatelessWidget {
                                         side: BorderSide.none,
                                       ),
                                       minWidth: double.infinity,
-                                      child:  Padding(
-                                        padding:const EdgeInsets.symmetric(vertical: 20),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 20),
                                         child: TextWidget(I18n.cancel.tr, fontSize: 18, color: Colors.white, isBold: true),
                                       ),
                                       onPressed: () => Get.back(),
@@ -175,8 +175,8 @@ class HistoryPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(40),
                                       ),
                                       minWidth: double.infinity,
-                                      child:  Padding(
-                                        padding:const EdgeInsets.symmetric(vertical: 20),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 20),
                                         child: TextWidget(I18n.confirm.tr, fontSize: 18, color: Colors.white, isBold: true),
                                       ),
                                       onPressed: () async {

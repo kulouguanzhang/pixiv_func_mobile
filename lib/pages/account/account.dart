@@ -66,8 +66,8 @@ class AccountPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Spacer(flex: 1),
-                                   Padding(
-                                    padding:const EdgeInsets.symmetric(horizontal: 30),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 30),
                                     child: TextWidget(I18n.confirmLogoutHint.tr, fontSize: 18, isBold: true),
                                   ),
                                   const Spacer(flex: 1),
@@ -95,7 +95,7 @@ class AccountPage extends StatelessWidget {
                                               side: BorderSide.none,
                                             ),
                                             minWidth: double.infinity,
-                                            child:  Padding(
+                                            child: Padding(
                                               padding: const EdgeInsets.symmetric(vertical: 20),
                                               child: TextWidget(I18n.cancel.tr, fontSize: 18, color: Colors.white, isBold: true),
                                             ),
@@ -111,8 +111,8 @@ class AccountPage extends StatelessWidget {
                                               borderRadius: BorderRadius.circular(40),
                                             ),
                                             minWidth: double.infinity,
-                                            child:  Padding(
-                                              padding:const EdgeInsets.symmetric(vertical: 20),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 20),
                                               child: TextWidget(I18n.confirm.tr, fontSize: 18, color: Colors.white, isBold: true),
                                             ),
                                             onPressed: () async {

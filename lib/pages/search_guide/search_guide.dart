@@ -60,7 +60,7 @@ class SearchGuidePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
-                  children:  [
+                  children: [
                     const Icon(Icons.image, color: Colors.white, size: 14),
                     TextWidget(I18n.searchImage.tr, fontSize: 14, color: Colors.white, isBold: true),
                   ],
@@ -70,7 +70,7 @@ class SearchGuidePage extends StatelessWidget {
                     if (null != picker) {
                       final bytes = await picker.readAsBytes();
                       Get.to(
-                        ()  => SearchImageResultPage(
+                        () => SearchImageResultPage(
                           imageBytes: bytes,
                           filename: picker.name,
                         ),

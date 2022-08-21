@@ -260,10 +260,10 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
             children: [
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onTap:widget.resetReply ,
+                onTap: widget.resetReply,
                 child: const Padding(
-                  padding:  EdgeInsets.symmetric(vertical: 12,horizontal: 4),
-                  child:  Icon(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+                  child: Icon(
                     Icons.reply_sharp,
                   ),
                 ),
@@ -282,8 +282,8 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                     maxLines: 5,
                     focusNode: _focusNode,
                     specialTextSpanBuilder: EmojisSpecialTextSpanBuilder(),
-                    onSubmitted: (v){
-                      _textEditingController.text+='\n';
+                    onSubmitted: (v) {
+                      _textEditingController.text += '\n';
                     },
                     onChanged: (value) {
                       if (value.isEmpty != isEmpty) {
@@ -294,10 +294,10 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
                       hintText: widget.label,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       isDense: true,
                       prefix: const SizedBox(width: 5),
-                      constraints: const BoxConstraints(maxHeight: 125,minHeight: 25),
+                      constraints: const BoxConstraints(maxHeight: 125, minHeight: 25),
                       border: OutlineInputBorder(
                         gapPadding: 0,
                         borderRadius: BorderRadius.circular(20),
@@ -319,7 +319,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                           activeEmojiGird = !activeEmojiGird;
                         }),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 4),
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
                           child: Icon(
                             Icons.emoji_emotions,
                             color: activeEmojiGird ? Theme.of(context).colorScheme.primary : null,
@@ -332,7 +332,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                           activeStampGrid = !activeStampGrid;
                         }),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 4),
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
                           child: Icon(
                             Icons.image,
                             color: activeStampGrid ? Theme.of(context).colorScheme.primary : null,
@@ -345,7 +345,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                           widget.onSend(_textEditingController.text);
                           _textEditingController.clear();
                         },
-                        child:  TextWidget(I18n.send.tr),
+                        child: TextWidget(I18n.send.tr),
                       ),
                   ],
                 ),

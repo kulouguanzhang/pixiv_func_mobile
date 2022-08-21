@@ -29,7 +29,7 @@ class MeWebSettingsController extends GetxController {
   Future<void> initPostKey() async {
     await _webApiClient.getPostKey().then((value) {
       _postKey = value;
-    }).catchError((e){
+    }).catchError((e) {
       PlatformApi.toast(I18n.initPostKeyFailed.tr);
     });
   }

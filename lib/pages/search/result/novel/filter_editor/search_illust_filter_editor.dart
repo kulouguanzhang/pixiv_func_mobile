@@ -161,7 +161,7 @@ class SearchNovelFilterEditorWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         TextWidget(I18n.searchTarget.tr, fontSize: 14),
+                        TextWidget(I18n.searchTarget.tr, fontSize: 14),
                         Icon(
                           controller.editFilterIndex == 0 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                           color: controller.editFilterIndex == 0 ? Theme.of(context).colorScheme.primary : null,
@@ -176,7 +176,7 @@ class SearchNovelFilterEditorWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         TextWidget(I18n.searchSort.tr, fontSize: 14),
+                        TextWidget(I18n.searchSort.tr, fontSize: 14),
                         Icon(
                           controller.editFilterIndex == 1 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                           color: controller.editFilterIndex == 1 ? Theme.of(context).colorScheme.primary : null,

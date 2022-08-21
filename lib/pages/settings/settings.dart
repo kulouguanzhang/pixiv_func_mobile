@@ -95,7 +95,7 @@ class SettingsPage extends StatelessWidget {
             buildItem(onTap: () => Get.to(() => const ThemeSettingsPage()), title: I18n.themeSettingsPageTitle.tr),
             buildItem(onTap: () => Get.to(() => const LanguageSettingsPage()), title: I18n.languageSettingsPageTitle.tr),
             const Divider(),
-            buildItem(onTap: () => Get.to(() => const ImageSourceSettingsPage()), title:I18n.imageSourceSettingsPageTitle.tr),
+            buildItem(onTap: () => Get.to(() => const ImageSourceSettingsPage()), title: I18n.imageSourceSettingsPageTitle.tr),
             buildItem(onTap: () => Get.to(() => const PreviewQualitySettingsPage()), title: I18n.previewQualitySettingsPageTitle.tr),
             buildItem(onTap: () => Get.to(() => const ScaleQualitySettingsPage()), title: I18n.scaleQualitySettingsPageTitle.tr),
             const Divider(),

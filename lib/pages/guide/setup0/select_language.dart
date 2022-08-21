@@ -60,7 +60,7 @@ class GuideSelectLanguagePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(40),
                 ),
                 minWidth: double.infinity,
-                child:  Padding(
+                child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: TextWidget(I18n.next.tr, fontSize: 18, color: Colors.white, isBold: true),
                 ),

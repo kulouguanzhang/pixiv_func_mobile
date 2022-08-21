@@ -162,7 +162,7 @@ class UserAboutContent extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   TextWidget(I18n.introduction.tr, fontSize: 14, isBold: true),
+                  TextWidget(I18n.introduction.tr, fontSize: 14, isBold: true),
                   HtmlRichText(user.comment!),
                 ],
               ),
