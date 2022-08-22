@@ -199,7 +199,7 @@ class I18nTranslations extends Translations {
           I18n.permissionDenied: '拒绝了权限',
           I18n.updateTitle: 'Pixiv Func更新',
           I18n.startDownload: '开始下载',
-          I18n.downloadProgress: '下载进度:%s',
+          I18n.downloadProgress: '下载进度:%s%',
           I18n.loginRequired: '需要登录',
           I18n.invalidId: '无效的ID:%s',
           I18n.invalidPath: '无效的Path:%s',

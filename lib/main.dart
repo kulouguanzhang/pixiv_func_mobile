@@ -64,8 +64,9 @@ class App extends StatelessWidget {
         Locale('zh', 'CN'),
         Locale('en', 'US'),
         Locale('ja', 'JP'),
+        Locale('ru', 'RU'),
       ],
-      fallbackLocale: const Locale('en', 'US'),
+      fallbackLocale: const Locale('zh', 'CN'),
       debugShowCheckedModeBanner: false,
       title: 'Pixiv Func',
       home: WillPopScope(
