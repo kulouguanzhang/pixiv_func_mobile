@@ -41,7 +41,7 @@ class Updater {
 
   static Future<void> _progressNotification(int progress, [bool isComplete = false]) async {
     final AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'UpdateApp',
+      '44444',
       'UpdateApp',
       tag: 'UpdateApp',
       channelDescription: I18n.startDownload.tr,
@@ -64,7 +64,7 @@ class Updater {
         platformChannelSpecifics,
       );
     } else {
-      await flutterLocalNotificationsPlugin.cancel(44444, tag: 'update app');
+      await flutterLocalNotificationsPlugin.cancel(44444, tag: 'UpdateApp');
     }
   }
 

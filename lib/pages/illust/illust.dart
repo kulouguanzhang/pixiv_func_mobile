@@ -305,7 +305,7 @@ class IllustPage extends StatelessWidget {
                   children: [
                     TextWidget(I18n.resolution.trArgs(['${illust.width}x${illust.height}'])),
                     const SizedBox(width: 5),
-                    TextWidget('${I18n.illustId}: ${illust.id}'),
+                    TextWidget('${I18n.illustId.tr}: ${illust.id}'),
                     const SizedBox(width: 5),
                     const Icon(
                       Icons.share_outlined,
