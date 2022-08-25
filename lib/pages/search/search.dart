@@ -29,8 +29,8 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
     return GetBuilder<SearchController>(
       builder: (controller) => VisibilityDetector(
         key: Key(runtimeType.toString()),
-        onVisibilityChanged: (VisibilityInfo visibilityInfo) {
-          if (visibilityInfo.visibleFraction != 0.0) {
+        onVisibilityChanged: (VisibilityInfo info) {
+          if (info.visibleFraction != 0.0) {
             controller.focusNode.requestFocus();
           }
         },

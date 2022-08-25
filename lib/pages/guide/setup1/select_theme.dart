@@ -14,7 +14,6 @@ class GuideSelectThemePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ObxValue<Rx<int>>(
       (data) => ScaffoldWidget(
-        emptyAppBar: false,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
           child: Column(

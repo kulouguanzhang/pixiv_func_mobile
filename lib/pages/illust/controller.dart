@@ -49,6 +49,12 @@ class IllustController extends GetxController {
 
   bool get blockMode => _shieldMode;
 
+  Duration browsingDuration = Duration.zero;
+
+  bool isVisibility = true;
+
+  bool downloaded = false;
+
   final Map<int, IllustSaveState> illustStates = {};
 
   final BlockTagService blockTagService = Get.find();
@@ -100,12 +106,14 @@ class IllustController extends GetxController {
   }
 
   void downloadGif() {
+    downloaded = true;
     Get.find<UgoiraViewerController>(tag: 'UgoiraViewer-${illust.id}').save();
     illustStates[0] = IllustSaveState.downloading;
     update();
   }
 
   void download(int index) {
+    downloaded = true;
     final String url;
     if (illust.pageCount > 1) {
       url = illust.metaPages[index].imageUrls.original!;
@@ -172,13 +180,19 @@ class IllustController extends GetxController {
     }
 
     _addToHistoryTimer = Timer.periodic(
-      const Duration(seconds: 4),
+      const Duration(seconds: 1),
       (timer) {
-        Get.find<ApiClient>().postBrowserHistoryAdd(illustIds: [illust.id]).whenComplete((){
-          print('add history');
-        });
-        _addToHistoryTimer?.cancel();
-        _addToHistoryTimer = null;
+        //下载了 或者 浏览时长大于10秒
+        if (downloaded || browsingDuration > const Duration(seconds: 10)) {
+          Get.find<ApiClient>().postBrowserHistoryAdd(illustIds: [illust.id]);
+          _addToHistoryTimer?.cancel();
+          _addToHistoryTimer = null;
+        } else {
+          //如果还在这个插画页面就加一秒
+          if (isVisibility) {
+            browsingDuration += const Duration(seconds: 1);
+          }
+        }
       },
     );
 

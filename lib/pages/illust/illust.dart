@@ -24,6 +24,7 @@ import 'package:pixiv_func_mobile/widgets/sliver_headerr/sliver_tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import 'comment/comment.dart';
 import 'controller.dart';
@@ -414,147 +415,153 @@ class IllustPage extends StatelessWidget {
               controller.downloadModeChangeState();
             }
           },
-          child: ScaffoldWidget(
-            titleWidget: TextWidget(illust.title, isBold: true),
-            actions: [
-              if (controller.downloadMode)
-                SizedBox(
-                  width: kToolbarHeight,
-                  // alignment: Alignment.center,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () => controller.downloadAll(),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Icon(Icons.file_download_outlined),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 30,
-                        right: 5,
-                        // 忽略点击事件让点击事件穿透到下面的按钮
-                        child: IgnorePointer(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: TextWidget(
-                              () {
-                                final count = controller.illustStates.values
-                                    .where((element) => IllustSaveState.none == element || IllustSaveState.error == element)
-                                    .length;
-                                return count == illust.pageCount ? I18n.all.tr : '$count';
-                              }(),
-                              fontSize: 10,
-                              color: Colors.white,
-                            ),
+          child: VisibilityDetector(
+            key: Key(controllerTag),
+            onVisibilityChanged: (VisibilityInfo info) {
+              controller.isVisibility = info.visibleFraction != 0.0;
+            },
+            child: ScaffoldWidget(
+              titleWidget: TextWidget(illust.title, isBold: true),
+              actions: [
+                if (controller.downloadMode)
+                  SizedBox(
+                    width: kToolbarHeight,
+                    // alignment: Alignment.center,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => controller.downloadAll(),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Icon(Icons.file_download_outlined),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: BookmarkSwitchButton(
-                  id: illust.id,
-                  title: illust.title,
-                  initValue: illust.isBookmarked,
-                  isButton: false,
-                ),
-              ),
-            ],
-            child: NoScrollBehaviorWidget(
-              child: ExtendedNestedScrollView(
-                controller: controller.scrollController,
-                onlyOneScrollInBody: true,
-                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
-                  if (illust.isUgoira)
-                    SliverToBoxAdapter(
-                      child: buildUgoiraViewer(
-                        id: illust.id,
-                        previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
-                      ),
-                    )
-                  else if (1 == illust.pageCount)
-                    SliverToBoxAdapter(
-                      child: buildImageItem(
-                        id: illust.id,
-                        title: illust.title,
-                        previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
-                        index: 0,
-                      ),
-                    )
-                  else
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        [
-                          for (var index = 0; index < illust.metaPages.length; ++index)
-                            buildImageItem(
-                              id: illust.id,
-                              title: illust.title,
-                              previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.metaPages[index].imageUrls),
-                              index: index,
-                            ),
-                        ],
-                      ),
-                    ),
-                  SliverToBoxAdapter(
-                    child: buildImageDetail(),
-                  ),
-                  SliverPersistentHeader(
-                    delegate: SliverHeader(
-                      child: PreferredSize(
-                        preferredSize: const Size.fromHeight(kToolbarHeight),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 0.5,
-                              color: const Color(0xFF373737),
-                            ),
-                            TabBarWidget(
-                              indicatorMinWidth: 15,
-                              onTap: (index) {
-                                FocusScopeNode currentFocus = FocusScope.of(context);
-                                if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                }
-                              },
-                              indicator: const RRecTabIndicator(
-                                radius: 4,
-                                insets: EdgeInsets.only(bottom: 5),
+                        Positioned(
+                          bottom: 30,
+                          right: 5,
+                          // 忽略点击事件让点击事件穿透到下面的按钮
+                          child: IgnorePointer(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              tabs: [
-                                TabWidget(text: I18n.recommend.tr),
-                                TabWidget(text: I18n.comment.tr),
-                              ],
+                              child: TextWidget(
+                                () {
+                                  final count = controller.illustStates.values
+                                      .where((element) => IllustSaveState.none == element || IllustSaveState.error == element)
+                                      .length;
+                                  return count == illust.pageCount ? I18n.all.tr : '$count';
+                                }(),
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
                             ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: BookmarkSwitchButton(
+                    id: illust.id,
+                    title: illust.title,
+                    initValue: illust.isBookmarked,
+                    isButton: false,
+                  ),
+                ),
+              ],
+              child: NoScrollBehaviorWidget(
+                child: ExtendedNestedScrollView(
+                  controller: controller.scrollController,
+                  onlyOneScrollInBody: true,
+                  headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
+                    if (illust.isUgoira)
+                      SliverToBoxAdapter(
+                        child: buildUgoiraViewer(
+                          id: illust.id,
+                          previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
+                        ),
+                      )
+                    else if (1 == illust.pageCount)
+                      SliverToBoxAdapter(
+                        child: buildImageItem(
+                          id: illust.id,
+                          title: illust.title,
+                          previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.imageUrls),
+                          index: 0,
+                        ),
+                      )
+                    else
+                      SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            for (var index = 0; index < illust.metaPages.length; ++index)
+                              buildImageItem(
+                                id: illust.id,
+                                title: illust.title,
+                                previewUrl: Get.find<SettingsService>().getPreviewUrl(illust.metaPages[index].imageUrls),
+                                index: index,
+                              ),
                           ],
                         ),
                       ),
+                    SliverToBoxAdapter(
+                      child: buildImageDetail(),
                     ),
-                    pinned: true,
-                    floating: true,
-                  ),
-                ],
-                pinnedHeaderSliverHeightBuilder: () => kToolbarHeight,
-                body: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    DataContent(
-                      sourceList: controller.illustRelatedSource,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item, square: true),
+                    SliverPersistentHeader(
+                      delegate: SliverHeader(
+                        child: PreferredSize(
+                          preferredSize: const Size.fromHeight(kToolbarHeight),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 0.5,
+                                color: const Color(0xFF373737),
+                              ),
+                              TabBarWidget(
+                                indicatorMinWidth: 15,
+                                onTap: (index) {
+                                  FocusScopeNode currentFocus = FocusScope.of(context);
+                                  if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                                    FocusManager.instance.primaryFocus?.unfocus();
+                                  }
+                                },
+                                indicator: const RRecTabIndicator(
+                                  radius: 4,
+                                  insets: EdgeInsets.only(bottom: 5),
+                                ),
+                                tabs: [
+                                  TabWidget(text: I18n.recommend.tr),
+                                  TabWidget(text: I18n.comment.tr),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      pinned: true,
+                      floating: true,
                     ),
-                    IllustCommentContent(id: illust.id),
                   ],
+                  pinnedHeaderSliverHeightBuilder: () => kToolbarHeight,
+                  body: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      DataContent(
+                        sourceList: controller.illustRelatedSource,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item, square: true),
+                      ),
+                      IllustCommentContent(id: illust.id),
+                    ],
+                  ),
                 ),
               ),
             ),

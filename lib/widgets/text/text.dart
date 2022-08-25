@@ -8,7 +8,7 @@ class TextWidget extends StatelessWidget {
   final bool isBold;
   final bool forceStrutHeight;
   final int? maxLines;
-
+  final Locale? locale;
   const TextWidget(
     this.text, {
     Key? key,
@@ -18,6 +18,7 @@ class TextWidget extends StatelessWidget {
     this.isBold = false,
     this.forceStrutHeight = false,
     this.maxLines,
+        this.locale,
   }) : super(key: key);
 
   @override
@@ -37,6 +38,7 @@ class TextWidget extends StatelessWidget {
         overflow: overflow,
         decoration: TextDecoration.none,
       ),
+      locale: locale,
     );
   }
 }

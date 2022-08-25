@@ -9,6 +9,8 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 class LanguageSettingsPage extends StatelessWidget {
   const LanguageSettingsPage({Key? key}) : super(key: key);
 
+  static const defaultLocale = Locale('zh', 'CN');
+
   @override
   Widget build(BuildContext context) {
     const List<MapEntry<String, String>> items = [
@@ -36,7 +38,7 @@ class LanguageSettingsPage extends StatelessWidget {
                 CupertinoSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                   onTap: () => updater(item.value),
-                  title: TextWidget(item.key, fontSize: 18, isBold: true),
+                  title: TextWidget(item.key, fontSize: 18, isBold: true, locale: defaultLocale),
                   value: data.value == item.value,
                 ),
             ],

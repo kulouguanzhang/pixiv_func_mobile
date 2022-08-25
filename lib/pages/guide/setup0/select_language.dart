@@ -10,6 +10,8 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 class GuideSelectLanguagePage extends StatelessWidget {
   const GuideSelectLanguagePage({Key? key}) : super(key: key);
 
+  static const defaultLocale = Locale('zh', 'CN');
+
   @override
   Widget build(BuildContext context) {
     const List<MapEntry<String, String>> items = [
@@ -28,18 +30,18 @@ class GuideSelectLanguagePage extends StatelessWidget {
             Get.find<SettingsService>().language = value;
           }
         }
+
         return ScaffoldWidget(
-          emptyAppBar: false,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Spacer(flex: 2),
-                const TextWidget('选择您的语言', fontSize: 24, isBold: true),
-                const TextWidget('Select your language', fontSize: 24, isBold: true),
-                const TextWidget('言語を選択', fontSize: 24, isBold: true),
-                const TextWidget('Выберите свой язык', fontSize: 24, isBold: true),
+                const TextWidget('选择您的语言', fontSize: 24, isBold: true, locale: defaultLocale),
+                const TextWidget('Select your language', fontSize: 24, isBold: true, locale: defaultLocale),
+                const TextWidget('言語を選択', fontSize: 24, isBold: true, locale: defaultLocale),
+                const TextWidget('Выберите свой язык', fontSize: 24, isBold: true, locale: defaultLocale),
                 const Spacer(flex: 1),
                 for (final item in items)
                   Column(
@@ -47,7 +49,7 @@ class GuideSelectLanguagePage extends StatelessWidget {
                       CupertinoSwitchListTile(
                         contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                         onTap: () => updater(item.value),
-                        title: TextWidget(item.key, fontSize: 18, isBold: true),
+                        title: TextWidget(item.key, fontSize: 18, isBold: true, locale: defaultLocale),
                         value: data.value == item.value,
                       ),
                       const Divider(),
@@ -63,15 +65,15 @@ class GuideSelectLanguagePage extends StatelessWidget {
                   minWidth: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: TextWidget(I18n.next.tr, fontSize: 18, color: Colors.white, isBold: true),
+                    child: TextWidget(I18n.next.tr, fontSize: 18, color: Colors.white, isBold: true, locale: defaultLocale, forceStrutHeight: true),
                   ),
                   onPressed: () => Get.to(() => const GuideSelectThemePage()),
                 ),
                 const Spacer(flex: 1),
-                const TextWidget('稍后您可以在设置中进行相应变更', fontSize: 14),
-                const TextWidget('You can change the settings later', fontSize: 14),
-                const TextWidget('後で設定を変更できます', fontSize: 14),
-                const TextWidget('Вы можете изменить его позже в настройках', fontSize: 14),
+                const TextWidget('稍后您可以在设置中进行相应变更', fontSize: 14, locale: defaultLocale),
+                const TextWidget('You can change the settings later', fontSize: 14, locale: defaultLocale),
+                const TextWidget('後で設定を変更できます', fontSize: 14, locale: defaultLocale),
+                const TextWidget('Вы можете изменить его позже в настройках', fontSize: 14, locale: defaultLocale),
                 const Spacer(flex: 1),
               ],
             ),

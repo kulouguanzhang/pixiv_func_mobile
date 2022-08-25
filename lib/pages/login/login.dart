@@ -17,7 +17,6 @@ class LoginPage extends StatelessWidget {
     Get.put(LoginController());
     return GetBuilder<LoginController>(
       builder: (controller) => ScaffoldWidget(
-        emptyAppBar: isFirst,
         titleWidget: isFirst ? null : TextWidget(I18n.loginPageTitle.tr, fontSize: 24, isBold: true),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),

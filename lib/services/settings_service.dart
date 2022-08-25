@@ -48,7 +48,7 @@ class SettingsService extends GetxService {
     _sharedPreferences.setBool('scale_quality', value);
   }
 
-  bool get enableHistory => _sharedPreferences.getBool('enable_history') ?? false;
+  bool get enableHistory => _sharedPreferences.getBool('enable_history') ?? true;
 
   set enableHistory(bool value) {
     _sharedPreferences.setBool('enable_history', value);
