@@ -425,6 +425,8 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
     SchedulerBinding.instance.addPostFrameCallback((Duration timeStamp) {
       _key.currentState?.bringIntoView(_textEditingController.selection.base);
     });
+    isEmpty = false;
+    _gridBuilderController.add(null);
   }
 
   Widget buildEmojiGird() {
