@@ -7,25 +7,33 @@ class SelectButtonWidget<V> extends StatelessWidget {
   final Map<String, V> items;
   final V value;
   final void Function(V? value) onChanged;
-  final double width;
-  final double height;
 
   const SelectButtonWidget({
     Key? key,
     required this.items,
     required this.value,
     required this.onChanged,
-    required this.width,
-    required this.height,
   }) : super(key: key);
+
+  Size _getTextSize({required String text, TextStyle? style}) {
+    TextPainter painter = TextPainter(
+      locale: WidgetsBinding.instance.window.locale,
+      text: TextSpan(text: text, style: style),
+      textDirection: TextDirection.ltr,
+      maxLines: 2 ^ 31,
+    )..layout();
+    return painter.size;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final textSizes = items.keys.map((key) => _getTextSize(text: key)).toList()..sort((a, b) => a.width > b.width ? -1 : 1);
+    final maxWidth = 8 + 4 + 10 + 12 + 14 / 2 + textSizes.first.width;
     return Container(
       padding: const EdgeInsets.all(8),
       child: SizedBox(
         height: 35,
-        width: 70,
+        width: maxWidth,
         child: DropdownButtonWidgetHideUnderline(
           child: DropdownButtonWidget<V>(
             isDense: true,
@@ -38,7 +46,7 @@ class SelectButtonWidget<V> extends StatelessWidget {
                   value: item.value,
                   child: Container(
                     height: 35,
-                    width: 70,
+                    width: maxWidth,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(17),
@@ -47,15 +55,15 @@ class SelectButtonWidget<V> extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        const Spacer(),
+                        const SizedBox(width: 8),
                         const Icon(AppIcons.toggle, size: 12),
-                        const SizedBox(width: 7),
+                        const SizedBox(width: 10),
                         TextWidget(
                           item.key,
                           fontSize: 14,
                           forceStrutHeight: true,
                         ),
-                        const Spacer(),
+                        const SizedBox(width: 4),
                       ],
                     ),
                   ),

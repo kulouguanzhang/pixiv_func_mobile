@@ -318,8 +318,7 @@ class _RenderCupertinoSwitch extends RenderConstrainedBox {
       thumbCenterY + CupertinoThumbPainter.radius,
     );
 
-    _clipRRectLayer.layer =
-        context.pushClipRRect(needsCompositing, Offset.zero, thumbBounds, trackRRect, (PaintingContext innerContext, Offset offset) {
+    _clipRRectLayer.layer = context.pushClipRRect(needsCompositing, Offset.zero, thumbBounds, trackRRect, (PaintingContext innerContext, Offset offset) {
       _thumbPainter.paint(innerContext.canvas, thumbBounds);
     }, oldLayer: _clipRRectLayer.layer);
   }

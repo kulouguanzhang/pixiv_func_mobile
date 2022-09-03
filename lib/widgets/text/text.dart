@@ -18,7 +18,7 @@ class TextWidget extends StatelessWidget {
     this.isBold = false,
     this.forceStrutHeight = false,
     this.maxLines,
-        this.locale,
+    this.locale,
   }) : super(key: key);
 
   @override

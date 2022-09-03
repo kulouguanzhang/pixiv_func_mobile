@@ -182,40 +182,43 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                             height: 0.5,
                             color: const Color(0xFF373737),
                           ),
-                          TabBarWidget(
-                            onTap: controller.tabOnTap,
-                            controller: controller.tabController,
-                            indicatorMinWidth: 15,
-                            labelColor: Theme.of(context).colorScheme.primary,
-                            unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
-                            indicator: const RRecTabIndicator(
-                              radius: 4,
-                              insets: EdgeInsets.only(bottom: 5),
+                          NoScrollBehaviorWidget(
+                            child: TabBarWidget(
+                              onTap: controller.tabOnTap,
+                              isScrollable: true,
+                              controller: controller.tabController,
+                              indicatorMinWidth: 15,
+                              labelColor: Theme.of(context).colorScheme.primary,
+                              unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+                              indicator: const RRecTabIndicator(
+                                radius: 4,
+                                insets: EdgeInsets.only(bottom: 5),
+                              ),
+                              tabs: [
+                                TabWidget(
+                                  text: I18n.work.tr,
+                                  icon: controller.tabController.index == 0
+                                      ? controller.expandTypeSelector
+                                          ? const Icon(Icons.keyboard_arrow_up, size: 12)
+                                          : const Icon(Icons.keyboard_arrow_down, size: 12)
+                                      : null,
+                                ),
+                                TabWidget(
+                                  text: I18n.bookmarked.tr,
+                                  icon: controller.tabController.index == 1
+                                      ? controller.expandTypeSelector
+                                          ? const Icon(Icons.keyboard_arrow_up, size: 12)
+                                          : const Icon(Icons.keyboard_arrow_down, size: 12)
+                                      : null,
+                                ),
+                                TabWidget(
+                                  text: I18n.following.tr,
+                                ),
+                                TabWidget(
+                                  text: I18n.about.tr,
+                                ),
+                              ],
                             ),
-                            tabs: [
-                              TabWidget(
-                                text: I18n.work.tr,
-                                icon: controller.tabController.index == 0
-                                    ? controller.expandTypeSelector
-                                        ? const Icon(Icons.keyboard_arrow_up, size: 12)
-                                        : const Icon(Icons.keyboard_arrow_down, size: 12)
-                                    : null,
-                              ),
-                              TabWidget(
-                                text: I18n.bookmarked.tr,
-                                icon: controller.tabController.index == 1
-                                    ? controller.expandTypeSelector
-                                        ? const Icon(Icons.keyboard_arrow_up, size: 12)
-                                        : const Icon(Icons.keyboard_arrow_down, size: 12)
-                                    : null,
-                              ),
-                              TabWidget(
-                                text: I18n.following.tr,
-                              ),
-                              TabWidget(
-                                text: I18n.about.tr,
-                              ),
-                            ],
                           ),
                         ],
                       ),

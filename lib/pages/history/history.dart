@@ -120,8 +120,7 @@ class HistoryPage extends StatelessWidget {
           Expanded(
             child: DataContent<Illust>(
               sourceList: source,
-              extendedListDelegate:
-                  const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+              extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
               itemBuilder: (BuildContext context, Illust item, int index) => InkWell(
                 onLongPress: () {
                   Get.bottomSheet(
@@ -197,6 +196,7 @@ class HistoryPage extends StatelessWidget {
                 },
                 child: IllustPreviewer(illust: item),
               ),
+              pullToRefresh: false,
             ),
           ),
         ],

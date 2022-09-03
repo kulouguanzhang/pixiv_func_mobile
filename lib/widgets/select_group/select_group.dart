@@ -10,7 +10,7 @@ class SelectGroup<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Wrap(
       children: [
         for (final item in items.entries)
           if (value == item.value)

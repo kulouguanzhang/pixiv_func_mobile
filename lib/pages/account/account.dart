@@ -45,9 +45,7 @@ class AccountPage extends StatelessWidget {
                     },
                     title: Text(
                       '${account.localUser.name}(${account.localUser.mailAddress})',
-                      style: account.localUser.id == Get.find<AccountService>().current?.localUser.id
-                          ? TextStyle(color: Get.theme.colorScheme.primary)
-                          : null,
+                      style: account.localUser.id == Get.find<AccountService>().current?.localUser.id ? TextStyle(color: Get.theme.colorScheme.primary) : null,
                     ),
                     subtitle: Text('${account.localUser.account}(${account.localUser.id})'),
                     leading: PixivAvatarWidget(account.localUser.profileImageUrls.px50x50, radius: 50),

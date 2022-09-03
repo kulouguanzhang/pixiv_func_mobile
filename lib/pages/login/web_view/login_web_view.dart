@@ -130,7 +130,7 @@ class LoginWebViewPage extends StatelessWidget {
                                     minWidth: double.infinity,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 20),
-                                      child: TextWidget(I18n.copy.tr, fontSize: 18, color: Colors.white, isBold: true),
+                                      child: TextWidget(I18n.pasteIn.tr, fontSize: 18, color: Colors.white, isBold: true),
                                     ),
                                     onPressed: () {
                                       controller.copyLoginDataToWebView();

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/icon/icon.dart';
-import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
+import 'package:pixiv_func_mobile/components/select_button/select_button.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 import 'controller.dart';
@@ -27,10 +26,6 @@ class BookmarkSwitchButton extends StatelessWidget {
 
   void _restrictDialog() {
     final controller = Get.find<BookmarkSwitchButtonController>(tag: '$runtimeType-$id');
-    final items = {
-      Restrict.public: I18n.restrictPublic.tr,
-      Restrict.private: I18n.restrictPrivate.tr,
-    };
     Get.bottomSheet(
       Container(
         decoration: BoxDecoration(
@@ -50,50 +45,13 @@ class BookmarkSwitchButton extends StatelessWidget {
                     Expanded(
                       child: TextWidget(I18n.bookmarkIllust.tr, fontSize: 18, isBold: true),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      child: SizedBox(
-                        height: 35,
-                        width: 70,
-                        child: DropdownButtonWidgetHideUnderline(
-                          child: DropdownButtonWidget<Restrict>(
-                            isDense: true,
-                            elevation: 0,
-                            isExpanded: true,
-                            borderRadius: BorderRadius.circular(12),
-                            items: [
-                              for (final item in items.entries)
-                                DropdownMenuItemWidget<Restrict>(
-                                  value: item.key,
-                                  child: Container(
-                                    height: 35,
-                                    width: 70,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(17),
-                                      border: controller.restrict == item.key ? Border.all(color: Get.theme.colorScheme.primary) : null,
-                                      color: Get.theme.colorScheme.surface,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Spacer(),
-                                        const Icon(AppIcons.toggle, size: 12),
-                                        const SizedBox(width: 7),
-                                        TextWidget(
-                                          item.value,
-                                          fontSize: 14,
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                            ],
-                            value: controller.restrict,
-                            onChanged: controller.restrictOnChanged,
-                          ),
-                        ),
-                      ),
+                    SelectButtonWidget(
+                      items: {
+                        I18n.restrictPublic.tr: Restrict.public,
+                        I18n.restrictPrivate: Restrict.private,
+                      },
+                      value: controller.restrict,
+                      onChanged: controller.restrictOnChanged,
                     ),
                   ],
                 ),

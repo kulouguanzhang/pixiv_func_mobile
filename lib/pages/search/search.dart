@@ -69,18 +69,15 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                 const SizedBox(width: 20),
                 SizedBox(
                   height: 40,
+                  width: 40,
                   child: MaterialButton(
                     elevation: 0,
+                    padding: EdgeInsets.zero,
                     color: const Color(0xFFFF6289),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.image, color: Colors.white, size: 14),
-                        TextWidget(I18n.searchImage.tr, fontSize: 14, color: Colors.white, isBold: true),
-                      ],
-                    ),
+                    child: const Icon(Icons.image_search, color: Colors.white, size: 14),
                     onPressed: () {
                       ImagePicker().pickImage(source: ImageSource.gallery).then((picker) {
                         if (null != picker) {
@@ -101,18 +98,21 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
           ),
           child: Column(
             children: [
-              TabBarWidget(
-                controller: controller.tabController,
-                indicatorMinWidth: 15,
-                indicator: const RRecTabIndicator(
-                  radius: 4,
-                  insets: EdgeInsets.only(bottom: 5),
+              NoScrollBehaviorWidget(
+                child: TabBarWidget(
+                  isScrollable: true,
+                  controller: controller.tabController,
+                  indicatorMinWidth: 15,
+                  indicator: const RRecTabIndicator(
+                    radius: 4,
+                    insets: EdgeInsets.only(bottom: 5),
+                  ),
+                  tabs: [
+                    TabWidget(text: I18n.illustAndManga.tr),
+                    TabWidget(text: I18n.novel.tr),
+                    TabWidget(text: I18n.user.tr),
+                  ],
                 ),
-                tabs: [
-                  TabWidget(text: I18n.illustAndManga.tr),
-                  TabWidget(text: I18n.novel.tr),
-                  TabWidget(text: I18n.user.tr),
-                ],
               ),
               Expanded(
                 child: TabBarView(

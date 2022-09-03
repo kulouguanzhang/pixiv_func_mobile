@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/icon/icon.dart';
-import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
+import 'package:pixiv_func_mobile/components/select_button/select_button.dart';
+import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/select_group/select_group.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -15,12 +15,11 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
   final VoidCallback onFilterChanged;
   final ExpandableController expandableController;
 
-  const SearchIllustFilterEditorWidget({Key? key, required this.keyword, required this.onFilterChanged, required this.expandableController})
-      : super(key: key);
+  const SearchIllustFilterEditorWidget({Key? key, required this.keyword, required this.onFilterChanged, required this.expandableController}) : super(key: key);
 
   String get controllerTag => 'SearchIllustFilterEditor-$keyword';
 
-  void _openStartDatePicker() {
+  void openStartDatePicker() {
     final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     showDatePicker(
       context: Get.context!,
@@ -44,7 +43,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
     });
   }
 
-  void _openEndDatePicker() {
+  void openEndDatePicker() {
     final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
     showDatePicker(
       context: Get.context!,
@@ -74,13 +73,13 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
       children: [
         GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => _openStartDatePicker(),
+          onTap: () => openStartDatePicker(),
           child: TextWidget(controller.startDate, fontSize: 16, forceStrutHeight: true),
         ),
         const Text(' - '),
         GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => _openEndDatePicker(),
+          onTap: () => openEndDatePicker(),
           child: TextWidget(controller.endDate, fontSize: 16, forceStrutHeight: true),
         ),
       ],
@@ -89,56 +88,18 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
 
   Widget buildDateRangeTypeEdit() {
     final controller = Get.find<SearchIllustFilterEditorController>(tag: controllerTag);
-    final items = {
-      0: I18n.searchDateLimitNo.tr,
-      1: I18n.searchDateLimitDay.tr,
-      2: I18n.searchDateLimitWeek.tr,
-      3: I18n.searchDateLimitMonth.tr,
-      4: I18n.searchDateLimitHalfYear.tr,
-      5: I18n.searchDateLimitYear.tr,
-      6: I18n.searchDateLimitCustom.tr,
-    };
-    return SizedBox(
-      height: 35,
-      width: 90,
-      child: DropdownButtonWidgetHideUnderline(
-        child: DropdownButtonWidget<int>(
-          isDense: true,
-          elevation: 0,
-          isExpanded: true,
-          borderRadius: BorderRadius.circular(12),
-          items: [
-            for (final item in items.entries)
-              DropdownMenuItemWidget<int>(
-                value: item.key,
-                child: Container(
-                  height: 35,
-                  width: 90,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(17),
-                    border: controller.dateRangeType == item.key ? Border.all(color: Get.theme.colorScheme.primary) : null,
-                    color: Get.theme.colorScheme.surface,
-                  ),
-                  child: Row(
-                    children: [
-                      const Spacer(),
-                      const Icon(AppIcons.toggle, size: 12),
-                      const SizedBox(width: 7),
-                      TextWidget(
-                        item.value,
-                        fontSize: 14,
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
-                ),
-              ),
-          ],
-          value: controller.dateRangeType,
-          onChanged: controller.dateTimeRangeTypeOnChanged,
-        ),
-      ),
+    return SelectButtonWidget(
+      items: {
+        I18n.searchDateLimitNo.tr: 0,
+        I18n.searchDateLimitDay.tr: 1,
+        I18n.searchDateLimitWeek.tr: 2,
+        I18n.searchDateLimitMonth.tr: 3,
+        I18n.searchDateLimitHalfYear.tr: 4,
+        I18n.searchDateLimitYear.tr: 5,
+        I18n.searchDateLimitCustom.tr: 6,
+      },
+      value: controller.dateRangeType,
+      onChanged: controller.dateTimeRangeTypeOnChanged,
     );
   }
 
@@ -153,68 +114,75 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(28, 5, 28, 12),
           child: Column(
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () => controller.editFilterChangeState(0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextWidget(I18n.searchTarget.tr, fontSize: 14),
-                        Icon(
-                          controller.editFilterIndex == 0 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                          color: controller.editFilterIndex == 0 ? Theme.of(context).colorScheme.primary : null,
+              SizedBox(
+                height: 25,
+                child: NoScrollBehaviorWidget(
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => controller.editFilterChangeState(0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextWidget(I18n.searchTarget.tr, fontSize: 14),
+                            Icon(
+                              controller.editFilterIndex == 0 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                              color: controller.editFilterIndex == 0 ? Theme.of(context).colorScheme.primary : null,
+                            ),
+                            const SizedBox(width: 10),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () => controller.editFilterChangeState(1),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextWidget(I18n.searchSort.tr, fontSize: 14),
-                        Icon(
-                          controller.editFilterIndex == 1 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                          color: controller.editFilterIndex == 1 ? Theme.of(context).colorScheme.primary : null,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => controller.editFilterChangeState(1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextWidget(I18n.searchSort.tr, fontSize: 14),
+                            Icon(
+                              controller.editFilterIndex == 1 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                              color: controller.editFilterIndex == 1 ? Theme.of(context).colorScheme.primary : null,
+                            ),
+                            const SizedBox(width: 10),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () => controller.editFilterChangeState(2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextWidget(I18n.searchDateRange.tr, fontSize: 14),
-                        Icon(
-                          controller.editFilterIndex == 2 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                          color: controller.editFilterIndex == 2 ? Theme.of(context).colorScheme.primary : null,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => controller.editFilterChangeState(2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextWidget(I18n.searchDateRange.tr, fontSize: 14),
+                            Icon(
+                              controller.editFilterIndex == 2 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                              color: controller.editFilterIndex == 2 ? Theme.of(context).colorScheme.primary : null,
+                            ),
+                            const SizedBox(width: 10),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () => controller.editFilterChangeState(3),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextWidget(I18n.searchBookmarkCount.tr, fontSize: 14),
-                        Icon(
-                          controller.editFilterIndex == 3 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                          color: controller.editFilterIndex == 3 ? Theme.of(context).colorScheme.primary : null,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => controller.editFilterChangeState(3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextWidget(I18n.searchBookmarkCount.tr, fontSize: 14),
+                            Icon(
+                              controller.editFilterIndex == 3 ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                              color: controller.editFilterIndex == 3 ? Theme.of(context).colorScheme.primary : null,
+                            ),
+                            const SizedBox(width: 10),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
               ExpandablePanel(
                 controller: controller.editFilterPanelController,
@@ -223,6 +191,7 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                   final Widget widget;
                   switch (controller.editFilterIndex) {
                     case 0:
+                      //居左
                       widget = SelectGroup<SearchSort>(
                         items: {
                           I18n.searchSortDateDesc.tr: SearchSort.dateDesc,
@@ -280,8 +249,8 @@ class SearchIllustFilterEditorWidget extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: Container(
-                      height: 35,
-                      alignment: Alignment.center,
+                      // height: 35,
+                      alignment: Alignment.centerLeft,
                       child: widget,
                     ),
                   );

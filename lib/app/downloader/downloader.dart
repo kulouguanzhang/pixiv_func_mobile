@@ -35,8 +35,7 @@ class Downloader extends GetxController implements GetxService {
         connectTimeout: 6000,
       ),
     );
-    (httpClient.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) => client..badCertificateCallback = (cert, host, port) => true;
+    (httpClient.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) => client..badCertificateCallback = (cert, host, port) => true;
 
     final task = DownloadTask.create(
       index: props.index,

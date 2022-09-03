@@ -13,6 +13,7 @@ import 'package:pixiv_func_mobile/components/novel_previewer/novel_previewer.dar
 import 'package:pixiv_func_mobile/components/user_previewer/user_previewer.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/pages/recommended/live/source.dart';
+import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
 
@@ -28,32 +29,33 @@ class RecommendedPage extends StatelessWidget {
     return DefaultTabController(
       length: 5,
       child: ScaffoldWidget(
-        titleWidget: TabBarWidget(
-          indicatorMinWidth: 15,
-          indicator: const RRecTabIndicator(
-            radius: 4,
-            insets: EdgeInsets.only(bottom: 5),
+        titleWidget: NoScrollBehaviorWidget(
+          child: TabBarWidget(
+            indicatorMinWidth: 15,
+            isScrollable: true,
+            indicator: const RRecTabIndicator(
+              radius: 4,
+              insets: EdgeInsets.only(bottom: 5),
+            ),
+            tabs: [
+              TabWidget(text: I18n.illust.tr),
+              TabWidget(text: I18n.manga.tr),
+              TabWidget(text: I18n.novel.tr),
+              TabWidget(text: I18n.user.tr),
+              TabWidget(text: I18n.live.tr),
+            ],
           ),
-          tabs: [
-            TabWidget(text: I18n.illust.tr),
-            TabWidget(text: I18n.manga.tr),
-            TabWidget(text: I18n.novel.tr),
-            TabWidget(text: I18n.user.tr),
-            TabWidget(text: I18n.live.tr),
-          ],
         ),
         child: TabBarView(
           children: [
             DataContent<Illust>(
               sourceList: RecommendedIllustListSource(IllustType.illust),
-              extendedListDelegate:
-                  const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+              extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
               itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
             ),
             DataContent<Illust>(
               sourceList: RecommendedIllustListSource(IllustType.manga),
-              extendedListDelegate:
-                  const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+              extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
               itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
             ),
             DataContent<Novel>(
@@ -69,8 +71,7 @@ class RecommendedPage extends StatelessWidget {
             ),
             DataContent<Live>(
               sourceList: RecommendedLiveListSource(),
-              extendedListDelegate:
-                  const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+              extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
               itemBuilder: (BuildContext context, Live item, int index) => Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: LivePreviewer(live: item),

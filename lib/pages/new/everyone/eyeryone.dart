@@ -58,14 +58,12 @@ class _EveryoneNewContentState extends State<EveryoneNewContent> {
               children: [
                 DataContent<Illust>(
                   sourceList: EveryoneNewIllustListSource(IllustType.illust),
-                  extendedListDelegate:
-                      const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+                  extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
                   itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
                 ),
                 DataContent<Illust>(
                   sourceList: EveryoneNewIllustListSource(IllustType.manga),
-                  extendedListDelegate:
-                      const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+                  extendedListDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
                   itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
                 ),
                 DataContent<Novel>(

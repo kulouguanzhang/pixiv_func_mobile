@@ -248,8 +248,6 @@ class MeProfileSettingsPage extends StatelessWidget {
                                     items: publicityItems,
                                     value: controller.genderPublicity,
                                     onChanged: controller.genderPublicityOnChanged,
-                                    width: 35,
-                                    height: 70,
                                   ),
                                 ],
                               ),
@@ -261,8 +259,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                               Get.bottomSheet(
                                 SinglePicker<int>(
                                   title: I18n.address.tr,
-                                  items: {}
-                                    ..addEntries(controller.presetsResult!.profilePresets.addresses.map((item) => MapEntry(item.name, item.id))),
+                                  items: {}..addEntries(controller.presetsResult!.profilePresets.addresses.map((item) => MapEntry(item.name, item.id))),
                                   initialValue: controller.addressId,
                                   onChanged: controller.addressIdOnChanged,
                                 ),
@@ -283,8 +280,6 @@ class MeProfileSettingsPage extends StatelessWidget {
                                     items: publicityItems,
                                     value: controller.addressPublicity,
                                     onChanged: controller.addressPublicityOnChanged,
-                                    width: 35,
-                                    height: 70,
                                   ),
                                 ],
                               ),
@@ -296,8 +291,7 @@ class MeProfileSettingsPage extends StatelessWidget {
                                 Get.bottomSheet(
                                   SinglePicker<String>(
                                     title: I18n.country.tr,
-                                    items: {}
-                                      ..addEntries(controller.presetsResult!.profilePresets.countries.map((item) => MapEntry(item.name, item.code))),
+                                    items: {}..addEntries(controller.presetsResult!.profilePresets.countries.map((item) => MapEntry(item.name, item.code))),
                                     initialValue: controller.countryCode,
                                     onChanged: controller.countryCodeOnChanged,
                                   ),
@@ -352,8 +346,6 @@ class MeProfileSettingsPage extends StatelessWidget {
                                         items: publicityItems,
                                         value: controller.birthYearPublicity,
                                         onChanged: controller.birthYearPublicityOnChanged,
-                                        width: 35,
-                                        height: 70,
                                       ),
                                     ],
                                   ),
@@ -366,8 +358,6 @@ class MeProfileSettingsPage extends StatelessWidget {
                                         items: publicityItems,
                                         value: controller.birthMonthDayPublicity,
                                         onChanged: controller.birthMonthDayPublicityOnChanged,
-                                        width: 35,
-                                        height: 70,
                                       ),
                                     ],
                                   )
@@ -402,8 +392,6 @@ class MeProfileSettingsPage extends StatelessWidget {
                                     items: publicityItems,
                                     value: controller.jobPublicity,
                                     onChanged: controller.jobPublicityOnChanged,
-                                    width: 35,
-                                    height: 70,
                                   ),
                                 ],
                               ),

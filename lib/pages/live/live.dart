@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/model/live.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/follow_switch_button/follow_switch_button.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
+import 'package:pixiv_func_mobile/components/select_button/select_button.dart';
 import 'package:pixiv_func_mobile/pages/live/controller.dart';
 import 'package:pixiv_func_mobile/pages/user/user.dart';
-import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 import 'package:video_player/video_player.dart';
@@ -26,10 +25,7 @@ class LivePage extends StatelessWidget {
 
   Widget buildPlayerWidget(double heightRatio) {
     final controller = Get.find<LiveController>(tag: controllerTag);
-    final items = {
-      0: controller.list[0].resolution.toString(),
-      1: controller.list[1].resolution.toString(),
-    };
+
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return GestureDetector(
@@ -74,54 +70,13 @@ class LivePage extends StatelessWidget {
                   Positioned(
                     top: 10,
                     right: 10,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      child: SizedBox(
-                        height: 35,
-                        width: 110,
-                        child: DropdownButtonWidgetHideUnderline(
-                          child: DropdownButtonWidget<int>(
-                            isDense: true,
-                            elevation: 0,
-                            isExpanded: true,
-                            borderRadius: BorderRadius.circular(12),
-                            items: [
-                              for (final item in items.entries)
-                                DropdownMenuItemWidget<int>(
-                                  value: item.key,
-                                  child: Container(
-                                    height: 35,
-                                    width: 110,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(17),
-                                      border: controller.currentPlay == item.key
-                                          ? Border.all(
-                                              color: Get.theme.colorScheme.primary.withOpacity(0.5),
-                                            )
-                                          : null,
-                                      color: Get.theme.colorScheme.surface.withOpacity(0.5),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Spacer(),
-                                        const Icon(AppIcons.toggle, size: 12),
-                                        const SizedBox(width: 7),
-                                        TextWidget(
-                                          item.value,
-                                          fontSize: 14,
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                            ],
-                            value: controller.currentPlay,
-                            onChanged: controller.currentPlayOnChange,
-                          ),
-                        ),
-                      ),
+                    child: SelectButtonWidget(
+                      items: {
+                        controller.list[0].resolution.toString(): 0,
+                        controller.list[1].resolution.toString(): 1,
+                      },
+                      value: controller.currentPlay,
+                      onChanged: controller.currentPlayOnChange,
                     ),
                   ),
                 if (controller.hideMenuCountCountdown > 0)

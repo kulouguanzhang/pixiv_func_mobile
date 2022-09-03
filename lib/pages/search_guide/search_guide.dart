@@ -53,25 +53,22 @@ class SearchGuidePage extends StatelessWidget {
             const SizedBox(width: 20),
             SizedBox(
               height: 40,
+              width: 40,
               child: MaterialButton(
                 elevation: 0,
+                padding: EdgeInsets.zero,
                 color: const Color(0xFFFF6289),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.image, color: Colors.white, size: 14),
-                    TextWidget(I18n.searchImage.tr, fontSize: 14, color: Colors.white, isBold: true),
-                  ],
-                ),
+                child: const Icon(Icons.image_search, color: Colors.white, size: 14),
                 onPressed: () {
-                  ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
+                  ImagePicker().pickImage(source: ImageSource.gallery).then((picker) {
                     if (null != picker) {
-                      final bytes = await picker.readAsBytes();
+                      picker.readAsBytes();
                       Get.to(
-                        () => SearchImageResultPage(
-                          imageBytes: bytes,
+                        () async => SearchImageResultPage(
+                          imageBytes: await picker.readAsBytes(),
                           filename: picker.name,
                         ),
                       );

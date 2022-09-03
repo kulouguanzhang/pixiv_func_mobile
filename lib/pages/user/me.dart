@@ -9,10 +9,10 @@ import 'package:pixiv_func_mobile/app/icon/icon.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/components/pixiv_avatar/pixiv_avatar.dart';
 import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
+import 'package:pixiv_func_mobile/components/select_button/select_button.dart';
 import 'package:pixiv_func_mobile/pages/user/me_settings/me_settings.dart';
 import 'package:pixiv_func_mobile/services/account_service.dart';
 import 'package:pixiv_func_mobile/widgets/auto_keep/auto_keep.dart';
-import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/no_scroll_behavior/no_scroll_behavior.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/sliver_headerr/sliver_tab_bar.dart';
@@ -39,10 +39,6 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
     final userDetail = controller.userDetailResult!;
     final String? backgroundImageUrl = userDetail.profile.backgroundImageUrl;
     final UserInfo user = userDetail.user;
-    final items = {
-      Restrict.public: I18n.restrictPublic.tr,
-      Restrict.private: I18n.restrictPrivate.tr,
-    };
 
     return ExtendedSliverAppbar(
       toolbarHeight: kToolbarHeight,
@@ -69,50 +65,13 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
         ],
       ),
       actions: [0, 1].contains(controller.tabController.index)
-          ? Padding(
-              padding: const EdgeInsets.all(8),
-              child: SizedBox(
-                height: 35,
-                width: 70,
-                child: DropdownButtonWidgetHideUnderline(
-                  child: DropdownButtonWidget<Restrict?>(
-                    isDense: true,
-                    elevation: 0,
-                    isExpanded: true,
-                    borderRadius: BorderRadius.circular(12),
-                    items: [
-                      for (final item in items.entries)
-                        DropdownMenuItemWidget<Restrict>(
-                          value: item.key,
-                          child: Container(
-                            height: 35,
-                            width: 70,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(17),
-                              border: controller.restrict == item.key ? Border.all(color: Get.theme.colorScheme.primary) : null,
-                              color: Get.theme.colorScheme.surface,
-                            ),
-                            child: Row(
-                              children: [
-                                const Spacer(),
-                                const Icon(AppIcons.toggle, size: 12),
-                                const SizedBox(width: 7),
-                                TextWidget(
-                                  item.value,
-                                  fontSize: 14,
-                                ),
-                                const Spacer(),
-                              ],
-                            ),
-                          ),
-                        ),
-                    ],
-                    value: controller.restrict,
-                    onChanged: controller.restrictOnChanged,
-                  ),
-                ),
-              ),
+          ? SelectButtonWidget(
+              items: {
+                I18n.restrictPublic.tr: Restrict.public,
+                I18n.restrictPrivate.tr: Restrict.private,
+              },
+              value: controller.restrict,
+              onChanged: controller.restrictOnChanged,
             )
           : null,
       extentActions: GestureDetector(
@@ -264,40 +223,43 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                             height: 0.5,
                             color: const Color(0xFF373737),
                           ),
-                          TabBarWidget(
-                            onTap: controller.tabOnTap,
-                            controller: controller.tabController,
-                            indicatorMinWidth: 15,
-                            labelColor: Theme.of(context).colorScheme.primary,
-                            unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
-                            indicator: const RRecTabIndicator(
-                              radius: 4,
-                              insets: EdgeInsets.only(bottom: 5),
+                          NoScrollBehaviorWidget(
+                            child: TabBarWidget(
+                              onTap: controller.tabOnTap,
+                              isScrollable: true,
+                              controller: controller.tabController,
+                              indicatorMinWidth: 15,
+                              labelColor: Theme.of(context).colorScheme.primary,
+                              unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+                              indicator: const RRecTabIndicator(
+                                radius: 4,
+                                insets: EdgeInsets.only(bottom: 5),
+                              ),
+                              tabs: [
+                                TabWidget(
+                                  text: I18n.bookmarked.tr,
+                                  icon: controller.tabController.index == 0
+                                      ? controller.expandTypeSelector
+                                          ? const Icon(Icons.keyboard_arrow_up, size: 12)
+                                          : const Icon(Icons.keyboard_arrow_down, size: 12)
+                                      : null,
+                                ),
+                                TabWidget(
+                                  text: I18n.following.tr,
+                                ),
+                                TabWidget(
+                                  text: I18n.fans.tr,
+                                ),
+                                TabWidget(
+                                  text: I18n.work.tr,
+                                  icon: controller.tabController.index == 3
+                                      ? controller.expandTypeSelector
+                                          ? const Icon(Icons.keyboard_arrow_up, size: 12)
+                                          : const Icon(Icons.keyboard_arrow_down, size: 12)
+                                      : null,
+                                ),
+                              ],
                             ),
-                            tabs: [
-                              TabWidget(
-                                text: I18n.bookmarked.tr,
-                                icon: controller.tabController.index == 0
-                                    ? controller.expandTypeSelector
-                                        ? const Icon(Icons.keyboard_arrow_up, size: 12)
-                                        : const Icon(Icons.keyboard_arrow_down, size: 12)
-                                    : null,
-                              ),
-                              TabWidget(
-                                text: I18n.following.tr,
-                              ),
-                              TabWidget(
-                                text: I18n.fans.tr,
-                              ),
-                              TabWidget(
-                                text: I18n.work.tr,
-                                icon: controller.tabController.index == 3
-                                    ? controller.expandTypeSelector
-                                        ? const Icon(Icons.keyboard_arrow_up, size: 12)
-                                        : const Icon(Icons.keyboard_arrow_down, size: 12)
-                                    : null,
-                              ),
-                            ],
                           ),
                         ],
                       ),

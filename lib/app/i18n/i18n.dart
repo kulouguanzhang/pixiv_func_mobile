@@ -280,7 +280,7 @@ class I18n {
   static const String clipboard = '77';
 
   ///复制
-  static const String copy = '78';
+  static const String pasteIn = '78';
 
   ///无法输入?
   static const String noEntry = '79';

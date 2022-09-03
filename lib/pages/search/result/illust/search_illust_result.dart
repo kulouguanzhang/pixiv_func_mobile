@@ -76,22 +76,30 @@ class SearchIllustResultPage extends StatelessWidget {
             ],
           ),
         ),
-        child: Column(
-          children: [
-            SearchIllustFilterEditorWidget(
-              keyword: keyword,
-              onFilterChanged: controller.onFilterChanged,
-              expandableController: controller.filterPanelController,
-            ),
-            Expanded(
-              child: DataContent<Illust>(
-                sourceList: controller.sourceList,
-                extendedListDelegate:
-                    const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
-                itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return SizedBox(
+              height: constraints.maxHeight,
+              child: Column(
+                // mainAxisSize: MainAxisSize.max,
+                children: [
+                  SearchIllustFilterEditorWidget(
+                    keyword: keyword,
+                    onFilterChanged: controller.onFilterChanged,
+                    expandableController: controller.filterPanelController,
+                  ),
+                  Expanded(
+                    child: DataContent<Illust>(
+                      sourceList: controller.sourceList,
+                      extendedListDelegate:
+                          const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 5, crossAxisSpacing: 10),
+                      itemBuilder: (BuildContext context, Illust item, int index) => IllustPreviewer(illust: item),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

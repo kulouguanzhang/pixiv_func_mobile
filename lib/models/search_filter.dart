@@ -64,8 +64,7 @@ class SearchIllustFilter {
           dateRangeType == other.dateRangeType;
 
   @override
-  int get hashCode =>
-      target.hashCode ^ sort.hashCode ^ enableDateRange.hashCode ^ dateRange.hashCode ^ bookmarkTotal.hashCode ^ dateRangeType.hashCode;
+  int get hashCode => target.hashCode ^ sort.hashCode ^ enableDateRange.hashCode ^ dateRange.hashCode ^ bookmarkTotal.hashCode ^ dateRangeType.hashCode;
 }
 
 class SearchNovelFilter {
@@ -131,6 +130,5 @@ class SearchNovelFilter {
           dateRangeType == other.dateRangeType;
 
   @override
-  int get hashCode =>
-      target.hashCode ^ sort.hashCode ^ enableDateRange.hashCode ^ dateRange.hashCode ^ bookmarkTotal.hashCode ^ dateRangeType.hashCode;
+  int get hashCode => target.hashCode ^ sort.hashCode ^ enableDateRange.hashCode ^ dateRange.hashCode ^ bookmarkTotal.hashCode ^ dateRangeType.hashCode;
 }

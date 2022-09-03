@@ -189,8 +189,7 @@ class CommentInputWidget extends StatefulWidget {
   final void Function(int id) onStampSend;
   final String label;
 
-  const CommentInputWidget({Key? key, required this.resetReply, required this.onSend, required this.onStampSend, required this.label})
-      : super(key: key);
+  const CommentInputWidget({Key? key, required this.resetReply, required this.onSend, required this.onStampSend, required this.label}) : super(key: key);
 
   @override
   State<CommentInputWidget> createState() => _CommentInputWidgetState();
@@ -356,8 +355,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
             stream: _gridBuilderController.stream,
             builder: (BuildContext b, AsyncSnapshot<void> d) {
               return SizedBox(
-                  height: showCustomKeyBoard ? _keyboardHeight - (Platform.isIOS ? mediaQueryData.padding.bottom : 0) : 0,
-                  child: buildCustomKeyBoard());
+                  height: showCustomKeyBoard ? _keyboardHeight - (Platform.isIOS ? mediaQueryData.padding.bottom : 0) : 0, child: buildCustomKeyBoard());
             },
           ),
           StreamBuilder<void>(
