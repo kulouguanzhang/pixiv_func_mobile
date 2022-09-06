@@ -31,6 +31,8 @@ Future<void> main() async {
             : ThemeMode.light,
   );
 
+  await I18nTranslations.loadExpansions();
+
   runApp(const App());
 
   Get.find<AboutController>().check();

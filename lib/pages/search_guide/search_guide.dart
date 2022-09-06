@@ -63,12 +63,12 @@ class SearchGuidePage extends StatelessWidget {
                 ),
                 child: const Icon(Icons.image_search, color: Colors.white, size: 14),
                 onPressed: () {
-                  ImagePicker().pickImage(source: ImageSource.gallery).then((picker) {
+                  ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
                     if (null != picker) {
-                      picker.readAsBytes();
+                      final bytes = await picker.readAsBytes();
                       Get.to(
-                        () async => SearchImageResultPage(
-                          imageBytes: await picker.readAsBytes(),
+                        () => SearchImageResultPage(
+                          imageBytes: bytes,
                           filename: picker.name,
                         ),
                       );

@@ -35,7 +35,7 @@ class LanguageSettingsPage extends StatelessWidget {
           return Column(
             children: [
               for (final item in items)
-                CupertinoSwitchListTile(
+                 CupertinoSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                   onTap: () => updater(item.value),
                   title: TextWidget(item.key, fontSize: 18, isBold: true, locale: defaultLocale),
