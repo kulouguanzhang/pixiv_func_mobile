@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 
@@ -42,6 +43,8 @@ class I18nTranslations extends Translations {
       I18n.restrictPublic: '公开',
       I18n.restrictPrivate: '悄悄',
       I18n.account: '账号',
+      I18n.versionUpdate: '版本更新',
+      I18n.versionUpdateHint: '当前版本:%s,最新版本:%s,点击前往查看',
       I18n.checkVersionHint: '检查版本更新',
       I18n.hasNewVersionHint: '发现新版本 点击更新',
       I18n.noNewVersionHint: '已经是最新版本',
@@ -214,7 +217,7 @@ class I18nTranslations extends Translations {
       I18n.setToPrivate: '已被设置为私密',
       I18n.getClipboardDataFailed: '获取剪贴板数据失败,可能是没有剪贴板权限',
       I18n.clipboardDataEmpty: '剪贴板数据为空',
-      I18n.clipboardDataInvalid: '剪贴板数据不是有效的账号数据',
+      I18n.clipboardAccountDataInvalid: '剪贴板数据不是有效的账号数据',
       I18n.unblockTag: '解除屏蔽:%s',
       I18n.blockTag: '屏蔽:%s',
       I18n.notPremiumHint: '你不是Pixiv高级会员,所以该选项与时间降序行为一致',
@@ -251,6 +254,8 @@ class I18nTranslations extends Translations {
       I18n.restrictPublic: 'Public',
       I18n.restrictPrivate: 'Private',
       I18n.account: 'Account',
+      I18n.versionUpdate: 'Version update',
+      I18n.versionUpdateHint: 'Current version:%s,Latest version:%s,Click to view',
       I18n.checkVersionHint: 'Check for version updates',
       I18n.hasNewVersionHint: 'Found new version click update',
       I18n.noNewVersionHint: 'Already the latest version',
@@ -423,7 +428,7 @@ class I18nTranslations extends Translations {
       I18n.setToPrivate: 'Set to Private',
       I18n.getClipboardDataFailed: 'Failed to get clipboard data, may not have clipboard permission',
       I18n.clipboardDataEmpty: 'Clipboard data is empty',
-      I18n.clipboardDataInvalid: 'Clipboard data is not valid account data',
+      I18n.clipboardAccountDataInvalid: 'Clipboard data is not valid account data',
       I18n.unblockTag: 'Unblock: %s',
       I18n.blockTag: 'Block:%s',
       I18n.notPremiumHint: 'You are not a Pixiv Premium, so this option is consistent with descending chronological behavior',
@@ -460,6 +465,8 @@ class I18nTranslations extends Translations {
       I18n.restrictPublic: '公開',
       I18n.restrictPrivate: '非公開',
       I18n.account: 'pixiv ID',
+      I18n.versionUpdate: '新しいバージョンの更新',
+      I18n.versionUpdateHint: '現在のバージョン:%s、最新バージョン:%s,クリックして表示',
       I18n.checkVersionHint: 'アップデートを確認',
       I18n.hasNewVersionHint: '新しいバージョンが見つかりました タップしてアップデート',
       I18n.noNewVersionHint: '最新バージョンを使用中',
@@ -632,7 +639,7 @@ class I18nTranslations extends Translations {
       I18n.setToPrivate: '非公開に設定',
       I18n.getClipboardDataFailed: 'クリップボードのデータを取得できませんでした クリップボードの権限がない可能性があります',
       I18n.clipboardDataEmpty: 'クリップボードのデータが空です',
-      I18n.clipboardDataInvalid: 'クリップボードのデータが有効なアカウントデータではありません',
+      I18n.clipboardAccountDataInvalid: 'クリップボードのデータが有効なアカウントデータではありません',
       I18n.unblockTag: 'ブロック解除:%s',
       I18n.blockTag: 'ブロック:%s',
       I18n.notPremiumHint: 'Pixivプレミアムに登録していません このオプションは新着順を表示します',
@@ -669,6 +676,8 @@ class I18nTranslations extends Translations {
       I18n.restrictPublic: 'Для всех',
       I18n.restrictPrivate: 'Приватный',
       I18n.account: 'Аккаунт',
+      I18n.versionUpdate: 'Советы по обновлению версии',
+      I18n.versionUpdateHint: 'Текущая версия: %s, последняя версия: %s, нажмите для просмотра',
       I18n.checkVersionHint: 'Проверить обновление версии',
       I18n.hasNewVersionHint: 'Найдена новая версия, нажмите, чтобы обновить',
       I18n.noNewVersionHint: 'Установленна последняя версия',
@@ -841,7 +850,7 @@ class I18nTranslations extends Translations {
       I18n.setToPrivate: 'Установить как частный',
       I18n.getClipboardDataFailed: 'Не удалось получить данные из буфера обмена, возможно, нет разрешения на буфер обмена',
       I18n.clipboardDataEmpty: 'Данные из буфера обмена пусты',
-      I18n.clipboardDataInvalid: 'Данные из буфера обмена не являются допустимыми данными учетной записи',
+      I18n.clipboardAccountDataInvalid: 'Данные из буфера обмена не являются допустимыми данными учетной записи',
       I18n.unblockTag: 'Разблокировать:%s',
       I18n.blockTag: 'Заблокировать:%s',
       I18n.notPremiumHint: 'Вы не являетесь пользователем Pixiv Premium, поэтому этот вариант соответствует по убыванию',
@@ -853,9 +862,15 @@ class I18nTranslations extends Translations {
   Map<String, Map<String, String>> get keys => _keys;
 
   static Future<void> loadExpansions() async {
-    final path = await getApplicationSupportDirectory();
-    path.listSync().forEach((file) {
+    final directory = await getApplicationSupportDirectory();
+    directory.listSync().forEach((file) {
       expansions.add(I18nExpansion.fromJson(jsonDecode(File(file.path).readAsStringSync())));
     });
+  }
+
+  static Future<void> addExpansion(I18nExpansion expansion) async {
+    final directory = await getApplicationSupportDirectory();
+    final file = File(join(directory.path, '${expansion.locale}.json'));
+    file.writeAsStringSync(expansion.toString());
   }
 }

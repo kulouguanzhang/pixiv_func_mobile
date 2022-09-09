@@ -4,20 +4,22 @@
 
 <br/>
 
-[![latest release](https://img.shields.io/github/release/xiao-cao-x/pixiv_func_mobile?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
-![total downloads](https://img.shields.io/github/downloads/xiao-cao-x/pixiv_func_mobile/total.svg?label=total%20downloads)
-![total stars](https://img.shields.io/github/stars/xiao-cao-x/pixiv_func_mobile?label=total%20stars)
-![total forks](https://img.shields.io/github/forks/xiao-cao-x/pixiv_func_mobile?label=total%20forks)
+[![latest release](https://img.shields.io/github/release/git-xiaocao/pixiv_func_mobile?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
+![total downloads](https://img.shields.io/github/downloads/git-xiaocao/pixiv_func_mobile/total.svg?label=total%20downloads)
+![total stars](https://img.shields.io/github/stars/git-xiaocao/pixiv_func_mobile?label=total%20stars)
+![total forks](https://img.shields.io/github/forks/git-xiaocao/pixiv_func_mobile?label=total%20forks)
 
 - Pixiv第三方移动客户端
 - 使用了`GetX`状态管理框架
 - 代码严格按照`flutter_lints`的规范编写
 - 适合新手学习Flutter
-- 这是我的个人玩具,与其他现有同类项目无关,如果你想拿我的项目跟其他项目比较,那么请你离开,我并不欢迎你
+- 这是我的个人玩具,与其他现有同类项目无关,如果你想拿我的项目跟其他项目比较,那么请你离开,我并不欢迎你 
 - 该项目用于我个人学习Flutter,开源且免费
 - 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/git-xiaocao/pixiv_func_mobile/issues/new)
 
 ## [获取帮助以及预览](https://pixiv.xiaocao.moe/#/pixiv-func/mobile)
+
+QQ Group 755467833
 
 # 如何编译?
 
@@ -59,21 +61,18 @@
 # 注意 当前不是正式版本
 
 
-QQ Group 755467833
-
-
 # 鸣谢
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_mobile)
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=git-xiaocao/pixiv_func_mobile)
 
-> 感谢 [JetBrains](https://www.jetbrains.com/?from=xiao-cao-x/pixiv_func_mobile) 为开源项目提供的以下IDE的免费授权
+> 感谢 [JetBrains](https://www.jetbrains.com/?from=git-xiaocao/pixiv_func_mobile) 为开源项目提供的以下IDE的免费授权
 
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)](https://www.jetbrains.com/idea/?from=xiao-cao-x/pixiv_func_mobile)
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)](https://www.jetbrains.com/idea/?from=git-xiaocao/pixiv_func_mobile)
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.svg)](https://www.jetbrains.com/go/?from=xiao-cao-x/pixiv_func_mobile)
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.svg)](https://www.jetbrains.com/go/?from=git-xiaocao/pixiv_func_mobile)
 
-[![](https://resources.jetbrains.com/storage/products/company/brand/logos/DataGrip.svg)](https://www.jetbrains.com/datagrip/?from=xiao-cao-x/pixiv_func_mobile)  
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/DataGrip.svg)](https://www.jetbrains.com/datagrip/?from=git-xiaocao/pixiv_func_mobile)  
 
 
 

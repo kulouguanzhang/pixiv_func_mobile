@@ -28,9 +28,28 @@ class UrlScheme {
     if ('http' == uri.scheme || 'https' == uri.scheme) {
       if (uri.host.contains('pixiv.net')) {
         final pathSegments = uri.pathSegments;
-        //  en/users/$id/artworks
-
-        if (pathSegments.contains('users') && pathSegments.indexOf('users') <= pathSegments.length - 2) {
+        //  u/$id
+        if (pathSegments.contains('u') && pathSegments.indexOf('u') <= pathSegments.length - 2) {
+          int index = pathSegments.indexOf('u');
+          final idString = uri.pathSegments[index + 1];
+          final id = int.tryParse(idString);
+          if (id == null) {
+            PlatformApi.toast(I18n.invalidId.trArgs([idString]));
+            return;
+          }
+          Get.to(() => UserPage(id: id));
+        } else
+        //  i/$id
+        if (pathSegments.contains('i') && pathSegments.indexOf('i') <= pathSegments.length - 2) {
+          int index = pathSegments.indexOf('i');
+          final idString = uri.pathSegments[index + 1];
+          final id = int.tryParse(idString);
+          if (id == null) {
+            PlatformApi.toast(I18n.invalidId.trArgs([idString]));
+            return;
+          }
+          Get.to(() => IllustIdSearchPage(id: id));
+        } else if (pathSegments.contains('users') && pathSegments.indexOf('users') <= pathSegments.length - 2) {
           int index = pathSegments.indexOf('users');
           final idString = uri.pathSegments[index + 1];
           final id = int.tryParse(idString);

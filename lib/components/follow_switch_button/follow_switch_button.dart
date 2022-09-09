@@ -168,7 +168,7 @@ class FollowSwitchButton extends StatelessWidget {
                       onPressed: () => controller.changeFollowState(),
                       onLongPress: () => _restrictDialog(),
                       child: Center(
-                        child: TextWidget(I18n.follow.tr, color: Colors.white, isBold: true),
+                        child: TextWidget(I18n.followed.tr, color: Colors.white, isBold: true),
                       ),
                     ),
         );

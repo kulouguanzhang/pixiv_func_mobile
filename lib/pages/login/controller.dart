@@ -44,7 +44,7 @@ class LoginController extends GetxController {
       Get.offAll(const HomePage());
       PlatformApi.toast(I18n.loginSuccess.tr);
     } catch (e) {
-      PlatformApi.toast(I18n.clipboardDataInvalid.tr);
+      PlatformApi.toast(I18n.clipboardAccountDataInvalid.tr);
     }
   }
 }

@@ -51,7 +51,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localeCodes = Get.find<SettingsService>().language.split('-');
+    final localeCodes = Get.find<SettingsService>().language.split('_');
 
     return GetMaterialApp(
       defaultTransition: Transition.leftToRight,

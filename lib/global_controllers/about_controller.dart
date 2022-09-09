@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
 import 'package:pixiv_func_mobile/app/state/page_state.dart';
 import 'package:pixiv_func_mobile/app/updater/updater.dart';
@@ -111,8 +112,8 @@ class AboutController extends GetxController implements GetxService {
       if (true == hasNewVersion) {
         if (_first) {
           Get.snackbar(
-            '版本更新提示',
-            '当前版本:$appVersion,最新版本:${releaseInfo!.name},点击前往查看',
+            I18n.versionUpdate.tr,
+            I18n.versionUpdateHint.trArgs([appVersion!,releaseInfo!.name]),
             duration: const Duration(seconds: 6),
             onTap: (snack) => Get.to(() => const AboutPage()),
           );

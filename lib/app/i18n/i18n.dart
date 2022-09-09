@@ -95,6 +95,12 @@ class I18n {
   ///账号
   static const String account = 'account';
 
+  ///版本更新
+  static const String versionUpdate = 'versionUpdate';
+
+  ///当前版本:%s,最新版本:%s,点击前往查看
+  static const String versionUpdateHint ='versionUpdateHint';
+
   /***********************************************************************************************/
   //AboutPage
   /***********************************************************************************************/
@@ -663,7 +669,7 @@ class I18n {
   static const String updateWorkspaceFailed = 'updateWorkspaceFailed';
 
   ///拒绝了权限
-  static  const String permissionDenied = '191';
+  static const String permissionDenied = '191';
 
   ///Pixiv Func更新
   static const String updateTitle = 'updateTitle';
@@ -696,7 +702,7 @@ class I18n {
   static const String clipboardDataEmpty = 'clipboardDataEmpty';
 
   ///剪贴板数据不是有效的账号数据
-  static const String clipboardDataInvalid = 'clipboardDataInvalid';
+  static const String clipboardAccountDataInvalid = 'clipboardAccountDataInvalid';
 
   ///解除屏蔽:%s
   static const String unblockTag = 'unblockTag';
@@ -709,4 +715,7 @@ class I18n {
 
   ///当前IP超过了saucenao未注册用户每日50次上限
   static const String searchImageStatus429Hint = 'searchImageStatus429Hint';
+
+  ///剪贴板不是有效的语言数据
+  static const String clipboardLanguageDataInvalid = 'clipboardLanguageDataInvalid';
 }

@@ -212,7 +212,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                                       : null,
                                 ),
                                 TabWidget(
-                                  text: I18n.following.tr,
+                                  text: I18n.follow.tr,
                                 ),
                                 TabWidget(
                                   text: I18n.about.tr,
