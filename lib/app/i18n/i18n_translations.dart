@@ -517,7 +517,7 @@ class I18nTranslations extends Translations {
       I18n.clipboard: 'クリップボード',
       I18n.pasteIn: '貼り付け',
       I18n.noEntry: '入力できない場合',
-      I18n.following: 'フォロー中',
+      I18n.following: 'フォロー',
       I18n.everyone: 'みんな',
       I18n.myPixiv: 'マイピク',
       I18n.rankingItemDay: 'デイリー',
