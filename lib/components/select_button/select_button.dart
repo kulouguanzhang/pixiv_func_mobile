@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixiv_func_mobile/app/icon/icon.dart';
+import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/dropdown/dropdown.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
@@ -15,19 +16,11 @@ class SelectButtonWidget<V> extends StatelessWidget {
     required this.onChanged,
   }) : super(key: key);
 
-  Size _getTextSize({required String text, TextStyle? style}) {
-    TextPainter painter = TextPainter(
-      locale: WidgetsBinding.instance.window.locale,
-      text: TextSpan(text: text, style: style),
-      textDirection: TextDirection.ltr,
-      maxLines: 2 ^ 31,
-    )..layout();
-    return painter.size;
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    final textSizes = items.keys.map((key) => _getTextSize(text: key)).toList()..sort((a, b) => a.width > b.width ? -1 : 1);
+    final textSizes = items.keys.map((key) => Utils.getTextSize(text: key)).toList()..sort((a, b) => a.width > b.width ? -1 : 1);
     final maxWidth = 8 + 4 + 10 + 12 + 14 / 2 + textSizes.first.width;
     return Container(
       padding: const EdgeInsets.all(8),

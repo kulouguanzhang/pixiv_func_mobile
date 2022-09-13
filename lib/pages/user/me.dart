@@ -24,6 +24,7 @@ import 'bookmark/bookmark.dart';
 import 'controller.dart';
 import 'fans/fans.dart';
 import 'following/following.dart';
+import 'my_pixiv/my_pixiv.dart';
 import 'work/work.dart';
 
 class MePage extends StatefulWidget {
@@ -243,20 +244,33 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                                           ? const Icon(Icons.keyboard_arrow_up, size: 12)
                                           : const Icon(Icons.keyboard_arrow_down, size: 12)
                                       : null,
+                                  iconSize: 12,
+                                  inScrolls: true,
                                 ),
                                 TabWidget(
-                                  text: I18n.following.tr,
+                                  text: I18n.follow.tr,
+                                  inScrolls: true,
+                                  iconSize: 12,
                                 ),
                                 TabWidget(
                                   text: I18n.fans.tr,
+                                  iconSize: 12,
+                                  inScrolls: true,
+                                ),
+                                TabWidget(
+                                  text: I18n.myPixiv.tr,
+                                  iconSize: 12,
+                                  inScrolls: true,
                                 ),
                                 TabWidget(
                                   text: I18n.work.tr,
-                                  icon: controller.tabController.index == 3
+                                  icon: controller.tabController.index == 4
                                       ? controller.expandTypeSelector
-                                          ? const Icon(Icons.keyboard_arrow_up, size: 12)
-                                          : const Icon(Icons.keyboard_arrow_down, size: 12)
+                                      ? const Icon(Icons.keyboard_arrow_up, size: 12)
+                                      : const Icon(Icons.keyboard_arrow_down, size: 12)
                                       : null,
+                                  iconSize: 12,
+                                  inScrolls: true,
                                 ),
                               ],
                             ),
@@ -284,6 +298,9 @@ class _MePageState extends State<MePage> with TickerProviderStateMixin {
                     ),
                     AutomaticKeepWidget(
                       child: UserFansContent(id: controller.currentUserId),
+                    ),
+                    AutomaticKeepWidget(
+                      child: UserMyPixivContent(id: controller.currentUserId),
                     ),
                     AutomaticKeepWidget(
                       child: UserWorkContent(id: controller.currentUserId, expandTypeSelector: controller.expandTypeSelector),

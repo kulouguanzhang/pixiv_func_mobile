@@ -202,6 +202,8 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                                           ? const Icon(Icons.keyboard_arrow_up, size: 12)
                                           : const Icon(Icons.keyboard_arrow_down, size: 12)
                                       : null,
+                                  iconSize: 12,
+                                  inScrolls: true,
                                 ),
                                 TabWidget(
                                   text: I18n.bookmarked.tr,
@@ -210,12 +212,18 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                                           ? const Icon(Icons.keyboard_arrow_up, size: 12)
                                           : const Icon(Icons.keyboard_arrow_down, size: 12)
                                       : null,
+                                  iconSize: 12,
+                                  inScrolls: true,
                                 ),
                                 TabWidget(
                                   text: I18n.follow.tr,
+                                  iconSize: 12,
+                                  inScrolls: true,
                                 ),
                                 TabWidget(
                                   text: I18n.about.tr,
+                                  iconSize: 12,
+                                  inScrolls: true,
                                 ),
                               ],
                             ),

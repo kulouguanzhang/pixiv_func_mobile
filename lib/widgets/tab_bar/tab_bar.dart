@@ -22,6 +22,8 @@ class TabWidget extends StatelessWidget implements PreferredSizeWidget {
     this.icon,
     this.height,
     this.child,
+    this.inScrolls,
+    this.iconSize,
   })  : assert(text != null || child != null || icon != null),
         assert(text == null || child == null),
         super(key: key);
@@ -48,8 +50,15 @@ class TabWidget extends StatelessWidget implements PreferredSizeWidget {
   /// height is 46.0 pixels.
   final double? height;
 
+  final bool? inScrolls;
+
+  final double? iconSize;
+
   Widget buildLabelText() {
-    return child ?? Text(text!, softWrap: false, overflow: TextOverflow.fade);
+    return Padding(
+      padding: null == iconSize ? EdgeInsets.zero : EdgeInsets.symmetric(horizontal: iconSize!*1.5),
+      child: child ?? Text(text!, softWrap: false, overflow: TextOverflow.fade),
+    );
   }
 
   @override
@@ -66,9 +75,7 @@ class TabWidget extends StatelessWidget implements PreferredSizeWidget {
         fit: StackFit.passthrough,
         alignment: Alignment.centerRight,
         children: <Widget>[
-          Center(
-            child: buildLabelText(),
-          ),
+          Center(child: buildLabelText()),
           icon!,
         ],
       );
