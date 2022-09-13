@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/utils/utils.dart';
 
 class NovelViewerController extends GetxController {
   final double maxWidth;
@@ -60,7 +61,7 @@ class NovelViewerController extends GetxController {
     double renderHeight = 0;
     for (int i = startIndex; i < textLines.length; ++i) {
       final currentText = textLines[i];
-      final currentLineHeight = _getTextSize(text: currentText, maxWidth: maxWidth, style: style).height;
+      final currentLineHeight = Utils.getTextSize(text: currentText, maxWidth: maxWidth, style: style).height;
       heightList.add(currentLineHeight);
       if (renderHeight + currentLineHeight <= maxHeight) {
         renderHeight += currentLineHeight;
@@ -72,15 +73,7 @@ class NovelViewerController extends GetxController {
     return NovelData(startIndex, renderTextLines);
   }
 
-  Size _getTextSize({required String text, required double maxWidth, TextStyle? style}) {
-    TextPainter painter = TextPainter(
-      locale: WidgetsBinding.instance.window.locale,
-      text: TextSpan(text: text, style: style),
-      textDirection: TextDirection.ltr,
-      maxLines: 2 ^ 31,
-    )..layout(maxWidth: maxWidth);
-    return painter.size;
-  }
+
 }
 
 class NovelData {

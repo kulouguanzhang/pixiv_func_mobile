@@ -8,6 +8,7 @@ import 'package:pixiv_func_mobile/widgets/tab_bar/tab_bar.dart';
 import 'controller.dart';
 import 'everyone/eyeryone.dart';
 import 'follow/follow.dart';
+import 'my_pixiv/my_pixiv.dart';
 
 class NewPage extends StatefulWidget {
   const NewPage({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
       builder: (controller) => ScaffoldWidget(
         titleWidget: TabBarWidget(
           onTap: controller.tabOnTap,
+          isScrollable: true,
           controller: controller.tabController,
           indicatorMinWidth: 15,
           labelColor: Theme.of(context).colorScheme.primary,
@@ -40,6 +42,8 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
                       ? const Icon(Icons.keyboard_arrow_up, size: 12)
                       : const Icon(Icons.keyboard_arrow_down, size: 12)
                   : null,
+              iconSize: 12,
+              inScrolls: true,
             ),
             TabWidget(
               text: I18n.everyone.tr,
@@ -48,6 +52,8 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
                       ? const Icon(Icons.keyboard_arrow_up, size: 12)
                       : const Icon(Icons.keyboard_arrow_down, size: 12)
                   : null,
+              iconSize: 12,
+              inScrolls: true,
             ),
             TabWidget(
               text: I18n.myPixiv.tr,
@@ -56,6 +62,8 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
                       ? const Icon(Icons.keyboard_arrow_up, size: 12)
                       : const Icon(Icons.keyboard_arrow_down, size: 12)
                   : null,
+              iconSize: 12,
+              inScrolls: true,
             ),
           ],
         ),
@@ -68,7 +76,9 @@ class _NewPageState extends State<NewPage> with TickerProviderStateMixin {
             AutomaticKeepWidget(
               child: EveryoneNewContent(expandTypeSelector: controller.expandTypeSelector),
             ),
-            const SizedBox(),
+            AutomaticKeepWidget(
+              child: MyPixivNewContent(expandTypeSelector: controller.expandTypeSelector),
+            ),
           ],
         ),
       ),

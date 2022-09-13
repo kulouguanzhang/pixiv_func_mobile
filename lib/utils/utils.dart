@@ -1,5 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 class Utils {
   Utils._();
@@ -51,5 +52,15 @@ class Utils {
   ///查找url里的用户ID
   static int findUserIdByUrl(String url) {
     return int.parse(RegExp(r'(?<=pixiv://users/)([1-9][0-9]*)\b').stringMatch(url)!);
+  }
+
+  static Size getTextSize({required String text, double maxWidth = double.infinity, TextStyle? style}) {
+    TextPainter painter = TextPainter(
+      locale: WidgetsBinding.instance.window.locale,
+      text: TextSpan(text: text, style: style),
+      textDirection: TextDirection.ltr,
+      maxLines: 2 ^ 31,
+    )..layout(maxWidth: maxWidth);
+    return painter.size;
   }
 }

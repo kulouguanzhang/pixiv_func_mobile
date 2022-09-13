@@ -86,7 +86,7 @@ class UserController extends GetxController {
 }
 
 class MeController extends GetxController {
-  MeController(TickerProvider vsync) : tabController = TabController(length: 4, vsync: vsync);
+  MeController(TickerProvider vsync) : tabController = TabController(length: 5, vsync: vsync);
   final TabController tabController;
   final CancelToken cancelToken = CancelToken();
 

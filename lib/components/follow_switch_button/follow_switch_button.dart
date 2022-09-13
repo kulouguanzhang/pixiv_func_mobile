@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_dart_api/enums.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/components/select_button/select_button.dart';
+import 'package:pixiv_func_mobile/utils/utils.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
 
 import 'controller.dart';
@@ -134,13 +137,14 @@ class FollowSwitchButton extends StatelessWidget {
         }
       },
       builder: (controller) {
+        final width = max(Utils.getTextSize(text: I18n.follow.tr).width, Utils.getTextSize(text: I18n.followed.tr).width) + 40;
         return SizedBox(
-          width: 90,
-          height: 40,
+          width: width,
+          height: 45,
           child: controller.requesting
               ? SizedBox(
-                  width: 90,
-                  height: 40,
+                  width: width,
+                  height: 45,
                   child: Center(
                     child: CupertinoActivityIndicator(color: Theme.of(context).colorScheme.onSurface),
                   ),
@@ -168,7 +172,7 @@ class FollowSwitchButton extends StatelessWidget {
                       onPressed: () => controller.changeFollowState(),
                       onLongPress: () => _restrictDialog(),
                       child: Center(
-                        child: TextWidget(I18n.followed.tr, color: Colors.white, isBold: true),
+                        child: TextWidget(I18n.follow.tr, color: Colors.white, isBold: true),
                       ),
                     ),
         );

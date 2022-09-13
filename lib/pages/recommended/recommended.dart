@@ -33,6 +33,7 @@ class RecommendedPage extends StatelessWidget {
           child: TabBarWidget(
             indicatorMinWidth: 15,
             isScrollable: true,
+            padding: EdgeInsets.zero,
             indicator: const RRecTabIndicator(
               radius: 4,
               insets: EdgeInsets.only(bottom: 5),
