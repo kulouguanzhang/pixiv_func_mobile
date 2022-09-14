@@ -448,14 +448,20 @@ class I18n {
   ///原图
   static const String originalImage = 'originalImage';
 
-  ///语言拓展
+  ///语言拓展包
   static const String languageExpansion = 'languageExpansion';
 
-  ///清空语言拓展
+  ///清空语言拓展包
   static const String clearLanguageExpansion = 'clearLanguageExpansion';
 
   ///从GitHub加载
   static const String loadFromGitHub = 'loadFromGitHub';
+
+  ///更新了%s个语言拓展包,将在重启APP后生效
+  static const String updateLanguageExpansionHint = 'updateLanguageExpansionHint';
+
+  ///没有需要更新的语言拓展包
+  static const String noUpdateLanguageExpansionHint = 'noUpdateLanguageExpansionHint';
 
   /***********************************************************************************************/
   //IllustPage

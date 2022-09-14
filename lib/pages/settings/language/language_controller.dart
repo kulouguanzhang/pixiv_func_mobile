@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n_expansion.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n_translations.dart';
 import 'package:pixiv_func_mobile/app/platform/api/platform_api.dart';
@@ -47,9 +48,9 @@ class LanguageController extends GetxController {
         }
       }
       if (count > 0) {
-        PlatformApi.toast('更新了$count个语言拓展包,将在重启APP后生效');
+        PlatformApi.toast(I18n.updateLanguageExpansionHint.trArgs([count.toString()]));
       } else {
-        PlatformApi.toast('没有需要更新的语言拓展包');
+        PlatformApi.toast(I18n.noUpdateLanguageExpansionHint.tr);
       }
     });
   }
