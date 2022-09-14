@@ -17,17 +17,35 @@
 - このプロジェクトはFlutterの学習のためのFOSSです
 - バグの発見や新機能の追加は気軽に[Issue](https://github.com/git-xiaocao/pixiv_func_mobile/issues/new)へ
 
-## [Helpとプレビュー(中国語のみ)](https://pixiv.xiaocao.moe/#/pixiv-func/mobile)
+---
 
-QQ Group 755467833
+[ヘルプとプレビューを見る(中国語のみ)](https://pixiv.xiaocao.moe/#/pixiv-func/mobile)
 
-# How to compile?
+[QQグループ755467833](https://jq.qq.com/?_wv=1027&k=HHuqfLxy)
+
+---
+
+# 注意:これは正式リリースではありません
+
+# どうやってコンパイルするの?
 
 1. プロジェクトのディレクトリをターミナルで開く
 2. `flutter pub get`を実行する
-3. [build_release](./build_release)をターミナルにコピーペーストして実行します。
+3. [build_release](./build_release)をターミナルにコピーペーストして実行
 
-機能一覧
+# I18n(国際化)のPR
+以下の言語はこのリポジトリにPRを送ってください  
+`简体中文` `English` `日本語` `Русский` 
+
+その他の言語については以下リポジトリを参照してください  
+[pixiv_func_i18n_expansion](https://github.com/git-xiaocao/pixiv_func_i18n_expansion)
+
+
+# 機能面のPR
+
+まず[Issue](https://github.com/git-xiaocao/pixiv_func_mobile/issues/new)を送ってから、PRを提出してください
+
+# 機能一覧
 
 | 名称 | 機能 | 状態 |
 | - | - | - |
@@ -57,8 +75,6 @@ QQ Group 755467833
 | 作品のアップロード |  | 未実装 |
 | pixivision |  | 検討中 |
 | アカウントデータ | 暗号化 <br> クリップボードからのログイン(MIUIはクリップボードへのアクセス許可が必要) <br> アカウントへのログイン方法が不明な方のためのサポート | 実装済 |
-
-# 注意:これは正式リリースではありません
 
 
 # 謝辞
