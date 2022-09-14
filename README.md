@@ -2,7 +2,7 @@
 
 # 全新设计UI
 
-[:jp:](./README_ja.md)
+[:jp:](./README_ja.md) :us: :ru:
 
 <br/>
 
