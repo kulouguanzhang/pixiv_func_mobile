@@ -793,8 +793,6 @@ class I18nTranslations extends Translations {
       I18n.languageExpansion: 'расширение языка',
       I18n.clearLanguageExpansion: 'ясное расширение языка',
       I18n.loadFromGitHub: 'Загрузить с GitHub',
-      I18n.updateLanguageExpansionHint: '',
-      I18n.noUpdateLanguageExpansionHint: '',
       I18n.resolution: 'Разрешение:%s',
       I18n.summary: 'Сводка',
       I18n.uploadDate: 'Дата загрузки:%s',
