@@ -12,6 +12,8 @@
 ![total stars](https://img.shields.io/github/stars/git-xiaocao/pixiv_func_mobile?label=total%20stars)
 ![total forks](https://img.shields.io/github/forks/git-xiaocao/pixiv_func_mobile?label=total%20forks)
 
+---
+
 - Pixiv第三方移动客户端
 - 使用了`GetX`状态管理框架
 - 代码严格按照`flutter_lints`的规范编写
@@ -20,9 +22,15 @@
 - 该项目用于我个人学习Flutter,开源且免费
 - 有哪里出现问题或者需要新功能,欢迎打开[Issue](https://github.com/git-xiaocao/pixiv_func_mobile/issues/new)
 
-## [获取帮助以及预览](https://pixiv.xiaocao.moe/#/pixiv-func/mobile)
+---
 
-QQ Group 755467833
+[获取帮助以及预览](https://pixiv.xiaocao.moe/#/pixiv-func/mobile)
+
+[QQ群755467833](https://jq.qq.com/?_wv=1027&k=HHuqfLxy)
+
+---
+
+# 注意 当前不是正式版本
 
 # 如何编译?
 
@@ -30,7 +38,16 @@ QQ Group 755467833
 2. 执行`flutter pub get`
 3. 把[build_release](./build_release)复制到终端执行
 
-功能列表
+# I18n PR
+`简体中文` `English` `日本語` `Русский` 请在此仓库打开PR
+
+其他语言 请在[pixiv_func_i18n_expansion](https://github.com/git-xiaocao/pixiv_func_i18n_expansion)仓库打开PR
+
+# 功能性PR
+
+请先打开[Issue](https://github.com/git-xiaocao/pixiv_func_mobile/issues/new)确定之后再PR
+
+# 功能列表
 
 | 名称         | 描述                                                                                                      | 状态      |
 |------------|---------------------------------------------------------------------------------------------------------|---------|
@@ -60,8 +77,6 @@ QQ Group 755467833
 | 发布作品       |                                                                                                         | 未完成     |
 | pixivision |                                                                                                         | 待考虑     |
 | 导出账号数据     | 加密的 仅用于从剪切板登录(MIUI要给剪贴板权限)帮不会登录的人登录账号                                                                   | 已完成     |
-
-# 注意 当前不是正式版本
 
 
 # 鸣谢
