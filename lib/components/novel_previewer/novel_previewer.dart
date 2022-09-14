@@ -14,6 +14,8 @@ class NovelPreviewer extends StatelessWidget {
 
   const NovelPreviewer({Key? key, required this.novel, this.showUserName = true}) : super(key: key);
 
+  static const heightRatio = 248 / 176;
+
   @override
   Widget build(BuildContext context) {
     final sb = StringBuffer();
@@ -35,20 +37,23 @@ class NovelPreviewer extends StatelessWidget {
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             return SizedBox(
-              height: Get.height * 0.3,
+              height: constraints.maxWidth * 0.3 * heightRatio,
               child: Row(
                 children: [
                   SizedBox(
                     width: constraints.maxWidth * 0.3,
-                    height: Get.height * 0.3,
-                    child: Container(
-                      color: Colors.white,
-                      child: PixivImageWidget(novel.imageUrls.medium, fit: BoxFit.fill),
+                    height: constraints.maxWidth * 0.3 * heightRatio,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
+                      child: PixivImageWidget(
+                        novel.imageUrls.medium,
+                        // fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
-                  SizedBox(
-                    width: constraints.maxWidth * 0.7 - 12,
+                  Expanded(
+                    // width: constraints.maxWidth * 0.7 - 12,
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +92,7 @@ class NovelPreviewer extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 9),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Theme.of(context).colorScheme.surface,
+                                      color: Theme.of(context).colorScheme.background,
                                     ),
                                     child: TextWidget('${tag.name} ${tag.translatedName != null ? ' ${tag.translatedName}' : ''}',
                                         fontSize: 12, forceStrutHeight: true),

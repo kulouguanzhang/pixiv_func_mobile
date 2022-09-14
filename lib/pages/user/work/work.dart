@@ -55,7 +55,7 @@ class _UserWorkContentState extends State<UserWorkContent> {
           ),
           Expanded(
             child: LazyIndexedStack(
-              index: controller.workType == WorkType.illust ? 0 : 1,
+              index: controller.workType.index,
               children: [
                 DataContent<Illust>(
                   sourceList: UserIllustListSource(widget.id, IllustType.illust),
