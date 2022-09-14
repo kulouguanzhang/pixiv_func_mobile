@@ -2,6 +2,9 @@
 
 # 全新设计UI
 
+## README_i18n
+[:jp:](./README_ja.md) :us: :ru:
+
 <br/>
 
 [![latest release](https://img.shields.io/github/release/git-xiaocao/pixiv_func_mobile?label=latest%20release)](https://github.com/xiao-cao-x/pixiv_func_mobile/releases/latest)
