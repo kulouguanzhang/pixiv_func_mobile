@@ -62,11 +62,13 @@ class App extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('zh', 'CN'),
-        Locale('en', 'US'),
-        Locale('ja', 'JP'),
-        Locale('ru', 'RU'),
+      supportedLocales:  [
+        const Locale('zh', 'CN'),
+        const Locale('en', 'US'),
+        const Locale('ja', 'JP'),
+        const Locale('ru', 'RU'),
+        for(final item in I18nTranslations.expansions)
+          item.flutterLocale
       ],
       fallbackLocale: const Locale('zh', 'CN'),
       debugShowCheckedModeBanner: false,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 class I18nExpansion {
   const I18nExpansion({
@@ -43,4 +44,9 @@ class I18nExpansion {
         'avatar': avatar,
         'data': data,
       };
+
+  Locale get flutterLocale{
+    final list = locale.split('_');
+    return Locale(list.first,list.last);
+  }
 }

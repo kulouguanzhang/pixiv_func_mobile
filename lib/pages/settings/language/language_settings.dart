@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/services/settings_service.dart';
-import 'package:pixiv_func_mobile/widgets/cupertino_switch_list_tile/cupertino_switch_list_tile.dart';
+import 'package:pixiv_func_mobile/pages/settings/language/language_controller.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
+
+import 'expansion/language_expansion.dart';
 
 class LanguageSettingsPage extends StatelessWidget {
   const LanguageSettingsPage({Key? key}) : super(key: key);
@@ -19,37 +20,33 @@ class LanguageSettingsPage extends StatelessWidget {
       const MapEntry('日本語', 'ja_JP'),
       const MapEntry('Русский', 'ru_RU'),
     ];
-
-    return ScaffoldWidget(
-      title: I18n.languageSettingsPageTitle.tr,
-      child: ObxValue(
-        (Rx<String> data) {
-          void updater(String? value) {
-            if (null != value) {
-              final list = value.split('_');
-              Get.updateLocale(Locale(list.first, list.last));
-              data.value = value;
-              Get.find<SettingsService>().language = value;
-            }
-          }
-
-          return ListView(
-            children: [
-              for (final item in items)
-                CupertinoSwitchListTile(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
-                  onTap: () => updater(item.value),
-                  title: TextWidget(item.key, fontSize: 18, isBold: true, locale: defaultLocale),
-                  value: data.value == item.value,
-                ),
-              // ListTile(
-              //   onTap: () => Get.to(const LanguageExpansionPage()),
-              //   title: const TextWidget('语言拓展包', fontSize: 18, isBold: true, locale: defaultLocale),
-              // )
-            ],
-          );
-        },
-        Get.find<SettingsService>().language.obs,
+    Get.put(LanguageController());
+    return GetBuilder<LanguageController>(
+      builder: (controller) => ScaffoldWidget(
+        title: I18n.languageSettingsPageTitle.tr,
+        child: ListView(
+          children: [
+            for (final item in items)
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
+                onTap: () => controller.languageOnChange(item.value),
+                title: TextWidget(item.key, fontSize: 18, isBold: true, locale: defaultLocale),
+                trailing: controller.language == item.value
+                    ? Icon(
+                        Icons.check,
+                        size: 25,
+                        color: Get.theme.colorScheme.primary,
+                      )
+                    : null,
+              ),
+            const Divider(),
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
+              onTap: () => Get.to(const LanguageExpansionPage()),
+              title:  TextWidget(I18n.languageExpansion.tr, fontSize: 18, isBold: true, locale: defaultLocale),
+            )
+          ],
+        ),
       ),
     );
   }

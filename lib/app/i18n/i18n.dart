@@ -99,7 +99,7 @@ class I18n {
   static const String versionUpdate = 'versionUpdate';
 
   ///当前版本:%s,最新版本:%s,点击前往查看
-  static const String versionUpdateHint ='versionUpdateHint';
+  static const String versionUpdateHint = 'versionUpdateHint';
 
   /***********************************************************************************************/
   //AboutPage
@@ -448,6 +448,15 @@ class I18n {
   ///原图
   static const String originalImage = 'originalImage';
 
+  ///语言拓展
+  static const String languageExpansion = 'languageExpansion';
+
+  ///清空语言拓展
+  static const String clearLanguageExpansion = 'clearLanguageExpansion';
+
+  ///从GitHub加载
+  static const String loadFromGitHub = 'loadFromGitHub';
+
   /***********************************************************************************************/
   //IllustPage
   /***********************************************************************************************/
@@ -715,7 +724,4 @@ class I18n {
 
   ///当前IP超过了saucenao未注册用户每日50次上限
   static const String searchImageStatus429Hint = 'searchImageStatus429Hint';
-
-  ///剪贴板不是有效的语言数据
-  static const String clipboardLanguageDataInvalid = 'clipboardLanguageDataInvalid';
 }

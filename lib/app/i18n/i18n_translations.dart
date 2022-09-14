@@ -142,6 +142,9 @@ class I18nTranslations extends Translations {
       I18n.mediumImage: '中等',
       I18n.largeImage: '大图',
       I18n.originalImage: '原图',
+      I18n.languageExpansion: '语言拓展',
+      I18n.clearLanguageExpansion: '清空语言拓展',
+      I18n.loadFromGitHub: '从GitHub加载',
       I18n.resolution: '分辨率:%s',
       I18n.summary: '介绍',
       I18n.uploadDate: '上传日期:%s',
@@ -353,6 +356,9 @@ class I18nTranslations extends Translations {
       I18n.mediumImage: 'Medium',
       I18n.largeImage: 'Large',
       I18n.originalImage: 'Original',
+      I18n.languageExpansion: 'Language expansion',
+      I18n.clearLanguageExpansion: 'Clear Language expansion',
+      I18n.loadFromGitHub: 'Load form GitHub',
       I18n.resolution: 'Resolution:%s',
       I18n.summary: 'Summary',
       I18n.uploadDate: 'Update date:%s',
@@ -564,6 +570,9 @@ class I18nTranslations extends Translations {
       I18n.mediumImage: '標準画質',
       I18n.largeImage: '高画質',
       I18n.originalImage: 'オリジナル画質',
+      I18n.languageExpansion: '言語拡張パック',
+      I18n.clearLanguageExpansion: '空の言語拡張パック',
+      I18n.loadFromGitHub: 'GitHub から読み込む',
       I18n.resolution: '解像度:%s',
       I18n.summary: '概要',
       I18n.uploadDate: '投稿日:%s',
@@ -775,6 +784,9 @@ class I18nTranslations extends Translations {
       I18n.mediumImage: 'Среднее',
       I18n.largeImage: 'Крупное',
       I18n.originalImage: 'Оригинальное',
+      I18n.languageExpansion: 'расширение языка',
+      I18n.clearLanguageExpansion: 'ясное расширение языка',
+      I18n.loadFromGitHub: 'Загрузить с GitHub',
       I18n.resolution: 'Разрешение:%s',
       I18n.summary: 'Сводка',
       I18n.uploadDate: 'Дата загрузки:%s',
@@ -859,12 +871,22 @@ class I18nTranslations extends Translations {
   };
 
   @override
-  Map<String, Map<String, String>> get keys => _keys;
+  Map<String, Map<String, String>> get keys => _keys
+    ..addEntries([
+      for (final item in expansions) MapEntry(item.locale, item.data),
+    ]);
 
   static Future<void> loadExpansions() async {
     final directory = await getApplicationSupportDirectory();
     directory.listSync().forEach((file) {
       expansions.add(I18nExpansion.fromJson(jsonDecode(File(file.path).readAsStringSync())));
+    });
+  }
+
+  static Future<void> clearExpansion() async {
+    expansions.clear();
+    (await getApplicationSupportDirectory()).listSync().forEach((file) {
+      file.deleteSync();
     });
   }
 
