@@ -11,7 +11,6 @@ import 'package:pixiv_func_mobile/app/theme/theme.dart';
 import 'package:pixiv_func_mobile/global_controllers/about_controller.dart';
 import 'package:pixiv_func_mobile/pages/index.dart';
 import 'package:pixiv_func_mobile/services/settings_service.dart';
-
 import 'app/asset_manifest.dart';
 
 Future<void> main() async {
@@ -34,6 +33,7 @@ Future<void> main() async {
   await I18nTranslations.loadExpansions();
 
   runApp(const App());
+
 
   Get.find<AboutController>().check();
 
@@ -62,13 +62,12 @@ class App extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales:  [
+      supportedLocales: [
         const Locale('zh', 'CN'),
         const Locale('en', 'US'),
         const Locale('ja', 'JP'),
         const Locale('ru', 'RU'),
-        for(final item in I18nTranslations.expansions)
-          item.flutterLocale
+        for (final item in I18nTranslations.expansions) item.flutterLocale
       ],
       fallbackLocale: const Locale('zh', 'CN'),
       debugShowCheckedModeBanner: false,

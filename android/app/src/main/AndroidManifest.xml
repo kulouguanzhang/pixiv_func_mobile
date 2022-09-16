@@ -15,8 +15,8 @@
     </queries>
     <application
         android:icon="@mipmap/ic_launcher"
-        android:usesCleartextTraffic="true"
-        android:label="Pixiv Func">
+        android:label="Pixiv Func"
+        android:usesCleartextTraffic="true">
         <activity
             android:name="moe.xiaocao.pixiv.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -29,39 +29,65 @@
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/share_targets" />
+
+            <intent-filter android:label="图片搜源">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="http" android:host="www.pixiv.net"/>
-                <data android:scheme="http" android:host="pixiv.net"/>
+                <data
+                    android:host="www.pixiv.net"
+                    android:scheme="http" />
+                <data
+                    android:host="pixiv.net"
+                    android:scheme="http" />
 
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="https"  android:host="www.pixiv.net"/>
-                <data android:scheme="https" android:host="pixiv.net"/>
+                <data
+                    android:host="www.pixiv.net"
+                    android:scheme="https" />
+                <data
+                    android:host="pixiv.net"
+                    android:scheme="https" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="pixiv" android:host="users"/>
-                <data android:scheme="pixiv" android:host="illusts"/>
-                <data android:scheme="pixiv" android:host="account"/>
+                <data
+                    android:host="users"
+                    android:scheme="pixiv" />
+                <data
+                    android:host="illusts"
+                    android:scheme="pixiv" />
+                <data
+                    android:host="account"
+                    android:scheme="pixiv" />
             </intent-filter>
         </activity>
 

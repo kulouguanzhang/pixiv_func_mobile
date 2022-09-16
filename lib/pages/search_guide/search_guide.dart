@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:pixiv_dart_api/vo/trending_tag_list_result.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
@@ -8,7 +7,7 @@ import 'package:pixiv_func_mobile/components/pixiv_image/pixiv_image.dart';
 import 'package:pixiv_func_mobile/data_content/data_content.dart';
 import 'package:pixiv_func_mobile/pages/illust/illust.dart';
 import 'package:pixiv_func_mobile/pages/search/result/illust/search_illust_result.dart';
-import 'package:pixiv_func_mobile/pages/search/result/image/search_image_result.dart';
+import 'package:pixiv_func_mobile/pages/search/result/image/search_image.dart';
 import 'package:pixiv_func_mobile/pages/search/search.dart';
 import 'package:pixiv_func_mobile/widgets/scaffold/scaffold.dart';
 import 'package:pixiv_func_mobile/widgets/text/text.dart';
@@ -62,19 +61,7 @@ class SearchGuidePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Icon(Icons.image_search, color: Colors.white, size: 14),
-                onPressed: () {
-                  ImagePicker().pickImage(source: ImageSource.gallery).then((picker) async {
-                    if (null != picker) {
-                      final bytes = await picker.readAsBytes();
-                      Get.to(
-                        () => SearchImageResultPage(
-                          imageBytes: bytes,
-                          filename: picker.name,
-                        ),
-                      );
-                    }
-                  });
-                },
+                onPressed: () => Get.to(const SearchImagePage()),
               ),
             ),
           ],

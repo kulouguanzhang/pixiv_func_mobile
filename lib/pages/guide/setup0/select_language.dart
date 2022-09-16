@@ -15,16 +15,16 @@ class GuideSelectLanguagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<MapEntry<String, String>> items = [
-      MapEntry('简体中文', 'zh-CN'),
-      MapEntry('English', 'en-US'),
-      MapEntry('日本語', 'ja-JP'),
-      MapEntry('Русский', 'ru-RU'),
+      MapEntry('简体中文', 'zh_CN'),
+      MapEntry('English', 'en_US'),
+      MapEntry('日本語', 'ja_JP'),
+      MapEntry('Русский', 'ru_RU'),
     ];
     return ObxValue<Rx<String?>>(
       (data) {
         void updater(String? value) {
           if (null != value) {
-            final list = value.split('-');
+            final list = value.split('_');
             Get.updateLocale(Locale(list.first, list.last));
             data.value = value;
             Get.find<SettingsService>().language = value;
