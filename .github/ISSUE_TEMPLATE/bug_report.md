@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve(创建报告以帮助我们改进)
-title: bug
+title: "[bug]"
 labels: bug
 assignees: git-xiaocao
 
