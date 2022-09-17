@@ -30,7 +30,7 @@ class PlatformApiPlugin(context: Context) : FlutterPlugin,
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             PlatformApi.Method.SAVE_IMAGE.value -> {
-                newThreadFunc(func = { ->
+                newThreadFunc(func = {
                     api.saveImage(
                         call.argument<ByteArray>("imageBytes")!!,
                         call.argument<String>("filename")!!
@@ -40,7 +40,7 @@ class PlatformApiPlugin(context: Context) : FlutterPlugin,
                 }
             }
             PlatformApi.Method.SAVE_GIF_IMAGE.value -> {
-                newThreadFunc(func = { ->
+                newThreadFunc(func = {
                     api.saveGifImage(
                         call.argument<Int>("id")!!,
                         call.argument<List<ByteArray>>("images")!!,
@@ -51,7 +51,7 @@ class PlatformApiPlugin(context: Context) : FlutterPlugin,
                 }
             }
             PlatformApi.Method.UN_ZIP_GIF.value -> {
-                newThreadFunc(func = { ->
+                newThreadFunc(func = {
                     api.unZipGif(call.argument<ByteArray>("zipBytes")!!)
                 }) {
                     result.success(it)

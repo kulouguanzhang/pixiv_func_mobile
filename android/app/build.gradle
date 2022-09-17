@@ -81,6 +81,9 @@ android {
             universalApk true
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
 
 }
 
@@ -92,7 +95,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'io.github.waynejo:androidndkgif:1.0.1'
     implementation files('libs/pixiv_local_reverse_proxy.aar')
-    implementation 'androidx.webkit:webkit:1.4.0'
+    implementation 'androidx.webkit:webkit:1.5.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
 }
 
 tasks.withType(JavaCompile) {
