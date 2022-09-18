@@ -13,7 +13,8 @@ class MainActivity : FlutterActivity() {
 
         flutterEngine.plugins.add(PlatformWebViewPlugin())
         flutterEngine.plugins.add(PlatformApiPlugin(context))
-        flutterEngine.plugins.add(PlatformAppWidgetPlugin())
+        flutterEngine.plugins.add(PlatformAppWidgetPlugin(context))
+
         super.configureFlutterEngine(flutterEngine)
     }
 
