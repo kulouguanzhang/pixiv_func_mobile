@@ -9,6 +9,8 @@
 ![total stars](https://img.shields.io/github/stars/git-xiaocao/pixiv_func_mobile?label=total%20stars)
 ![total forks](https://img.shields.io/github/forks/git-xiaocao/pixiv_func_mobile?label=total%20forks)
 
+---
+
 - Pixivサードパーティークライアント(モバイル)
 - 状態管理フレームワークに`GetX`を採用
 - コードは `flutter_lints` の仕様に厳格に準拠
@@ -21,7 +23,7 @@
 
 [ヘルプとプレビューを見る(中国語のみ)](https://pixiv.xiaocao.moe/#/pixiv-func/mobile)
 
-[QQグループ755467833](https://jq.qq.com/?_wv=1027&k=HHuqfLxy)
+<!-- [QQグループ755467833](https://jq.qq.com/?_wv=1027&k=HHuqfLxy) -->
 
 ---
 
