@@ -19,7 +19,7 @@
         android:label="Pixiv Func"
         android:usesCleartextTraffic="true">
         <receiver
-            android:name=".RefreshAppWidget"
+            android:name=".appwidget.provider.RefreshAppWidget"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -30,7 +30,7 @@
                 android:resource="@xml/refresh_app_widget_info" />
         </receiver>
         <receiver
-            android:name=".RecommendAppWidget"
+            android:name=".appwidget.provider.RecommendAppWidget"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -41,12 +41,9 @@
                 android:resource="@xml/recommend_app_widget_info" />
         </receiver>
 
-        <service
-            android:name=".AppWidgetService"
-            android:enabled="true" />
 
         <receiver
-            android:name=".AppWidgetReceiver"
+            android:name=".appwidget.AppWidgetReceiver"
             android:enabled="true" />
 
         <activity
@@ -118,6 +115,19 @@
                 <data
                     android:host="account"
                     android:scheme="pixiv" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="illusts"
+                    android:scheme="pixivfunc" />
+                <data
+                    android:host="users"
+                    android:scheme="pixivfunc" />
             </intent-filter>
         </activity>
 

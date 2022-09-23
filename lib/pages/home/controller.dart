@@ -1,21 +1,13 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pixiv_dart_api/enums.dart';
-import 'package:pixiv_dart_api/model/illust.dart';
-import 'package:pixiv_func_mobile/app/api/api_client.dart';
 import 'package:pixiv_func_mobile/app/i18n/i18n.dart';
-import 'package:pixiv_func_mobile/app/platform/app_widget/platform_app_widget.dart';
 import 'package:pixiv_func_mobile/app/url_scheme/url_scheme.dart';
-import 'package:pixiv_func_mobile/pages/illust/illust.dart';
 import 'package:pixiv_func_mobile/pages/search/result/image/search_image.dart';
 import 'package:pixiv_func_mobile/pages/search/result/image/search_image_result.dart';
 import 'package:pixiv_func_mobile/pages/search/search.dart';
 import 'package:pixiv_func_mobile/pages/user/me.dart';
-import 'package:pixiv_func_mobile/services/settings_service.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:uni_links2/uni_links.dart' as uni_links;
@@ -85,23 +77,6 @@ class HomeController extends GetxController {
         final filename = filepath.split('/').last;
         Get.to(SearchImageResultPage(imageBytes: imageBytes, filename: filename));
       }
-    });
-
-    PlatformAppWidget().init((map) async {
-      if (map['action'] == 'refreshRecommend') {
-        final result = await Get.find<ApiClient>().getRecommendedIllustPage(IllustType.illust, cancelToken: CancelToken());
-        return jsonEncode([
-          for (final illust in result.illusts)
-            {
-              'id': illust.id,
-              'url': Get.find<SettingsService>().toCurrentImageSource(illust.imageUrls.squareMedium),
-              'data': jsonEncode(illust.toJson()),
-            }
-        ]);
-      } else if (map['action'] == 'clickAppWidget') {
-        Get.to(IllustPage(illust: Illust.fromJson(jsonDecode(map['data']))), preventDuplicates: false);
-      }
-      return null;
     });
 
     super.onInit();

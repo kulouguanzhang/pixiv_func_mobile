@@ -110,6 +110,24 @@ class UrlScheme {
         }
         Get.to(() => UserPage(id: id));
       }
+    }else if ("pixivfunc" == uri.scheme) {
+      if ('illusts' == uri.host) {
+        final idString = uri.pathSegments.last;
+        final id = int.tryParse(idString);
+        if (id == null) {
+          PlatformApi.toast(I18n.invalidId.trArgs([idString]));
+          return;
+        }
+        Get.to(() => IllustIdSearchPage(id: id));
+      } else if ('users' == uri.host) {
+        final idString = uri.pathSegments.last;
+        final id = int.tryParse(idString);
+        if (id == null) {
+          PlatformApi.toast(I18n.invalidId.trArgs([idString]));
+          return;
+        }
+        Get.to(() => UserPage(id: id));
+      }
     }
   }
 

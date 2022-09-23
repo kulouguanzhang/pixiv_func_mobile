@@ -15,7 +15,17 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {
+            name 'pixiv-kotlin-api'
+            url 'https://maven.pkg.github.com/git-xiaocao/pixiv-kotlin-api'
+            credentials {
+                username 'git-xiaocao'
+                password System.getenv("GITHUB_TOKEN")
+            }
+        }
+
     }
+
 }
 
 rootProject.buildDir = '../build'

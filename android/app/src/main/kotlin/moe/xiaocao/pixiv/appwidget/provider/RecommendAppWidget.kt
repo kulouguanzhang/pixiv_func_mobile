@@ -1,9 +1,10 @@
-package moe.xiaocao.pixiv
+package moe.xiaocao.pixiv.appwidget.provider
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -17,22 +18,20 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.AppWidgetTarget
 import com.bumptech.glide.request.transition.Transition
-import moe.xiaocao.pixiv.platform.appwidget.PlatformAppWidgetPlugin
-import org.json.JSONArray
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.Serializable
+import moe.xiaocao.pixiv.R
+import moe.xiaocao.pixiv.appwidget.ApiClient
+import moe.xiaocao.pixiv.appwidget.AppWidgetReceiver
+import moe.xiaocao.pixiv.appwidget.AppWidgetWorker
 
 class RecommendAppWidget : AppWidgetProvider() {
-    private var serviceStarted = false
 
-    @SuppressLint("CommitPrefEdits")
+    @SuppressLint("RestrictedApi")
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        Log.d("AppWidget", "serviceStarted:${serviceStarted}")
-        if (!serviceStarted) {
-            Log.d("AppWidget", "startService")
-            update(context, appWidgetManager, appWidgetIds) {
-                context.startService(Intent(context, AppWidgetService::class.java))
-            }
-            serviceStarted = true
-        }
+
+        update(context, appWidgetManager, appWidgetIds)
+        AppWidgetWorker.enqueueUniquePeriodic(context)
     }
 
 
@@ -41,69 +40,68 @@ class RecommendAppWidget : AppWidgetProvider() {
     }
 
     override fun onDisabled(context: Context) {
-        context.stopService(Intent(context, AppWidgetService::class.java))
+        //取消自动刷新任务
+        AppWidgetWorker.cancelUnique(context)
     }
 
+    @Serializable
     data class IllustInfo(
         val id: Int,
         val url: String,
-        val data: String,
     )
+
 
     companion object {
         const val click = "click_illust"
         private val list: ArrayList<IllustInfo> = arrayListOf()
 
-        fun update(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray, onComplete: (() -> Unit)) {
-            Log.d("AppWidget", "update")
-            //list为长度小于appWidgetIds长度
-            if (list.size < appWidgetIds.size) {
-                PlatformAppWidgetPlugin.refreshRecommend {
-                    list.clear()
-                    val jsonArray = JSONArray(it)
-                    for (i in 0 until jsonArray.length()) {
-                        val item = jsonArray.getJSONObject(i)
-                        list.add(
-                            IllustInfo(
-                                id = item.getInt("id"),
-                                url = item.getString("url"),
-                                data = item.getString("data")
-                            )
-                        )
-                    }
-                    for (i in appWidgetIds.indices) {
-                        updateAppWidget(context, appWidgetManager, appWidgetIds[i], list.last())
-                        list.removeLast()
-                    }
-                    onComplete()
-                }
-            } else {
+        fun update(context: Context): Boolean {
+            return update(context, AppWidgetManager.getInstance(context), getIds(context))
+        }
+
+        fun update(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray): Boolean {
+            Log.d("AppWidget", "update:${appWidgetIds.size},list.size < appWidgetIds.size:${list.size < appWidgetIds.size}")
+            return runBlocking {
+                val apiClient = ApiClient(context)
                 for (i in appWidgetIds.indices) {
+                    if (list.isEmpty()) {
+                        try {
+                            apiClient.refreshRecommend()?.let {
+                                list.addAll(
+                                    it.map { illust ->
+                                        IllustInfo(
+                                            id = illust.id,
+                                            url = apiClient.toCurrentImageSource(illust.imageUrls.squareMedium),
+                                        )
+                                    }
+                                )
+                            }
+                        } catch (e: Exception) {
+                            //pixiv api异常了
+                            return@runBlocking false
+                        }
+                    }
                     updateAppWidget(context, appWidgetManager, appWidgetIds[i], list.last())
                     list.removeLast()
                 }
-                onComplete()
+                true
             }
-
         }
 
-        @SuppressLint("UnspecifiedImmutableFlag")
+        fun getIds(context: Context): IntArray {
+            return AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(context, RecommendAppWidget::class.java))
+        }
+
         internal fun updateAppWidget(
             context: Context,
             appWidgetManager: AppWidgetManager,
             appWidgetId: Int,
             illustInfo: IllustInfo,
+            retryCount: Int = 0,
         ) {
 
             val views = RemoteViews(context.packageName, R.layout.recommend_app_widget)
 
-            val intent = Intent(context, AppWidgetReceiver::class.java)
-            intent.action = click
-            intent.putExtra("data", illustInfo.data)
-
-            val pendingIntent = PendingIntent.getBroadcast(context, illustInfo.id, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-            views.setOnClickPendingIntent(R.id.recommend_appwidget_image, pendingIntent)
 
             val appWidgetTarget = object : AppWidgetTarget(context, R.id.recommend_appwidget_image, views, appWidgetId) {
                 override fun onLoadStarted(placeholder: Drawable?) {
@@ -114,11 +112,27 @@ class RecommendAppWidget : AppWidgetProvider() {
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     views.setImageViewResource(R.id.recommend_appwidget_image, R.drawable.ic_launcher_foreground)
                     views.setViewVisibility(R.id.recommend_appwidget_image, View.VISIBLE)
+                    if (retryCount < 3)
+                        updateAppWidget(context, appWidgetManager, appWidgetId, illustInfo, retryCount + 1)
                 }
 
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     views.setViewVisibility(R.id.appwidget_progress, View.GONE)
                     views.setViewVisibility(R.id.recommend_appwidget_image, View.VISIBLE)
+
+                    val intent = Intent(context, AppWidgetReceiver::class.java)
+                    intent.action = click
+                    intent.putExtra("id", illustInfo.id.toString())
+
+                    val pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        illustInfo.id,
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+                    )
+
+                    views.setOnClickPendingIntent(R.id.recommend_appwidget_image, pendingIntent)
+
                     super.onResourceReady(resource, transition)
                 }
             }

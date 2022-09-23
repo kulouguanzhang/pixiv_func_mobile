@@ -6,7 +6,6 @@
     android:minWidth="40dp"
     android:minHeight="40dp"
     android:previewImage="@drawable/icon_refresh"
-
     android:previewLayout="@layout/refresh_app_widget"
     android:targetCellWidth="1"
     android:targetCellHeight="1"

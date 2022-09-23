@@ -1,4 +1,4 @@
-package moe.xiaocao.pixiv
+package moe.xiaocao.pixiv.appwidget.provider
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
@@ -7,6 +7,8 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import moe.xiaocao.pixiv.R
+import moe.xiaocao.pixiv.appwidget.AppWidgetReceiver
 
 
 class RefreshAppWidget : AppWidgetProvider() {
@@ -24,7 +26,7 @@ class RefreshAppWidget : AppWidgetProvider() {
 
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
+
     private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
 
 
@@ -33,7 +35,13 @@ class RefreshAppWidget : AppWidgetProvider() {
         val intent = Intent(context, AppWidgetReceiver::class.java)
         intent.action = click
 
-        val pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            appWidgetId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
+
         views.setViewPadding(R.id.refresh_appwidget_image, 10, 10, 10, 10)
         views.setOnClickPendingIntent(R.id.refresh_appwidget_image, pendingIntent)
 

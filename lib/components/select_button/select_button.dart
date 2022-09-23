@@ -7,7 +7,7 @@ import 'package:pixiv_func_mobile/widgets/text/text.dart';
 class SelectButtonWidget<V> extends StatelessWidget {
   final Map<String, V> items;
   final V value;
-  final void Function(V? value) onChanged;
+  final ValueChanged<V?> onChanged;
 
   const SelectButtonWidget({
     Key? key,

@@ -15,6 +15,25 @@ class AccountService extends GetxService {
 
   late final RxInt currentIndex;
 
+  List<String>? tempAccountList;
+
+  Future<void> refreshAccountList() async {
+    await _sharedPreferences.reload();
+
+    final currentAccounts = _sharedPreferences.getStringList(_dataKeyName);
+    if (null != currentAccounts && tempAccountList != currentAccounts) {
+      accounts().clear();
+      accounts().addAll(
+        currentAccounts.map(
+          (jsonString) {
+            final json = jsonDecode(jsonString);
+            return Account.fromJson(json);
+          },
+        ),
+      );
+    }
+  }
+
   Future<AccountService> init() async {
     _sharedPreferences = await SharedPreferences.getInstance();
     final tempAccounts = _sharedPreferences.getStringList(_dataKeyName);
