@@ -26,7 +26,7 @@
 
 [获取帮助以及预览](https://pixiv.xiaocao.moe/#/pixiv-func/mobile)
 
-[QQ群755467833](https://jq.qq.com/?_wv=1027&k=HHuqfLxy)
+<!-- [QQ群755467833](https://jq.qq.com/?_wv=1027&k=HHuqfLxy) -->
 
 ---
 
