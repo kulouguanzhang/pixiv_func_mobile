@@ -1,6 +1,5 @@
 package moe.xiaocao.pixiv.appwidget.provider
 
-import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
@@ -27,7 +26,6 @@ import moe.xiaocao.pixiv.appwidget.AppWidgetWorker
 
 class RecommendAppWidget : AppWidgetProvider() {
 
-    @SuppressLint("RestrictedApi")
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
 
         update(context, appWidgetManager, appWidgetIds)

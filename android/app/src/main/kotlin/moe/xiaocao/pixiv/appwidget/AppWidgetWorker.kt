@@ -28,17 +28,18 @@ class AppWidgetWorker(val context: Context, workerParams: WorkerParameters) : Wo
 
     companion object {
 
-        @SuppressLint("RestrictedApi")
         fun enqueueUniquePeriodic(context: Context) {
             //15分钟一次
-            val worker = PeriodicWorkRequest.Builder(AppWidgetWorker::class.java, 20, TimeUnit.MINUTES,15, TimeUnit.MINUTES).setConstraints(
-                Constraints().also {
-                    //网络已连接
-                    it.requiredNetworkType = NetworkType.CONNECTED
-                    //待机状态下执行
-                    it.setRequiresDeviceIdle(true)
-                }
-            ).build()
+            val worker =
+                PeriodicWorkRequest.Builder(AppWidgetWorker::class.java, 20, TimeUnit.MINUTES, 15, TimeUnit.MINUTES).setConstraints(
+                    Constraints.Builder().also {
+                        //网络已连接
+                        it.setRequiredNetworkType(NetworkType.CONNECTED)
+                        //待机状态下执行
+                        it.setRequiresDeviceIdle(true)
+
+                    }.build()
+                ).build()
             WorkManager.getInstance(context).enqueueUniquePeriodicWork("AppWidgetAutoRefresh", ExistingPeriodicWorkPolicy.KEEP, worker)
         }
 
